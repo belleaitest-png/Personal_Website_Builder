@@ -170,7 +170,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   right: 0;
   height: var(--nav-height);
   z-index: 1000;
-  background: rgba(250, 246, 240, 0.92);
+  background: rgba(253, 248, 248, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: var(--transition);
@@ -617,7 +617,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .experience-tagline {
-  color: rgba(250, 246, 240, 0.65);
+  color: rgba(253, 248, 248, 0.65);
   font-size: 1.05rem;
 }
 
@@ -678,7 +678,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .timeline-content p:last-child {
-  color: rgba(250, 246, 240, 0.6);
+  color: rgba(253, 248, 248, 0.6);
   font-size: 0.95rem;
   line-height: 1.7;
 }
@@ -919,7 +919,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .footer-tagline {
-  color: rgba(250, 246, 240, 0.55);
+  color: rgba(253, 248, 248, 0.55);
   max-width: 300px;
   line-height: 1.7;
 }
@@ -948,7 +948,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
 .footer-col li,
 .footer-col a {
-  color: rgba(250, 246, 240, 0.55);
+  color: rgba(253, 248, 248, 0.55);
   font-size: 0.9rem;
 }
 
@@ -963,7 +963,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .footer-bottom p {
-  color: rgba(250, 246, 240, 0.35);
+  color: rgba(253, 248, 248, 0.35);
   font-size: 0.85rem;
 }
 
