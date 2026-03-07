@@ -1128,37 +1128,44 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   /* --- Title Slide --- */
   .title-name-first,
   .title-name-last {
-    font-size: clamp(3.2rem, 14vw, 7rem);
+    font-size: clamp(4.5rem, 18vw, 8rem);
   }
 
   .title-name-first {
-    top: calc(var(--nav-height) + 3vh);
+    top: auto;
+    bottom: calc(50vh + 2rem);
+    left: 50%;
     transform: translateX(-50%);
   }
 
   .title-name-last {
-    top: calc(var(--nav-height) + 3vh + clamp(3.2rem, 14vw, 7rem));
+    top: auto;
+    bottom: calc(50vh - clamp(4rem, 14vw, 7rem) + 2rem);
+    left: 50%;
     transform: translateX(-8%);
-    font-size: clamp(3rem, 12vw, 6.5rem);
+    font-size: clamp(4rem, 16vw, 7rem);
   }
 
   .title-photo {
-    height: 58vh;
-    max-height: 480px;
+    height: 70vh;
+    max-height: 600px;
   }
 
   .title-slide-taglines {
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     padding: 0 20px;
-    bottom: 24px;
+    bottom: 20px;
   }
 
   .title-tagline {
     text-align: center;
     max-width: 260px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    background: rgba(253, 248, 248, 0.7);
+    padding: 4px 12px;
+    border-radius: 4px;
   }
 
   .title-tagline-right {
@@ -1393,26 +1400,30 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   /* Title slide — tighter on small phones */
   .title-name-first,
   .title-name-last {
-    font-size: clamp(2.6rem, 13vw, 4rem);
+    font-size: clamp(3.5rem, 17vw, 5rem);
+  }
+
+  .title-name-first {
+    bottom: calc(48vh + 1.5rem);
   }
 
   .title-name-last {
-    top: calc(var(--nav-height) + 3vh + clamp(2.6rem, 13vw, 4rem));
-    font-size: clamp(2.4rem, 11vw, 3.5rem);
+    bottom: calc(48vh - clamp(3.2rem, 14vw, 5rem) + 1.5rem);
+    font-size: clamp(3.2rem, 15vw, 4.5rem);
   }
 
   .title-photo {
-    height: 52vh;
-    max-height: 400px;
+    height: 65vh;
+    max-height: 520px;
   }
 
   .title-slide-taglines {
-    bottom: 16px;
+    bottom: 12px;
   }
 
   .title-tagline {
-    font-size: 0.85rem;
-    max-width: 220px;
+    font-size: 0.8rem;
+    max-width: 200px;
   }
 
   /* Hero */
