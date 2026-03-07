@@ -22,6 +22,9 @@
   --charcoal: #2C2528;
   --charcoal-light: #5A4E52;
   --charcoal-muted: #7A7075;
+  --rosegold: #B76E79;
+  --rosegold-light: #D4A08F;
+  --rosegold-shimmer: #E8C4B8;
   --off-white: #FDFAFB;
   --white: #FFFFFF;
 
@@ -103,7 +106,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .section-eyebrow {
   font-family: var(--font-accent);
   font-size: 2.4rem;
-  color: var(--harvest);
+  color: var(--rosegold);
   margin-bottom: 8px;
 }
 
@@ -225,7 +228,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--harvest);
+  background: var(--rosegold);
   transition: var(--transition);
 }
 
@@ -447,7 +450,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .hero-eyebrow {
   font-family: var(--font-accent);
   font-size: 2.4rem;
-  color: var(--harvest);
+  color: var(--rosegold);
   margin-bottom: 16px;
 }
 
@@ -655,8 +658,8 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   box-shadow: var(--shadow-md);
 }
 
-.verifood-card-1 { border-top: 3px solid var(--harvest); }
-.verifood-card-2 { border-top: 3px solid var(--sage); }
+.verifood-card-1 { border-top: 3px solid var(--rosegold); }
+.verifood-card-2 { border-top: 3px solid var(--rosegold-shimmer); }
 .verifood-card-3 {
   border-top: 3px solid var(--wheat);
   grid-column: span 2;
@@ -666,7 +669,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   font-size: 2rem;
   display: block;
   margin-bottom: 12px;
-  color: var(--harvest);
+  color: var(--rosegold);
 }
 
 .verifood-card p {
@@ -730,7 +733,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .experience-header .section-eyebrow {
-  color: var(--wheat);
+  color: var(--rosegold-shimmer);
 }
 
 .experience-header .section-title {
@@ -774,14 +777,14 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--harvest);
+  background: var(--rosegold);
   border: 2px solid var(--charcoal);
 }
 
 .timeline-date {
   font-family: var(--font-accent);
   font-size: 1.6rem;
-  color: var(--wheat);
+  color: var(--rosegold-shimmer);
   text-align: right;
   padding-top: 4px;
 }
@@ -864,7 +867,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--harvest);
+  color: var(--rosegold);
   font-weight: 600;
   margin-bottom: 8px;
   display: block;
@@ -912,7 +915,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .value-quote {
-  border-left: 3px solid var(--harvest);
+  border-left: 3px solid var(--rosegold);
   padding: 16px 0 16px 28px;
   text-align: left;
 }
@@ -1058,7 +1061,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-bottom: 20px;
-  color: var(--wheat);
+  color: var(--rosegold-shimmer);
 }
 
 .footer-col ul {
