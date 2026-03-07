@@ -288,43 +288,42 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   max-width: 1400px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 clamp(24px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* "Annabelle" — top left, fully clear above photo */
-.title-name-first {
+/* Both name lines — stacked centered, behind photo */
+.title-name-first,
+.title-name-last {
   position: absolute;
-  top: calc(var(--nav-height) + 3vh);
-  left: clamp(24px, 5vw, 80px);
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(5.5rem, 13vw, 14rem);
-  line-height: 1;
+  font-size: clamp(6rem, 14vw, 15rem);
+  line-height: 0.9;
   color: var(--harvest);
   letter-spacing: -0.02em;
-  z-index: 3;
   user-select: none;
   pointer-events: none;
   white-space: nowrap;
-}
-
-/* "Body" — right-aligned, tight below Annabelle */
-.title-name-last {
-  position: absolute;
-  top: calc(var(--nav-height) + 3vh + clamp(5.5rem, 13vw, 14rem) + 0.5vh);
-  right: clamp(24px, 5vw, 80px);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(5.5rem, 13vw, 14rem);
-  line-height: 1;
-  color: var(--harvest);
-  letter-spacing: -0.02em;
   z-index: 1;
-  user-select: none;
-  pointer-events: none;
 }
 
-/* Photo — centered, anchored to bottom */
+/* "Annabelle" — upper, nudged left */
+.title-name-first {
+  top: calc(var(--nav-height) + 6vh);
+  left: 50%;
+  transform: translateX(-58%);
+}
+
+/* "Body" — lower, nudged right, partially behind photo */
+.title-name-last {
+  top: calc(var(--nav-height) + 6vh + clamp(6rem, 14vw, 15rem));
+  left: 50%;
+  transform: translateX(-10%);
+}
+
+/* Photo — centered, overlaps the text, anchored to bottom */
 .title-slide-photo {
   position: absolute;
   bottom: 0;
@@ -334,12 +333,12 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
 .title-photo {
-  height: 62vh;
-  max-height: 660px;
+  height: 80vh;
+  max-height: 820px;
   width: auto;
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 20px 60px rgba(44, 37, 40, 0.2));
+  filter: drop-shadow(0 20px 60px rgba(44, 37, 40, 0.25));
 }
 
 /* Taglines at the bottom corners */
@@ -1120,26 +1119,24 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     --nav-height: 70px;
   }
 
+  .title-name-first,
+  .title-name-last {
+    font-size: clamp(3.5rem, 14vw, 6rem);
+  }
+
   .title-name-first {
-    font-size: clamp(3rem, 12vw, 5rem);
-    top: calc(var(--nav-height) + 2vh);
-    left: 20px;
+    top: calc(var(--nav-height) + 4vh);
+    transform: translateX(-55%);
   }
 
   .title-name-last {
-    font-size: clamp(3rem, 12vw, 5rem);
-    top: calc(var(--nav-height) + 2vh + clamp(3rem, 12vw, 5rem) + 0.5vh);
-    right: 20px;
-  }
-
-  .title-slide-photo {
-    left: 50%;
-    transform: translateX(-50%);
+    top: calc(var(--nav-height) + 4vh + clamp(3.5rem, 14vw, 6rem));
+    transform: translateX(-5%);
   }
 
   .title-photo {
-    height: 48vh;
-    max-height: 420px;
+    height: 62vh;
+    max-height: 520px;
   }
 
   .title-slide-taglines {
