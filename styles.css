@@ -1126,32 +1126,35 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   }
 
   /* --- Title Slide --- */
-  .title-slide-photo {
-    bottom: 12vh;
-  }
 
-  .title-photo {
-    height: 88vh;
-    max-height: none;
-  }
-
-  /* Name sits at the bottom, overlapping the photo */
+  /* Name at the top, just below nav */
   .title-name-first,
   .title-name-last {
-    font-size: clamp(4.5rem, 18vw, 8rem);
-    top: auto;
-    left: 50%;
+    font-size: clamp(4.5rem, 19vw, 8rem) !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: 50% !important;
   }
 
   .title-name-first {
-    bottom: 10vh;
+    top: calc(var(--nav-height) + 1vh) !important;
     transform: translateX(-50%);
   }
 
   .title-name-last {
-    bottom: calc(10vh - clamp(4rem, 14vw, 7rem));
+    top: calc(var(--nav-height) + 1vh + clamp(4rem, 17vw, 7.5rem)) !important;
     transform: translateX(-8%);
-    font-size: clamp(4rem, 16vw, 7rem);
+    font-size: clamp(4rem, 17vw, 7rem) !important;
+  }
+
+  /* Photo: dominant, nearly full screen */
+  .title-slide-photo {
+    bottom: 0;
+  }
+
+  .title-photo {
+    height: 92vh;
+    max-height: none;
   }
 
   .title-slide-taglines {
@@ -1384,21 +1387,8 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   }
 
   /* Title slide — small phones */
-  .title-slide-photo {
-    bottom: 10vh;
-  }
-
   .title-photo {
-    height: 85vh;
-    max-height: none;
-  }
-
-  .title-name-first {
-    bottom: 8vh;
-  }
-
-  .title-name-last {
-    bottom: calc(8vh - clamp(3.2rem, 14vw, 5rem));
+    height: 88vh;
   }
 
   /* Hero */
