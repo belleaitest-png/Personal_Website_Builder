@@ -309,18 +309,18 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   z-index: 1;
 }
 
-/* "Annabelle" — upper, nudged left */
+/* "Annabelle" — upper, perfectly centered */
 .title-name-first {
   top: calc(var(--nav-height) + 6vh);
   left: 50%;
-  transform: translateX(-58%);
+  transform: translateX(-50%);
 }
 
-/* "Body" — lower, nudged right, partially behind photo */
+/* "Body" — lower, nudged right so photo covers it with B half visible */
 .title-name-last {
   top: calc(var(--nav-height) + 6vh + clamp(7rem, 16vw, 18rem));
   left: 50%;
-  transform: translateX(-10%);
+  transform: translateX(5%);
 }
 
 /* Photo — centered, overlaps the text, anchored to bottom */
@@ -1126,12 +1126,12 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
   .title-name-first {
     top: calc(var(--nav-height) + 4vh);
-    transform: translateX(-55%);
+    transform: translateX(-50%);
   }
 
   .title-name-last {
     top: calc(var(--nav-height) + 4vh + clamp(4rem, 16vw, 7rem));
-    transform: translateX(-5%);
+    transform: translateX(5%);
   }
 
   .title-photo {
