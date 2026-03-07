@@ -300,13 +300,14 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   z-index: 1;
   user-select: none;
   pointer-events: none;
+  transform: translateY(-12vh);
 }
 
 .title-name-line {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(6rem, 14vw, 14rem);
-  line-height: 0.88;
+  font-size: clamp(7rem, 17vw, 17rem);
+  line-height: 0.85;
   color: var(--harvest);
   text-align: center;
   letter-spacing: -0.02em;
@@ -1111,7 +1112,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   }
 
   .title-name-line {
-    font-size: clamp(3.5rem, 16vw, 7rem);
+    font-size: clamp(4rem, 18vw, 8rem);
   }
 
   .title-photo {
