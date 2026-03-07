@@ -1,28 +1,28 @@
 /* ============================================
    Annabelle Body — The Cultivator Brand Direction
-   Warm earthy editorial · Cormorant Garamond + DM Sans
+   Burgundy & soft pink editorial · Cormorant Garamond + DM Sans
    ============================================ */
 
 /* ---------- CSS Custom Properties ---------- */
 :root {
-  /* Cultivator Palette — warm earthy editorial */
-  --cream: #FAF6F0;
-  --cream-dark: #F0E8DC;
-  --parchment: #F5EDE0;
-  --harvest: #A0612A;
-  --harvest-light: #C4935E;
-  --harvest-deep: #7A4A1F;
-  --clay: #B8704A;
-  --clay-light: #D4A07A;
-  --sage: #8BA888;
-  --sage-light: #B5CEAF;
-  --sage-muted: #C8D9C0;
-  --wheat: #D4BC8B;
-  --wheat-light: #E8D9B8;
-  --charcoal: #2C2825;
-  --charcoal-light: #5A5350;
-  --charcoal-muted: #7A7470;
-  --off-white: #FDFBF8;
+  /* Cultivator Palette — burgundy & soft pink editorial */
+  --cream: #FDF8F8;
+  --cream-dark: #F4EAEB;
+  --parchment: #F9F0F1;
+  --harvest: #722F37;
+  --harvest-light: #9B4D55;
+  --harvest-deep: #5A1F26;
+  --clay: #A4545E;
+  --clay-light: #C48B92;
+  --sage: #E8C4CA;
+  --sage-light: #F2DCE0;
+  --sage-muted: #F5E6E9;
+  --wheat: #D4A0A8;
+  --wheat-light: #EACDD1;
+  --charcoal: #2C2528;
+  --charcoal-light: #5A4E52;
+  --charcoal-muted: #7A7075;
+  --off-white: #FDFAFB;
   --white: #FFFFFF;
 
   /* Typography — Cultivator Direction */
