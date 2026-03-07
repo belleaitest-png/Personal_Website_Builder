@@ -1146,9 +1146,13 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     font-size: clamp(4rem, 16vw, 7rem);
   }
 
+  .title-slide-photo {
+    bottom: 5vh;
+  }
+
   .title-photo {
-    height: 70vh;
-    max-height: 600px;
+    height: 80vh;
+    max-height: 700px;
   }
 
   .title-slide-taglines {
@@ -1412,9 +1416,13 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     font-size: clamp(3.2rem, 15vw, 4.5rem);
   }
 
+  .title-slide-photo {
+    bottom: 4vh;
+  }
+
   .title-photo {
-    height: 65vh;
-    max-height: 520px;
+    height: 75vh;
+    max-height: 600px;
   }
 
   .title-slide-taglines {
