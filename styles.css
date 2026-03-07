@@ -299,7 +299,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   position: absolute;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(6rem, 14vw, 15rem);
+  font-size: clamp(7rem, 16vw, 18rem);
   line-height: 0.9;
   color: var(--harvest);
   letter-spacing: -0.02em;
@@ -318,7 +318,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
 /* "Body" — lower, nudged right, partially behind photo */
 .title-name-last {
-  top: calc(var(--nav-height) + 6vh + clamp(6rem, 14vw, 15rem));
+  top: calc(var(--nav-height) + 6vh + clamp(7rem, 16vw, 18rem));
   left: 50%;
   transform: translateX(-10%);
 }
@@ -1121,7 +1121,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
   .title-name-first,
   .title-name-last {
-    font-size: clamp(3.5rem, 14vw, 6rem);
+    font-size: clamp(4rem, 16vw, 7rem);
   }
 
   .title-name-first {
@@ -1130,7 +1130,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   }
 
   .title-name-last {
-    top: calc(var(--nav-height) + 4vh + clamp(3.5rem, 14vw, 6rem));
+    top: calc(var(--nav-height) + 4vh + clamp(4rem, 16vw, 7rem));
     transform: translateX(-5%);
   }
 
