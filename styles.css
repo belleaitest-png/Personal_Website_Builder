@@ -1126,54 +1126,36 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   }
 
   /* --- Title Slide --- */
+  .title-slide-photo {
+    bottom: 12vh;
+  }
+
+  .title-photo {
+    height: 88vh;
+    max-height: none;
+  }
+
+  /* Name sits at the bottom, overlapping the photo */
   .title-name-first,
   .title-name-last {
     font-size: clamp(4.5rem, 18vw, 8rem);
+    top: auto;
+    left: 50%;
   }
 
   .title-name-first {
-    top: auto;
-    bottom: calc(50vh + 2rem);
-    left: 50%;
+    bottom: 10vh;
     transform: translateX(-50%);
   }
 
   .title-name-last {
-    top: auto;
-    bottom: calc(50vh - clamp(4rem, 14vw, 7rem) + 2rem);
-    left: 50%;
+    bottom: calc(10vh - clamp(4rem, 14vw, 7rem));
     transform: translateX(-8%);
     font-size: clamp(4rem, 16vw, 7rem);
   }
 
-  .title-slide-photo {
-    bottom: 5vh;
-  }
-
-  .title-photo {
-    height: 80vh;
-    max-height: 700px;
-  }
-
   .title-slide-taglines {
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 0 20px;
-    bottom: 20px;
-  }
-
-  .title-tagline {
-    text-align: center;
-    max-width: 260px;
-    font-size: 0.9rem;
-    background: rgba(253, 248, 248, 0.7);
-    padding: 4px 12px;
-    border-radius: 4px;
-  }
-
-  .title-tagline-right {
-    margin-left: 0;
+    display: none;
   }
 
   /* --- Navigation --- */
@@ -1401,37 +1383,22 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     padding: 0 16px;
   }
 
-  /* Title slide — tighter on small phones */
-  .title-name-first,
-  .title-name-last {
-    font-size: clamp(3.5rem, 17vw, 5rem);
-  }
-
-  .title-name-first {
-    bottom: calc(48vh + 1.5rem);
-  }
-
-  .title-name-last {
-    bottom: calc(48vh - clamp(3.2rem, 14vw, 5rem) + 1.5rem);
-    font-size: clamp(3.2rem, 15vw, 4.5rem);
-  }
-
+  /* Title slide — small phones */
   .title-slide-photo {
-    bottom: 4vh;
+    bottom: 10vh;
   }
 
   .title-photo {
-    height: 75vh;
-    max-height: 600px;
+    height: 85vh;
+    max-height: none;
   }
 
-  .title-slide-taglines {
-    bottom: 12px;
+  .title-name-first {
+    bottom: 8vh;
   }
 
-  .title-tagline {
-    font-size: 0.8rem;
-    max-width: 200px;
+  .title-name-last {
+    bottom: calc(8vh - clamp(3.2rem, 14vw, 5rem));
   }
 
   /* Hero */
