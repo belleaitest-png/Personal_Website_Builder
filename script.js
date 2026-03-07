@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Scroll Reveal Animation ---
   const revealElements = document.querySelectorAll(
-    '.section-eyebrow, .section-title, .quiz-card, .episode-card, ' +
-    '.blog-card, .resource-card, .about-content, .about-images, ' +
-    '.signup-inner, .instagram-header, .hero-content, .hero-image'
+    '.section-eyebrow, .section-title, .verifood-card, .timeline-item, ' +
+    '.writing-card, .about-content, .about-images, .value-quote, ' +
+    '.contact-inner, .hero-content, .hero-image, .verifood-stats'
   );
 
   revealElements.forEach(el => el.classList.add('reveal'));
