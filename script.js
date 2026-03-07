@@ -21,10 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Sticky Nav Shadow on Scroll ---
+  // --- Sticky Nav — transparent over title slide, solid once scrolled past ---
   const nav = document.getElementById('nav');
+  const titleSlide = document.querySelector('.title-slide');
+  const scrollThreshold = titleSlide ? titleSlide.offsetHeight - 100 : 50;
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > scrollThreshold) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');

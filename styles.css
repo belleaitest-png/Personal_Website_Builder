@@ -170,13 +170,16 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   right: 0;
   height: var(--nav-height);
   z-index: 1000;
-  background: rgba(253, 248, 248, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   transition: var(--transition);
 }
 
 .nav.scrolled {
+  background: rgba(253, 248, 248, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-sm);
 }
 
@@ -262,6 +265,114 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   background: var(--charcoal);
   border-radius: 2px;
   transition: var(--transition);
+}
+
+/* ---------- Title Slide (fixed behind page) ---------- */
+.title-slide {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  background: linear-gradient(160deg, var(--cream) 0%, var(--sage-light) 40%, var(--sage) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.title-slide-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-slide-name {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.title-name-line {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(6rem, 14vw, 14rem);
+  line-height: 0.88;
+  color: var(--harvest);
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* Photo sits in front of the text */
+.title-slide-photo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  padding-top: calc(var(--nav-height) + 40px);
+}
+
+.title-photo {
+  height: 78vh;
+  max-height: 800px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 60px rgba(44, 37, 40, 0.2));
+}
+
+/* Taglines at the bottom corners */
+.title-slide-taglines {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 60px;
+  pointer-events: none;
+}
+
+.title-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  color: var(--charcoal);
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.title-tagline em {
+  color: var(--harvest);
+  font-style: italic;
+}
+
+.title-tagline-left {
+  text-align: left;
+}
+
+.title-tagline-right {
+  text-align: right;
+  margin-left: auto;
+}
+
+/* Page content sits on top and scrolls over the title slide */
+.page-content {
+  position: relative;
+  z-index: 1;
+  margin-top: 100vh;
+  background: var(--off-white);
 }
 
 /* ---------- Hero ---------- */
@@ -997,6 +1108,31 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 @media (max-width: 768px) {
   :root {
     --nav-height: 70px;
+  }
+
+  .title-name-line {
+    font-size: clamp(3.5rem, 16vw, 7rem);
+  }
+
+  .title-photo {
+    height: 60vh;
+  }
+
+  .title-slide-taglines {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 24px;
+    bottom: 40px;
+  }
+
+  .title-tagline {
+    text-align: center;
+    max-width: 280px;
+  }
+
+  .title-tagline-right {
+    margin-left: 0;
   }
 
   .nav-toggle {
