@@ -1125,44 +1125,47 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     --nav-height: 70px;
   }
 
+  /* --- Title Slide --- */
   .title-name-first,
   .title-name-last {
-    font-size: clamp(4rem, 16vw, 7rem);
+    font-size: clamp(3.2rem, 14vw, 7rem);
   }
 
   .title-name-first {
-    top: calc(var(--nav-height) + 4vh);
+    top: calc(var(--nav-height) + 3vh);
     transform: translateX(-50%);
   }
 
   .title-name-last {
-    top: calc(var(--nav-height) + 4vh + clamp(4rem, 16vw, 7rem));
+    top: calc(var(--nav-height) + 3vh + clamp(3.2rem, 14vw, 7rem));
     transform: translateX(-8%);
-    font-size: clamp(3.5rem, 14vw, 6.5rem);
+    font-size: clamp(3rem, 12vw, 6.5rem);
   }
 
   .title-photo {
-    height: 62vh;
-    max-height: 520px;
+    height: 58vh;
+    max-height: 480px;
   }
 
   .title-slide-taglines {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 0 24px;
-    bottom: 40px;
+    gap: 8px;
+    padding: 0 20px;
+    bottom: 24px;
   }
 
   .title-tagline {
     text-align: center;
-    max-width: 280px;
+    max-width: 260px;
+    font-size: 0.95rem;
   }
 
   .title-tagline-right {
     margin-left: 0;
   }
 
+  /* --- Navigation --- */
   .nav-toggle {
     display: flex;
   }
@@ -1174,8 +1177,8 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     right: 0;
     background: var(--cream);
     flex-direction: column;
-    padding: 40px 24px;
-    gap: 24px;
+    padding: 32px 24px;
+    gap: 20px;
     transform: translateY(-120%);
     transition: var(--transition);
     box-shadow: var(--shadow-md);
@@ -1197,50 +1200,128 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
+  .nav-links a {
+    font-size: 1rem;
+    padding: 4px 0;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    min-height: auto;
+    padding-bottom: 60px;
+  }
+
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
-    padding: 40px 24px;
+    gap: 36px;
+    padding: 40px 20px;
+  }
+
+  .hero-image {
+    order: -1;
   }
 
   .hero-subtitle {
     margin-left: auto;
     margin-right: auto;
+    font-size: 0.95rem;
   }
 
   .hero-actions {
     justify-content: center;
   }
 
+  .hero-actions .btn {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+  }
+
   .hero-image-frame {
-    width: 300px;
-    height: 380px;
+    width: 260px;
+    height: 340px;
   }
 
   .hero-image-accent {
-    width: 300px;
-    height: 380px;
-    left: calc(50% - 130px);
+    width: 260px;
+    height: 340px;
+    left: calc(50% - 110px);
   }
 
   .hero-scroll {
     display: none;
   }
 
+  .hero-eyebrow {
+    font-size: 2.4rem;
+  }
+
+  /* --- Featured Bar --- */
+  .featured-bar {
+    padding: 28px 0;
+  }
+
+  .featured-logos {
+    gap: 20px;
+  }
+
+  .featured-logo {
+    font-size: 1rem;
+  }
+
+  /* --- Verifood --- */
+  .verifood-section {
+    padding: 70px 0;
+  }
+
+  .verifood-tagline {
+    font-size: 1.4rem;
+  }
+
+  .verifood-stats {
+    justify-content: center;
+  }
+
+  .verifood-visual {
+    grid-template-columns: 1fr;
+  }
+
+  .verifood-card-3 {
+    grid-column: span 1;
+  }
+
+  /* --- About --- */
+  .about-section {
+    padding: 70px 0;
+  }
+
   .about-inner,
   .footer-inner {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
   .about-images {
-    max-width: 400px;
+    max-width: 320px;
     margin: 0 auto;
   }
 
-  .writing-grid {
-    grid-template-columns: 1fr;
+  .about-image-main {
+    aspect-ratio: 2 / 3;
+  }
+
+  .about-content {
+    text-align: center;
+  }
+
+  .about-content .btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* --- Experience / Timeline --- */
+  .experience-section {
+    padding: 70px 0;
   }
 
   .timeline::before {
@@ -1260,51 +1341,156 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
   .timeline-date {
     text-align: left;
+    font-size: 1.3rem;
   }
 
-  .footer-links-group {
-    grid-template-columns: repeat(3, 1fr);
+  /* --- Writing --- */
+  .writing-section {
+    padding: 70px 0;
+  }
+
+  .writing-grid {
+    grid-template-columns: 1fr;
     gap: 24px;
   }
 
-  .featured-logos {
-    gap: 20px;
+  /* --- Values / Quotes --- */
+  .values-section {
+    padding: 60px 0;
   }
 
-  .featured-logo {
-    font-size: 1rem;
+  .value-quote p {
+    font-size: 1.35rem;
   }
 
-  .verifood-stats {
-    justify-content: center;
+  /* --- Contact --- */
+  .contact-section {
+    padding: 70px 0;
   }
 
-  .verifood-visual {
-    grid-template-columns: 1fr;
+  /* --- Footer --- */
+  .footer {
+    padding: 60px 0 32px;
   }
 
-  .verifood-card-3 {
-    grid-column: span 1;
+  .footer-links-group {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .section-eyebrow,
+  .verifood-content .section-eyebrow,
+  .about-content .section-eyebrow {
+    font-size: 2.4rem;
   }
 }
 
 @media (max-width: 480px) {
-  .footer-links-group {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .container {
+    padding: 0 16px;
   }
 
+  /* Title slide — tighter on small phones */
+  .title-name-first,
+  .title-name-last {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+
+  .title-name-last {
+    top: calc(var(--nav-height) + 3vh + clamp(2.6rem, 13vw, 4rem));
+    font-size: clamp(2.4rem, 11vw, 3.5rem);
+  }
+
+  .title-photo {
+    height: 52vh;
+    max-height: 400px;
+  }
+
+  .title-slide-taglines {
+    bottom: 16px;
+  }
+
+  .title-tagline {
+    font-size: 0.85rem;
+    max-width: 220px;
+  }
+
+  /* Hero */
+  .hero-inner {
+    padding: 32px 16px;
+    gap: 28px;
+  }
+
+  .hero-image-frame {
+    width: 220px;
+    height: 290px;
+  }
+
+  .hero-image-accent {
+    width: 220px;
+    height: 290px;
+    left: calc(50% - 90px);
+  }
+
+  .hero-eyebrow {
+    font-size: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* About */
+  .about-images {
+    max-width: 260px;
+  }
+
+  /* Featured */
   .featured-logos {
     flex-direction: column;
     gap: 12px;
   }
 
+  /* Verifood */
   .verifood-stats {
     flex-direction: column;
     align-items: center;
   }
 
+  .verifood-tagline {
+    font-size: 1.2rem;
+  }
+
+  /* Values */
+  .value-quote p {
+    font-size: 1.15rem;
+  }
+
+  .value-quote {
+    padding: 12px 0 12px 20px;
+  }
+
+  /* Contact */
   .contact-form .btn {
     align-self: stretch;
+  }
+
+  /* Footer */
+  .footer-links-group {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .section-eyebrow,
+  .verifood-content .section-eyebrow,
+  .about-content .section-eyebrow {
+    font-size: 2rem;
   }
 }
