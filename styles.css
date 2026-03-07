@@ -288,40 +288,53 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   max-width: 1400px;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  padding: 0 40px;
 }
 
-.title-slide-name {
+/* "Annabelle" — spanning the top */
+.title-name-first {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  top: calc(var(--nav-height) + 2vh);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(6rem, 14vw, 15rem);
+  line-height: 1;
+  color: var(--harvest);
+  letter-spacing: -0.02em;
   z-index: 1;
   user-select: none;
   pointer-events: none;
-  transform: translateY(-12vh);
+  white-space: nowrap;
 }
 
-.title-name-line {
+/* "Body" — to the right of the photo */
+.title-name-last {
+  position: absolute;
+  right: 4vw;
+  bottom: 16vh;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(7rem, 17vw, 17rem);
-  line-height: 0.85;
+  font-size: clamp(6rem, 14vw, 15rem);
+  line-height: 1;
   color: var(--harvest);
-  text-align: center;
   letter-spacing: -0.02em;
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
 }
 
-/* Photo sits in front of the text */
+/* Photo — centered at the bottom */
 .title-slide-photo {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 100%;
-  padding-top: calc(var(--nav-height) + 40px);
+  margin-left: -6vw;
 }
 
 .title-photo {
@@ -1111,12 +1124,23 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
     --nav-height: 70px;
   }
 
-  .title-name-line {
-    font-size: clamp(4rem, 18vw, 8rem);
+  .title-name-first {
+    font-size: clamp(3.5rem, 14vw, 6rem);
+    top: calc(var(--nav-height) + 1vh);
+  }
+
+  .title-name-last {
+    font-size: clamp(3.5rem, 14vw, 6rem);
+    right: 4vw;
+    bottom: 20vh;
+  }
+
+  .title-slide-photo {
+    margin-left: -4vw;
   }
 
   .title-photo {
-    height: 60vh;
+    height: 55vh;
   }
 
   .title-slide-taglines {
