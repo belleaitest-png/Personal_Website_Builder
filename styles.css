@@ -320,7 +320,8 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .title-name-last {
   top: calc(var(--nav-height) + 6vh + clamp(7rem, 16vw, 18rem));
   left: 50%;
-  transform: translateX(5%);
+  transform: translateX(-15%);
+  font-size: clamp(6.5rem, 15vw, 16rem);
 }
 
 /* Photo — centered, overlaps the text, anchored to bottom */
@@ -1131,7 +1132,8 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
   .title-name-last {
     top: calc(var(--nav-height) + 4vh + clamp(4rem, 16vw, 7rem));
-    transform: translateX(5%);
+    transform: translateX(-15%);
+    font-size: clamp(3.5rem, 14vw, 6.5rem);
   }
 
   .title-photo {
