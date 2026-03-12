@@ -1093,6 +1093,116 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   font-size: 0.85rem;
 }
 
+/* ---------- Report Download Button ---------- */
+.btn-download-report {
+  margin-top: 12px;
+}
+
+/* ---------- Report Modal ---------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 37, 40, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--charcoal-muted);
+  cursor: pointer;
+  line-height: 1;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--charcoal);
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  color: var(--charcoal-light);
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-form .btn {
+  align-self: stretch;
+  text-align: center;
+}
+
+.modal-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-status {
+  font-size: 0.9rem;
+  text-align: center;
+  min-height: 1.4em;
+}
+
+.modal-status.success {
+  color: #2d7a3a;
+}
+
+.modal-status.error {
+  color: #b33a3a;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 36px 24px;
+  }
+}
+
 /* ---------- Scroll Reveal Animation ---------- */
 .reveal {
   opacity: 0;

@@ -70,4 +70,74 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- Report Download Modal ---
+  const reportModal = document.getElementById('reportModal');
+  const downloadBtn = document.getElementById('downloadReportBtn');
+  const modalClose = document.getElementById('modalClose');
+  const reportForm = document.getElementById('reportForm');
+  const modalStatus = document.getElementById('modalStatus');
+
+  function openModal() {
+    reportModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    reportModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  downloadBtn.addEventListener('click', openModal);
+  modalClose.addEventListener('click', closeModal);
+
+  reportModal.addEventListener('click', (e) => {
+    if (e.target === reportModal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && reportModal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  reportForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('reportSubmitBtn');
+    const email = document.getElementById('reportEmail').value.trim();
+    const organisation = document.getElementById('reportOrg').value.trim();
+    const reason = document.getElementById('reportReason').value.trim();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    modalStatus.textContent = '';
+    modalStatus.className = 'modal-status';
+
+    try {
+      const response = await fetch('/api/send-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, organisation, reason }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        modalStatus.textContent = 'Report sent! Check your inbox.';
+        modalStatus.classList.add('success');
+        reportForm.reset();
+        setTimeout(closeModal, 2500);
+      } else {
+        modalStatus.textContent = data.error || 'Something went wrong. Please try again.';
+        modalStatus.classList.add('error');
+      }
+    } catch (err) {
+      modalStatus.textContent = 'Network error. Please try again.';
+      modalStatus.classList.add('error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Me the Report';
+    }
+  });
+
 });

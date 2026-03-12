@@ -250,9 +250,38 @@
             <a href="#" class="writing-link">Read More &rarr;</a>
           </div>
         </article>
+        <article class="writing-card writing-card-report">
+          <div class="writing-card-image">
+            <div class="writing-placeholder" style="background: var(--harvest);">
+              <span>Research</span>
+            </div>
+          </div>
+          <div class="writing-card-content">
+            <span class="writing-category">Research Report</span>
+            <h3>Birth Rates: A Deep Dive</h3>
+            <p>My research report exploring the trends, drivers, and implications of changing global birth rates.</p>
+            <button class="btn btn-primary btn-download-report" id="downloadReportBtn">Download Report</button>
+          </div>
+        </article>
       </div>
     </div>
   </section>
+
+  <!-- Report Download Modal -->
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      <h2 class="modal-title">Download the Report</h2>
+      <p class="modal-subtitle">Enter your details below and the report will be sent straight to your inbox.</p>
+      <form class="modal-form" id="reportForm">
+        <input type="email" placeholder="Your email address" class="form-input" id="reportEmail" required>
+        <input type="text" placeholder="Organisation (optional)" class="form-input" id="reportOrg">
+        <textarea placeholder="What's your interest in this topic?" class="form-input form-textarea" id="reportReason" rows="3" required></textarea>
+        <button type="submit" class="btn btn-primary" id="reportSubmitBtn">Send Me the Report</button>
+        <p class="modal-status" id="modalStatus"></p>
+      </form>
+    </div>
+  </div>
 
   <!-- Values / Beliefs Section -->
   <section class="values-section">
