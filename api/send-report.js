@@ -15,13 +15,13 @@ module.exports = async function handler(req, res) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  // Read the report PDF to attach
-  const reportPath = path.join(__dirname, '..', 'birth-rates-report.pdf');
+  // Read the report to attach
+  const reportPath = path.join(__dirname, '..', 'IP - Annabelle Body - Birth Rate Decline.docx');
   let attachment;
   try {
     const fileBuffer = fs.readFileSync(reportPath);
     attachment = {
-      filename: 'Birth-Rates-Report.pdf',
+      filename: 'Annabelle Body - Birth Rate Decline.docx',
       content: fileBuffer,
     };
   } catch (err) {
@@ -49,7 +49,7 @@ module.exports = async function handler(req, res) {
     // Notify Annabelle about the download request
     await resend.emails.send({
       from: 'Website <report@annabellebody.com>',
-      to: 'annabellebody@gmail.com',
+      to: 'belleaitest@gmail.com',
       subject: 'New Report Download Request',
       html: `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #2C2528;">
