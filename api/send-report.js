@@ -16,12 +16,12 @@ module.exports = async function handler(req, res) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   // Read the report to attach
-  const reportPath = path.join(__dirname, '..', 'IP - Annabelle Body - Birth Rate Decline.docx');
+  const reportPath = path.join(__dirname, '..', 'How Will the Free Market Respond to Global Birth Rate Decline_ A Comprehensive Analysis (3).docx');
   let attachment;
   try {
     const fileBuffer = fs.readFileSync(reportPath);
     attachment = {
-      filename: 'Annabelle Body - Birth Rate Decline.docx',
+      filename: 'How Will the Free Market Respond to Global Birth Rate Decline - Annabelle Body.docx',
       content: fileBuffer,
     };
   } catch (err) {
