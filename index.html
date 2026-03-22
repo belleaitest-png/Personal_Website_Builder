@@ -1,347 +1,995 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Annabelle Body | Founder, Verifood · HBS MBA '26</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belle Body — Researcher. Builder. Deep Thinker.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+
+/* ─────────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────────── */
+:root {
+  --dark:       #12101E;
+  --dark2:      #191629;
+  --dark3:      #201B35;
+  --light:      #FAF7F2;
+  --light2:     #F2EDE3;
+  --light3:     #E9E2D4;
+  --ink:        #1A1527;
+  --ink-dim:    #58536A;
+  --cream:      #F5EDD8;
+  --cream-dim:  rgba(245,237,216,.5);
+  --gold:       #C4943A;
+  --gold-pale:  rgba(196,148,58,.12);
+  --burg:       #8B1A4A;
+  --burg-pale:  rgba(139,26,74,.1);
+  --bdark:      rgba(245,237,216,.08);
+  --blite:      rgba(26,21,39,.1);
+  --serif:      'Playfair Display', Georgia, serif;
+  --sans:       'Inter', system-ui, sans-serif;
+  --spring:     cubic-bezier(.34,1.56,.64,1);
+  --ease:       cubic-bezier(.16,1,.3,1);
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; cursor:none; }
+body { font-family:var(--sans); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+a    { color:inherit; text-decoration:none; }
+img  { display:block; max-width:100%; }
+
+/* ─────────────────────────────────────────────
+   CURSOR
+───────────────────────────────────────────── */
+#cur { position:fixed; width:10px; height:10px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .3s,height .3s; }
+#cur-ring { position:fixed; width:36px; height:36px; border:1.5px solid rgba(196,148,58,.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); }
+
+/* ─────────────────────────────────────────────
+   NAV  — single clean bar, no duplicates
+───────────────────────────────────────────── */
+#nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 52px;
+  transition: background .35s, backdrop-filter .35s, border-color .35s;
+}
+#nav.solid {
+  background: rgba(18,16,30,.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--bdark);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  color: var(--cream);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  transition: color .2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+/* ─────────────────────────────────────────────
+   PORTAL HERO
+   Tall scroll container with sticky stage.
+   Orbit bubbles reveal as user scrolls.
+───────────────────────────────────────────── */
+#portal-scroll {
+  height: 320vh;
+  position: relative;
+  z-index: 1;        /* sections after will stack on top */
+  background: var(--dark);
+}
+
+.portal-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--dark);
+}
+
+/* Atmospheric glow */
+.portal-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 55%, rgba(139,26,74,.25) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 40% at 50% 90%, rgba(196,148,58,.09) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAME LAYER: behind photo, z-index 1 ── */
+.hero-name-top {
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-family: var(--serif);
+  font-size: clamp(72px, 17vw, 230px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--cream);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeUp .9s var(--ease) both;
+}
+.hero-name-bot {
+  position: absolute;
+  bottom: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-family: var(--serif);
+  font-size: clamp(72px, 17vw, 230px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--burg);
+  font-style: italic;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeUp .9s var(--ease) .08s both;
+}
+
+/* ── PHOTO LAYER: in front of name, z-index 5 ── */
+.hero-img-wrap {
+  position: relative;
+  z-index: 5;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  animation: scaleIn 1.1s var(--ease) .05s both;
+}
+.hero-img-wrap img {
+  height: 97%;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 80px rgba(139,26,74,.45)) drop-shadow(0 0 160px rgba(196,148,58,.12));
+}
+
+/* Scroll cue — fades out once user scrolls */
+.portal-scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: opacity .6s;
+}
+.portal-scroll-cue.hide { opacity: 0; pointer-events: none; }
+.cue-text {
+  font-size: 9px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(245,237,216,.3);
+}
+.cue-bar {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: barPulse 2s ease-in-out infinite;
+}
+@keyframes barPulse { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.2)} }
+
+/* ── SVG connector lines overlay ── */
+#portal-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+.connector {
+  stroke: rgba(196,148,58,.25);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset .8s var(--ease);
+}
+.connector.draw { stroke-dashoffset: 0; }
+
+/* ── Orbit bubbles ── */
+.orbit-bubble {
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  transform: scale(.4);
+  transition: opacity .5s var(--ease), transform .6s var(--spring);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 20px;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(196,148,58,.35);
+  border-radius: 100px;
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  box-shadow: 0 0 24px rgba(196,148,58,.12), inset 0 1px 0 rgba(255,255,255,.06);
+  text-decoration: none;
+}
+.orbit-bubble.visible {
+  opacity: 1;
+  transform: scale(1);
+  animation: floatBubble var(--float-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--float-off, 0s);
+}
+.orbit-bubble:hover {
+  background: rgba(196,148,58,.2);
+  border-color: var(--gold);
+  box-shadow: 0 0 36px rgba(196,148,58,.3);
+  transform: scale(1.06) !important;
+  animation-play-state: paused;
+  color: var(--cream);
+}
+@keyframes floatBubble {
+  0%,100% { transform:translateY(0) scale(1); }
+  50%      { transform:translateY(-10px) scale(1); }
+}
+.bubble-icon { font-size: 17px; line-height: 1; flex-shrink: 0; }
+
+/* Individual bubble positions — orbit the photo center */
+#b1 { top: 14%;  left: 7%;   --float-dur:4.2s; --float-off:0s;    } /* Writing   — top-left    */
+#b2 { top: 12%;  right: 9%;  --float-dur:3.8s; --float-off:.6s;   } /* Thesis    — top-right   */
+#b3 { top: 47%;  right: 3%;  --float-dur:4.5s; --float-off:.3s;   } /* Building  — mid-right   */
+#b4 { bottom:18%; right:10%; --float-dur:4.1s; --float-off:.9s;   } /* Protocols — bot-right   */
+#b5 { bottom:14%; left: 7%;  --float-dur:3.7s; --float-off:1.2s;  } /* Connect   — bot-left    */
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────────── */
+[data-r]  { opacity:0; transform:translateY(28px);  transition:opacity .8s var(--ease), transform .8s var(--ease); }
+[data-rl] { opacity:0; transform:translateX(-32px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+[data-rr] { opacity:0; transform:translateX(32px);  transition:opacity .8s var(--ease), transform .8s var(--ease); }
+[data-r].on,[data-rl].on,[data-rr].on { opacity:1; transform:none; }
+
+@keyframes fadeUp  { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+@keyframes scaleIn { from{opacity:0;transform:scale(.93)}        to{opacity:1;transform:none} }
+
+/* ─────────────────────────────────────────────
+   TICKER
+───────────────────────────────────────────── */
+.ticker-wrap {
+  overflow:hidden;
+  background:var(--dark2);
+  border-top:1px solid var(--bdark);
+  border-bottom:1px solid var(--bdark);
+  padding:15px 0;
+  position: relative;
+  z-index: 5;
+}
+.ticker-track { display:flex; white-space:nowrap; animation:tick 28s linear infinite; }
+.ticker-item {
+  display:inline-flex; align-items:center; gap:22px; padding-right:22px;
+  font-size:10.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(245,237,216,.35);
+}
+.ticker-dot { width:4px; height:4px; background:var(--gold); border-radius:50%; flex-shrink:0; }
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ─────────────────────────────────────────────
+   SHARED
+───────────────────────────────────────────── */
+.pad  { padding:108px 52px; }
+.pad2 { padding:72px 52px; }
+
+.label {
+  display:inline-block;
+  font-size:10px; font-weight:600; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:36px;
+}
+
+/* Buttons */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  border-radius:2px; padding:14px 28px;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .2s, color .2s, border-color .2s;
+}
+.btn:hover { transform:translateY(-3px); }
+.btn-gold  { background:var(--gold); color:var(--dark); }
+.btn-gold:hover  { box-shadow:0 12px 28px rgba(196,148,58,.35); }
+.btn-ghost-d { border:1.5px solid var(--bdark); color:var(--cream-dim); }
+.btn-ghost-d:hover { border-color:var(--cream); color:var(--cream); }
+.btn-ghost-l { border:1.5px solid var(--blite); color:var(--ink-dim); }
+.btn-ghost-l:hover { border-color:var(--ink); color:var(--ink); }
+
+/* Coming-soon pill */
+.cs-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-dim); border:1px solid var(--blite);
+  padding:6px 12px; border-radius:2px; align-self:flex-start; margin-top:auto;
+}
+
+/* ─────────────────────────────────────────────
+   THESIS  (cream)
+───────────────────────────────────────────── */
+.thesis { background:var(--light); position: relative; z-index: 5; }
+.thesis-inner { max-width:1100px; margin:0 auto; }
+.thesis-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1px; background:var(--blite); border:1px solid var(--blite);
+}
+.t-item { background:var(--light); padding:52px 44px; transition:background .3s; cursor:default; }
+.t-item:hover { background:var(--light2); }
+.t-num { display:block; font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.t-item h2 { font-family:var(--serif); font-size:clamp(20px,2.2vw,28px); font-weight:700; line-height:1.35; color:var(--ink); }
+
+/* ─────────────────────────────────────────────
+   STATEMENT BAND  (dark)
+───────────────────────────────────────────── */
+.band { background:var(--dark2); border-top:1px solid var(--bdark); border-bottom:1px solid var(--bdark); padding:76px 52px; position: relative; z-index: 5; }
+.band-text {
+  font-family:var(--serif); font-size:clamp(30px,5vw,68px); font-weight:700; line-height:1.1; color:var(--cream); max-width:1060px;
+}
+.band-text em   { font-style:italic; color:var(--burg); }
+.band-text mark { background:none; color:var(--gold); }
+
+/* ─────────────────────────────────────────────
+   BUILDING  (dark, sticky photo)
+───────────────────────────────────────────── */
+.building { background:var(--dark); padding:0; position: relative; z-index: 5; }
+.building-inner { display:grid; grid-template-columns:1fr 1fr; min-height:180vh; }
+
+.sticky-col {
+  position:sticky; top:0; height:100vh;
+  display:flex; align-items:flex-end; justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--dark),var(--dark2));
+}
+.sticky-col img {
+  height:94%; width:auto; object-fit:contain; object-position:bottom center;
+  filter:drop-shadow(0 0 40px rgba(139,26,74,.25));
+}
+
+.scroll-col { padding:120px 56px 100px; display:flex; flex-direction:column; gap:32px; }
+.scroll-col h2 {
+  font-family:var(--serif); font-size:clamp(32px,3.8vw,50px); font-weight:700; line-height:1.15; color:var(--cream); margin-bottom:20px;
+}
+.scroll-col h2 em { font-style:italic; color:var(--burg); }
+
+.p-card {
+  border:1px solid var(--bdark); border-radius:3px; padding:34px;
+  background:rgba(255,255,255,.02);
+  transition:border-color .3s, transform .35s var(--ease), box-shadow .3s;
+}
+.p-card:hover { border-color:rgba(196,148,58,.35); transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,.35); }
+.p-card.live  { border-color:rgba(196,148,58,.2); background:var(--gold-pale); }
+.p-tag { display:inline-block; font-size:10px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; padding:4px 10px; border-radius:2px; margin-bottom:16px; }
+.p-tag.live-t { background:var(--gold); color:var(--dark); }
+.p-tag.soon-t { border:1px solid var(--bdark); color:rgba(245,237,216,.4); }
+.p-card h3  { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--cream); margin-bottom:10px; }
+.p-card p   { font-size:14px; line-height:1.75; color:var(--cream-dim); margin-bottom:20px; }
+.p-link     { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); transition:gap .25s var(--ease); }
+.p-link:hover { gap:14px; }
+
+/* ─────────────────────────────────────────────
+   WRITING  (cream)
+───────────────────────────────────────────── */
+.writing { background:var(--light2); position: relative; z-index: 5; }
+.writing-inner { max-width:1200px; margin:0 auto; }
+.writing-hdr { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:52px; flex-wrap:wrap; gap:20px; }
+.writing-hdr h2 { font-family:var(--serif); font-size:clamp(40px,5.5vw,66px); font-weight:900; line-height:1.05; color:var(--ink); }
+.writing-hdr h2 em { font-style:italic; color:var(--burg); }
+.writing-grid { display:grid; grid-template-columns:1.35fr 1fr 1fr; grid-template-rows:auto auto; gap:13px; }
+
+.w-card {
+  background:var(--light); border:1px solid var(--blite); border-radius:3px; padding:34px;
+  display:flex; flex-direction:column; gap:13px;
+  transition:border-color .3s, transform .35s var(--ease), box-shadow .3s;
+}
+.w-card:hover { border-color:rgba(139,26,74,.28); transform:translateY(-4px); box-shadow:0 14px 36px rgba(26,21,39,.1); }
+.w-card.feat  { grid-row:span 2; background:linear-gradient(160deg,rgba(139,26,74,.07),var(--light)); border-color:rgba(139,26,74,.18); }
+.w-tag  { font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.w-card h3  { font-family:var(--serif); font-size:clamp(18px,1.7vw,23px); font-weight:700; line-height:1.3; color:var(--ink); }
+.w-card p   { font-size:14px; line-height:1.75; color:var(--ink-dim); flex:1; }
+
+/* Email capture */
+.email-form { margin-top:auto; }
+.email-form > p { font-size:13px; color:var(--ink-dim); margin-bottom:9px; }
+.email-row { display:flex; gap:7px; }
+.email-row input {
+  flex:1; background:var(--light2); border:1px solid var(--blite); border-radius:2px;
+  padding:11px 13px; color:var(--ink); font-size:13px; font-family:var(--sans); outline:none;
+  transition:border-color .2s;
+}
+.email-row input:focus { border-color:var(--burg); }
+.email-row input::placeholder { color:var(--ink-dim); }
+.email-row button {
+  padding:11px 17px; background:var(--burg); color:#fff;
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  border:none; border-radius:2px; cursor:none; white-space:nowrap;
+  transition:background .2s, transform .2s;
+}
+.email-row button:hover { background:#a82259; transform:translateY(-2px); }
+
+/* ─────────────────────────────────────────────
+   PROTOCOLS  (cream, with dark photo card)
+───────────────────────────────────────────── */
+.protocols { background:var(--light); position: relative; z-index: 5; }
+.prot-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+.prot-text h2 { font-family:var(--serif); font-size:clamp(32px,3.8vw,50px); font-weight:700; line-height:1.2; color:var(--ink); margin-bottom:18px; }
+.prot-text p  { font-size:15px; line-height:1.85; color:var(--ink-dim); margin-bottom:28px; max-width:440px; }
+.pill-row     { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
+.pill { padding:6px 14px; border:1px solid var(--blite); border-radius:100px; font-size:12px; color:var(--ink-dim); transition:border-color .2s,color .2s; }
+.pill:hover { border-color:var(--gold); color:var(--gold); }
+
+.prot-photo-card {
+  background:var(--dark); border-radius:6px; overflow:hidden;
+  height:520px; display:flex; align-items:flex-end; justify-content:center;
+  box-shadow:0 24px 60px rgba(18,16,30,.18);
+}
+.prot-photo-card img {
+  height:100%; width:auto; object-fit:contain;
+  filter:drop-shadow(0 0 30px rgba(139,26,74,.2));
+}
+
+/* ─────────────────────────────────────────────
+   ABOUT  (cream2, dark photo card)
+───────────────────────────────────────────── */
+.about { background:var(--light2); position: relative; z-index: 5; }
+.about-inner { max-width:1160px; margin:0 auto; display:grid; grid-template-columns:1fr 1.5fr; gap:80px; align-items:start; }
+.about-photo-card {
+  background:var(--dark); border-radius:6px; overflow:hidden;
+  aspect-ratio:3/4; display:flex; align-items:flex-end; justify-content:center;
+  box-shadow:0 24px 60px rgba(18,16,30,.18);
+}
+.about-photo-card img { width:88%; object-fit:contain; filter:drop-shadow(0 0 20px rgba(18,16,30,.4)); }
+.about-text h2 { font-family:var(--serif); font-size:clamp(32px,3.8vw,48px); font-weight:700; line-height:1.15; color:var(--ink); margin-bottom:24px; }
+.about-text h2 em { font-style:italic; color:var(--burg); }
+.about-text p  { font-size:15px; line-height:1.9; color:var(--ink-dim); margin-bottom:20px; }
+.about-text strong { color:var(--ink); font-weight:600; }
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--blite); border-radius:4px; overflow:hidden; margin-top:40px; }
+.stat { padding:22px 18px; border-right:1px solid var(--blite); }
+.stat:last-child { border-right:none; }
+.stat-n { font-family:var(--serif); font-size:26px; font-weight:700; color:var(--gold); display:block; margin-bottom:4px; }
+.stat-l { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); }
+
+/* ─────────────────────────────────────────────
+   PHOTO STRIP  (in about section)
+───────────────────────────────────────────── */
+.photo-strip {
+  display: flex;
+  gap: 10px;
+  margin-top: 52px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+.photo-strip::-webkit-scrollbar { display: none; }
+.photo-strip img {
+  height: 180px;
+  width: auto;
+  flex-shrink: 0;
+  border-radius: 3px;
+  object-fit: cover;
+  filter: grayscale(15%);
+  transition: filter .3s, transform .35s var(--ease), box-shadow .3s;
+}
+.photo-strip img:hover {
+  filter: grayscale(0%);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(26,21,39,.15);
+}
+
+/* ─────────────────────────────────────────────
+   CONTACT  (dark)
+───────────────────────────────────────────── */
+.contact {
+  background:var(--dark); text-align:center; position:relative; overflow:hidden; z-index: 5;
+}
+.contact::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 65%, rgba(139,26,74,.18), transparent 55%),
+    radial-gradient(ellipse at 50% 20%, rgba(196,148,58,.07), transparent 50%);
+}
+.contact-inner { position:relative; max-width:660px; margin:0 auto; }
+.contact-inner h2 { font-family:var(--serif); font-size:clamp(44px,6.5vw,86px); font-weight:900; line-height:1; color:var(--cream); margin-bottom:20px; }
+.contact-inner h2 em { font-style:italic; color:var(--burg); }
+.contact-inner p { font-size:16px; line-height:1.75; color:var(--cream-dim); margin-bottom:40px; max-width:500px; margin-left:auto; margin-right:auto; }
+.contact-btns { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer { background:var(--dark); border-top:1px solid var(--bdark); padding:26px 52px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; position: relative; z-index: 5; }
+.ft-logo  { font-family:var(--serif); font-size:15px; font-weight:700; color:var(--cream); letter-spacing:.06em; }
+.ft-links { display:flex; gap:26px; flex-wrap:wrap; }
+.ft-links a { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(245,237,216,.3); transition:color .2s; }
+.ft-links a:hover { color:var(--gold); }
+.ft-copy { font-size:11px; color:rgba(245,237,216,.2); }
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media (max-width:1024px) {
+  .pad  { padding:80px 28px; }
+  .pad2 { padding:52px 28px; }
+  #nav  { padding:16px 24px; }
+  .nav-links a:not(.nav-cta) { display:none; }
+  .hero-img-wrap { width:min(66vw,360px); }
+  .hero-name-top,.hero-name-bot { font-size:clamp(48px,10vw,100px); }
+  .thesis-grid  { grid-template-columns:1fr; }
+  .building-inner { grid-template-columns:1fr; min-height:auto; }
+  .sticky-col { position:relative; height:55vw; }
+  .scroll-col { padding:52px 28px 80px; }
+  .writing-grid { grid-template-columns:1fr 1fr; }
+  .w-card.feat  { grid-row:auto; }
+  .prot-inner   { grid-template-columns:1fr; gap:40px; }
+  .about-inner  { grid-template-columns:1fr; }
+  .about-photo-card { display:none; }
+  footer { justify-content:center; text-align:center; }
+  /* On mobile: hide orbit bubbles, show simple tagline instead */
+  .orbit-bubble { display:none; }
+  #portal-scroll { height:100vh; }
+  .portal-stage { position:relative; height:100vh; }
+  .mobile-hero-ctas { display:flex !important; }
+}
+@media (max-width:640px) {
+  .hero-name-top,.hero-name-bot { font-size:54px; }
+  .hero-img-wrap { width:72vw; }
+  .writing-grid { grid-template-columns:1fr; }
+  .stats-row { grid-template-columns:1fr; }
+  .contact-btns { flex-direction:column; align-items:center; }
+}
+
+/* Mobile fallback CTAs (hidden on desktop) */
+.mobile-hero-ctas {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  position: relative;
+  z-index: 10;
+}
+
+  </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">Annabelle Body</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#verifood">Verifood</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#writing">Writing</a></li>
-        <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-      </ul>
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">BELLE BODY</a>
+  <div class="nav-links">
+    <a href="#building">Work</a>
+    <a href="#writing">Writing</a>
+    <a href="#protocols">Protocols</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- ═══ PORTAL HERO ═══ -->
+<div id="portal-scroll">
+  <div class="portal-stage" id="home">
+
+    <!-- Atmospheric SVG connectors -->
+    <svg id="portal-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- Lines from photo center (50,50) to each bubble anchor -->
+      <line id="ln1" class="connector" x1="50" y1="50" x2="16" y2="23" vector-effect="non-scaling-stroke"/>
+      <line id="ln2" class="connector" x1="50" y1="50" x2="84" y2="19" vector-effect="non-scaling-stroke"/>
+      <line id="ln3" class="connector" x1="50" y1="50" x2="92" y2="50" vector-effect="non-scaling-stroke"/>
+      <line id="ln4" class="connector" x1="50" y1="50" x2="82" y2="80" vector-effect="non-scaling-stroke"/>
+      <line id="ln5" class="connector" x1="50" y1="50" x2="16" y2="83" vector-effect="non-scaling-stroke"/>
+    </svg>
+
+    <!-- BELLE -->
+    <h1 class="hero-name-top">Belle</h1>
+
+    <!-- PHOTO -->
+    <div class="hero-img-wrap">
+      <img src="images/photo-stage-burgundy.png" alt="Belle Body" />
     </div>
+
+    <!-- Body. -->
+    <h2 class="hero-name-bot">Body.</h2>
+
+    <!-- Orbit bubbles — revealed by scroll -->
+    <a href="#writing"   class="orbit-bubble" id="b1"><span class="bubble-icon">✍️</span> Writing</a>
+    <a href="#writing"   class="orbit-bubble" id="b2"><span class="bubble-icon">🔬</span> Thesis</a>
+    <a href="#building"  class="orbit-bubble" id="b3"><span class="bubble-icon">🛠</span> Building</a>
+    <a href="#protocols" class="orbit-bubble" id="b4"><span class="bubble-icon">⚡</span> Protocols</a>
+    <a href="#contact"   class="orbit-bubble" id="b5"><span class="bubble-icon">💬</span> Let's Talk</a>
+
+    <!-- Scroll cue -->
+    <div class="portal-scroll-cue" id="scroll-cue">
+      <span class="cue-text">Scroll to explore</span>
+      <div class="cue-bar"></div>
+    </div>
+
+    <!-- Mobile fallback CTAs -->
+    <div class="mobile-hero-ctas">
+      <a href="#writing"  class="btn btn-gold">Explore My Work →</a>
+      <a href="#contact"  class="btn btn-ghost-d">Let's Talk ↗</a>
+    </div>
+
+  </div><!-- /portal-stage -->
+</div><!-- /portal-scroll -->
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-dot"></span>Food Systems</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>AI &amp; Agentic Commerce</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Declining Birth Rates</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Regenerative Agriculture</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Female Health</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Biophysics</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Human Connection</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Personal Protocols</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Nervous System</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Sleep Architecture</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Clean Brands</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Building in Public</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Food Systems</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>AI &amp; Agentic Commerce</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Declining Birth Rates</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Regenerative Agriculture</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Female Health</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Biophysics</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Human Connection</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Personal Protocols</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Nervous System</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Sleep Architecture</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Clean Brands</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Building in Public</div>
+  </div>
+</div>
+
+<!-- ═══ THESIS (cream) ═══ -->
+<section class="thesis pad" id="thesis">
+  <div class="thesis-inner">
+    <span class="label" data-r>The Thesis</span>
+    <div class="thesis-grid">
+      <div class="t-item" data-r><span class="t-num">01</span><h2>Big food is big tobacco. We just haven't caught up yet.</h2></div>
+      <div class="t-item" data-r><span class="t-num">02</span><h2>The battle for your health is being lost at the grocery store.</h2></div>
+      <div class="t-item" data-r><span class="t-num">03</span><h2>AI won't just change how we work. It will change who we love.</h2></div>
+      <div class="t-item" data-r><span class="t-num">04</span><h2>Your genetics don't determine your destiny. Your choices do.</h2></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATEMENT BAND (dark) ═══ -->
+<div class="band">
+  <p class="band-text" data-r>"I treat my career like a <em>startup</em> and myself like the <mark>product</mark>. I'm always in R&amp;D."</p>
+</div>
+
+<!-- ═══ BUILDING (dark, sticky) ═══ -->
+<section class="building" id="building">
+  <div class="building-inner">
+    <div class="sticky-col">
+      <img src="images/photo-hyrox-finish.jpg" alt="Belle Body" />
+    </div>
+    <div class="scroll-col">
+      <div>
+        <span class="label" data-r>What I'm Working On</span>
+        <h2 data-r>Experiments, apps<br>&amp; <em>ideas</em> I'm building.</h2>
+      </div>
+      <div class="p-card live" data-r>
+        <span class="p-tag live-t">🟢 Live · Beta</span>
+        <h3>Verifood</h3>
+        <p>AI-powered food intelligence at the point of purchase. Scan a product, get instant expert guidance. No one should need a nutrition degree to grocery shop.</p>
+        <a href="https://verifood.app" target="_blank" rel="noopener" class="p-link">Visit verifood.app ↗</a>
+      </div>
+      <div class="p-card" data-r>
+        <span class="p-tag soon-t">Research in Progress</span>
+        <h3>Female Health Platform</h3>
+        <p>Connecting fertility, nutrition, and biomarker data for women in one place. The data exists — it just hasn't been unified yet.</p>
+      </div>
+      <div class="p-card" data-r>
+        <span class="p-tag soon-t">Writing</span>
+        <h3>The Food System Thesis</h3>
+        <p>Years of research, conferences, and obsessive label-reading — published in full with every claim cited back to the original science.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WRITING (cream) ═══ -->
+<section class="writing pad" id="writing">
+  <div class="writing-inner">
+    <div class="writing-hdr">
+      <div>
+        <span class="label" data-r>Writing &amp; IP</span>
+        <h2 data-r>Ideas worth <em>reading.</em></h2>
+      </div>
+    </div>
+    <div class="writing-grid">
+
+      <!-- Featured paper with email capture -->
+      <div class="w-card feat" data-r>
+        <span class="w-tag">Paper · Free Download</span>
+        <h3>Will the Market Respond to Declining Birth Rates?</h3>
+        <p>A deep investigation into demographic collapse — the most consequential macroeconomic shift of the next 50 years. Does the invisible hand course correct, or do we need to intervene? Get the full paper in your inbox.</p>
+        <div class="email-form" id="paper-form">
+          <p>Enter your email and I'll send it over.</p>
+          <div class="email-row">
+            <input type="email" id="paper-email" placeholder="your@email.com" />
+            <button onclick="submitPaper()">Get It →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-card" data-r>
+        <span class="w-tag">Thesis · Coming Soon</span>
+        <h3>The Food System Thesis</h3>
+        <p>From ultra-processed food to regenerative agriculture. Fact-based, cited, and written for people who are ready to stop being misled.</p>
+        <span class="cs-pill">⏳ Coming Soon</span>
+      </div>
+      <div class="w-card" data-r>
+        <span class="w-tag">Essays · Coming Soon</span>
+        <h3>My Takes</h3>
+        <p>Unfiltered opinions on the things that matter. AI and human connection. The fertility crisis. Why your genes are not your destiny.</p>
+        <span class="cs-pill">⏳ Coming Soon</span>
+      </div>
+      <div class="w-card" data-r>
+        <span class="w-tag">Notes · Coming Soon</span>
+        <h3>Notes from the Field</h3>
+        <p>Learnings from Eudemonia, MIT TedX, Climate Cap, HBS. The good stuff from every room worth being in, distilled.</p>
+        <span class="cs-pill">⏳ Coming Soon</span>
+      </div>
+      <div class="w-card" data-r>
+        <span class="w-tag">Guide · Coming Soon</span>
+        <h3>Brands I Actually Buy</h3>
+        <p>Force of Nature. Good Culture. Beyond Good. Blue Stripes. After years of label reading — the brands that earned a place in my kitchen.</p>
+        <span class="cs-pill">⏳ Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROTOCOLS (cream, dark photo card) ═══ -->
+<section class="protocols pad" id="protocols">
+  <div class="prot-inner">
+    <div class="prot-text" data-rl>
+      <span class="label">The Belle Protocol</span>
+      <h2>Systems for living at full capacity.</h2>
+      <p>Morning launch sequences, nutrition frameworks, movement protocols, sleep architecture. Everything I've figured out about running myself well — shared in full.</p>
+      <div class="pill-row">
+        <span class="pill">Morning Routine</span>
+        <span class="pill">Nutrition</span>
+        <span class="pill">Fitness</span>
+        <span class="pill">Mental Health</span>
+        <span class="pill">Productivity</span>
+        <span class="pill">Sleep</span>
+        <span class="pill">Social</span>
+        <span class="pill">Financial</span>
+      </div>
+      <span class="cs-pill">⏳ Coming Soon</span>
+    </div>
+    <div data-rr>
+      <div class="prot-photo-card">
+        <img src="images/photo-farm.jpg" alt="Belle Body on farm" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT (cream2) ═══ -->
+<section class="about pad" id="about">
+  <div class="about-inner">
+    <div data-rl>
+      <div class="about-photo-card">
+        <img src="images/photo-hbs-portrait.jpg" alt="Belle Body" />
+      </div>
+    </div>
+    <div class="about-text" data-rr>
+      <span class="label">About</span>
+      <h2>I treat my life like a <em>startup.</em></h2>
+      <p>I'm <strong>Belle Body</strong> — British, HBS MBA, researcher, and full-time obsessive about the things that matter. I started by asking why food was making us sick, ended up down every rabbit hole from regenerative agriculture to biophysics, and haven't stopped since.</p>
+      <p>Before HBS: <strong>Deloitte</strong>, solo travel across three continents, and enough conferences to fill a library. My HBS section asked me to present on the food system because I wouldn't stop talking about it. That's usually how I know I'm onto something.</p>
+      <p>Whatever role I'm in, I'm simultaneously building my own portfolio of IP — writing, researching, and shipping ideas. I'm looking to work alongside people who are genuinely trying to change something.</p>
+      <div class="stats-row">
+        <div class="stat"><span class="stat-n">HBS</span><span class="stat-l">MBA, 2025</span></div>
+        <div class="stat"><span class="stat-n">1</span><span class="stat-l">App in beta</span></div>
+        <div class="stat"><span class="stat-n">∞</span><span class="stat-l">Questions worth asking</span></div>
+      </div>
+    </div>
+  </div>
+  <!-- Photo strip — full width below the two-col grid -->
+  <div class="photo-strip" aria-hidden="true">
+    <img src="images/photo-hbs-sign.jpg"       alt="Belle at HBS" />
+    <img src="images/photo-farm.jpg"            alt="Belle on farm" />
+    <img src="images/photo-hyrox-finish.jpg"    alt="Belle at Hyrox finish" />
+    <img src="images/photo-patagonia-wild.jpg"  alt="Belle in Patagonia" />
+    <img src="images/photo-mountain.jpg"        alt="Belle above the clouds" />
+    <img src="images/photo-social-1.jpg"        alt="Belle at party" />
+  </div>
+</section>
+
+<!-- ═══ CONTACT (dark) ═══ -->
+<section class="contact pad" id="contact">
+  <div class="contact-inner">
+    <span class="label" data-r>Get In Touch</span>
+    <h2 data-r>Let's be in the <em>room</em> together.</h2>
+    <p data-r>Whether you're building something consequential, want a researcher who gets things done, or just want to talk about the food system for two hours — I'd love to hear from you.</p>
+    <div class="contact-btns" data-r>
+      <a href="mailto:bbody01@gmail.com" class="btn btn-gold">Send a Message →</a>
+      <a href="https://www.linkedin.com/in/annabelle-body/" target="_blank" rel="noopener" class="btn btn-ghost-d">LinkedIn ↗</a>
+      <a href="https://verifood.app" target="_blank" rel="noopener" class="btn btn-ghost-d">Try Verifood ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-logo">BELLE BODY</span>
+  <nav class="ft-links">
+    <a href="#building">Work</a>
+    <a href="#writing">Writing</a>
+    <a href="#protocols">Protocols</a>
+    <a href="#about">About</a>
   </nav>
+  <span class="ft-copy">© 2026 Belle Body</span>
+</footer>
 
-  <!-- Title Slide — fixed background, page scrolls over it -->
-  <section class="title-slide" id="top">
-    <div class="title-slide-inner">
-      <span class="title-name-first" aria-hidden="true">Annabelle</span>
-      <div class="title-slide-photo">
-        <img src="image (10).png" alt="Annabelle Body" class="title-photo">
-      </div>
-      <span class="title-name-last" aria-hidden="true">Body</span>
-      <div class="title-slide-taglines">
-        <p class="title-tagline title-tagline-left">Building the infrastructure that makes the grocery store a <em>health system</em></p>
-        <p class="title-tagline title-tagline-right"><em>...one aisle</em> at a time.</p>
-      </div>
-    </div>
-  </section>
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════════ -->
+<script>
+/* ── Cursor ── */
+const cur  = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+const curRing = document.getElementById('cur-ring');
+(function raf(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  curRing.style.left=rx+'px'; curRing.style.top=ry+'px';
+  requestAnimationFrame(raf); })();
 
-  <!-- Page content wrapper — scrolls over the title slide -->
-  <div class="page-content">
+/* ── Sticky nav ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('solid', window.scrollY>50); }, {passive:true});
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="hero-bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-    <div class="hero-inner">
-      <div class="hero-image">
-        <div class="hero-image-frame">
-          <img src="image (5).png" alt="Annabelle Body in blue blazer" class="hero-photo">
-        </div>
-      </div>
-      <div class="hero-content">
-        <p class="hero-eyebrow">Hi, I'm Belle</p>
-        <h1 class="hero-title">Building the infrastructure that makes the grocery store a <em>health system</em></h1>
-        <p class="hero-subtitle">Founder of Verifood. HBS MBA '26. Chartered Accountant turned food-systems entrepreneur. I believe eating well shouldn't be complicated &mdash; the system around it is. That's what we're fixing.</p>
-        <div class="hero-actions">
-          <a href="#verifood" class="btn btn-primary">Learn About Verifood</a>
-          <a href="#about" class="btn btn-outline">My Story</a>
-        </div>
-      </div>
-    </div>
-  </header>
+/* ── Portal bubble reveal on scroll ── */
+const portalEl  = document.getElementById('portal-scroll');
+const scrollCue = document.getElementById('scroll-cue');
+const bubbles   = ['b1','b2','b3','b4','b5'].map(id => document.getElementById(id));
+const lines     = ['ln1','ln2','ln3','ln4','ln5'].map(id => document.getElementById(id));
+const thresholds = [0.12, 0.24, 0.38, 0.52, 0.66]; // scroll % to trigger each bubble
 
-  <!-- Featured On Bar -->
-  <section class="featured-bar">
-    <div class="container">
-      <p class="featured-label">Education &amp; Credentials</p>
-      <div class="featured-logos">
-        <span class="featured-logo">Harvard Business School</span>
-        <span class="featured-logo">University of Exeter</span>
-        <span class="featured-logo">ICAEW Chartered Accountant</span>
-      </div>
-    </div>
-  </section>
+function updatePortal() {
+  const rect        = portalEl.getBoundingClientRect();
+  const totalScroll = portalEl.offsetHeight - window.innerHeight;
+  const progress    = Math.max(0, Math.min(1, -rect.top / totalScroll));
 
-  <!-- Verifood Section -->
-  <section class="verifood-section" id="verifood">
-    <div class="container">
-      <div class="verifood-inner">
-        <div class="verifood-content">
-          <p class="section-eyebrow">What I'm Building</p>
-          <h2 class="section-title">Verifood</h2>
-          <p class="verifood-tagline">AI-powered personalised nutrition at the point of grocery purchase.</p>
-          <p>The grocery store is the most underutilised health intervention on the planet. Verifood uses artificial intelligence to deliver personalised nutrition guidance exactly where decisions are made &mdash; at the shelf, in the cart, at checkout.</p>
-          <p>We're building at the intersection of food science, behavioural economics, and machine learning to make healthy eating the default, not the exception.</p>
-          <div class="verifood-stats">
-            <div class="stat">
-              <span class="stat-number">Pre-Seed</span>
-              <span class="stat-label">Stage</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number">AI + Nutrition</span>
-              <span class="stat-label">At Point of Purchase</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number">2025</span>
-              <span class="stat-label">Founded</span>
-            </div>
-          </div>
-          <a href="#contact" class="btn btn-primary">Let's Talk</a>
-        </div>
-        <div class="verifood-visual">
-          <div class="verifood-card verifood-card-1">
-            <span class="verifood-card-icon">&#9670;</span>
-            <p>Personalised Recommendations</p>
-          </div>
-          <div class="verifood-card verifood-card-2">
-            <span class="verifood-card-icon">&#9672;</span>
-            <p>Grocery-Level Intelligence</p>
-          </div>
-          <div class="verifood-card verifood-card-3">
-            <span class="verifood-card-icon">&#10047;</span>
-            <p>Evidence-Based Nutrition</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  // Hide scroll cue after user starts scrolling
+  if (progress > 0.04) scrollCue.classList.add('hide');
+  else scrollCue.classList.remove('hide');
 
-  <!-- About Section -->
-  <section class="about-section" id="about">
-    <div class="container">
-      <div class="about-inner">
-        <div class="about-images">
-          <div class="about-image about-image-main">
-            <img src="image (6).png" alt="Annabelle Body in burgundy blazer" class="about-photo">
-          </div>
-        </div>
-        <div class="about-content">
-          <p class="section-eyebrow">A Little About Me</p>
-          <h2 class="section-title">From auditing balance sheets to reimagining the food system</h2>
-          <p>I started my career at Deloitte in London, spending four years in audit and analytics before moving to AlixPartners, where I worked on some of the UK's most high-profile restructuring cases &mdash; including The Telegraph's forced sale process and Cineworld's Chapter 11 bankruptcy.</p>
-          <p>Six years restructuring broken businesses taught me one thing: systems beat intentions every time. That insight led me to Harvard Business School, where I co-founded a nutrition-focused CPG business in Startup Bootcamp and fell deeper into the question that drives everything I do now: <em>why is it so hard to eat well when the science is so clear?</em></p>
-          <p>Before HBS, I spent a summer at Fruitist in LA, leading their nutrient density programme and building market intelligence tools for a $400M+ fresh fruit operation. I'm a competitive Hyrox and CrossFit athlete, a sailor, and someone who's hiked the Patagonia W trail and travelled solo through South America.</p>
-          <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  bubbles.forEach((b, i) => {
+    const show = progress >= thresholds[i];
+    b.classList.toggle('visible', show);
+    lines[i].classList.toggle('draw', show);
+  });
+}
 
-  <!-- Experience Section -->
-  <section class="experience-section" id="experience">
-    <div class="container">
-      <div class="experience-header">
-        <p class="section-eyebrow">Where I've Worked</p>
-        <h2 class="section-title">Experience</h2>
-        <p class="experience-tagline">From Big Four audit to corporate restructuring to food-tech &mdash; each chapter built the foundation for what I'm doing now.</p>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-date">2025</div>
-          <div class="timeline-content">
-            <h3>Strategy Intern &middot; Fruitist</h3>
-            <p class="timeline-location">Los Angeles, CA</p>
-            <p>Built market intelligence dashboards for $400M+ revenue decisions. Led the nutrient density programme, evaluating spectroscopy and sensor technologies across the farm supply chain.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2024 &ndash; 2026</div>
-          <div class="timeline-content">
-            <h3>MBA Candidate &middot; Harvard Business School</h3>
-            <p class="timeline-location">Boston, MA</p>
-            <p>Food &amp; Agriculture and Health &amp; Wellness Club Leadership. Turner MIINT (Impact Investing). Startup Bootcamp: co-founded a nutrition-focused CPG business.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2023 &ndash; 2024</div>
-          <div class="timeline-content">
-            <h3>Vice President &middot; AlixPartners</h3>
-            <p class="timeline-location">London, UK</p>
-            <p>Turnaround &amp; Restructuring. Advised The Telegraph board through forced sale process. Managed $1.8bn cash flow forecasts for Cineworld Chapter 11. Directed Women Empowerment Matters ERG.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2018 &ndash; 2022</div>
-          <div class="timeline-content">
-            <h3>Assistant Manager &middot; Deloitte UK</h3>
-            <p class="timeline-location">London, UK</p>
-            <p>Audit &amp; Analytics. Designed financial analytics suites, drove 100% team revenue growth, fulfilled 25+ external audits. Built tools in Alteryx, PowerBI, and Tableau. Mentored six graduates to promotion.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2015 &ndash; 2018</div>
-          <div class="timeline-content">
-            <h3>BSc Biological Sciences &middot; University of Exeter</h3>
-            <p class="timeline-location">Exeter, UK</p>
-            <p>Commodore (President) of the Sailing Club &mdash; won BUCS Club of the Year. Secured donations to fund infrastructure development.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+window.addEventListener('scroll', updatePortal, { passive:true });
+updatePortal(); // init
 
-  <!-- Writing / Ideas Section -->
-  <section class="writing-section" id="writing">
-    <div class="container">
-      <div class="writing-header">
-        <p class="section-eyebrow">Thinking Out Loud</p>
-        <h2 class="section-title">Ideas &amp; Writing</h2>
-      </div>
-      <div class="writing-grid">
-        <article class="writing-card">
-          <div class="writing-card-image">
-            <div class="writing-placeholder" style="background: var(--harvest);">
-              <span>Food Systems</span>
-            </div>
-          </div>
-          <div class="writing-card-content">
-            <span class="writing-category">Food Systems</span>
-            <h3>The Grocery Store Is a Health Intervention We're Ignoring</h3>
-            <p>Why the most powerful lever in preventive health isn't in a clinic &mdash; it's in aisle five.</p>
-            <a href="#" class="writing-link">Read More &rarr;</a>
-          </div>
-        </article>
-        <article class="writing-card">
-          <div class="writing-card-image">
-            <div class="writing-placeholder" style="background: var(--sage);">
-              <span>Startups</span>
-            </div>
-          </div>
-          <div class="writing-card-content">
-            <span class="writing-category">Startups</span>
-            <h3>What Restructuring Taught Me About Building</h3>
-            <p>Six years fixing broken companies gave me a blueprint for building one that won't break.</p>
-            <a href="#" class="writing-link">Read More &rarr;</a>
-          </div>
-        </article>
-        <article class="writing-card">
-          <div class="writing-card-image">
-            <div class="writing-placeholder" style="background: var(--clay);">
-              <span>Nutrition</span>
-            </div>
-          </div>
-          <div class="writing-card-content">
-            <span class="writing-category">Nutrition Science</span>
-            <h3>Nutrient Density: The Metric That Should Be on Every Label</h3>
-            <p>The science is clear. The labels aren't. Here's what needs to change.</p>
-            <a href="#" class="writing-link">Read More &rarr;</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+/* ── Scroll reveal for content sections ── */
+const revEls = document.querySelectorAll('[data-r],[data-rl],[data-rr]');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const sibs = [...e.target.parentElement.children].filter(c =>
+      c.hasAttribute('data-r')||c.hasAttribute('data-rl')||c.hasAttribute('data-rr')
+    );
+    setTimeout(()=> e.target.classList.add('on'), sibs.indexOf(e.target) * 80);
+    io.unobserve(e.target);
+  });
+}, { threshold:0.1 });
+revEls.forEach(el => io.observe(el));
 
-  <!-- Values / Beliefs Section -->
-  <section class="values-section">
-    <div class="container">
-      <div class="values-inner">
-        <p class="section-eyebrow">What I Believe</p>
-        <div class="values-quotes">
-          <blockquote class="value-quote">
-            <p>"Eating well isn't complicated. The system around it is. That's what we're fixing."</p>
-          </blockquote>
-          <blockquote class="value-quote">
-            <p>"I've modelled the cap table and read the nutrition study. Usually before 7am."</p>
-          </blockquote>
-          <blockquote class="value-quote">
-            <p>"The grocery store is the most underutilised health intervention on the planet."</p>
-          </blockquote>
-        </div>
-      </div>
-    </div>
-  </section>
+/* ── Magnetic buttons ── */
+document.querySelectorAll('.btn,.nav-cta').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    btn.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.18}px,${(e.clientY-(r.top+r.height/2))*.18}px)`;
+  });
+  btn.addEventListener('mouseleave', () => btn.style.transform = '');
+});
 
-  <!-- Contact / CTA Section -->
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="contact-inner">
-        <div class="contact-content">
-          <p class="section-eyebrow">Let's Connect</p>
-          <h2 class="section-title">I'd love to hear from you</h2>
-          <p>Whether you're an investor interested in Verifood, a potential collaborator in food-tech or nutrition science, or just someone who cares about fixing the food system &mdash; let's talk.</p>
-          <div class="contact-details">
-            <a href="https://www.instagram.com/yasbeanqueen/" class="contact-link" target="_blank" rel="noopener">
-              <span class="contact-icon">&#10022;</span>
-              @iambeangirl
-            </a>
-          </div>
-        </div>
-        <form class="contact-form" onsubmit="return false;">
-          <input type="text" placeholder="Your name" class="form-input" required>
-          <input type="email" placeholder="Your email" class="form-input" required>
-          <select class="form-input form-select">
-            <option value="" disabled selected>I'm reaching out about...</option>
-            <option value="investing">Investing in Verifood</option>
-            <option value="collaboration">Collaboration / Partnership</option>
-            <option value="speaking">Speaking Opportunity</option>
-            <option value="media">Media / Press</option>
-            <option value="other">Something Else</option>
-          </select>
-          <textarea placeholder="Your message" class="form-input form-textarea" rows="4"></textarea>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
-      </div>
-    </div>
-  </section>
+/* ── Email capture — calls /api/send-email (Vercel serverless function)
+   The Resend API key lives in Vercel's environment variables, not here.
+*/
+async function submitPaper() {
+  const el = document.getElementById('paper-email');
+  if (!el || !el.value.includes('@')) {
+    if (el) { el.style.borderColor='var(--burg)'; el.focus(); }
+    return;
+  }
+  const email = el.value.trim();
+  const btn   = el.nextElementSibling;
+  btn.textContent = 'Sending…';
+  btn.disabled    = true;
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a href="#" class="footer-logo">Annabelle Body</a>
-          <p class="footer-tagline">Founder, Verifood. HBS MBA '26.<br>Building the future of personalised nutrition.</p>
-        </div>
-        <div class="footer-links-group">
-          <div class="footer-col">
-            <h4>Navigate</h4>
-            <ul>
-              <li><a href="#about">About</a></li>
-              <li><a href="#verifood">Verifood</a></li>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#writing">Writing</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="https://www.instagram.com/yasbeanqueen/" target="_blank" rel="noopener">Instagram</a></li>
-              <li><a href="https://www.linkedin.com/in/annabelle-body/" target="_blank" rel="noopener">LinkedIn</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Annabelle Body. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  try {
+    const res = await fetch('/api/send-email', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email }),
+    });
 
-  </div><!-- /.page-content -->
+    if (!res.ok) throw new Error('API error ' + res.status);
 
-  <script src="script.js"></script>
+    document.getElementById('paper-form').innerHTML =
+      '<p style="color:var(--burg);font-size:15px;font-style:italic;padding-top:8px">✓ Brilliant — check your inbox. The paper is on its way.</p>';
+
+  } catch(err) {
+    console.error('Submit error:', err);
+    btn.textContent = 'Try again';
+    btn.disabled    = false;
+    el.style.borderColor = 'var(--burg)';
+  }
+}
+
+document.addEventListener('keydown', e => {
+  const emailEl = document.getElementById('paper-email');
+  if (emailEl && e.key==='Enter' && document.activeElement===emailEl) submitPaper();
+});
+</script>
 </body>
 </html>
