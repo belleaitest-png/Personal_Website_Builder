@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   }
 
   const RESEND_KEY  = process.env.RESEND_API_KEY;
-  const BELLE_EMAIL = 'bbody01@gmail.com';
+  const BELLE_EMAIL = process.env.CONTACT_EMAIL;
   const FROM        = 'Belle Body <hello@annabellebody.com>';
   const PAPER_LINK  = 'https://drive.google.com/file/d/1auV_4XR92V_H-mdAFVMZZ4jO9bcCXsMZ/view?usp=drive_link';
 
