@@ -537,11 +537,27 @@ img  { display:block; max-width:100%; }
     radial-gradient(ellipse at 50% 65%, rgba(139,26,74,.18), transparent 55%),
     radial-gradient(ellipse at 50% 20%, rgba(196,148,58,.07), transparent 50%);
 }
-.contact-inner { position:relative; max-width:660px; margin:0 auto; }
+.contact-inner { position:relative; max-width:580px; margin:0 auto; }
 .contact-inner h2 { font-family:var(--serif); font-size:clamp(44px,6.5vw,86px); font-weight:900; line-height:1; color:var(--cream); margin-bottom:20px; }
 .contact-inner h2 em { font-style:italic; color:var(--burg); }
-.contact-inner p { font-size:16px; line-height:1.75; color:var(--cream-dim); margin-bottom:40px; max-width:500px; margin-left:auto; margin-right:auto; }
-.contact-btns { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.contact-inner > p { font-size:16px; line-height:1.75; color:var(--cream-dim); margin-bottom:40px; max-width:500px; margin-left:auto; margin-right:auto; }
+.contact-form { display:flex; flex-direction:column; gap:14px; text-align:left; }
+.cf-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.cf-field { display:flex; flex-direction:column; gap:6px; }
+.cf-field label { font-size:10px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:rgba(245,237,216,.4); }
+.cf-field input, .cf-field textarea { background:rgba(255,255,255,.05); border:1px solid rgba(245,237,216,.12); border-radius:2px; padding:13px 15px; color:var(--cream); font-size:14px; font-family:var(--sans); outline:none; transition:border-color .2s,background .2s; width:100%; }
+.cf-field input:focus, .cf-field textarea:focus { border-color:var(--gold); background:rgba(255,255,255,.08); }
+.cf-field input::placeholder, .cf-field textarea::placeholder { color:rgba(245,237,216,.25); }
+.cf-field textarea { resize:vertical; min-height:110px; }
+.cf-check { display:flex; align-items:center; gap:10px; cursor:none; }
+.cf-check input[type="checkbox"] { width:16px; height:16px; flex-shrink:0; accent-color:var(--gold); cursor:none; }
+.cf-check span { font-size:13px; color:rgba(245,237,216,.45); line-height:1.4; }
+.cf-submit { width:100%; padding:16px; background:var(--burg); color:#fff; border:none; border-radius:2px; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; cursor:none; transition:background .2s,transform .25s var(--ease),box-shadow .25s var(--ease); }
+.cf-submit:hover { background:#a82259; transform:translateY(-3px); box-shadow:0 12px 28px rgba(139,26,74,.4); }
+.cf-submit:disabled { opacity:.5; transform:none; }
+.cf-social { display:flex; justify-content:center; gap:16px; margin-top:32px; flex-wrap:wrap; }
+.cf-social a { font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(245,237,216,.3); transition:color .2s; }
+.cf-social a:hover { color:var(--gold); }
 
 /* ─────────────────────────────────────────────
    FOOTER
@@ -584,7 +600,7 @@ footer { background:var(--dark); border-top:1px solid var(--bdark); padding:26px
   .hero-img-wrap { width:72vw; }
   .writing-grid { grid-template-columns:1fr; }
   .stats-row { grid-template-columns:1fr; }
-  .contact-btns { flex-direction:column; align-items:center; }
+  .cf-row { grid-template-columns:1fr; }
 }
 
 /* Mobile fallback CTAs (hidden on desktop) */
@@ -861,11 +877,33 @@ footer { background:var(--dark); border-top:1px solid var(--bdark); padding:26px
   <div class="contact-inner">
     <span class="label" data-r>Get In Touch</span>
     <h2 data-r>Let's be in the <em>room</em> together.</h2>
-    <p data-r>Whether you're building something consequential, want a researcher who gets things done, or just want to talk about the food system for two hours — I'd love to hear from you.</p>
-    <div class="contact-btns" data-r>
-      <a href="mailto:bbody01@gmail.com" class="btn btn-gold">Send a Message →</a>
-      <a href="https://www.linkedin.com/in/annabelle-body/" target="_blank" rel="noopener" class="btn btn-ghost-d">LinkedIn ↗</a>
-      <a href="https://verifood.app" target="_blank" rel="noopener" class="btn btn-ghost-d">Try Verifood ↗</a>
+    <p data-r>Whether you're building something consequential, want a researcher who gets things done, or just want to talk about the food system for two hours — drop me a note.</p>
+
+    <form class="contact-form" id="contact-form" data-r onsubmit="submitContact(event)">
+      <div class="cf-row">
+        <div class="cf-field">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" placeholder="Your name" required />
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" placeholder="your@email.com" required />
+        </div>
+      </div>
+      <div class="cf-field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <label class="cf-check">
+        <input type="checkbox" id="cf-newsletter" />
+        <span>Add me to the newsletter — I want to hear about new research, protocols, and writing when it drops.</span>
+      </label>
+      <button type="submit" class="cf-submit" id="cf-btn">Send Message →</button>
+    </form>
+
+    <div class="cf-social">
+      <a href="https://www.linkedin.com/in/annabelle-body/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://verifood.app" target="_blank" rel="noopener">Try Verifood ↗</a>
     </div>
   </div>
 </section>
@@ -990,6 +1028,31 @@ document.addEventListener('keydown', e => {
   const emailEl = document.getElementById('paper-email');
   if (emailEl && e.key==='Enter' && document.activeElement===emailEl) submitPaper();
 });
+
+/* Contact form — /api/contact handles everything server-side. No email in client code. */
+async function submitContact(e) {
+  e.preventDefault();
+  const name       = document.getElementById('cf-name').value.trim();
+  const email      = document.getElementById('cf-email').value.trim();
+  const message    = document.getElementById('cf-message').value.trim();
+  const newsletter = document.getElementById('cf-newsletter').checked;
+  const btn        = document.getElementById('cf-btn');
+  btn.textContent  = 'Sending…';
+  btn.disabled     = true;
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message, newsletter }),
+    });
+    if (!res.ok) throw new Error('error');
+    document.getElementById('contact-form').innerHTML =
+      '<p style="color:var(--gold);font-size:16px;font-style:italic;text-align:center;padding:32px 0">✓ Message received — I\'ll be in touch.</p>';
+  } catch(err) {
+    btn.textContent = 'Try again';
+    btn.disabled    = false;
+  }
+}
 </script>
 </body>
 </html>
