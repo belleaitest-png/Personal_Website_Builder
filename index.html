@@ -249,12 +249,15 @@ img  { display:block; max-width:100%; }
 }
 
 /* Dark backdrop — sits between name text (z:1) and photo (z:5).
-   Absorbs the name text showing through semi-transparent photo edges. */
+   Two-layer shield: strong at face/top area, medium across full figure.
+   Only affects semi-transparent photo edges — opaque figure pixels are unaffected. */
 .portal-stage::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 55% 80% at 50% 54%, rgba(14,8,22,.78) 0%, rgba(14,8,22,.4) 50%, transparent 72%);
+  background:
+    radial-gradient(ellipse 48% 42% at 50% 26%, rgba(14,8,22,.94) 0%, rgba(14,8,22,.6) 45%, transparent 75%),
+    radial-gradient(ellipse 46% 80% at 50% 52%, rgba(14,8,22,.85) 0%, rgba(14,8,22,.4) 50%, transparent 75%);
   z-index: 3;
   pointer-events: none;
 }
