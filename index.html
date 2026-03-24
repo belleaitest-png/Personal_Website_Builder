@@ -248,6 +248,17 @@ img  { display:block; max-width:100%; }
   z-index: 0;
 }
 
+/* Dark backdrop — sits between name text (z:1) and photo (z:5).
+   Absorbs the name text showing through semi-transparent photo edges. */
+.portal-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 80% at 50% 54%, rgba(14,8,22,.78) 0%, rgba(14,8,22,.4) 50%, transparent 72%);
+  z-index: 3;
+  pointer-events: none;
+}
+
 /* Pulsating glow layer — breathes dramatically */
 .portal-glow {
   position: absolute;
