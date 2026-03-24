@@ -62,10 +62,13 @@
    ANNOUNCEMENT BANNER
 ───────────────────────────────────────────── */
 .announce-bar {
-  position: relative;
-  z-index: 400;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
   background: var(--burg);
-  padding: 11px 24px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +119,9 @@ img  { display:block; max-width:100%; }
 ───────────────────────────────────────────── */
 #nav {
   position: fixed;
-  inset: 0 0 auto 0;
+  top: 40px;
+  left: 0;
+  right: 0;
   z-index: 300;
   display: flex;
   align-items: center;
@@ -229,7 +234,7 @@ img  { display:block; max-width:100%; }
   transform: translateX(-50%);
   z-index: 1;
   font-family: var(--serif);
-  font-size: clamp(72px, 17vw, 230px);
+  font-size: clamp(56px, 11vw, 160px);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -.03em;
@@ -1075,7 +1080,9 @@ const curRing = document.getElementById('cur-ring');
 /* ── Sticky nav — hidden inside portal, appears once user scrolls past ── */
 const nav = document.getElementById('nav');
 function updateNav() {
-  const portalBottom = portalEl.offsetTop + portalEl.offsetHeight;
+  const pe = document.getElementById('portal-scroll');
+  if (!pe) return;
+  const portalBottom = pe.offsetTop + pe.offsetHeight;
   const pastPortal   = window.scrollY > portalBottom - window.innerHeight * 0.6;
   nav.classList.toggle('visible', pastPortal);
   nav.classList.toggle('solid',   pastPortal);
