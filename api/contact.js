@@ -41,8 +41,61 @@ export default async function handler(req, res) {
     return r.json();
   }
 
+  // Non-blocking Notion integration
+  const NOTION_TOKEN = process.env.NOTION_TOKEN;
+  const NOTION_DB_ID = process.env.NOTION_CONTACTS_DB_ID;
+
+  async function saveToNotion() {
+    if (!NOTION_TOKEN || !NOTION_DB_ID) {
+      console.warn('Notion not configured - skipping database save');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.notion.com/v1/pages', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${NOTION_TOKEN}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          parent: { database_id: NOTION_DB_ID },
+          properties: {
+            Name: {
+              title: [{ text: { content: name } }],
+            },
+            Email: {
+              email: email,
+            },
+            Message: {
+              rich_text: [{ text: { content: message } }],
+            },
+            Newsletter: {
+              checkbox: newsletter || false,
+            },
+            Date: {
+              date: { start: new Date().toISOString().split('T')[0] },
+            },
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        console.error(`Notion API error (${response.status}): ${error}`);
+      }
+    } catch (err) {
+      console.error('Failed to save to Notion:', err.message);
+      // Don't throw - we don't want Notion failures to break the contact form
+    }
+  }
+
   try {
-    // 1. Notify Belle
+    // 1. Save to Notion (non-blocking)
+    saveToNotion();
+
+    // 2. Notify Belle
     const newsletterTag = newsletter ? ' + newsletter signup' : '';
     await send({
       from:    'Belle Body Website <hello@annabellebody.com>',
