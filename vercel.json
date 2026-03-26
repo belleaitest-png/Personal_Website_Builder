@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/send-email.js": {
+      "includeFiles": "api/birth-rates-paper.pdf"
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ]

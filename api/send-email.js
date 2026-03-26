@@ -4,9 +4,6 @@
 
 import fs   from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default async function handler(req, res) {
   // Only allow POST
@@ -32,7 +29,7 @@ export default async function handler(req, res) {
   // Read PDF attachment
   let pdfBase64;
   try {
-    const pdfPath = path.join(__dirname, 'birth-rates-paper.pdf');
+    const pdfPath = path.join(process.cwd(), 'api', 'birth-rates-paper.pdf');
     pdfBase64 = fs.readFileSync(pdfPath).toString('base64');
   } catch (err) {
     console.error('Could not read PDF:', err.message);
