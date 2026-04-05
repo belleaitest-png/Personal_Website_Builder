@@ -1,5 +1,13 @@
 {
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/send-email.js": {
+      "includeFiles": "api/birth-rates-paper.pdf"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
