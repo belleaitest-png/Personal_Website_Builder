@@ -115,7 +115,7 @@ function HeroSection() {
         style={{
           position: 'absolute', top: 0, left: 0,
           width: '100%', height: '100%',
-          objectFit: 'cover', objectPosition: 'center 20%',
+          objectFit: 'cover', objectPosition: 'center 30%',
           opacity: loaded ? 1 : 0,
           transition: 'opacity 1.2s ease',
         }}
