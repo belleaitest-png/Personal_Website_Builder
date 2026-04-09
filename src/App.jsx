@@ -107,15 +107,15 @@ function HeroSection() {
   return (
     <section id="home" style={{
       position: 'relative', width: '100%', height: '100vh',
-      overflow: 'hidden', background: '#2a2a2a',
+      overflow: 'hidden',
     }}>      {/* Full-bleed background photo */}
       <img
-        src="/images/photo-headshot.png"
+        src="/images/hero-bg.jpg"
         alt="Annabelle Body"
         style={{
           position: 'absolute', top: 0, left: 0,
           width: '100%', height: '100%',
-          objectFit: 'contain', objectPosition: 'center center',
+          objectFit: 'cover', objectPosition: 'center 25%',
           opacity: loaded ? 1 : 0,
           transition: 'opacity 1.2s ease',
         }}
