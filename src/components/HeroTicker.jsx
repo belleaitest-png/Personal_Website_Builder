@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const CORAL = '#FF4F38'
+const CORAL = '#D47860'
 const CREAM = '#F5F0E8'
 const DEFAULT_TEXT = 'How can we align financial incentives with human and planetary health as technology opens new possibilities?'
 
@@ -28,7 +28,6 @@ function useTypewriter(text, loop) {
   }, [phase, charIdx, text, loop])
   return display
 }
-
 export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=true, overlayOpacity=0.35 }) {
   const display = useTypewriter(questionText, loopTypewriter)
   return (
