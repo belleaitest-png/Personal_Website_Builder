@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const CORAL = '#D47860'
 const CREAM = '#F5F0E8'
-const DEFAULT_TEXT = 'How can we align financial incentives with human and planetary health as technology opens new possibilities?'
+const DEFAULT_TEXT = "What if the most radical health intervention isn't a drug or a diet — it's changing who profits from your health?"
 
 function useTypewriter(text, loop) {
   const [display, setDisplay] = useState('')
@@ -28,18 +28,34 @@ function useTypewriter(text, loop) {
   }, [phase, charIdx, text, loop])
   return display
 }
-export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=true, overlayOpacity=0.35 }) {
+export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=true, overlayOpacity=0.45 }) {
   const display = useTypewriter(questionText, loopTypewriter)
   return (
-    <div style={{ background:`rgba(6,17,30,${overlayOpacity})`, backdropFilter:'blur(12px)', WebkitBackdropFilter:'blur(12px)',
-      border:'1px solid rgba(245,240,232,0.1)', borderRadius:10, padding:'28px 36px', textAlign:'center',
-      fontFamily:"'DM Sans','Helvetica Neue',sans-serif", display:'flex', alignItems:'center', justifyContent:'center',
-      maxWidth:720, width:'90%' }}>
-      <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(1.55rem,2.8vw,2.4rem)',
-        fontWeight:300, fontStyle:'italic', color:CREAM, lineHeight:1.5, minHeight:'3em',
-        display:'flex', alignItems:'center', justifyContent:'center' }}>
-        <span>{display}<span style={{ display:'inline-block', width:2, height:'0.8em', background:CORAL,
-          marginLeft:4, verticalAlign:'middle', animation:'blink 1s step-end infinite' }} /></span>
+    <div style={{
+      background: `rgba(6,17,30,${overlayOpacity})`,
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      border: '1px solid rgba(245,240,232,0.08)',
+      borderRadius: 0,
+      padding: '32px 48px',
+      textAlign: 'center',
+      fontFamily: "'DM Sans','Helvetica Neue',sans-serif",
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      width: '100%',
+    }}>
+      <div style={{
+        fontFamily: "'Cormorant Garamond',Georgia,serif",
+        fontSize: 'clamp(1.4rem, 2.6vw, 2.2rem)',
+        fontWeight: 300, fontStyle: 'italic',
+        color: CREAM, lineHeight: 1.55,
+        minHeight: '2.5em',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <span>{display}<span style={{
+          display: 'inline-block', width: 2, height: '0.8em',
+          background: CORAL, marginLeft: 4, verticalAlign: 'middle',
+          animation: 'blink 1s step-end infinite',
+        }} /></span>
       </div>
     </div>
   )

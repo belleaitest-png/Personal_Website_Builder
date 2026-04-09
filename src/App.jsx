@@ -24,30 +24,24 @@ function LiquidDivider() {
     </div>
   )
 }
-/* ─── Scroll indicator ─── */
+/* ─── Scroll indicator (diamond star, bottom-right like Framer) ─── */
 function ScrollIndicator() {
   return (
     <div style={{
-      position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
-      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
-      opacity: 0.45, animation: 'scrollBounce 2.4s ease-in-out infinite',
-    }}>
-      <div style={{
-        width: 20, height: 32, borderRadius: 12, border: `1.5px solid ${CREAM}`,
-        display: 'flex', justifyContent: 'center', paddingTop: 6,
-      }}>
-        <div style={{
-          width: 2, height: 8, borderRadius: 2, background: CREAM,
-          animation: 'scrollDot 2.4s ease-in-out infinite',
-        }} />
-      </div>
-      <div style={{
-        fontSize: 9, letterSpacing: '0.25em', textTransform: 'uppercase',
-        color: CREAM, fontFamily: "'DM Sans',sans-serif",
-      }}>scroll</div>
+      position: 'absolute', bottom: 32, right: 40,
+      opacity: 0.5, animation: 'scrollBounce 2.4s ease-in-out infinite',
+      cursor: 'pointer',
+    }}
+      onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+    >
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"
+          fill={CREAM} />
+      </svg>
     </div>
   )
 }
+
 /* ─── Nav (appears on scroll, minimal) ─── */
 function Nav({ currentSection }) {
   const [scrolled, setScrolled] = useState(false)
@@ -58,7 +52,6 @@ function Nav({ currentSection }) {
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
   const links = [
     { label: 'Home', href: '#home' },
     { label: 'News Feed', href: '#newsfeed' },
@@ -74,7 +67,8 @@ function Nav({ currentSection }) {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       transition: 'all 0.5s cubic-bezier(.16,1,.3,1)',
       background: scrolled ? 'rgba(6,15,30,0.92)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(20px)' : 'none',      WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+      backdropFilter: scrolled ? 'blur(20px)' : 'none',
+      WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
       transform: scrolled ? 'translateY(0)' : 'translateY(-100%)',
       opacity: scrolled ? 1 : 0,
       pointerEvents: scrolled ? 'auto' : 'none',
@@ -86,8 +80,7 @@ function Nav({ currentSection }) {
       }}>AB</a>
       <div style={{ display: 'flex', gap: 28, alignItems: 'center' }}
         className="nav-links">
-        {links.map(({ label, href }) => (
-          <a key={label} href={href} style={{
+        {links.map(({ label, href }) => (          <a key={label} href={href} style={{
             fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase',
             color: 'rgba(245,240,232,0.55)', textDecoration: 'none',
             transition: 'color 0.25s', fontFamily: "'DM Sans',sans-serif",
@@ -101,7 +94,8 @@ function Nav({ currentSection }) {
     </nav>
   )
 }
-/* ─── HERO SECTION ─── */
+
+/* ─── HERO SECTION (Full-bleed photo background like Framer) ─── */
 function HeroSection() {
   const [loaded, setLoaded] = useState(false)
 
@@ -112,107 +106,75 @@ function HeroSection() {
 
   return (
     <section id="home" style={{
-      position: 'relative', width: '100%', minHeight: '100vh',
-      background: NAVY, overflow: 'hidden',
-      display: 'flex', flexDirection: 'column',
-    }}>
-      {/* Subtle radial glow behind photo */}
+      position: 'relative', width: '100%', height: '100vh',
+      overflow: 'hidden',
+    }}>      {/* Full-bleed background photo */}
+      <img
+        src="/images/photo-headshot.png"
+        alt="Annabelle Body"
+        style={{
+          position: 'absolute', top: 0, left: 0,
+          width: '100%', height: '100%',
+          objectFit: 'cover', objectPosition: 'center 20%',
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 1.2s ease',
+        }}
+      />
+
+      {/* Dark gradient overlay for text readability */}
       <div style={{
-        position: 'absolute',
-        top: '20%', left: '50%', transform: 'translateX(-50%)',
-        width: '80vw', height: '80vw', maxWidth: 900, maxHeight: 900,
-        background: `radial-gradient(ellipse, rgba(212,120,96,0.08) 0%, rgba(212,120,96,0.03) 40%, transparent 70%)`,
+        position: 'absolute', inset: 0,
+        background: `linear-gradient(
+          to bottom,
+          rgba(6,15,30,0.25) 0%,
+          rgba(6,15,30,0.15) 30%,
+          rgba(6,15,30,0.3) 50%,
+          rgba(6,15,30,0.5) 80%,
+          rgba(6,15,30,0.7) 100%
+        )`,
         pointerEvents: 'none',
       }} />
-      {/* Main content container */}
+      {/* Logo text — top-left corner, small italic */}
       <div style={{
-        flex: 1, display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        padding: '80px 24px 100px',
-        position: 'relative', zIndex: 2,
+        position: 'absolute', top: 28, left: 32, zIndex: 10,
+        opacity: loaded ? 1 : 0,
+        transition: 'opacity 0.8s ease 0.3s',
       }}>
-
-        {/* Subtitle above name */}
-        <div style={{
-          fontSize: 11, letterSpacing: '0.24em', textTransform: 'uppercase',
-          color: 'rgba(245,240,232,0.4)', fontFamily: "'DM Sans',sans-serif",
-          marginBottom: 20,
-          opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0)' : 'translateY(12px)',
-          transition: 'all 0.8s cubic-bezier(.16,1,.3,1) 0.2s',
-        }}>
-          HBS MBA 2026 · Food · Health · Technology
-        </div>
-
-        {/* Name */}
         <h1 style={{
           fontFamily: "'Cormorant Garamond',Georgia,serif",
-          fontSize: 'clamp(3rem, 8vw, 7rem)',
-          fontWeight: 300, fontStyle: 'italic',
-          color: CORAL,
-          lineHeight: 1.0, margin: 0, letterSpacing: '-0.02em',
-          textAlign: 'center',          opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0)' : 'translateY(16px)',
-          transition: 'all 0.9s cubic-bezier(.16,1,.3,1) 0.35s',
+          fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)',
+          fontWeight: 400, fontStyle: 'italic',
+          color: CORAL, margin: 0,
+          letterSpacing: '0.02em',
         }}>
           Annabelle Body
         </h1>
-
-        {/* Thin accent line */}
-        <div style={{
-          width: 48, height: 1, background: CORAL, margin: '24px auto 36px',
-          opacity: loaded ? 0.6 : 0,
-          transition: 'opacity 1s ease 0.6s',
-        }} />
-
-        {/* Photo */}
-        <div style={{
-          position: 'relative', marginBottom: 40,
-          opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.97)',
-          transition: 'all 1s cubic-bezier(.16,1,.3,1) 0.5s',
-        }}>
-          {/* Soft glow behind photo */}
-          <div style={{
-            position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)',
-            width: '120%', height: '100%',
-            background: `radial-gradient(ellipse, rgba(212,120,96,0.12) 0%, transparent 60%)`,
-            pointerEvents: 'none', filter: 'blur(40px)',
-          }} />          <img
-            src="/images/photo-headshot.png"
-            alt="Annabelle Body"
-            style={{
-              height: 'clamp(280px, 40vh, 420px)',
-              width: 'auto',
-              objectFit: 'contain',
-              position: 'relative',
-              filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.4))',
-            }}
-          />
-        </div>
-
-        {/* Typewriter question */}
-        <div style={{
-          opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0)' : 'translateY(16px)',
-          transition: 'all 0.9s cubic-bezier(.16,1,.3,1) 0.7s',
-          width: '100%', display: 'flex', justifyContent: 'center',
-        }}>
-          <HeroTicker
-            questionText="How can we align financial incentives with human and planetary health as technology opens new possibilities?"
-            loopTypewriter={true}
-            overlayOpacity={0.4}
-          />
-        </div>
       </div>
-      {/* Scroll indicator */}
+
+      {/* Typewriter tagline — centered in lower-center area */}
+      <div style={{
+        position: 'absolute',
+        top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '90%', maxWidth: 860,
+        zIndex: 10,
+        opacity: loaded ? 1 : 0,
+        transition: 'opacity 0.9s ease 0.6s',
+      }}>
+        <HeroTicker          questionText="What if the most radical health intervention isn't a drug or a diet — it's changing who profits from your health?"
+          loopTypewriter={true}
+          overlayOpacity={0.45}
+        />
+      </div>
+
+      {/* Scroll indicator — diamond star, bottom-right */}
       <ScrollIndicator />
 
       {/* Keyframes */}
       <style>{`
         @keyframes scrollBounce {
-          0%, 100% { transform: translateX(-50%) translateY(0); }
-          50% { transform: translateX(-50%) translateY(8px); }
-        }
-        @keyframes scrollDot {
-          0%, 100% { opacity: 1; transform: translateY(0); }
-          50% { opacity: 0.3; transform: translateY(4px); }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(8px); }
         }
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
@@ -221,6 +183,7 @@ function HeroSection() {
     </section>
   )
 }
+
 /* ─── App ─── */
 export default function App() {
   return (
@@ -228,8 +191,7 @@ export default function App() {
       background: NAVY, color: CREAM,
       fontFamily: "'DM Sans','Helvetica Neue',sans-serif",
       overflowX: 'hidden',
-    }}>
-      <Nav />
+    }}>      <Nav />
       <HeroSection />
       <LiquidDivider />
 
