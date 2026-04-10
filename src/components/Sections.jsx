@@ -2,8 +2,8 @@ import { useState } from 'react'
 import HeroTicker from './HeroTicker'
 
 // ─── Palette ────────────────────────────────────────────────────────────────
-const NAVY        = '#060F1E'
-const NAVY_LIGHT  = '#0D1B30'
+const NAVY        = '#191A1A'
+const NAVY_LIGHT  = '#222526'
 const SLATE       = '#334155'
 const SLATE_LIGHT = '#475569'
 const CREAM       = '#F5F0E8'
@@ -573,7 +573,7 @@ function Contact() {
 // ─── Footer ──────────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{ background: '#030B16', padding: '48px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <footer style={{ background: '#101212', padding: '48px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px' }}>
         <p style={{ fontFamily: serif, fontSize: '18px', color: WHITE, margin: 0, fontWeight: '600' }}>Annabelle Body</p>
         <p style={{ fontFamily: sans, fontSize: '13px', color: CREAM, opacity: 0.35, margin: 0 }}>

@@ -29,7 +29,7 @@ Cormorant Garamond: ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400
 |-----------------|-----------|--------------------------------------------|
 | Coral Red       | `#D84535` | Logo wordmark only                         |
 | Coral Accent    | `#E8534E` | Buttons, links, section labels, dividers   |
-| Navy            | `#060F1E` | Page background, nav backdrop              |
+| Slate Dark            | `#060F1E` | Page background, nav backdrop              |
 | Cream           | `#F5F0E8` | Body text, nav links                       |
 | White           | `#FFFFFF` | Headings, button text                      |
 

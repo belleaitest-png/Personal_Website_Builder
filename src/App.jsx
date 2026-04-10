@@ -9,7 +9,7 @@ const NAV = [
   { label: 'Contact', href: '#contact' },
 ]
 
-const NAVY        = '#060F1E'
+const NAVY        = '#191A1A'
 const ORANGE      = '#E8534E'
 const CREAM       = '#F5F0E8'
 const WHITE       = '#FFFFFF'
