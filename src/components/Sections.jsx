@@ -93,15 +93,15 @@ function Hero() {
       position: 'relative',
       height: '100vh',
       overflow: 'hidden',
-      background: '#3a3530',
+      background: '#c8c4be',
     }}>
       {/* Full-bleed background photo */}
       <div style={{
         position: 'absolute',
         inset: 0,
         backgroundImage: "url('/images/photo-headshot.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center top',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
       }} />
 
