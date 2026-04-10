@@ -33,11 +33,6 @@ export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=t
   const isLeft = align === 'left'
   return (
     <div style={{
-      background: `rgba(6,17,30,${overlayOpacity})`,
-      backdropFilter: 'blur(12px)',
-      WebkitBackdropFilter: 'blur(12px)',
-      border: '1px solid rgba(245,240,232,0.08)',
-      borderRadius: 0,
       padding: '32px 48px',
       textAlign: isLeft ? 'left' : 'center',
       display: 'flex', alignItems: 'center',

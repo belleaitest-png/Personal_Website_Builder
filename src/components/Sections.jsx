@@ -110,7 +110,7 @@ function Hero() {
         position: 'absolute',
         top: '50%',
         left: 0,
-        width: '48%',
+        width: '38%',
         transform: 'translateY(-50%)',
         zIndex: 10,
       }}>
@@ -599,8 +599,8 @@ export default function Sections() {
   return (
     <>
       <Hero />
-      <CurrentlyThinking />
       <Pillars />
+      <CurrentlyThinking />
       <About />
       <Research />
       <Verifood />
