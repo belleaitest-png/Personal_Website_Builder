@@ -105,16 +105,16 @@ function Hero() {
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* Ticker centered in the middle of the page */}
+      {/* Ticker — left side, vertically centered */}
       <div style={{
         position: 'absolute',
         top: '50%',
         left: 0,
-        right: 0,
+        width: '48%',
         transform: 'translateY(-50%)',
         zIndex: 10,
       }}>
-        <HeroTicker overlayOpacity={0.6} />
+        <HeroTicker overlayOpacity={0.6} align="left" />
       </div>
     </section>
   )
@@ -163,28 +163,32 @@ function CurrentlyThinking() {
   )
 }
 
-// ─── Three Pillars ───────────────────────────────────────────────────────────
-const PILLARS = [
+// ─── What I've Built ─────────────────────────────────────────────────────────
+const BUILDS = [
   {
     num: '01',
-    title: 'Research',
-    desc: 'Academic and public-facing work on fertility, food systems, and declining birth rates — built at HBS.',
-    href: '#research',
-    cta: 'Read the Papers',
+    title: 'Mama Mosaic',
+    desc: 'A community hub for mothers navigating nutrition, fertility, and the early years — connecting evidence-based tools with lived experience.',
+    href: 'https://mama-mosaic-hub.lovable.app',
+    cta: 'Visit Mama Mosaic',
+    external: true,
   },
   {
     num: '02',
     title: 'Verifood',
     desc: 'An AI tool that decodes food labels in seconds — because you shouldn\'t need a PhD to know what you\'re eating.',
-    href: '#verifood',
-    cta: 'Explore the Tool',
+    href: 'https://verifood.app/',
+    cta: 'Visit Verifood',
+    external: true,
   },
   {
     num: '03',
-    title: 'Writing',
-    desc: 'Essays and dispatches on food, fertility, performance, and the systems that shape how we live.',
-    href: '#writing',
-    cta: 'Read the Essays',
+    title: 'Gratitude App',
+    desc: 'A social wellness app built around daily gratitude — coming soon.',
+    href: '#',
+    cta: 'Coming Soon',
+    external: false,
+    placeholder: true,
   },
 ]
 
@@ -192,28 +196,34 @@ function Pillars() {
   return (
     <section style={{ background: NAVY, padding: '100px 48px' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        {sectionLabel('What I\'m Building')}
+        {sectionLabel('What I\'ve Built')}
         <div style={divider} />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2px' }}>
-          {PILLARS.map((p, i) => (
-            <a key={i} href={p.href} style={{
-              display: 'block',
-              padding: '48px 40px',
-              background: 'rgba(255,255,255,0.02)',
-              borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-              textDecoration: 'none',
-              transition: 'background 0.2s',
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(244,98,42,0.06)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+          {BUILDS.map((p, i) => (
+            <a
+              key={i}
+              href={p.href}
+              target={p.external ? '_blank' : undefined}
+              rel={p.external ? 'noreferrer' : undefined}
+              style={{
+                display: 'block',
+                padding: '48px 40px',
+                background: p.placeholder ? 'rgba(255,255,255,0.01)' : 'rgba(255,255,255,0.02)',
+                borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                textDecoration: 'none',
+                transition: 'background 0.2s',
+                opacity: p.placeholder ? 0.5 : 1,
+              }}
+              onMouseEnter={e => !p.placeholder && (e.currentTarget.style.background = 'rgba(232,83,78,0.06)')}
+              onMouseLeave={e => !p.placeholder && (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
             >
-              <p style={{ fontFamily: sans, fontSize: '11px', color: ORANGE, letterSpacing: '0.15em', marginBottom: '24px', fontWeight: '600' }}>
+              <p style={{ fontFamily: sans, fontSize: '12px', color: ORANGE, letterSpacing: '0.15em', marginBottom: '24px', fontWeight: '600' }}>
                 {p.num}
               </p>
               <h3 style={{ fontFamily: serif, fontSize: '28px', color: WHITE, margin: '0 0 16px' }}>{p.title}</h3>
-              <p style={{ fontFamily: sans, fontSize: '15px', color: CREAM, opacity: 0.7, lineHeight: 1.7, margin: '0 0 28px' }}>{p.desc}</p>
-              <span style={{ fontFamily: sans, fontSize: '13px', color: ORANGE, fontWeight: '600', letterSpacing: '0.06em' }}>
-                {p.cta} →
+              <p style={{ fontFamily: sans, fontSize: '17px', color: CREAM, opacity: 0.7, lineHeight: 1.7, margin: '0 0 28px' }}>{p.desc}</p>
+              <span style={{ fontFamily: sans, fontSize: '15px', color: p.placeholder ? CREAM : ORANGE, fontWeight: '600', letterSpacing: '0.06em', opacity: p.placeholder ? 0.4 : 1 }}>
+                {p.cta} {!p.placeholder && '→'}
               </span>
             </a>
           ))}

@@ -28,8 +28,9 @@ function useTypewriter(text, loop) {
   }, [phase, charIdx, text, loop])
   return display
 }
-export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=true, overlayOpacity=0.45 }) {
+export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=true, overlayOpacity=0.45, align='left' }) {
   const display = useTypewriter(questionText, loopTypewriter)
+  const isLeft = align === 'left'
   return (
     <div style={{
       background: `rgba(6,17,30,${overlayOpacity})`,
@@ -38,18 +39,19 @@ export default function HeroTicker({ questionText=DEFAULT_TEXT, loopTypewriter=t
       border: '1px solid rgba(245,240,232,0.08)',
       borderRadius: 0,
       padding: '32px 48px',
-      textAlign: 'center',
-      fontFamily: "'DM Sans','Helvetica Neue',sans-serif",
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      textAlign: isLeft ? 'left' : 'center',
+      display: 'flex', alignItems: 'center',
+      justifyContent: isLeft ? 'flex-start' : 'center',
       width: '100%',
     }}>
       <div style={{
         fontFamily: "'Cormorant Garamond',Georgia,serif",
-        fontSize: 'clamp(1.4rem, 2.6vw, 2.2rem)',
+        fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)',
         fontWeight: 300, fontStyle: 'italic',
         color: CREAM, lineHeight: 1.55,
         minHeight: '2.5em',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        display: 'flex', alignItems: 'center',
+        justifyContent: isLeft ? 'flex-start' : 'center',
       }}>
         <span>{display}<span style={{
           display: 'inline-block', width: 2, height: '0.8em',
