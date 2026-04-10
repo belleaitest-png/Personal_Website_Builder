@@ -59,8 +59,8 @@ export default function App() {
   }
 
   const navLinkStyle = {
-    fontFamily: "'Inter', sans-serif",
-    fontSize: '13px',
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: '15px',
     fontWeight: '500',
     color: CREAM,
     textDecoration: 'none',
@@ -75,7 +75,7 @@ export default function App() {
     bottom: '32px',
     right: '40px',
     zIndex: 100,
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Cormorant Garamond', serif",
     fontSize: '13px',
     fontWeight: '600',
     color: WHITE,
@@ -92,11 +92,11 @@ export default function App() {
   }
 
   return (
-    <div style={{ background: NAVY, minHeight: '100vh', fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ background: NAVY, minHeight: '100vh', fontFamily: "'Cormorant Garamond', serif" }}>
       {/* Google Fonts */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
 
       {/* Nav — logo left, links right */}
       <nav style={navStyle}>

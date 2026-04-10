@@ -12,8 +12,8 @@ const ORANGE      = '#E8534E'
 const ORANGE_DIM  = 'rgba(244,98,42,0.12)'
 
 // ─── Shared styles ──────────────────────────────────────────────────────────
-const serif = "'Playfair Display', serif"
-const sans  = "'Inter', sans-serif"
+const serif = "'Cormorant Garamond', serif"
+const sans  = "'Cormorant Garamond', serif"
 
 const tag = {
   display: 'inline-block',
