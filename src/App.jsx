@@ -9,11 +9,11 @@ const NAV = [
   { label: 'Contact', href: '#contact' },
 ]
 
-const NAVY   = '#060F1E'
-const ORANGE = '#E8534E'
-const CREAM  = '#F5F0E8'
-const WHITE  = '#FFFFFF'
-const TERRACOTTA = '#D84535'
+const NAVY        = '#060F1E'
+const ORANGE      = '#E8534E'
+const CREAM       = '#F5F0E8'
+const WHITE       = '#FFFFFF'
+const TERRACOTTA  = '#D84535'
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -37,14 +37,14 @@ export default function App() {
     height: '68px',
     background: scrolled ? `${NAVY}f2` : 'transparent',
     backdropFilter: scrolled ? 'blur(12px)' : 'none',
-    borderBottom: scrolled ? `1px solid rgba(244,98,42,0.15)` : 'none',
+    borderBottom: scrolled ? `1px solid rgba(212,69,53,0.15)` : 'none',
     transition: 'all 0.3s ease',
   }
 
   const logoStyle = {
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '22px',
-    fontWeight: '400',
+    fontSize: '26px',
+    fontWeight: '600',
     color: TERRACOTTA,
     letterSpacing: '0.03em',
     textDecoration: 'none',
@@ -70,7 +70,11 @@ export default function App() {
     transition: 'opacity 0.2s',
   }
 
-  const ctaBtnStyle = {
+  const subscribeBtnStyle = {
+    position: 'fixed',
+    bottom: '32px',
+    right: '40px',
+    zIndex: 100,
     fontFamily: "'Inter', sans-serif",
     fontSize: '13px',
     fontWeight: '600',
@@ -78,11 +82,13 @@ export default function App() {
     background: ORANGE,
     border: 'none',
     borderRadius: '4px',
-    padding: '10px 22px',
+    padding: '12px 24px',
     cursor: 'pointer',
-    letterSpacing: '0.05em',
+    letterSpacing: '0.06em',
     textDecoration: 'none',
-    transition: 'opacity 0.2s',
+    textTransform: 'uppercase',
+    boxShadow: '0 4px 20px rgba(232,83,78,0.35)',
+    transition: 'opacity 0.2s, transform 0.2s',
   }
 
   return (
@@ -92,7 +98,7 @@ export default function App() {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-      {/* Nav */}
+      {/* Nav — logo left, links right */}
       <nav style={navStyle}>
         <a href="#" style={logoStyle}>Annabelle Body</a>
         <ul style={navLinksStyle}>
@@ -109,10 +115,19 @@ export default function App() {
             </li>
           ))}
         </ul>
-        <a href="#contact" style={ctaBtnStyle}>Get in Touch</a>
       </nav>
 
-      {/* All Sections (Hero with ticker inside, then rest) */}
+      {/* Fixed Subscribe CTA — bottom right */}
+      <a
+        href="#writing"
+        style={subscribeBtnStyle}
+        onMouseEnter={e => { e.target.style.opacity = 0.85; e.target.style.transform = 'translateY(-2px)' }}
+        onMouseLeave={e => { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)' }}
+      >
+        Subscribe
+      </a>
+
+      {/* All Sections */}
       <Sections />
     </div>
   )
