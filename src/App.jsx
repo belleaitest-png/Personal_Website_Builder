@@ -10,7 +10,7 @@ const NAV = [
 ]
 
 const NAVY   = '#060F1E'
-const ORANGE = '#F4622A'
+const ORANGE = '#E8534E'
 const CREAM  = '#F5F0E8'
 const WHITE  = '#FFFFFF'
 const TERRACOTTA = '#C4705A'

@@ -8,7 +8,7 @@ const SLATE       = '#334155'
 const SLATE_LIGHT = '#475569'
 const CREAM       = '#F5F0E8'
 const WHITE       = '#FFFFFF'
-const ORANGE      = '#F4622A'
+const ORANGE      = '#E8534E'
 const ORANGE_DIM  = 'rgba(244,98,42,0.12)'
 
 // ─── Shared styles ──────────────────────────────────────────────────────────
@@ -93,37 +93,28 @@ function Hero() {
       position: 'relative',
       height: '100vh',
       overflow: 'hidden',
-      background: '#c8c4be',
+      background: NAVY,
     }}>
-      {/* Full-bleed background photo */}
+      {/* Full-bleed background photo — full colour, no mask */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: "url('/images/photo-headshot.png')",
-        backgroundSize: 'contain',
+        backgroundImage: "url('/Gemini_Generated_Image_6sjhg96sjhg96sjh.png')",
+        backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* Subtle vignette at bottom for ticker legibility */}
+      {/* Ticker centered in the middle of the page */}
       <div style={{
         position: 'absolute',
-        bottom: 0,
+        top: '50%',
         left: 0,
         right: 0,
-        height: '35%',
-        background: 'linear-gradient(to top, rgba(6,15,30,0.6) 0%, transparent 100%)',
-      }} />
-
-      {/* Ticker pinned to bottom */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
+        transform: 'translateY(-50%)',
         zIndex: 10,
       }}>
-        <HeroTicker />
+        <HeroTicker overlayOpacity={0.6} />
       </div>
     </section>
   )
