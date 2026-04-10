@@ -99,7 +99,7 @@ function Hero() {
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: "url('/images/hero-bg.jpg')",
+        backgroundImage: "url('/images/photo-headshot.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat',
