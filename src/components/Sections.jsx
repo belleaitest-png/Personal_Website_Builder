@@ -1,218 +1,643 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-const BG_CREAM='#F5EFE7', PRIMARY_DARK='#2D2620', SECONDARY_DARK='#4A4238'
-const CORAL='#FF4F38', GOLD='#D4A574'
-const serif = { fontFamily:"'Cormorant Garamond',Georgia,serif" }
-const bar = <span style={{ width:24, height:1, background:'#FF4F38', display:'block' }} />
+// ─── Palette ────────────────────────────────────────────────────────────────
+const NAVY        = '#060F1E'
+const NAVY_LIGHT  = '#0D1B30'
+const SLATE       = '#334155'
+const SLATE_LIGHT = '#475569'
+const CREAM       = '#F5F0E8'
+const WHITE       = '#FFFFFF'
+const ORANGE      = '#F4622A'
+const ORANGE_DIM  = 'rgba(244,98,42,0.12)'
 
-const QUESTIONS = [
-  'Why are birth rates really falling — and what is food doing to fertility?',
-  'What would happen if we actually fixed the food system?',
-  'Which soil health metrics will matter most to institutional investors in 2030?',
-  'Why do the smartest people I know still eat the worst food?',
-  'Can nutrient density become a verifiable, tradeable asset?',
-]
-const RESUME = [
-  { role:'Founder', company:'Verifood', period:'2025 — Present', body:"Built an app to help people understand what's actually in their food. Shipped without a technical co-founder.", tags:['Founder','Food Tech','AI','Product'] },
-  { role:'Strategy Intern', company:'Fruitist', period:'Summer 2025', body:'Built market intelligence dashboard. Led nutrient density program across supply chain.', tags:['Strategy','Food Systems'] },
-  { role:'MBA Candidate', company:'Harvard Business School', period:'2024 — 2026', body:'Food & Agriculture Club. Impact Investing focus.', tags:['MBA','Impact Investing'] },
-]
-const IDEAS = [
-  { num:'01', title:'Nutrient density labelling', body:'A standardized score that tells consumers what food actually does.', status:'building', statusText:'Developing →' },
-  { num:'02', title:'Verifood — transparency at scale', body:'Verified ingredient stories. Not marketing. Actual traceability.', status:'live', statusText:'Live at verifood.com' },
-]
+// ─── Shared styles ──────────────────────────────────────────────────────────
+const serif = "'Playfair Display', serif"
+const sans  = "'Inter', sans-serif"
 
-function useTypewriter(texts) {
-  const [display, setDisplay] = useState('')
-  const [idx, setIdx] = useState(0)
-  const [charIdx, setCharIdx] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-  useEffect(() => {
-    if (!texts.length) return
-    const current = texts[idx % texts.length]
-    const t = setTimeout(() => {
-      if (!deleting) {
-        if (charIdx < current.length) { setDisplay(current.slice(0,charIdx+1)); setCharIdx(c=>c+1) }
-        else { setTimeout(()=>setDeleting(true), 2400) }
-      } else {
-        if (charIdx > 0) { setDisplay(current.slice(0,charIdx-1)); setCharIdx(c=>c-1) }
-        else { setDeleting(false); setIdx(i=>(i+1)%texts.length) }
-      }
-    }, deleting ? 26 : 52)
-    return () => clearTimeout(t)
-  }, [charIdx, deleting, idx, texts])
-  return display
+const tag = {
+  display: 'inline-block',
+  fontFamily: sans,
+  fontSize: '11px',
+  fontWeight: '600',
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase',
+  color: ORANGE,
+  marginBottom: '16px',
 }
 
-export function ThinkingSection() {
-  const typewriter = useTypewriter(QUESTIONS)
-  return (
-    <section style={{ background:SECONDARY_DARK, padding:'88px 48px', textAlign:'center', borderTop:'1px solid rgba(212,165,116,0.12)', borderBottom:'1px solid rgba(212,165,116,0.12)' }}>
-      <div style={{ maxWidth:820, margin:'0 auto' }}>
-        <div style={{ fontSize:11, letterSpacing:'.2em', textTransform:'uppercase', color:'rgba(245,239,231,0.4)', marginBottom:28 }}>Today I'm thinking about</div>
-        <div style={{ ...serif, fontSize:'clamp(1.55rem,2.8vw,2.5rem)', fontWeight:300, fontStyle:'italic', color:BG_CREAM, lineHeight:1.35, minHeight:90, display:'flex', alignItems:'center', justifyContent:'center' }}>
-          <span>{typewriter}</span><span style={{ color:CORAL, animation:'blink 1s step-end infinite', marginLeft:2 }}>|</span>
-        </div>
-        <p style={{ fontSize:14, color:'rgba(245,239,231,0.5)', lineHeight:1.65, maxWidth:480, margin:'28px auto 0' }}>A running list of questions I can't let go of. They shape my research and the businesses I want to build.</p>
-      </div>
-    </section>
-  )
+const sectionLabel = (text) => <p style={tag}>{text}</p>
+
+const h2 = {
+  fontFamily: serif,
+  fontSize: 'clamp(32px, 5vw, 52px)',
+  fontWeight: '700',
+  color: WHITE,
+  margin: '0 0 20px',
+  lineHeight: 1.15,
 }
 
-export function ResumeSection() {
-  return (
-    <section style={{ padding:'100px 48px', background:PRIMARY_DARK }}>
-      <div style={{ maxWidth:1080, margin:'0 auto' }}>
-        <div style={{ fontSize:11, letterSpacing:'.18em', textTransform:'uppercase', color:CORAL, marginBottom:16, display:'flex', alignItems:'center', gap:10 }}>{bar}Experience</div>
-        <h2 style={{ ...serif, fontSize:'clamp(2.2rem,3.8vw,3.4rem)', fontWeight:300, lineHeight:1.08, color:BG_CREAM, marginBottom:12 }}>Where I've <em style={{ fontStyle:'italic', color:GOLD }}>been building.</em></h2>
-        <p style={{ fontSize:15, color:'rgba(245,239,231,0.5)', maxWidth:480, lineHeight:1.68, marginBottom:56 }}>From Deloitte to HBS via AlixPartners.</p>
-        {RESUME.map((r,i) => (
-          <div key={i} style={{ padding:'28px 0', borderBottom:'1px solid rgba(245,239,231,0.08)' }}>
-            <div style={{ fontSize:11, letterSpacing:'.1em', textTransform:'uppercase', color:GOLD, marginBottom:4 }}>{r.company}</div>
-            <div style={{ ...serif, fontSize:'1.45rem', fontWeight:400, color:BG_CREAM, marginBottom:4 }}>{r.role}</div>
-            <div style={{ fontSize:12, color:'rgba(245,239,231,0.35)', marginBottom:10 }}>{r.period}</div>
-            <div style={{ fontSize:15, color:'rgba(245,239,231,0.6)', lineHeight:1.68, marginBottom:12 }}>{r.body}</div>
-            <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
-              {r.tags.map(t => <span key={t} style={{ fontSize:11, background:'rgba(212,165,116,0.08)', border:'1px solid rgba(212,165,116,0.2)', color:GOLD, padding:'3px 10px', borderRadius:3 }}>{t}</span>)}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  )
+const bodyText = {
+  fontFamily: sans,
+  fontSize: '17px',
+  lineHeight: 1.75,
+  color: CREAM,
+  opacity: 0.85,
+  margin: '0 0 28px',
 }
 
-export function IdeasSection() {
-  return (
-    <section style={{ padding:'100px 48px', background:SECONDARY_DARK }}>
-      <div style={{ maxWidth:1080, margin:'0 auto' }}>
-        <div style={{ fontSize:11, letterSpacing:'.18em', textTransform:'uppercase', color:CORAL, marginBottom:16, display:'flex', alignItems:'center', gap:10 }}>{bar}Ideas Lab</div>
-        <h2 style={{ ...serif, fontSize:'clamp(2.2rem,3.8vw,3.4rem)', fontWeight:300, lineHeight:1.08, color:BG_CREAM, marginBottom:12 }}>Business ideas I'm <em style={{ fontStyle:'italic', color:GOLD }}>obsessed with.</em></h2>
-        <p style={{ fontSize:15, color:'rgba(245,239,231,0.5)', maxWidth:480, lineHeight:1.68, marginBottom:52 }}>A running list. Some will become pitch decks. Some will become companies.</p>
-        {IDEAS.map((idea,i) => (
-          <div key={i} style={{ display:'flex', gap:24, alignItems:'flex-start', padding:'22px', margin:'0 -22px', borderRadius:6, cursor:'pointer', borderBottom:'1px solid rgba(245,239,231,0.05)', transition:'background 0.2s' }}
-            onMouseEnter={e=>e.currentTarget.style.background='rgba(212,165,116,0.05)'}
-            onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
-            <div style={{ ...serif, fontSize:'2.2rem', fontWeight:300, color:'rgba(212,165,116,0.22)', minWidth:52, lineHeight:1, paddingTop:4 }}>{idea.num}</div>
-            <div style={{ flex:1 }}>
-              <div style={{ fontSize:17, fontWeight:500, color:BG_CREAM, marginBottom:7, lineHeight:1.3 }}>{idea.title}</div>
-              <div style={{ fontSize:14, color:'rgba(245,239,231,0.5)', lineHeight:1.65, marginBottom:10 }}>{idea.body}</div>
-              <div style={{ fontSize:11, letterSpacing:'.08em', textTransform:'uppercase', color:idea.status==='live'?CORAL:GOLD }}>{idea.statusText}</div>
-            </div>
-            <div style={{ fontSize:18, color:'rgba(245,239,231,0.15)', alignSelf:'center' }}>→</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  )
+const orangeBtn = {
+  display: 'inline-block',
+  fontFamily: sans,
+  fontSize: '14px',
+  fontWeight: '600',
+  color: WHITE,
+  background: ORANGE,
+  border: 'none',
+  borderRadius: '4px',
+  padding: '14px 28px',
+  cursor: 'pointer',
+  letterSpacing: '0.05em',
+  textDecoration: 'none',
+  transition: 'opacity 0.2s',
 }
 
-export function PapersSection() {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState('idle')
-  const inp = { width:'100%', background:'rgba(0,0,0,0.15)', border:'1px solid rgba(212,165,116,0.2)', color:BG_CREAM, padding:'11px 13px', borderRadius:4, fontSize:14, outline:'none', fontFamily:'inherit' }
-  const handleSubmit = async () => {
-    if (!email.includes('@')) return
-    setStatus('loading')
-    try {
-      const res = await fetch('/api/send-email', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email }) })
-      setStatus(res.ok ? 'done' : 'error')
-    } catch { setStatus('error') }
-  }
-  return (
-    <section style={{ padding:'100px 48px', background:PRIMARY_DARK }}>
-      <div style={{ maxWidth:1080, margin:'0 auto' }}>
-        <div style={{ fontSize:11, letterSpacing:'.18em', textTransform:'uppercase', color:CORAL, marginBottom:16, display:'flex', alignItems:'center', gap:10 }}>{bar}Research Papers</div>
-        <h2 style={{ ...serif, fontSize:'clamp(2.2rem,3.8vw,3.4rem)', fontWeight:300, lineHeight:1.08, color:BG_CREAM, marginBottom:12 }}>Writing that goes <em style={{ fontStyle:'italic', color:GOLD }}>where the data leads.</em></h2>
-        {status !== 'done' ? (
-          <div style={{ maxWidth:480, marginTop:40 }}>
-            <div style={{ background:SECONDARY_DARK, border:'1px solid rgba(212,165,116,0.15)', borderRadius:8, padding:'36px 32px' }}>
-              <div style={{ ...serif, fontSize:'1.5rem', color:BG_CREAM, marginBottom:10, fontWeight:300 }}>Unlock the research</div>
-              <p style={{ fontSize:14, color:'rgba(245,239,231,0.5)', marginBottom:22, lineHeight:1.65 }}>Enter your email to receive the paper: <em>Will the Market Respond to Declining Birth Rates?</em></p>
-              <div style={{ display:'flex', gap:10 }}>
-                <input type="email" placeholder="your@email.com" value={email} onChange={e=>setEmail(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')handleSubmit()}} style={{ ...inp, flex:1 }} />
-                <button onClick={handleSubmit} disabled={status==='loading'} style={{ background:CORAL, color:'#fff', border:'none', padding:'11px 20px', borderRadius:4, fontSize:14, fontWeight:500, cursor:'pointer', whiteSpace:'nowrap', opacity:status==='loading'?0.7:1 }}>{status==='loading'?'...':'Unlock'}</button>
-              </div>
-              {status==='error' && <p style={{ fontSize:12, color:CORAL, marginTop:10 }}>Something went wrong — try again.</p>}
-            </div>
-          </div>
-        ) : (
-          <div style={{ marginTop:40, maxWidth:480 }}>
-            <div style={{ background:SECONDARY_DARK, border:'1px solid rgba(212,165,116,0.2)', borderRadius:8, padding:'36px 32px', textAlign:'center' }}>
-              <div style={{ fontSize:48, color:CORAL, marginBottom:16 }}>✓</div>
-              <div style={{ ...serif, fontSize:'1.6rem', color:BG_CREAM, fontWeight:300 }}>Paper on its way.</div>
-              <p style={{ fontSize:14, color:'rgba(245,239,231,0.5)', marginTop:12 }}>Check your inbox — the PDF is attached.</p>
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
-  )
+const outlineBtn = {
+  display: 'inline-block',
+  fontFamily: sans,
+  fontSize: '14px',
+  fontWeight: '500',
+  color: CREAM,
+  background: 'transparent',
+  border: `1px solid rgba(245,240,232,0.3)`,
+  borderRadius: '4px',
+  padding: '13px 28px',
+  cursor: 'pointer',
+  letterSpacing: '0.05em',
+  textDecoration: 'none',
+  transition: 'border-color 0.2s',
 }
 
-export function ContactSection() {
-  const [form, setForm] = useState({ name:'', email:'', context:'', message:'', newsletter:false })
-  const [status, setStatus] = useState('idle')
-  const inp = { width:'100%', background:'rgba(0,0,0,0.15)', border:'1px solid rgba(212,165,116,0.2)', color:BG_CREAM, padding:'11px 13px', borderRadius:4, fontSize:14, outline:'none', fontFamily:'inherit' }
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!form.name || !form.email || !form.message) return
-    setStatus('loading')
-    try {
-      const res = await fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(form) })
-      setStatus(res.ok ? 'done' : 'error')
-    } catch { setStatus('error') }
-  }
+const divider = {
+  width: '48px',
+  height: '3px',
+  background: ORANGE,
+  margin: '0 0 32px',
+  borderRadius: '2px',
+}
+
+// ─── Hero ────────────────────────────────────────────────────────────────────
+function Hero() {
   return (
-    <section style={{ padding:'100px 48px', background:SECONDARY_DARK }}>
-      <div style={{ maxWidth:1080, margin:'0 auto' }}>
-        <div style={{ fontSize:11, letterSpacing:'.18em', textTransform:'uppercase', color:CORAL, marginBottom:16, display:'flex', alignItems:'center', gap:10 }}>{bar}Let's talk</div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:80, alignItems:'start' }}>
-          <div>
-            <h2 style={{ ...serif, fontSize:'clamp(2.2rem,3.5vw,3.2rem)', fontWeight:300, color:BG_CREAM, lineHeight:1.1, marginBottom:18 }}>Come into the room.</h2>
-            <p style={{ fontSize:16, color:'rgba(245,239,231,0.6)', lineHeight:1.72, maxWidth:380, marginBottom:32 }}>If you are building something at the intersection of food, health, and technology, I am interested.</p>
-            <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
-              <a href="mailto:abody@mba2026.hbs.edu" style={{ fontSize:14, color:CORAL, textDecoration:'none' }}>Email me</a>
-              <a href="https://linkedin.com/in/annabelle-body" target="_blank" rel="noopener noreferrer" style={{ fontSize:14, color:CORAL, textDecoration:'none' }}>LinkedIn</a>
-            </div>
-          </div>
-          <div>
-            {status==='done' ? (
-              <div style={{ textAlign:'center', padding:'52px 0' }}>
-                <div style={{ fontSize:48, color:CORAL, marginBottom:16 }}>✓</div>
-                <div style={{ ...serif, fontSize:'1.6rem', color:BG_CREAM, fontWeight:300 }}>Sent. I will be in touch.</div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <input placeholder="Your name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} style={{ ...inp, marginBottom:14, display:'block' }} />
-                <input placeholder="Your email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} style={{ ...inp, marginBottom:14, display:'block' }} />
-                <select value={form.context} onChange={e=>setForm({...form,context:e.target.value})} style={{ ...inp, background:PRIMARY_DARK, marginBottom:14, display:'block' }}>
-                  <option value="">What brings you here?</option>
-                  <option value="cofound">Co-founding</option>
-                  <option value="invest">Invest</option>
-                  <option value="speaking">Speaking</option>
-                  <option value="other">Other</option>
-                </select>
-                <textarea placeholder="Message" value={form.message} onChange={e=>setForm({...form,message:e.target.value})} rows={4} style={{ ...inp, marginBottom:14, display:'block', resize:'vertical' }} />
-                <label style={{ display:'flex', alignItems:'center', gap:10, marginBottom:22, cursor:'pointer', fontSize:13, color:'rgba(245,239,231,0.5)' }}>
-                  <input type="checkbox" checked={form.newsletter} onChange={e=>setForm({...form,newsletter:e.target.checked})} />Add me to the newsletter
-                </label>
-                <button type="submit" disabled={status==='loading'} style={{ background:CORAL, color:'#fff', border:'none', padding:'13px 28px', borderRadius:4, fontSize:14, fontWeight:500, cursor:'pointer', opacity:status==='loading'?0.7:1 }}>{status==='loading'?'Sending...':'Send'}</button>
-                {status==='error' && <p style={{ fontSize:12, color:CORAL, marginTop:10 }}>Something went wrong — try again.</p>}
-              </form>
-            )}
-          </div>
+    <section style={{
+      position: 'relative',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      overflow: 'hidden',
+      background: NAVY,
+    }}>
+      {/* Hero portrait — right side */}
+      <div style={{
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        bottom: 0,
+        width: '52%',
+        background: `url('/Gemini_Generated_Image_6sjhg96sjhg96sjh.png') center top / cover no-repeat`,
+        maskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
+        opacity: 0.85,
+      }} />
+
+      {/* Gradient overlay */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: `linear-gradient(105deg, ${NAVY} 45%, transparent 75%)`,
+      }} />
+
+      {/* Copy */}
+      <div style={{
+        position: 'relative',
+        zIndex: 2,
+        maxWidth: '580px',
+        padding: '120px 48px 80px',
+      }}>
+        <p style={{ ...tag, fontSize: '12px', marginBottom: '24px' }}>
+          HBS MBA · Founder · Researcher
+        </p>
+        <h1 style={{
+          fontFamily: serif,
+          fontSize: 'clamp(44px, 7vw, 80px)',
+          fontWeight: '700',
+          color: WHITE,
+          lineHeight: 1.05,
+          margin: '0 0 24px',
+          letterSpacing: '-0.01em',
+        }}>
+          Annabelle<br />Body
+        </h1>
+        <p style={{
+          fontFamily: sans,
+          fontSize: 'clamp(16px, 2vw, 20px)',
+          color: CREAM,
+          opacity: 0.9,
+          lineHeight: 1.6,
+          margin: '0 0 12px',
+          fontWeight: '300',
+          letterSpacing: '0.01em',
+        }}>
+          Builder. Researcher. Qualitarian.
+        </p>
+        <p style={{ ...bodyText, fontSize: '16px', maxWidth: '460px' }}>
+          I work at the intersection of business, technology, food systems, fertility, and healthspan — building tools and ideas that matter.
+        </p>
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <a href="#research" style={orangeBtn}>Read the Research</a>
+          <a href="#verifood" style={outlineBtn}>Explore Verifood</a>
         </div>
       </div>
     </section>
   )
 }
 
-export function Footer() {
+// ─── Currently Thinking ──────────────────────────────────────────────────────
+const THOUGHTS = [
+  {
+    tag: 'Fertility',
+    text: 'Why declining birth rates are a food systems problem as much as an economic one.',
+  },
+  {
+    tag: 'Food Systems',
+    text: 'The "qualitarian" case: spending more on food inputs is the most rational health investment.',
+  },
+  {
+    tag: 'Longevity',
+    text: 'Healthspan vs. lifespan — and why the distinction changes everything about how we eat.',
+  },
+]
+
+function CurrentlyThinking() {
   return (
-    <footer style={{ background:PRIMARY_DARK, padding:'32px 48px', display:'flex', alignItems:'center', justifyContent:'space-between', borderTop:'1px solid rgba(212,165,116,0.08)', flexWrap:'wrap', gap:16 }}>
-      <span style={{ ...serif, fontSize:'1rem', color:'rgba(212,165,116,0.5)' }}>Annabelle Body</span>
-      <span style={{ fontSize:12, color:'rgba(212,165,116,0.35)' }}>HBS MBA 26 — annabellebody.com</span>
+    <section style={{ background: NAVY_LIGHT, padding: '100px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        {sectionLabel('Currently Thinking About')}
+        <div style={divider} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', marginTop: '8px' }}>
+          {THOUGHTS.map((t, i) => (
+            <div key={i} style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: '8px',
+              padding: '32px',
+              borderTop: `3px solid ${ORANGE}`,
+            }}>
+              <p style={{ ...tag, marginBottom: '12px' }}>{t.tag}</p>
+              <p style={{ fontFamily: serif, fontSize: '20px', color: WHITE, lineHeight: 1.4, margin: 0 }}>
+                "{t.text}"
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Three Pillars ───────────────────────────────────────────────────────────
+const PILLARS = [
+  {
+    num: '01',
+    title: 'Research',
+    desc: 'Academic and public-facing work on fertility, food systems, and declining birth rates — built at HBS.',
+    href: '#research',
+    cta: 'Read the Papers',
+  },
+  {
+    num: '02',
+    title: 'Verifood',
+    desc: 'An AI tool that decodes food labels in seconds — because you shouldn\'t need a PhD to know what you\'re eating.',
+    href: '#verifood',
+    cta: 'Explore the Tool',
+  },
+  {
+    num: '03',
+    title: 'Writing',
+    desc: 'Essays and dispatches on food, fertility, performance, and the systems that shape how we live.',
+    href: '#writing',
+    cta: 'Read the Essays',
+  },
+]
+
+function Pillars() {
+  return (
+    <section style={{ background: NAVY, padding: '100px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        {sectionLabel('What I\'m Building')}
+        <div style={divider} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2px' }}>
+          {PILLARS.map((p, i) => (
+            <a key={i} href={p.href} style={{
+              display: 'block',
+              padding: '48px 40px',
+              background: 'rgba(255,255,255,0.02)',
+              borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+              textDecoration: 'none',
+              transition: 'background 0.2s',
+            }}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(244,98,42,0.06)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+            >
+              <p style={{ fontFamily: sans, fontSize: '11px', color: ORANGE, letterSpacing: '0.15em', marginBottom: '24px', fontWeight: '600' }}>
+                {p.num}
+              </p>
+              <h3 style={{ fontFamily: serif, fontSize: '28px', color: WHITE, margin: '0 0 16px' }}>{p.title}</h3>
+              <p style={{ fontFamily: sans, fontSize: '15px', color: CREAM, opacity: 0.7, lineHeight: 1.7, margin: '0 0 28px' }}>{p.desc}</p>
+              <span style={{ fontFamily: sans, fontSize: '13px', color: ORANGE, fontWeight: '600', letterSpacing: '0.06em' }}>
+                {p.cta} →
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── About ───────────────────────────────────────────────────────────────────
+function About() {
+  return (
+    <section id="about" style={{ background: NAVY_LIGHT, padding: '120px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+        <div>
+          {sectionLabel('About')}
+          <div style={divider} />
+          <h2 style={h2}>I believe the food we eat is the most underrated lever for human flourishing.</h2>
+          <p style={bodyText}>
+            I'm Annabelle — an HBS MBA candidate, founder of Verifood, and researcher working at the intersection of food systems, fertility, and healthspan. Previously at Deloitte, now building at the frontier of nutrition science and applied AI.
+          </p>
+          <p style={bodyText}>
+            My work is grounded in a simple belief: the quality of our inputs — food, information, relationships — determines the quality of our outputs as humans. I call this the qualitarian principle.
+          </p>
+          <a href="#contact" style={orangeBtn}>Work With Me</a>
+        </div>
+        <div style={{
+          aspectRatio: '3/4',
+          background: SLATE,
+          borderRadius: '4px',
+          overflow: 'hidden',
+          border: `1px solid rgba(255,255,255,0.08)`,
+        }}>
+          <img
+            src="/images/photo-headshot.png"
+            alt="Annabelle Body"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Research ────────────────────────────────────────────────────────────────
+const PAPERS = [
+  {
+    title: 'Declining Birth Rates and the Food Systems Connection',
+    venue: 'Harvard Business School',
+    date: '2025',
+    desc: 'Examining how ultra-processed food environments correlate with declining fertility rates across OECD nations, and the policy interventions most likely to reverse the trend.',
+    href: '/birth-rates-paper.pdf',
+    keywords: ['Fertility', 'Food Systems', 'Public Health'],
+  },
+]
+
+function Research() {
+  return (
+    <section id="research" style={{ background: NAVY, padding: '120px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        {sectionLabel('Research')}
+        <div style={divider} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '24px' }}>
+          <h2 style={{ ...h2, margin: 0, maxWidth: '600px' }}>Papers & Academic Work</h2>
+          <p style={{ fontFamily: sans, fontSize: '14px', color: CREAM, opacity: 0.5 }}>More papers coming soon</p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          {PAPERS.map((p, i) => (
+            <a key={i} href={p.href} target="_blank" rel="noreferrer" style={{
+              display: 'block',
+              padding: '40px 48px',
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              transition: 'border-color 0.2s, background 0.2s',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = ORANGE; e.currentTarget.style.background = ORANGE_DIM }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '24px', flexWrap: 'wrap' }}>
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontFamily: sans, fontSize: '12px', color: ORANGE, fontWeight: '600', letterSpacing: '0.1em', marginBottom: '12px' }}>
+                    {p.venue} · {p.date}
+                  </p>
+                  <h3 style={{ fontFamily: serif, fontSize: '22px', color: WHITE, margin: '0 0 12px', lineHeight: 1.3 }}>{p.title}</h3>
+                  <p style={{ fontFamily: sans, fontSize: '15px', color: CREAM, opacity: 0.7, lineHeight: 1.7, margin: '0 0 20px' }}>{p.desc}</p>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    {p.keywords.map(k => (
+                      <span key={k} style={{
+                        fontFamily: sans,
+                        fontSize: '11px',
+                        color: CREAM,
+                        opacity: 0.5,
+                        border: '1px solid rgba(245,240,232,0.2)',
+                        borderRadius: '2px',
+                        padding: '4px 10px',
+                        letterSpacing: '0.06em',
+                      }}>{k}</span>
+                    ))}
+                  </div>
+                </div>
+                <span style={{ fontFamily: sans, fontSize: '13px', color: ORANGE, fontWeight: '600', whiteSpace: 'nowrap' }}>
+                  Read Paper →
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Verifood ────────────────────────────────────────────────────────────────
+function Verifood() {
+  return (
+    <section id="verifood" style={{ background: NAVY_LIGHT, padding: '120px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+        <div>
+          {sectionLabel('Verifood')}
+          <div style={divider} />
+          <h2 style={h2}>Decode your food label in seconds.</h2>
+          <p style={bodyText}>
+            Verifood is an AI-powered tool that analyses food ingredients and nutrition labels — giving you a clear, honest verdict on what you're actually eating.
+          </p>
+          <p style={bodyText}>
+            Built for people who care about quality but don't have time to decode every label. No jargon. No greenwashing. Just clarity.
+          </p>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <a href="https://github.com/belleaitest-png/VeriFood" target="_blank" rel="noreferrer" style={orangeBtn}>
+              Try Verifood
+            </a>
+            <a href="#contact" style={outlineBtn}>Partner With Us</a>
+          </div>
+        </div>
+        <div style={{
+          background: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '12px',
+          padding: '48px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+        }}>
+          {[
+            { icon: '🔍', label: 'Ingredient Analysis', desc: 'Flags additives, preservatives, and ultra-processed ingredients instantly' },
+            { icon: '📊', label: 'Nutrition Clarity', desc: 'Contextualises macros and micros against your health goals' },
+            { icon: '✅', label: 'Honest Verdict', desc: 'A clear pass/flag/avoid rating — no paid partnerships, no bias' },
+          ].map((f, i) => (
+            <div key={i} style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <span style={{ fontSize: '24px' }}>{f.icon}</span>
+              <div>
+                <p style={{ fontFamily: sans, fontSize: '15px', fontWeight: '600', color: WHITE, margin: '0 0 6px' }}>{f.label}</p>
+                <p style={{ fontFamily: sans, fontSize: '14px', color: CREAM, opacity: 0.65, margin: 0, lineHeight: 1.6 }}>{f.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Writing / Newsletter ────────────────────────────────────────────────────
+const ESSAYS = [
+  {
+    title: 'The Qualitarian Manifesto',
+    date: 'Coming soon',
+    desc: 'Why spending more on food is the most rational investment you can make in yourself.',
+  },
+  {
+    title: 'What Fertility Data Tells Us About Modern Food',
+    date: 'Coming soon',
+    desc: 'Connecting the dots between ultra-processed diets and declining birth rates across the developed world.',
+  },
+  {
+    title: 'The HBS Food Systems Course Nobody Is Teaching',
+    date: 'Coming soon',
+    desc: 'What business schools get wrong about agriculture, nutrition science, and incentive structures.',
+  },
+]
+
+function Writing() {
+  return (
+    <section id="writing" style={{ background: NAVY, padding: '120px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        {sectionLabel('Writing')}
+        <div style={divider} />
+        <div style={{ display: 'grid', gridTemplateColumns: '5fr 4fr', gap: '80px', alignItems: 'start' }}>
+          <div>
+            <h2 style={h2}>Essays on food, fertility, and the systems that shape us.</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '40px' }}>
+              {ESSAYS.map((e, i) => (
+                <div key={i} style={{
+                  padding: '28px',
+                  background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: '6px',
+                  borderLeft: `3px solid ${ORANGE}`,
+                }}>
+                  <p style={{ fontFamily: sans, fontSize: '11px', color: ORANGE, fontWeight: '600', letterSpacing: '0.1em', marginBottom: '10px' }}>{e.date}</p>
+                  <h4 style={{ fontFamily: serif, fontSize: '18px', color: WHITE, margin: '0 0 10px' }}>{e.title}</h4>
+                  <p style={{ fontFamily: sans, fontSize: '14px', color: CREAM, opacity: 0.65, margin: 0, lineHeight: 1.65 }}>{e.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Newsletter CTA */}
+          <div style={{
+            background: ORANGE_DIM,
+            border: `1px solid rgba(244,98,42,0.25)`,
+            borderRadius: '8px',
+            padding: '48px 40px',
+            position: 'sticky',
+            top: '100px',
+          }}>
+            <p style={tag}>Newsletter</p>
+            <h3 style={{ fontFamily: serif, fontSize: '26px', color: WHITE, margin: '0 0 16px', lineHeight: 1.3 }}>
+              Thinking clearly about food, fertility, and performance.
+            </h3>
+            <p style={{ fontFamily: sans, fontSize: '15px', color: CREAM, opacity: 0.75, lineHeight: 1.7, margin: '0 0 28px' }}>
+              Occasional dispatches on research, ideas, and what I'm building. No noise.
+            </p>
+            <input
+              type="email"
+              placeholder="your@email.com"
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: '4px',
+                color: WHITE,
+                fontFamily: sans,
+                fontSize: '15px',
+                marginBottom: '12px',
+                boxSizing: 'border-box',
+                outline: 'none',
+              }}
+            />
+            <button style={{ ...orangeBtn, width: '100%', textAlign: 'center', border: 'none' }}>
+              Subscribe
+            </button>
+            <p style={{ fontFamily: sans, fontSize: '12px', color: CREAM, opacity: 0.4, marginTop: '12px', textAlign: 'center' }}>
+              No spam. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Contact ─────────────────────────────────────────────────────────────────
+const INQUIRY_TYPES = [
+  { title: 'Research Collaboration', desc: 'Food systems, fertility, or healthspan research partnerships.' },
+  { title: 'Speaking & Events', desc: 'Panels, keynotes, and academic or industry events.' },
+  { title: 'Verifood & Ventures', desc: 'Investment, integration, or commercial partnership inquiries.' },
+  { title: 'Media & Press', desc: 'Interviews, features, and editorial collaborations.' },
+]
+
+function Contact() {
+  return (
+    <section id="contact" style={{ background: NAVY_LIGHT, padding: '120px 48px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px' }}>
+        <div>
+          {sectionLabel('Contact')}
+          <div style={divider} />
+          <h2 style={h2}>Let's work together.</h2>
+          <p style={bodyText}>
+            I'm open to research collaborations, speaking invitations, and strategic partnerships that align with my work in food systems, fertility, and healthspan.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px' }}>
+            {INQUIRY_TYPES.map((t, i) => (
+              <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: ORANGE, marginTop: '10px', flexShrink: 0 }} />
+                <div>
+                  <p style={{ fontFamily: sans, fontSize: '15px', fontWeight: '600', color: WHITE, margin: '0 0 4px' }}>{t.title}</p>
+                  <p style={{ fontFamily: sans, fontSize: '14px', color: CREAM, opacity: 0.6, margin: 0 }}>{t.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <form style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+          onSubmit={e => { e.preventDefault(); alert('Message sent! I\'ll be in touch shortly.') }}>
+          {[
+            { label: 'Name', type: 'text', placeholder: 'Your name' },
+            { label: 'Email', type: 'email', placeholder: 'your@email.com' },
+            { label: 'Organisation', type: 'text', placeholder: 'Company or institution' },
+          ].map(f => (
+            <div key={f.label}>
+              <label style={{ fontFamily: sans, fontSize: '12px', color: CREAM, opacity: 0.6, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
+                {f.label}
+              </label>
+              <input
+                type={f.type}
+                placeholder={f.placeholder}
+                style={{
+                  width: '100%',
+                  padding: '14px 16px',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '4px',
+                  color: WHITE,
+                  fontFamily: sans,
+                  fontSize: '15px',
+                  boxSizing: 'border-box',
+                  outline: 'none',
+                }}
+              />
+            </div>
+          ))}
+          <div>
+            <label style={{ fontFamily: sans, fontSize: '12px', color: CREAM, opacity: 0.6, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
+              Message
+            </label>
+            <textarea
+              rows={5}
+              placeholder="Tell me about the collaboration or opportunity..."
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '4px',
+                color: WHITE,
+                fontFamily: sans,
+                fontSize: '15px',
+                boxSizing: 'border-box',
+                resize: 'vertical',
+                outline: 'none',
+              }}
+            />
+          </div>
+          <button type="submit" style={{ ...orangeBtn, border: 'none', marginTop: '8px' }}>
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+  )
+}
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer style={{ background: '#030B16', padding: '48px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px' }}>
+        <p style={{ fontFamily: serif, fontSize: '18px', color: WHITE, margin: 0, fontWeight: '600' }}>Annabelle Body</p>
+        <p style={{ fontFamily: sans, fontSize: '13px', color: CREAM, opacity: 0.35, margin: 0 }}>
+          © {new Date().getFullYear()} Annabelle Body · HBS MBA · Founder, Verifood
+        </p>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          {['LinkedIn', 'Instagram', 'Substack'].map(s => (
+            <a key={s} href="#" style={{ fontFamily: sans, fontSize: '13px', color: CREAM, opacity: 0.45, textDecoration: 'none', transition: 'opacity 0.2s' }}
+              onMouseEnter={e => e.target.style.opacity = 1}
+              onMouseLeave={e => e.target.style.opacity = 0.45}
+            >
+              {s}
+            </a>
+          ))}
+        </div>
+      </div>
     </footer>
+  )
+}
+
+// ─── Export ───────────────────────────────────────────────────────────────────
+export default function Sections() {
+  return (
+    <>
+      <Hero />
+      <CurrentlyThinking />
+      <Pillars />
+      <About />
+      <Research />
+      <Verifood />
+      <Writing />
+      <Contact />
+      <Footer />
+    </>
   )
 }
