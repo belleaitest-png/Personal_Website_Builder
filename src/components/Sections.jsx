@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import HeroTicker from './HeroTicker'
 
 // ─── Palette ────────────────────────────────────────────────────────────────
 const NAVY        = '#060F1E'
@@ -90,72 +91,39 @@ function Hero() {
   return (
     <section style={{
       position: 'relative',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
+      height: '100vh',
       overflow: 'hidden',
-      background: NAVY,
+      background: '#3a3530',
     }}>
-      {/* Hero portrait — right side */}
-      <div style={{
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        bottom: 0,
-        width: '52%',
-        background: `url('/Gemini_Generated_Image_6sjhg96sjhg96sjh.png') center top / cover no-repeat`,
-        maskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
-        opacity: 0.85,
-      }} />
-
-      {/* Gradient overlay */}
+      {/* Full-bleed background photo */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: `linear-gradient(105deg, ${NAVY} 45%, transparent 75%)`,
+        backgroundImage: "url('/images/hero-bg.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* Copy */}
+      {/* Subtle vignette at bottom for ticker legibility */}
       <div style={{
-        position: 'relative',
-        zIndex: 2,
-        maxWidth: '580px',
-        padding: '120px 48px 80px',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '35%',
+        background: 'linear-gradient(to top, rgba(6,15,30,0.6) 0%, transparent 100%)',
+      }} />
+
+      {/* Ticker pinned to bottom */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
       }}>
-        <p style={{ ...tag, fontSize: '12px', marginBottom: '24px' }}>
-          HBS MBA · Founder · Researcher
-        </p>
-        <h1 style={{
-          fontFamily: serif,
-          fontSize: 'clamp(44px, 7vw, 80px)',
-          fontWeight: '700',
-          color: WHITE,
-          lineHeight: 1.05,
-          margin: '0 0 24px',
-          letterSpacing: '-0.01em',
-        }}>
-          Annabelle<br />Body
-        </h1>
-        <p style={{
-          fontFamily: sans,
-          fontSize: 'clamp(16px, 2vw, 20px)',
-          color: CREAM,
-          opacity: 0.9,
-          lineHeight: 1.6,
-          margin: '0 0 12px',
-          fontWeight: '300',
-          letterSpacing: '0.01em',
-        }}>
-          Builder. Researcher. Qualitarian.
-        </p>
-        <p style={{ ...bodyText, fontSize: '16px', maxWidth: '460px' }}>
-          I work at the intersection of business, technology, food systems, fertility, and healthspan — building tools and ideas that matter.
-        </p>
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <a href="#research" style={orangeBtn}>Read the Research</a>
-          <a href="#verifood" style={outlineBtn}>Explore Verifood</a>
-        </div>
+        <HeroTicker />
       </div>
     </section>
   )

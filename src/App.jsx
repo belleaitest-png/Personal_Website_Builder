@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Sections from './components/Sections'
-import HeroTicker from './components/HeroTicker'
 
 const NAV = [
   { label: 'About', href: '#about' },
@@ -14,11 +13,10 @@ const NAVY   = '#060F1E'
 const ORANGE = '#F4622A'
 const CREAM  = '#F5F0E8'
 const WHITE  = '#FFFFFF'
-const SLATE  = '#334155'
+const TERRACOTTA = '#C4705A'
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -47,7 +45,7 @@ export default function App() {
     fontFamily: "'Playfair Display', serif",
     fontSize: '20px',
     fontWeight: '700',
-    color: WHITE,
+    color: TERRACOTTA,
     letterSpacing: '0.02em',
     textDecoration: 'none',
   }
@@ -114,10 +112,7 @@ export default function App() {
         <a href="#contact" style={ctaBtnStyle}>Get in Touch</a>
       </nav>
 
-      {/* Ticker */}
-      <HeroTicker />
-
-      {/* All Sections */}
+      {/* All Sections (Hero with ticker inside, then rest) */}
       <Sections />
     </div>
   )
