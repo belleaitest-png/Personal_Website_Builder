@@ -13,7 +13,7 @@ const NAVY   = '#060F1E'
 const ORANGE = '#E8534E'
 const CREAM  = '#F5F0E8'
 const WHITE  = '#FFFFFF'
-const TERRACOTTA = '#C4705A'
+const TERRACOTTA = '#D84535'
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -42,11 +42,11 @@ export default function App() {
   }
 
   const logoStyle = {
-    fontFamily: "'Playfair Display', serif",
-    fontSize: '20px',
-    fontWeight: '700',
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: '22px',
+    fontWeight: '400',
     color: TERRACOTTA,
-    letterSpacing: '0.02em',
+    letterSpacing: '0.03em',
     textDecoration: 'none',
   }
 
@@ -90,7 +90,7 @@ export default function App() {
       {/* Google Fonts */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
       {/* Nav */}
       <nav style={navStyle}>
