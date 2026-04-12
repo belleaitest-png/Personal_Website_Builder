@@ -84,7 +84,7 @@ function Hero() {
     }}>
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: "url('/Gemini_Generated_Image_6sjhg96sjhg96sjh.png')",
+        backgroundImage: "url('/photos/hero.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
@@ -167,7 +167,7 @@ function AboutOverlay({ open, onClose }) {
             border: '1px solid rgba(255,255,255,0.08)',
           }}>
             <img
-              src="/images/photo-headshot.png"
+              src="/photos/headshot.png"
               alt="Annabelle Body"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
             />
@@ -198,7 +198,7 @@ function AboutOverlay({ open, onClose }) {
               ))}
             </div>
 
-            <DownloadGate href="/resume-annabelle-body.pdf" style={orangeBtn}>
+            <DownloadGate href="/documents/resume/annabelle-body.pdf" style={orangeBtn}>
               Download Resume
             </DownloadGate>
           </div>
@@ -238,7 +238,7 @@ const PAPERS = [
     venue: 'Harvard Business School',
     date: '2025',
     desc: 'Examining how ultra-processed food environments correlate with declining fertility rates across OECD nations, and the policy interventions most likely to reverse the trend.',
-    href: '/papers/birth-rates.pdf',
+    href: '/documents/papers/birth-rates.pdf',
     keywords: ['Fertility', 'Food Systems', 'Public Health'],
   },
   {
@@ -246,7 +246,7 @@ const PAPERS = [
     venue: 'Harvard Business School',
     date: '2025',
     desc: 'A systems-level analysis of how agricultural subsidies, processing incentives, and retail dynamics shape the nutritional quality of the modern food supply.',
-    href: '/papers/food-system-thesis.pdf',
+    href: '/documents/papers/food-system-thesis.pdf',
     keywords: ['Agriculture', 'Incentives', 'Nutrition'],
   },
   {
@@ -254,7 +254,7 @@ const PAPERS = [
     venue: 'Harvard Business School',
     date: '2025',
     desc: 'Investigating the bidirectional relationship between social isolation and metabolic health — and why loneliness may be the most under-diagnosed dietary risk factor.',
-    href: '/papers/loneliness-crisis.pdf',
+    href: '/documents/papers/loneliness-crisis.pdf',
     keywords: ['Loneliness', 'Metabolic Health', 'Public Health'],
   },
 ]
