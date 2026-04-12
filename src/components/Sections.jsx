@@ -72,7 +72,30 @@ const divider = {
 }
 
 // ─── Hero (sticky — content scrolls up over it) ─────────────────────────────
+const heroCSS = `
+@keyframes peekBounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+  60% { transform: translateY(-4px); }
+}
+@keyframes peekFade {
+  0%, 70% { opacity: 0.7; }
+  85% { opacity: 0.3; }
+  100% { opacity: 0.7; }
+}
+`
+
 function Hero() {
+  useEffect(() => {
+    const id = 'hero-peek-css'
+    if (!document.getElementById(id)) {
+      const style = document.createElement('style')
+      style.id = id
+      style.textContent = heroCSS
+      document.head.appendChild(style)
+    }
+  }, [])
+
   return (
     <section style={{
       position: 'sticky',
@@ -94,6 +117,38 @@ function Hero() {
         transform: 'translateY(-50%)', zIndex: 10,
       }}>
         <HeroTicker overlayOpacity={0.6} align="left" />
+      </div>
+
+      {/* Scroll hint — balance sheet peeking up */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        animation: 'peekBounce 2.8s ease-in-out infinite, peekFade 2.8s ease-in-out infinite',
+      }}>
+        <span style={{
+          fontFamily: serif,
+          fontSize: '10px',
+          fontWeight: '600',
+          letterSpacing: '0.16em',
+          textTransform: 'uppercase',
+          color: ORANGE,
+          opacity: 0.6,
+          marginBottom: '10px',
+        }}>
+          Balance Sheet
+        </span>
+        <div style={{
+          width: '100%',
+          height: '6px',
+          background: `linear-gradient(90deg, transparent, rgba(232,83,78,0.3) 20%, rgba(232,83,78,0.5) 50%, rgba(232,83,78,0.3) 80%, transparent)`,
+          borderTop: '1px solid rgba(232,83,78,0.25)',
+        }} />
       </div>
     </section>
   )
