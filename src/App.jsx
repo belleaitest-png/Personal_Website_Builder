@@ -4,8 +4,6 @@ import Sections from './components/Sections'
 const NAV = [
   { label: 'About', href: '#about' },
   { label: 'Research', href: '#research' },
-  { label: 'Verifood', href: '#verifood' },
-  { label: 'Writing', href: '#writing' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -19,7 +17,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -119,12 +117,14 @@ export default function App() {
 
       {/* Fixed Subscribe CTA — bottom right */}
       <a
-        href="#writing"
+        href="https://annabellebody.substack.com"
+        target="_blank"
+        rel="noreferrer"
         style={subscribeBtnStyle}
         onMouseEnter={e => { e.target.style.opacity = 0.85; e.target.style.transform = 'translateY(-2px)' }}
         onMouseLeave={e => { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)' }}
       >
-        Subscribe
+        Substack
       </a>
 
       {/* All Sections */}
