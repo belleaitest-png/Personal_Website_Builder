@@ -15,86 +15,116 @@ const R_OFFSET   = 160  // ms head-start for right column
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
-// Non-current assets: foundational, long-horizon
+// Non-current assets — Resume: credentials that don't depreciate
 const NC_ASSETS = [
-  {
-    label: 'Verifood',
-    note:  'AI food intelligence · flagship product',
-    value: 35,
-    href:  'https://verifood.app/',
-    ext:   true,
-  },
   {
     label: 'HBS MBA',
     note:  'intellectual capital, in acquisition',
-    value: 20,
+    value: 25,
+    href:  '#about',
+  },
+  {
+    label: 'ICAEW ACA',
+    note:  'chartered accountant · yes, I actually liked it',
+    value: 15,
+    href:  '#about',
+  },
+  {
+    label: 'Fruitist',
+    note:  'co-founder · turning ugly fruit into beautiful products',
+    value: 10,
+    href:  '#about',
+  },
+  {
+    label: 'AlixPartners',
+    note:  'turnaround consulting · corporate triage',
+    value: 8,
     href:  '#about',
   },
   {
     label: 'Deloitte',
-    note:  'chartered analytical foundations',
-    value: 10,
+    note:  'audit & advisory · where the spreadsheets began',
+    value: 7,
     href:  '#about',
   },
 ]
 
-// Current assets: active, circulating, accessible
+// Current assets — Apps & Artifacts: live, shipping, generating value
 const CA_ASSETS = [
   {
-    label: 'Mama Mosaic',
-    note:  'community platform · live',
+    label: 'VeriFood',
+    note:  'WHOOP → grocery agent · your recovery shops for you',
     value: 15,
-    href:  'https://mama-mosaic-hub.lovable.app',
+    href:  'https://verifood.app/',
     ext:   true,
   },
   {
-    label: 'Research',
-    note:  'fertility × food systems · in progress',
-    value: 12,
-    href:  '#research',
+    label: 'SuppStack Manager',
+    note:  'AI agents managing your supplement stack · no more overlaps',
+    value: 10,
+    href:  '#',
   },
   {
-    label: 'Writing & Newsletter',
-    note:  'qualitarian essays · most liquid',
-    value:  8,
-    href:  '#writing',
+    label: 'Bloom',
+    note:  'pregnancy OS · trimester-aware, actually helpful',
+    value: 10,
+    href:  '#',
   },
 ]
 
-// Current liabilities: near-term problems being actively worked
+// Current liabilities — Papers in Development: problems I can't stop thinking about
 const CL_LIAB = [
   {
-    label: 'Consumer label literacy',
-    note:  'what is actually in your food?',
-    value: 12,
+    label: 'The Loneliness Epidemic (Male)',
+    note:  'metabolic shadow of social isolation · draft',
+    value: 10,
+    href:  '/documents/papers/loneliness-crisis.pdf',
   },
   {
-    label: 'Wearable–nutrition gap',
-    note:  'WHOOP → plate disconnect',
-    value: 10,
+    label: 'Synthetic Biology × Everything',
+    note:  'how synbio rewrites the rules · in progress',
+    value: 8,
   },
 ]
 
-// Long-term liabilities: systemic, civilisational-arc problems
+// Long-term liabilities — Papers Written: published thinking, still accruing interest
 const LT_LIAB = [
   {
-    label: 'Fertility × food systems crisis',
-    note:  'the long-arc problem',
-    value: 28,
+    label: 'Declining Birth Rates × Food',
+    note:  'ultra-processed fertility · the quiet crisis',
+    value: 14,
+    href:  '/documents/papers/birth-rates.pdf',
+  },
+  {
+    label: 'The Food System Thesis',
+    note:  'inputs, incentives, and why your salad is lying to you',
+    value: 12,
+    href:  '/documents/papers/food-system-thesis.pdf',
+  },
+  {
+    label: 'World View Agent Manager',
+    note:  'AI agents that challenge your assumptions · framework',
+    value: 6,
   },
 ]
 
-// Equity: the thesis and retained experience that funds it all
+// Equity — Systems & Tools: the operating system behind the operator
 const EQ_ITEMS = [
   {
-    label: 'The Qualitarian Thesis',
-    note:  'quality of inputs = quality of life · share capital',
-    value: 35,
+    label: 'Productivity System',
+    note:  'Notion × automations · unreasonably organised',
+    value: 20,
     href:  '#about',
   },
   {
-    label: 'Retained experience',
-    note:  'Deloitte → HBS → founding · retained earnings',
+    label: 'AI Toolkit',
+    note:  'Claude, Cursor, custom agents · the compound edge',
+    value: 15,
+    href:  '#about',
+  },
+  {
+    label: 'Mindfulness Routine',
+    note:  'meditation, journaling, cold water · intangible but load-bearing',
     value: 15,
     href:  '#about',
   },
@@ -104,8 +134,8 @@ const EQ_ITEMS = [
 const NC_SUB   = 65
 const CA_SUB   = 35
 const TOTAL_A  = 100
-const CL_SUB   = 22
-const LT_SUB   = 28
+const CL_SUB   = 18
+const LT_SUB   = 32
 const TOTAL_L  = 50
 const TOTAL_E  = 50
 const LE_TOTAL = 100
@@ -379,8 +409,8 @@ export default function BalanceSheet() {
   // Grand total count-ups
   // Total Assets: step 12 on left column (delay 0) → starts at 12×75 = 900ms
   // L+E:          step 13 on right column (delay 160) → starts at 160+13×75 = 1135ms
-  const totalADisplay  = useCountUp(TOTAL_A,  active, 12 * STEP)
-  const totalLEDisplay = useCountUp(LE_TOTAL, active, R_OFFSET + 13 * STEP)
+  const totalADisplay  = useCountUp(TOTAL_A,  active, 14 * STEP)
+  const totalLEDisplay = useCountUp(LE_TOTAL, active, R_OFFSET + 16 * STEP)
 
   const L = 0        // left column base delay (ms)
   const R = R_OFFSET // right column base delay (ms)
@@ -437,7 +467,7 @@ export default function BalanceSheet() {
           opacity: 0.3,
           letterSpacing: '0.05em',
         }}>
-          QI Units* · FY 2025 · Non-GAAP
+          FY 2026 · Non-GAAP
         </span>
 
         {/* Animated orange rule */}
@@ -473,27 +503,27 @@ export default function BalanceSheet() {
 
           {/* Non-current */}
           <CategoryLabel step={2} delay={L} active={active}>
-            Non-current Assets
+            Resume
           </CategoryLabel>
           {NC_ASSETS.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={L} active={active} />
           ))}
-          <Subtotal value={NC_SUB} step={6} delay={L} active={active} />
+          <Subtotal value={NC_SUB} step={8} delay={L} active={active} />
 
           {/* Current */}
-          <CategoryLabel step={7} delay={L} active={active}>
-            Current assets
+          <CategoryLabel step={9} delay={L} active={active}>
+            Apps & Artifacts
           </CategoryLabel>
           {CA_ASSETS.map((item, i) => (
-            <Row key={item.label} item={item} step={8 + i} delay={L} active={active} />
+            <Row key={item.label} item={item} step={10 + i} delay={L} active={active} />
           ))}
-          <Subtotal value={CA_SUB} step={11} delay={L} active={active} />
+          <Subtotal value={CA_SUB} step={13} delay={L} active={active} />
 
           {/* Grand total */}
           <GrandTotalRow
             label="Total Assets"
             value={totalADisplay}
-            step={12}
+            step={14}
             delay={L}
             active={active}
           />
@@ -505,7 +535,7 @@ export default function BalanceSheet() {
 
           {/* Current liabilities */}
           <CategoryLabel step={2} delay={R} active={active}>
-            Current liabilities
+            Papers in Development
           </CategoryLabel>
           {CL_LIAB.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={R} active={active} />
@@ -514,7 +544,7 @@ export default function BalanceSheet() {
 
           {/* Long-term liabilities */}
           <CategoryLabel step={6} delay={R} active={active}>
-            Long-term Liabilities
+            Papers Written
           </CategoryLabel>
           {LT_LIAB.map((item, i) => (
             <Row key={item.label} item={item} step={7 + i} delay={R} active={active} />
@@ -522,27 +552,27 @@ export default function BalanceSheet() {
           <TotalRow
             label="Total Liabilities"
             value={TOTAL_L}
-            step={8}
+            step={10}
             delay={R}
             active={active}
           />
 
           {/* Equity */}
-          <ColHeader step={9} delay={R} active={active}>Equity</ColHeader>
+          <ColHeader step={11} delay={R} active={active}>Systems & Tools</ColHeader>
           {EQ_ITEMS.map((item, i) => (
-            <Row key={item.label} item={item} step={10 + i} delay={R} active={active} />
+            <Row key={item.label} item={item} step={12 + i} delay={R} active={active} />
           ))}
           <TotalRow
             label="Total Shareholders' Funds"
             value={TOTAL_E}
-            step={12}
+            step={15}
             delay={R}
             active={active}
           />
           <GrandTotalRow
             label="Liabilities + Equity"
             value={totalLEDisplay}
-            step={13}
+            step={16}
             delay={R}
             active={active}
           />
@@ -566,7 +596,7 @@ export default function BalanceSheet() {
           margin: 0,
           fontStyle: 'italic',
         }}>
-          * Qualitarian Index (QI) units · Prepared on a going-concern basis · The auditors have a conflict of interest · Click the assets, not the liabilities
+          * Prepared on a going-concern basis · The auditors have a conflict of interest · Click the assets, not the liabilities
         </p>
       </div>
     </section>
