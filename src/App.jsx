@@ -3,7 +3,7 @@ import Sections from './components/Sections'
 
 const NAV = [
   { label: 'About', href: '#about' },
-  { label: 'Research', href: '#research' },
+  { label: 'Beangirl', href: 'https://instagram.com/iambeangirl', external: true },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -104,6 +104,7 @@ export default function App() {
             <li key={n.href}>
               <a
                 href={n.href}
+                {...(n.external ? { target: '_blank', rel: 'noreferrer' } : {})}
                 style={navLinkStyle}
                 onMouseEnter={e => e.target.style.opacity = 1}
                 onMouseLeave={e => e.target.style.opacity = 0.85}
