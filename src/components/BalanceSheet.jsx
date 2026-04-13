@@ -138,6 +138,7 @@ const EQ_ITEMS = [
     note:  'Notion workflows & automation',
     value: 20,
     toolsPopup: true,
+    coming: true,
   },
   {
     label: 'AI Toolkit',
@@ -394,6 +395,7 @@ function Row({ item, step, delay, active, onToolsClick }) {
     return (
       <DownloadGate
         href={item.href}
+        label={item.label}
         style={{ textDecoration: 'none', display: 'block' }}
       >
         {inner}

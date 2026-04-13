@@ -253,7 +253,7 @@ function AboutOverlay({ open, onClose }) {
               ))}
             </div>
 
-            <DownloadGate href="/documents/resume/Annabelle Body, HBS Class of 2026.pdf" style={orangeBtn}>
+            <DownloadGate href="/documents/resume/Annabelle Body, HBS Class of 2026.pdf" label="Resume - Annabelle Body" style={orangeBtn}>
               Download Resume
             </DownloadGate>
           </div>
@@ -393,6 +393,7 @@ function Research() {
                 ) : (
                   <DownloadGate
                     href={p.href}
+                    label={p.title}
                     style={{
                       fontFamily: sans, fontSize: '13px', color: ORANGE,
                       fontWeight: '600', whiteSpace: 'nowrap', textDecoration: 'none',
