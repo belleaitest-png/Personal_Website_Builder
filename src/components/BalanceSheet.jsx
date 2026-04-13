@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import DownloadGate from './DownloadGate'
 
 // ── Palette ──────────────────────────────────────────────────────────────────
 const NAVY_DEEP  = '#0E1010'
@@ -23,6 +24,7 @@ const NC_ASSETS = [
     value: 25,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
+    gated: true,
   },
   {
     label: 'ICAEW ACA',
@@ -30,6 +32,7 @@ const NC_ASSETS = [
     value: 15,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
+    gated: true,
   },
   {
     label: 'Fruitist',
@@ -37,6 +40,7 @@ const NC_ASSETS = [
     value: 10,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
+    gated: true,
   },
   {
     label: 'AlixPartners',
@@ -44,6 +48,7 @@ const NC_ASSETS = [
     value: 8,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
+    gated: true,
   },
   {
     label: 'Deloitte',
@@ -51,6 +56,7 @@ const NC_ASSETS = [
     value: 7,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
+    gated: true,
   },
 ]
 
@@ -97,7 +103,7 @@ const CL_LIAB = [
     label: 'The Loneliness Epidemic (Male)',
     note:  'draft',
     value: 10,
-    href:  '/documents/papers/loneliness-crisis.pdf',
+    coming: true,
   },
   {
     label: 'Synthetic Biology × Everything',
@@ -116,7 +122,7 @@ const LT_LIAB = [
   {
     label: 'The Food System Thesis',
     value: 12,
-    href:  '/documents/papers/food-system-thesis.pdf',
+    coming: true,
   },
   {
     label: 'World View Agent Manager',
@@ -384,6 +390,16 @@ function Row({ item, step, delay, active, onToolsClick }) {
     </div>
   )
 
+  if (isLink && item.gated) {
+    return (
+      <DownloadGate
+        href={item.href}
+        style={{ textDecoration: 'none', display: 'block' }}
+      >
+        {inner}
+      </DownloadGate>
+    )
+  }
   if (isLink) {
     return (
       <a

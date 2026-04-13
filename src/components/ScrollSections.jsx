@@ -49,6 +49,7 @@ function ToolBadge({ tool, active }) {
     'Claude Code': { icon: '⌘', color: '#D97706' },
     'Lovable': { icon: '♥', color: '#EC4899' },
     'Notion': { icon: '▪', color: '#FFFFFF' },
+    'Replit': { icon: '◉', color: '#F26207' },
   }
   const t = tools[tool] || { icon: '◆', color: CREAM }
 
@@ -580,7 +581,7 @@ const PANELS = [
     cta: 'Explore the Data \u2192',
     ctaHref: 'https://demographic-forecaster.replit.app',
     ctaExternal: true,
-    tool: 'Claude Code',
+    tool: 'Replit',
   },
   // ── Coming soon ──
   {

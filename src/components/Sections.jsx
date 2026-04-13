@@ -253,7 +253,7 @@ function AboutOverlay({ open, onClose }) {
               ))}
             </div>
 
-            <DownloadGate href="/documents/resume/annabelle-body.pdf" style={orangeBtn}>
+            <DownloadGate href="/documents/resume/Annabelle Body, HBS Class of 2026.pdf" style={orangeBtn}>
               Download Resume
             </DownloadGate>
           </div>
@@ -293,7 +293,7 @@ const PAPERS = [
     venue: 'Harvard Business School',
     date: '2025',
     desc: 'Examining how ultra-processed food environments correlate with declining fertility rates across OECD nations, and the policy interventions most likely to reverse the trend.',
-    href: '/documents/papers/birth-rates.pdf',
+    href: '/documents/papers/When Markets Fail to Make Babies -The Limits of Private Responses to Fertility Crisis.pdf',
     keywords: ['Fertility', 'Food Systems', 'Public Health'],
   },
   {
@@ -301,16 +301,16 @@ const PAPERS = [
     venue: 'Harvard Business School',
     date: '2025',
     desc: 'A systems-level analysis of how agricultural subsidies, processing incentives, and retail dynamics shape the nutritional quality of the modern food supply.',
-    href: '/documents/papers/food-system-thesis.pdf',
     keywords: ['Agriculture', 'Incentives', 'Nutrition'],
+    coming: true,
   },
   {
     title: 'The Loneliness Crisis and Its Metabolic Shadow',
     venue: 'Harvard Business School',
     date: '2025',
     desc: 'Investigating the bidirectional relationship between social isolation and metabolic health -and why loneliness may be the most under-diagnosed dietary risk factor.',
-    href: '/documents/papers/loneliness-crisis.pdf',
     keywords: ['Loneliness', 'Metabolic Health', 'Public Health'],
+    coming: true,
   },
 ]
 
@@ -378,15 +378,29 @@ function Research() {
                     ))}
                   </div>
                 </div>
-                <DownloadGate
-                  href={p.href}
-                  style={{
-                    fontFamily: sans, fontSize: '13px', color: ORANGE,
-                    fontWeight: '600', whiteSpace: 'nowrap', textDecoration: 'none',
-                  }}
-                >
-                  Read Paper →
-                </DownloadGate>
+                {p.coming ? (
+                  <span style={{
+                    fontFamily: sans, fontSize: '13px', color: CREAM,
+                    opacity: 0.35, fontWeight: '600', whiteSpace: 'nowrap',
+                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  }}>
+                    <span style={{
+                      width: '6px', height: '6px', borderRadius: '50%',
+                      background: ORANGE, opacity: 0.6, display: 'inline-block',
+                    }} />
+                    Coming Soon
+                  </span>
+                ) : (
+                  <DownloadGate
+                    href={p.href}
+                    style={{
+                      fontFamily: sans, fontSize: '13px', color: ORANGE,
+                      fontWeight: '600', whiteSpace: 'nowrap', textDecoration: 'none',
+                    }}
+                  >
+                    Read Paper →
+                  </DownloadGate>
+                )}
               </div>
             </div>
           ))}
@@ -537,15 +551,19 @@ function Footer() {
           © {new Date().getFullYear()} Annabelle Body · HBS MBA · Founder, Verifood
         </p>
         <div style={{ display: 'flex', gap: '24px' }}>
-          {['LinkedIn', 'Instagram', 'Substack'].map(s => (
-            <a key={s}
-              href={s === 'Substack' ? 'https://annabellebody.substack.com' : '#'}
-              target={s === 'Substack' ? '_blank' : undefined}
-              rel={s === 'Substack' ? 'noreferrer' : undefined}
+          {[
+            { name: 'LinkedIn', href: 'https://www.linkedin.com/in/annabelle-body/' },
+            { name: 'Instagram', href: 'https://instagram.com/iambeangirl' },
+            { name: 'Substack', href: 'https://annabellebody.substack.com' },
+          ].map(s => (
+            <a key={s.name}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
               style={{ fontFamily: sans, fontSize: '13px', color: CREAM, opacity: 0.45, textDecoration: 'none', transition: 'opacity 0.2s' }}
               onMouseEnter={e => e.target.style.opacity = 1}
               onMouseLeave={e => e.target.style.opacity = 0.45}
-            >{s}</a>
+            >{s.name}</a>
           ))}
         </div>
       </div>
