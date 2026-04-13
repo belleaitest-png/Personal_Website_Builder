@@ -85,7 +85,7 @@ const CA_ASSETS = [
   },
   {
     label: 'SuppStack Manager',
-    note:  'AI-powered supplement interaction & dosing tracker',
+    note:  'supplement tracking & dosing',
     value: 4,
     coming: true,
   },
@@ -95,13 +95,13 @@ const CA_ASSETS = [
 const CL_LIAB = [
   {
     label: 'The Loneliness Epidemic (Male)',
-    note:  'social isolation and metabolic health outcomes · draft',
+    note:  'draft',
     value: 10,
     href:  '/documents/papers/loneliness-crisis.pdf',
   },
   {
     label: 'Synthetic Biology × Everything',
-    note:  'cross-sector implications of programmable biology · in progress',
+    note:  'in progress',
     value: 8,
   },
 ]
@@ -110,19 +110,17 @@ const CL_LIAB = [
 const LT_LIAB = [
   {
     label: 'Declining Birth Rates × Food',
-    note:  'ultra-processed diets and reproductive health',
     value: 14,
     href:  '/documents/papers/When Markets Fail to Make Babies -The Limits of Private Responses to Fertility Crisis.pdf',
   },
   {
     label: 'The Food System Thesis',
-    note:  'incentive structures and information asymmetry in food supply',
     value: 12,
     href:  '/documents/papers/food-system-thesis.pdf',
   },
   {
     label: 'World View Agent Manager',
-    note:  'multi-agent framework for stress-testing assumptions',
+    note:  'multi-agent AI framework',
     value: 6,
   },
 ]
@@ -131,13 +129,13 @@ const LT_LIAB = [
 const EQ_ITEMS = [
   {
     label: 'Productivity System',
-    note:  'Notion-based workflows · task automation & knowledge management',
+    note:  'Notion workflows & automation',
     value: 20,
     toolsPopup: true,
   },
   {
     label: 'AI Toolkit',
-    note:  'Claude, Cursor, custom agents · compounding daily',
+    note:  'Claude, Cursor, custom agents',
     value: 15,
     toolsPopup: true,
   },
@@ -362,7 +360,7 @@ function Row({ item, step, delay, active, onToolsClick }) {
             <span style={{ marginLeft: '5px', fontSize: '13px' }}>{item.toolsPopup ? '↗' : '→'}</span>
           )}
         </span>
-        <span style={{
+        {item.note && <span style={{
           fontSize: '12px',
           fontStyle: 'italic',
           color: CREAM,
@@ -370,7 +368,7 @@ function Row({ item, step, delay, active, onToolsClick }) {
           fontWeight: '300',
         }}>
           {item.note}
-        </span>
+        </span>}
       </span>
       <span style={{
         fontFamily: mono,

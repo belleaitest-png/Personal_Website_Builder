@@ -166,46 +166,74 @@ function TextBlock({ tag, headline, body, cta, ctaHref, ctaExternal, active, com
 
 function WhoopVisual({ active }) {
   const metrics = [
-    { label: 'Recovery',  value: '82%',  x: -110, y: -100, fromLeft: true },
-    { label: 'HRV',       value: '65ms', x:  100, y:  -50, fromLeft: false },
-    { label: 'Strain',    value: '12.4', x: -100, y:  100, fromLeft: true },
-    { label: 'Sleep',     value: '7.4h', x:   90, y:   80, fromLeft: false },
+    { label: 'Recovery',  value: '82%',  x: -140, y: -80, fromLeft: true },
+    { label: 'HRV',       value: '65ms', x:  120, y: -40, fromLeft: false },
+    { label: 'Strain',    value: '12.4', x: -130, y:  80, fromLeft: true },
+    { label: 'Sleep',     value: '7.4h', x:  110, y:  60, fromLeft: false },
   ]
 
   return (
     <div style={{
       display: 'flex', justifyContent: 'center', alignItems: 'center',
-      height: '100%', perspective: '900px',
+      height: '100%', perspective: '800px',
     }}>
       <div style={{
         position: 'relative',
-        transform: 'rotateY(-14deg) rotateX(4deg)',
-        transformStyle: 'preserve-3d',
+        animation: active ? 'ssFloat 5s ease-in-out infinite' : 'none',
+        opacity: active ? 1 : 0, transition: 'opacity 0.7s ease',
       }}>
+        {/* 3D WHOOP band */}
         <div style={{
-          width: '150px', height: '260px', borderRadius: '75px',
-          background: 'linear-gradient(170deg, #1c1c1c 0%, #2b2b2b 35%, #1a1a1a 70%, #222 100%)',
-          border: '1.5px solid rgba(255,255,255,0.06)',
-          boxShadow: '0 50px 100px rgba(0,0,0,0.55), 0 0 80px rgba(0,200,150,0.06), inset 0 1px 0 rgba(255,255,255,0.05)',
-          display: 'flex', justifyContent: 'center', alignItems: 'center',
-          position: 'relative',
-          animation: active ? 'ssFloat 5s ease-in-out infinite' : 'none',
-          opacity: active ? 1 : 0, transition: 'opacity 0.7s ease',
+          transform: 'rotateX(60deg) rotateY(-12deg) rotateZ(-5deg)',
+          transformStyle: 'preserve-3d',
+          position: 'relative', width: 190, height: 190,
         }}>
+          {/* Band ring */}
           <div style={{
-            position: 'absolute', inset: '5px', borderRadius: '70px',
-            background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.012) 50%, transparent)',
-            border: '1px solid rgba(255,255,255,0.025)',
-          }} />
+            width: '100%', height: '100%', borderRadius: '50%',
+            border: '20px solid #1c1c1c',
+            borderTopColor: '#2c2c2c', borderBottomColor: '#111',
+            borderLeftColor: '#222', borderRightColor: '#161616',
+            boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 3px 8px rgba(255,255,255,0.04), inset 0 -4px 10px rgba(0,0,0,0.4), 0 0 60px rgba(0,200,150,0.04)',
+            position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute', inset: -20, borderRadius: '50%',
+              border: '20px solid transparent',
+              borderTopColor: 'rgba(255,255,255,0.03)',
+              borderLeftColor: 'rgba(255,255,255,0.02)',
+              pointerEvents: 'none',
+            }} />
+          </div>
+          {/* Sensor pod */}
           <div style={{
-            width: '20px', height: '20px', borderRadius: '50%',
-            background: `radial-gradient(circle, ${TEAL}, #009d74)`,
-            animation: active ? 'ssPulseGlow 2.5s ease-in-out infinite' : 'none',
-            position: 'relative', zIndex: 2,
+            position: 'absolute', top: -8, left: '50%',
+            transform: 'translateX(-50%)',
+            width: 50, height: 40, borderRadius: 11,
+            background: 'linear-gradient(155deg, #333 0%, #1e1e1e 40%, #282828 100%)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            boxShadow: '0 6px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07), 0 0 30px rgba(0,200,150,0.06)',
+            display: 'flex', flexDirection: 'column',
+            justifyContent: 'center', alignItems: 'center', gap: 5,
+          }}>
+            <div style={{ width: 20, height: 1.5, borderRadius: 1, background: 'rgba(255,255,255,0.1)' }} />
+            <div style={{
+              width: 12, height: 12, borderRadius: '50%',
+              background: `radial-gradient(circle at 35% 35%, ${TEAL}, #008d64)`,
+              boxShadow: `0 0 15px ${TEAL}50, 0 0 35px ${TEAL}18`,
+              animation: active ? 'ssPulseGlow 2.5s ease-in-out infinite' : 'none',
+            }} />
+          </div>
+          {/* Clasp */}
+          <div style={{
+            position: 'absolute', bottom: -6, left: '50%',
+            transform: 'translateX(-50%)',
+            width: 28, height: 10, borderRadius: 3,
+            background: 'linear-gradient(180deg, #2a2a2a, #181818)',
+            border: '1px solid rgba(255,255,255,0.04)',
           }} />
-          <div style={{ position: 'absolute', top: '22px', width: '30px', height: '3px', borderRadius: '2px', background: 'rgba(255,255,255,0.07)' }} />
-          <div style={{ position: 'absolute', bottom: '22px', width: '30px', height: '3px', borderRadius: '2px', background: 'rgba(255,255,255,0.07)' }} />
         </div>
+        {/* Metric cards */}
         {metrics.map((m, i) => (
           <div key={m.label} style={{
             position: 'absolute',
