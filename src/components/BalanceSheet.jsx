@@ -118,6 +118,7 @@ const LT_LIAB = [
     label: 'Declining Birth Rates × Food',
     value: 14,
     href:  '/documents/papers/When Markets Fail to Make Babies -The Limits of Private Responses to Fertility Crisis.pdf',
+    gated: true,
   },
   {
     label: 'The Food System Thesis',
