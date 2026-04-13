@@ -12,7 +12,7 @@ const ROSE       = '#C7706A'
 const serif      = "'Cormorant Garamond', serif"
 const mono       = "'Courier New', monospace"
 
-const NUM_PANELS = 3
+const NUM_PANELS = 5
 
 // ── Keyframes ────────────────────────────────────────────────────────────────
 const CSS = `
@@ -43,8 +43,62 @@ const CSS = `
 }
 `
 
+// ── Tool badge ──────────────────────────────────────────────────────────────
+function ToolBadge({ tool, active }) {
+  const tools = {
+    'Claude Code': { icon: '⌘', color: '#D97706' },
+    'Lovable': { icon: '♥', color: '#EC4899' },
+    'Notion': { icon: '▪', color: '#FFFFFF' },
+  }
+  const t = tools[tool] || { icon: '◆', color: CREAM }
+
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: '8px',
+      padding: '6px 14px', borderRadius: '20px',
+      background: `${t.color}12`, border: `1px solid ${t.color}30`,
+      opacity: active ? 1 : 0,
+      transition: 'opacity 0.5s ease 0.8s',
+      marginTop: '16px',
+    }}>
+      <span style={{ fontSize: '12px' }}>{t.icon}</span>
+      <span style={{
+        fontFamily: serif, fontSize: '11px', fontWeight: '600',
+        color: t.color, letterSpacing: '0.06em', textTransform: 'uppercase',
+      }}>
+        Built with {tool}
+      </span>
+    </div>
+  )
+}
+
+// ── Coming Soon badge ───────────────────────────────────────────────────────
+function ComingSoonBadge({ active }) {
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: '6px',
+      padding: '8px 20px', borderRadius: '4px',
+      background: 'rgba(245,240,232,0.04)',
+      border: '1px solid rgba(245,240,232,0.15)',
+      opacity: active ? 0.6 : 0,
+      transition: 'opacity 0.5s ease 0.6s',
+    }}>
+      <div style={{
+        width: '6px', height: '6px', borderRadius: '50%',
+        background: ORANGE, opacity: 0.7,
+      }} />
+      <span style={{
+        fontFamily: serif, fontSize: '13px', fontWeight: '600',
+        color: CREAM, letterSpacing: '0.08em', textTransform: 'uppercase',
+      }}>
+        In Development
+      </span>
+    </div>
+  )
+}
+
 // ── Text block (reusable) ────────────────────────────────────────────────────
-function TextBlock({ tag, headline, body, cta, ctaHref, ctaExternal, active, coming }) {
+function TextBlock({ tag, headline, body, cta, ctaHref, ctaExternal, active, coming, tool }) {
   const stepStyle = (step) => ({
     animation: active ? `ssFadeUp 0.55s ease both` : 'none',
     animationDelay: `${300 + step * 120}ms`,
@@ -75,31 +129,39 @@ function TextBlock({ tag, headline, body, cta, ctaHref, ctaExternal, active, com
       }}>
         {body}
       </p>
-      <a
-        href={ctaHref}
-        target={ctaExternal ? '_blank' : undefined}
-        rel={ctaExternal ? 'noreferrer' : undefined}
-        style={{
-          display: 'inline-block', fontFamily: serif,
-          fontSize: '14px', fontWeight: '600',
-          color: coming ? CREAM : WHITE,
-          background: coming ? 'transparent' : ORANGE,
-          border: coming ? '1px solid rgba(245,240,232,0.25)' : 'none',
-          borderRadius: '4px', padding: '14px 28px',
-          textDecoration: 'none', letterSpacing: '0.05em',
-          cursor: coming ? 'default' : 'pointer',
-          opacity: coming ? 0.5 : 1,
-          ...stepStyle(3),
-        }}
-      >
-        {cta}
-      </a>
+      {coming ? (
+        <div style={stepStyle(3)}>
+          <ComingSoonBadge active={active} />
+        </div>
+      ) : (
+        <a
+          href={ctaHref}
+          target={ctaExternal ? '_blank' : undefined}
+          rel={ctaExternal ? 'noreferrer' : undefined}
+          style={{
+            display: 'inline-block', fontFamily: serif,
+            fontSize: '14px', fontWeight: '600',
+            color: WHITE, background: ORANGE,
+            border: 'none', borderRadius: '4px',
+            padding: '14px 28px', textDecoration: 'none',
+            letterSpacing: '0.05em', cursor: 'pointer',
+            ...stepStyle(3),
+          }}
+        >
+          {cta}
+        </a>
+      )}
+      {tool && (
+        <div style={stepStyle(4)}>
+          <ToolBadge tool={tool} active={active} />
+        </div>
+      )}
     </div>
   )
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  Panel 1 — WHOOP / Health OS
+//  Panel 1 - WHOOP / Apex Health OS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function WhoopVisual({ active }) {
@@ -165,7 +227,7 @@ function WhoopVisual({ active }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  Panel 2 — Subscription OS
+//  Panel 2 - SuppStack Manager
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const SUBS = [
@@ -233,7 +295,77 @@ function SubscriptionVisual({ active }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  Panel 3 — Pregnancy OS
+//  Panel 3 - Personal CRM
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function CRMVisual({ active }) {
+  const contacts = [
+    { name: 'Advisor', tag: 'Last: 3d ago', color: '#3B82F6' },
+    { name: 'Investor', tag: 'Follow up', color: '#8B5CF6' },
+    { name: 'Co-founder', tag: 'Weekly sync', color: TEAL },
+    { name: 'Mentor', tag: 'Intro pending', color: ORANGE },
+  ]
+
+  return (
+    <div style={{
+      display: 'flex', justifyContent: 'center', alignItems: 'center',
+      height: '100%',
+    }}>
+      <div style={{
+        position: 'relative', width: '300px', height: '340px',
+        opacity: active ? 1 : 0, transition: 'opacity 0.7s ease',
+      }}>
+        {/* Connection lines */}
+        <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+          {contacts.map((_, i) => (
+            <line key={i}
+              x1="150" y1="170"
+              x2={80 + (i % 2) * 140} y2={60 + Math.floor(i / 2) * 180}
+              stroke="rgba(245,240,232,0.06)" strokeWidth="1"
+              style={{
+                strokeDasharray: 200,
+                strokeDashoffset: active ? 0 : 200,
+                transition: `stroke-dashoffset 1s ease ${0.3 + i * 0.15}s`,
+              }}
+            />
+          ))}
+        </svg>
+        {/* Central node */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '60px', height: '60px', borderRadius: '50%',
+          background: `radial-gradient(circle, ${ORANGE}40, ${ORANGE}10)`,
+          border: `1.5px solid ${ORANGE}50`,
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+        }}>
+          <span style={{ fontSize: '22px', color: ORANGE, fontWeight: '700', fontFamily: mono }}>AB</span>
+        </div>
+        {/* Contact nodes */}
+        {contacts.map((c, i) => (
+          <div key={c.name} style={{
+            position: 'absolute',
+            left: `${i % 2 === 0 ? 10 : 65}%`,
+            top: `${i < 2 ? 8 : 72}%`,
+            transform: 'translate(-50%, -50%)',
+            background: `${c.color}10`, border: `1px solid ${c.color}30`,
+            borderRadius: '12px', padding: '14px 18px',
+            opacity: active ? 1 : 0,
+            transform: active ? 'scale(1)' : 'scale(0.8)',
+            transition: `all 0.5s ease ${0.4 + i * 0.15}s`,
+            backdropFilter: 'blur(6px)',
+          }}>
+            <div style={{ fontSize: '14px', color: WHITE, fontWeight: '600', fontFamily: serif, marginBottom: '4px' }}>{c.name}</div>
+            <div style={{ fontSize: '10px', color: c.color, fontFamily: mono, letterSpacing: '0.04em' }}>{c.tag}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  Panel 4 - Pregnancy OS (Bloom)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function PregnancyVisual({ active }) {
@@ -277,7 +409,7 @@ function PregnancyVisual({ active }) {
         {[
           { label: 'Trimester', value: '2nd', x: -120, y: -60 },
           { label: 'Week', value: '22', x: 110, y: -30 },
-          { label: 'Folate', value: '✓', x: -100, y: 90 },
+          { label: 'Folate', value: '\u2713', x: -100, y: 90 },
         ].map((b, i) => (
           <div key={b.label} style={{
             position: 'absolute',
@@ -297,51 +429,157 @@ function PregnancyVisual({ active }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  Panel 5 - Demographic Forecaster
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function DemographicVisual({ active }) {
+  // Declining population curve data points
+  const bars = [
+    { year: '2020', h: 85, color: '#3B82F6' },
+    { year: '2030', h: 78, color: '#3B82F6' },
+    { year: '2040', h: 68, color: '#D97706' },
+    { year: '2050', h: 55, color: '#D97706' },
+    { year: '2060', h: 42, color: ORANGE },
+    { year: '2070', h: 30, color: ORANGE },
+  ]
+
+  return (
+    <div style={{
+      display: 'flex', justifyContent: 'center', alignItems: 'center',
+      height: '100%',
+    }}>
+      <div style={{
+        position: 'relative', width: '320px', height: '300px',
+        opacity: active ? 1 : 0, transition: 'opacity 0.7s ease',
+      }}>
+        {/* Chart area */}
+        <div style={{
+          display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+          gap: '14px', height: '220px', paddingBottom: '30px',
+          borderBottom: '1px solid rgba(245,240,232,0.1)',
+          borderLeft: '1px solid rgba(245,240,232,0.1)',
+          paddingLeft: '8px',
+        }}>
+          {bars.map((bar, i) => (
+            <div key={bar.year} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+              <div style={{
+                width: '32px',
+                height: active ? `${bar.h * 2}px` : '0px',
+                background: `linear-gradient(180deg, ${bar.color}, ${bar.color}60)`,
+                borderRadius: '4px 4px 0 0',
+                transition: `height 0.8s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.12}s`,
+                boxShadow: `0 0 12px ${bar.color}25`,
+              }} />
+              <span style={{
+                fontFamily: mono, fontSize: '9px', color: CREAM,
+                opacity: 0.4, letterSpacing: '0.02em',
+              }}>
+                {bar.year}
+              </span>
+            </div>
+          ))}
+        </div>
+        {/* Trend line overlay */}
+        <svg style={{
+          position: 'absolute', top: '0', left: '8px',
+          width: 'calc(100% - 8px)', height: '220px', pointerEvents: 'none',
+        }}>
+          <polyline
+            points="26,32 72,52 118,82 164,118 210,152 256,178"
+            fill="none" stroke={ORANGE} strokeWidth="2"
+            strokeDasharray="4,6" opacity="0.5"
+            style={{
+              strokeDashoffset: active ? 0 : 300,
+              transition: 'stroke-dashoffset 1.5s ease 1s',
+            }}
+          />
+        </svg>
+        {/* Stat badges */}
+        {[
+          { label: 'TFR Decline', value: '-38%', x: -30, y: -20 },
+          { label: 'By 2070', value: '1.2B fewer', x: 190, y: 10 },
+        ].map((s, i) => (
+          <div key={s.label} style={{
+            position: 'absolute', left: `${s.x}px`, top: `${s.y}px`,
+            background: 'rgba(217,119,6,0.06)', border: '1px solid rgba(217,119,6,0.2)',
+            borderRadius: '10px', padding: '10px 14px',
+            opacity: active ? 1 : 0, transform: active ? 'translateY(0)' : 'translateY(10px)',
+            transition: `all 0.5s ease ${1 + i * 0.2}s`, whiteSpace: 'nowrap',
+          }}>
+            <div style={{ fontSize: '9px', color: '#D97706', opacity: 0.7, letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: serif, marginBottom: '3px' }}>{s.label}</div>
+            <div style={{ fontSize: '15px', color: WHITE, fontWeight: '700', fontFamily: mono }}>{s.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  Panel data
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const PANELS = [
+  // ── Live apps ──
   {
     Visual: WhoopVisual,
     bg: NAVY,
-    tag: 'Health OS',
-    headline: 'Your WHOOP data, activated.',
-    body: 'Your wearable knows what your body needs. We turn that signal into action — a health OS with a grocery shopping agent powered by Claude. It reads your recovery, analyses your gaps, and shops for what your biology actually requires.',
-    cta: 'Visit Verifood →',
-    ctaHref: 'https://verifood.app/',
+    tag: 'I Built a Thing',
+    headline: 'Using WHOOP to automate my grocery shopping.',
+    body: 'Your WHOOP tracks recovery, HRV, strain, and sleep. Apex Health OS connects those signals to what you eat. It logs nutrition via natural language, spots micronutrient gaps, correlates patterns across your health data, and builds a grocery list your biology actually asked for.',
+    cta: 'Try Apex Health OS \u2192',
+    ctaHref: 'https://apex-health-os.vercel.app/',
     ctaExternal: true,
-  },
-  {
-    Visual: SubscriptionVisual,
-    bg: NAVY_ALT,
-    tag: 'Subscription OS',
-    headline: 'One agent. Every subscription.',
-    body: "Momentous. IM8. Larq. Water filters. All on separate sites, separate billing, overlapping micronutrients you don't even know about. Our agent suite consolidates, optimises, and quantifies your entire D2C stack — nothing doubles up, nothing runs out.",
-    cta: 'Coming Soon',
-    ctaHref: '#',
-    coming: true,
+    tool: 'Claude Code',
   },
   {
     Visual: PregnancyVisual,
+    bg: NAVY_ALT,
+    tag: 'I Built a Thing',
+    headline: 'A pregnancy OS for the modern mother.',
+    body: "Trimester-aware health tracking that adapts as you do. Bloom surfaces the right supplements, flags nutrient gaps, and handles the product research so you can stop Googling at 2am and focus on growing a human.",
+    cta: 'Try Bloom \u2192',
+    ctaHref: 'https://mama-mosaic-hub.lovable.app',
+    ctaExternal: true,
+    tool: 'Lovable',
+  },
+  {
+    Visual: DemographicVisual,
     bg: NAVY,
-    tag: 'Pregnancy OS',
-    headline: 'Pregnancy, supported.',
-    body: "Morning sickness. Nutrient gaps. Endless product research. The Pregnancy OS finds what you need, when you need it — supplements, remedies, relief — and handles the buying so you can focus on growing a human.",
-    cta: 'Coming Soon',
-    ctaHref: '#',
+    tag: 'I Built a Thing',
+    headline: 'Visualising the population decline nobody is planning for.',
+    body: "Fertility rates are falling faster than most models predicted. This tool maps the demographic data country by country, projects population trajectories, and makes the scale of the decline impossible to ignore. Built to support my research on birth rates and food systems.",
+    cta: 'Explore the Data \u2192',
+    ctaHref: 'https://demographic-forecaster.replit.app',
+    ctaExternal: true,
+    tool: 'Claude Code',
+  },
+  // ── Coming soon ──
+  {
+    Visual: CRMVisual,
+    bg: NAVY_ALT,
+    tag: 'I Built a Thing',
+    headline: 'A personal CRM that actually works.',
+    body: "Advisors, investors, co-founders, mentors. Every meaningful relationship deserves follow-through. This tool tracks conversations, surfaces when to reconnect, and keeps your network warm without enterprise software overhead.",
     coming: true,
+    tool: 'Claude Code',
+  },
+  {
+    Visual: SubscriptionVisual,
+    bg: NAVY,
+    tag: 'I Built a Thing',
+    headline: 'Managing my supplement subscriptions.',
+    body: "Five brands, five billing cycles, overlapping micronutrients nobody warned you about. SuppStack Manager consolidates every supplement subscription into one dashboard, flags ingredient overlaps, tracks dosing, and makes sure nothing doubles up and nothing runs out.",
+    coming: true,
+    tool: 'Claude Code',
   },
 ]
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  Horizontal scroll wrapper
-//  Phase 1 (entry): first panel slides in from the right over the balance sheet
-//  Phase 2 (carousel): panels scroll horizontally between each other
-//  Total height: (NUM_PANELS + 1) × 100vh — extra 100vh for the entry slide
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// Phases: entry (slide in) → dwell (WHOOP stays) → carousel (pan through panels)
-const TOTAL_VH = NUM_PANELS * 100 + 200 // +100vh entry, +100vh dwell
+const TOTAL_VH = NUM_PANELS * 100 + 200
 
 export default function ScrollSections() {
   const outerRef = useRef(null)
@@ -368,8 +606,8 @@ export default function ScrollSections() {
       const scrolled = -rect.top
       const p = Math.max(0, Math.min(1, scrolled / scrollableHeight))
 
-      const entryEnd = 0.2    // first 20% = slide in from right
-      const dwellEnd = 0.4    // next 20% = WHOOP stays centered
+      const entryEnd = 0.15
+      const dwellEnd = 0.3
 
       if (p <= entryEnd) {
         setEntryProgress(p / entryEnd)
@@ -390,9 +628,7 @@ export default function ScrollSections() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Entry: slide track from off-screen right (100vw) to 0
   const entryX = (1 - entryProgress) * 100
-  // Carousel: pan between panels
   const carouselX = -(panelProgress * (NUM_PANELS - 1) * 100)
   const translateX = entryX + carouselX
 
@@ -405,14 +641,12 @@ export default function ScrollSections() {
         height: `${TOTAL_VH}vh`,
       }}
     >
-      {/* Sticky viewport */}
       <div style={{
         position: 'sticky',
         top: 0,
         height: '100vh',
         overflow: 'hidden',
       }}>
-        {/* Sliding track */}
         <div style={{
           display: 'flex',
           width: `${NUM_PANELS * 100}vw`,
@@ -421,7 +655,7 @@ export default function ScrollSections() {
           willChange: 'transform',
         }}>
           {PANELS.map((panel, i) => {
-            const { Visual, bg, tag, headline, body, cta, ctaHref, ctaExternal, coming } = panel
+            const { Visual, bg, tag, headline, body, cta, ctaHref, ctaExternal, coming, tool } = panel
             const isActive = entryProgress > 0.5 && activePanel >= i
             return (
               <div
@@ -449,6 +683,7 @@ export default function ScrollSections() {
                   ctaExternal={ctaExternal}
                   coming={coming}
                   active={isActive}
+                  tool={tool}
                 />
               </div>
             )

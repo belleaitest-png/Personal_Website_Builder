@@ -4,11 +4,11 @@ const CORAL = '#FF4F38', GOLD = '#C9963A', CREAM = '#F5F0E8', NAVY = '#06111e'
 
 const BUBBLES = [
   { id:1, text:"I am working to build technology that enables human flourishing through taking action on understanding our biology for better health.", tag:"Mission", size:"large", accent:CORAL },
-  { id:2, text:"The food system is broken — and the data to fix it already exists. We just haven't connected it yet.", tag:"Conviction", size:"medium", accent:GOLD },
+  { id:2, text:"The food system is broken -and the data to fix it already exists. We just haven't connected it yet.", tag:"Conviction", size:"medium", accent:GOLD },
   { id:3, text:"I believe the most important companies of the next decade will sit at the intersection of biology, food, and AI.", tag:"Thesis", size:"medium", accent:CORAL },
   { id:4, text:"The best rooms I've ever been in had one thing in common: people who were genuinely curious about the world.", tag:"Philosophy", size:"small", accent:GOLD },
   { id:5, text:"If you're not uncomfortable, you're not building anything worth building.", tag:"Belief", size:"small", accent:"rgba(245,240,232,0.3)" },
-  { id:6, text:"Nutrient density is the most undervalued metric in human health — and the most underpriced asset in agriculture.", tag:"Research", size:"medium", accent:GOLD },
+  { id:6, text:"Nutrient density is the most undervalued metric in human health -and the most underpriced asset in agriculture.", tag:"Research", size:"medium", accent:GOLD },
 ]
 
 function BubbleCard({ bubble, index, isActive, onClick }) {
@@ -67,7 +67,7 @@ export default function ThoughtBubbles({ sectionTitle='What drives me', sectionL
         </div>}
         <div style={{ marginTop:48, padding:'24px 28px', background:'rgba(11,31,58,0.4)', borderRadius:10, border:'1px solid rgba(245,240,232,0.05)', display:'flex', alignItems:'center', gap:20 }}>
           <div style={{ width:36, height:36, borderRadius:'50%', background:`linear-gradient(135deg,${CORAL}40,${GOLD}40)`, border:`1px solid rgba(201,150,58,0.3)`, flexShrink:0, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Cormorant Garamond',serif", fontSize:'1.1rem', color:GOLD }}>AB</div>
-          <p style={{ fontSize:14, color:'rgba(245,240,232,0.4)', margin:0, lineHeight:1.65, fontStyle:'italic' }}>Updated as my thinking evolves — building at the intersection of food, health, and technology.</p>
+          <p style={{ fontSize:14, color:'rgba(245,240,232,0.4)', margin:0, lineHeight:1.65, fontStyle:'italic' }}>Updated as my thinking evolves -building at the intersection of food, health, and technology.</p>
         </div>
       </div>
     </div>

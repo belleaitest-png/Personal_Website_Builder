@@ -15,122 +15,198 @@ const R_OFFSET   = 160  // ms head-start for right column
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
-// Non-current assets — Resume: credentials that don't depreciate
+// Non-current assets -Resume
 const NC_ASSETS = [
   {
     label: 'HBS MBA',
-    note:  'intellectual capital, in acquisition',
+    note:  'Class of 2026 · strategy, entrepreneurship, health tech',
     value: 25,
-    href:  '#about',
-  },
-  {
-    label: 'ICAEW ACA',
-    note:  'chartered accountant · yes, I actually liked it',
-    value: 15,
-    href:  '#about',
-  },
-  {
-    label: 'Fruitist',
-    note:  'co-founder · turning ugly fruit into beautiful products',
-    value: 10,
-    href:  '#about',
-  },
-  {
-    label: 'AlixPartners',
-    note:  'turnaround consulting · corporate triage',
-    value: 8,
-    href:  '#about',
-  },
-  {
-    label: 'Deloitte',
-    note:  'audit & advisory · where the spreadsheets began',
-    value: 7,
-    href:  '#about',
-  },
-]
-
-// Current assets — Apps & Artifacts: live, shipping, generating value
-const CA_ASSETS = [
-  {
-    label: 'VeriFood',
-    note:  'WHOOP → grocery agent · your recovery shops for you',
-    value: 15,
-    href:  'https://verifood.app/',
+    href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
   },
   {
-    label: 'SuppStack Manager',
-    note:  'AI agents managing your supplement stack · no more overlaps',
-    value: 10,
-    href:  '#',
+    label: 'ICAEW ACA',
+    note:  'chartered accountant · UK qualified',
+    value: 15,
+    href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
+    ext:   true,
   },
   {
-    label: 'Bloom',
-    note:  'pregnancy OS · trimester-aware, actually helpful',
+    label: 'Fruitist',
+    note:  'strategy & innovation intern · upcycling surplus fruit into consumer products',
     value: 10,
-    href:  '#',
+    href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
+    ext:   true,
+  },
+  {
+    label: 'AlixPartners',
+    note:  'turnaround & restructuring consulting',
+    value: 8,
+    href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
+    ext:   true,
+  },
+  {
+    label: 'Deloitte',
+    note:  'audit & assurance',
+    value: 7,
+    href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
+    ext:   true,
   },
 ]
 
-// Current liabilities — Papers in Development: problems I can't stop thinking about
+// Current assets -Apps & Artifacts
+const CA_ASSETS = [
+  {
+    label: 'Apex Health OS',
+    note:  'WHOOP-integrated grocery agent · recovery-driven nutrition',
+    value: 12,
+    href:  'https://apex-health-os.vercel.app/',
+    ext:   true,
+  },
+  {
+    label: 'Bloom',
+    note:  'trimester-aware pregnancy health platform',
+    value: 8,
+    href:  'https://mama-mosaic-hub.lovable.app',
+    ext:   true,
+  },
+  {
+    label: 'Demographic Forecaster',
+    note:  'population decline modelling · country-level projections',
+    value: 7,
+    href:  'https://demographic-forecaster.replit.app',
+    ext:   true,
+  },
+  {
+    label: 'Personal CRM',
+    note:  'relationship tracking & follow-up automation',
+    value: 4,
+    coming: true,
+  },
+  {
+    label: 'SuppStack Manager',
+    note:  'AI-powered supplement interaction & dosing tracker',
+    value: 4,
+    coming: true,
+  },
+]
+
+// Current liabilities -Papers in Development
 const CL_LIAB = [
   {
     label: 'The Loneliness Epidemic (Male)',
-    note:  'metabolic shadow of social isolation · draft',
+    note:  'social isolation and metabolic health outcomes · draft',
     value: 10,
     href:  '/documents/papers/loneliness-crisis.pdf',
   },
   {
     label: 'Synthetic Biology × Everything',
-    note:  'how synbio rewrites the rules · in progress',
+    note:  'cross-sector implications of programmable biology · in progress',
     value: 8,
   },
 ]
 
-// Long-term liabilities — Papers Written: published thinking, still accruing interest
+// Long-term liabilities -Papers Written
 const LT_LIAB = [
   {
     label: 'Declining Birth Rates × Food',
-    note:  'ultra-processed fertility · the quiet crisis',
+    note:  'ultra-processed diets and reproductive health',
     value: 14,
-    href:  '/documents/papers/birth-rates.pdf',
+    href:  '/documents/papers/When Markets Fail to Make Babies -The Limits of Private Responses to Fertility Crisis.pdf',
   },
   {
     label: 'The Food System Thesis',
-    note:  'inputs, incentives, and why your salad is lying to you',
+    note:  'incentive structures and information asymmetry in food supply',
     value: 12,
     href:  '/documents/papers/food-system-thesis.pdf',
   },
   {
     label: 'World View Agent Manager',
-    note:  'AI agents that challenge your assumptions · framework',
+    note:  'multi-agent framework for stress-testing assumptions',
     value: 6,
   },
 ]
 
-// Equity — Systems & Tools: the operating system behind the operator
+// Equity -Systems & Tools
 const EQ_ITEMS = [
   {
     label: 'Productivity System',
-    note:  'Notion × automations · unreasonably organised',
+    note:  'Notion-based workflows · task automation & knowledge management',
     value: 20,
-    href:  '#about',
+    toolsPopup: true,
   },
   {
     label: 'AI Toolkit',
-    note:  'Claude, Cursor, custom agents · the compound edge',
+    note:  'Claude, Cursor, custom agents · compounding daily',
     value: 15,
-    href:  '#about',
+    toolsPopup: true,
   },
   {
     label: 'Mindfulness Routine',
-    note:  'meditation, journaling, cold water · intangible but load-bearing',
+    note:  'meditation, journaling, cold exposure',
     value: 15,
-    href:  '#about',
   },
 ]
 
-// Subtotals & totals — must balance: Total Assets = Total L + Total E
+// ── Tools data for popup ─────────────────────────────────────────────────────
+const TOOL_TIERS = [
+  {
+    tier: 'Primary',
+    color: '#E8534E',
+    tools: [
+      { name: 'Claude Cowork', icon: '⌘' },
+      { name: 'Claude Code', icon: '⌘' },
+      { name: 'Notion', icon: '▪' },
+      { name: 'Speechify', icon: '🔊' },
+    ],
+  },
+  {
+    tier: 'Secondary',
+    color: '#00C896',
+    tools: [
+      { name: 'GitHub', icon: '◆' },
+      { name: 'Vercel', icon: '▲' },
+      { name: 'Cloudflare', icon: '☁' },
+      { name: 'Lovable', icon: '♥' },
+      { name: 'Replit', icon: '◉' },
+      { name: 'Resend', icon: '✉' },
+      { name: 'Google Workspace', icon: 'G' },
+      { name: 'Nanobanana 2', icon: '🍌' },
+      { name: 'NotebookLM', icon: '📓' },
+      { name: 'Granola', icon: '📝' },
+    ],
+  },
+  {
+    tier: 'Tertiary',
+    color: '#D97706',
+    tools: [
+      { name: 'Gemini Live', icon: '✦' },
+      { name: 'Google Stitch', icon: '🧵' },
+      { name: 'Figma Make', icon: '◎' },
+      { name: 'Whispr Flow', icon: '🎙' },
+      { name: 'Canva', icon: '🎨' },
+      { name: 'ElevenLabs', icon: '🔉' },
+      { name: 'Twilio', icon: '📱' },
+      { name: 'Supabase', icon: '⚡' },
+      { name: 'Formspree', icon: '📋' },
+      { name: 'ChatGPT', icon: '○' },
+      { name: 'Codex', icon: '◇' },
+      { name: 'Zapier', icon: '⚡' },
+    ],
+  },
+  {
+    tier: 'Tried',
+    color: 'rgba(245,240,232,0.35)',
+    tools: [
+      { name: 'Seedance 2', icon: '🌱' },
+      { name: 'Ommia', icon: '◯' },
+      { name: 'Framer', icon: '▢' },
+      { name: 'Loop', icon: '∞' },
+    ],
+  },
+]
+
+// Subtotals & totals -must balance: Total Assets = Total L + Total E
 const NC_SUB   = 65
 const CA_SUB   = 35
 const TOTAL_A  = 100
@@ -205,6 +281,23 @@ function ColHeader({ children, step, delay, active }) {
   )
 }
 
+function SectionLabel({ children, step, delay, active }) {
+  return (
+    <div style={{
+      fontFamily: serif,
+      fontSize: '14px',
+      fontWeight: '600',
+      color: CREAM,
+      opacity: 0.55,
+      padding: '16px 0 0',
+      letterSpacing: '0.04em',
+      ...rowAnim(step, delay, active),
+    }}>
+      {children}
+    </div>
+  )
+}
+
 function CategoryLabel({ children, step, delay, active }) {
   return (
     <div style={{
@@ -212,8 +305,8 @@ function CategoryLabel({ children, step, delay, active }) {
       fontSize: '13px',
       fontStyle: 'italic',
       color: CREAM,
-      opacity: 0.45,
-      padding: '14px 0 3px',
+      opacity: 0.38,
+      padding: '2px 0 3px',
       letterSpacing: '0.03em',
       ...rowAnim(step, delay, active),
     }}>
@@ -222,9 +315,10 @@ function CategoryLabel({ children, step, delay, active }) {
   )
 }
 
-function Row({ item, step, delay, active }) {
+function Row({ item, step, delay, active, onToolsClick }) {
   const [hov, setHov] = useState(false)
   const isLink = Boolean(item.href)
+  const isClickable = isLink || item.toolsPopup
 
   const inner = (
     <div
@@ -233,16 +327,17 @@ function Row({ item, step, delay, active }) {
         justifyContent: 'space-between',
         alignItems: 'baseline',
         padding: '5px 0 5px 20px',
-        cursor: isLink ? 'pointer' : 'default',
+        cursor: isClickable ? 'pointer' : 'default',
         ...rowAnim(step, delay, active),
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
+      onClick={item.toolsPopup ? onToolsClick : undefined}
     >
       <span style={{
         fontFamily: serif,
         fontSize: '16px',
-        color: hov && isLink ? ORANGE : CREAM,
+        color: hov && isClickable ? ORANGE : CREAM,
         transition: 'color 0.15s',
         display: 'flex',
         alignItems: 'baseline',
@@ -251,8 +346,20 @@ function Row({ item, step, delay, active }) {
       }}>
         <span>
           {item.label}
-          {isLink && hov && (
-            <span style={{ marginLeft: '5px', fontSize: '13px' }}>→</span>
+          {item.coming && (
+            <span style={{
+              marginLeft: '8px', fontSize: '9px', fontWeight: '600',
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: ORANGE, opacity: 0.6, fontFamily: mono,
+              border: `1px solid rgba(232,83,78,0.25)`,
+              borderRadius: '3px', padding: '2px 6px',
+              verticalAlign: 'middle',
+            }}>
+              Soon
+            </span>
+          )}
+          {isClickable && hov && (
+            <span style={{ marginLeft: '5px', fontSize: '13px' }}>{item.toolsPopup ? '↗' : '→'}</span>
           )}
         </span>
         <span style={{
@@ -268,8 +375,8 @@ function Row({ item, step, delay, active }) {
       <span style={{
         fontFamily: mono,
         fontSize: '15px',
-        color: hov && isLink ? ORANGE : CREAM,
-        opacity: hov && isLink ? 1 : 0.6,
+        color: hov && isClickable ? ORANGE : CREAM,
+        opacity: hov && isClickable ? 1 : 0.6,
         transition: 'color 0.15s, opacity 0.15s',
         paddingLeft: '20px',
         flexShrink: 0,
@@ -386,9 +493,101 @@ function GrandTotalRow({ label, value, step, delay, active }) {
   )
 }
 
+// ── Tools Popup ──────────────────────────────────────────────────────────────
+function ToolsPopup({ open, onClose }) {
+  if (!open) return null
+
+  return (
+    <div
+      style={{
+        position: 'fixed', inset: 0, zIndex: 1000,
+        background: 'rgba(0,0,0,0.75)',
+        backdropFilter: 'blur(10px)',
+        display: 'flex', justifyContent: 'center', alignItems: 'center',
+        padding: '24px',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: '#141616', borderRadius: '16px',
+          border: '1px solid rgba(255,255,255,0.08)',
+          padding: '40px 44px', maxWidth: '640px', width: '100%',
+          maxHeight: '85vh', overflowY: 'auto',
+          boxShadow: '0 32px 100px rgba(0,0,0,0.6)',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+          <div>
+            <h3 style={{
+              fontFamily: serif, fontSize: '24px', fontWeight: '700',
+              color: WHITE, margin: '0 0 6px',
+            }}>
+              Systems & Tools
+            </h3>
+            <p style={{
+              fontFamily: serif, fontSize: '13px', color: CREAM,
+              opacity: 0.4, margin: 0, fontStyle: 'italic',
+            }}>
+              The stack behind the work
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none', border: 'none', color: CREAM,
+              opacity: 0.4, fontSize: '24px', cursor: 'pointer',
+              padding: '8px', lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        </div>
+
+        {TOOL_TIERS.map((tier) => (
+          <div key={tier.tier} style={{ marginBottom: '28px' }}>
+            <div style={{
+              fontFamily: serif, fontSize: '11px', fontWeight: '600',
+              letterSpacing: '0.14em', textTransform: 'uppercase',
+              color: tier.color, marginBottom: '14px',
+              paddingBottom: '8px',
+              borderBottom: `1px solid ${tier.color}20`,
+            }}>
+              {tier.tier}
+            </div>
+            <div style={{
+              display: 'flex', flexWrap: 'wrap', gap: '10px',
+            }}>
+              {tier.tools.map((tool) => (
+                <div key={tool.name} style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  padding: '8px 14px', borderRadius: '8px',
+                  background: `${tier.color}08`,
+                  border: `1px solid ${tier.color}18`,
+                  transition: 'all 0.2s ease',
+                }}>
+                  <span style={{ fontSize: '14px', lineHeight: 1 }}>{tool.icon}</span>
+                  <span style={{
+                    fontFamily: serif, fontSize: '13px', fontWeight: '500',
+                    color: CREAM, opacity: 0.8,
+                  }}>
+                    {tool.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function BalanceSheet() {
   const [active, setActive] = useState(false)
+  const [toolsOpen, setToolsOpen] = useState(false)
   const ref = useRef(null)
 
   useEffect(() => {
@@ -502,6 +701,9 @@ export default function BalanceSheet() {
           <ColHeader step={1} delay={L} active={active}>Assets</ColHeader>
 
           {/* Non-current */}
+          <SectionLabel step={2} delay={L} active={active}>
+            Non-Current Assets
+          </SectionLabel>
           <CategoryLabel step={2} delay={L} active={active}>
             Resume
           </CategoryLabel>
@@ -511,6 +713,9 @@ export default function BalanceSheet() {
           <Subtotal value={NC_SUB} step={8} delay={L} active={active} />
 
           {/* Current */}
+          <SectionLabel step={9} delay={L} active={active}>
+            Current Assets
+          </SectionLabel>
           <CategoryLabel step={9} delay={L} active={active}>
             Apps & Artifacts
           </CategoryLabel>
@@ -534,6 +739,9 @@ export default function BalanceSheet() {
           <ColHeader step={1} delay={R} active={active}>Liabilities</ColHeader>
 
           {/* Current liabilities */}
+          <SectionLabel step={2} delay={R} active={active}>
+            Current Liabilities
+          </SectionLabel>
           <CategoryLabel step={2} delay={R} active={active}>
             Papers in Development
           </CategoryLabel>
@@ -543,6 +751,9 @@ export default function BalanceSheet() {
           <Subtotal value={CL_SUB} step={5} delay={R} active={active} />
 
           {/* Long-term liabilities */}
+          <SectionLabel step={6} delay={R} active={active}>
+            Non-Current Liabilities
+          </SectionLabel>
           <CategoryLabel step={6} delay={R} active={active}>
             Papers Written
           </CategoryLabel>
@@ -558,21 +769,24 @@ export default function BalanceSheet() {
           />
 
           {/* Equity */}
-          <ColHeader step={11} delay={R} active={active}>Systems & Tools</ColHeader>
+          <ColHeader step={11} delay={R} active={active}>Equity</ColHeader>
+          <CategoryLabel step={12} delay={R} active={active}>
+            Systems & Tools
+          </CategoryLabel>
           {EQ_ITEMS.map((item, i) => (
-            <Row key={item.label} item={item} step={12 + i} delay={R} active={active} />
+            <Row key={item.label} item={item} step={13 + i} delay={R} active={active} onToolsClick={() => setToolsOpen(true)} />
           ))}
           <TotalRow
             label="Total Shareholders' Funds"
             value={TOTAL_E}
-            step={15}
+            step={16}
             delay={R}
             active={active}
           />
           <GrandTotalRow
             label="Liabilities + Equity"
             value={totalLEDisplay}
-            step={16}
+            step={17}
             delay={R}
             active={active}
           />
@@ -590,15 +804,16 @@ export default function BalanceSheet() {
       }}>
         <p style={{
           fontFamily: serif,
-          fontSize: '12px',
-          color: CREAM,
-          opacity: 0.25,
+          fontSize: '14px',
+          color: ORANGE,
+          opacity: 0.4,
           margin: 0,
           fontStyle: 'italic',
         }}>
-          * Prepared on a going-concern basis · The auditors have a conflict of interest · Click the assets, not the liabilities
+          * Prepared on a going-concern basis · The auditor has a conflict of interest
         </p>
       </div>
+      <ToolsPopup open={toolsOpen} onClose={() => setToolsOpen(false)} />
     </section>
   )
 }

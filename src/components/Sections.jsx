@@ -71,17 +71,17 @@ const divider = {
   borderRadius: '2px',
 }
 
-// ─── Hero (sticky — content scrolls up over it) ─────────────────────────────
+// ─── Hero (sticky -content scrolls up over it) ─────────────────────────────
 const heroCSS = `
 @keyframes peekBounce {
   0%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-14px); }
-  60% { transform: translateY(-4px); }
+  40% { transform: translateY(-22px); }
+  60% { transform: translateY(-6px); }
 }
 @keyframes peekFade {
-  0%, 70% { opacity: 0.7; }
-  85% { opacity: 0.3; }
-  100% { opacity: 0.7; }
+  0%, 70% { opacity: 1; }
+  85% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 `
 
@@ -119,7 +119,7 @@ function Hero() {
         <HeroTicker overlayOpacity={0.6} align="left" />
       </div>
 
-      {/* Scroll hint — balance sheet peeking up */}
+      {/* Scroll hint -balance sheet peeking up */}
       <div style={{
         position: 'absolute',
         bottom: 0,
@@ -138,7 +138,7 @@ function Hero() {
           letterSpacing: '0.16em',
           textTransform: 'uppercase',
           color: ORANGE,
-          opacity: 0.6,
+          opacity: 0.85,
           marginBottom: '10px',
         }}>
           Balance Sheet
@@ -235,7 +235,7 @@ function AboutOverlay({ open, onClose }) {
               HBS MBA candidate. Former Deloitte chartered accountant. Founder of Verifood. Building at the intersection of food systems, fertility, and applied AI.
             </p>
             <p style={bodyText}>
-              Before business school, I spent years in audit and advisory — learning how to read systems, find what doesn't add up, and build the case for change. Now I apply that same rigour to the food we eat and the health outcomes it produces.
+              Before business school, I spent years in audit and advisory -learning how to read systems, find what doesn't add up, and build the case for change. Now I apply that same rigour to the food we eat and the health outcomes it produces.
             </p>
 
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '24px' }}>
@@ -308,7 +308,7 @@ const PAPERS = [
     title: 'The Loneliness Crisis and Its Metabolic Shadow',
     venue: 'Harvard Business School',
     date: '2025',
-    desc: 'Investigating the bidirectional relationship between social isolation and metabolic health — and why loneliness may be the most under-diagnosed dietary risk factor.',
+    desc: 'Investigating the bidirectional relationship between social isolation and metabolic health -and why loneliness may be the most under-diagnosed dietary risk factor.',
     href: '/documents/papers/loneliness-crisis.pdf',
     keywords: ['Loneliness', 'Metabolic Health', 'Public Health'],
   },
@@ -423,6 +423,8 @@ function Newsletter() {
 
 // ─── Contact (simplified) ───────────────────────────────────────────────────
 function Contact() {
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+
   const inputStyle = {
     width: '100%', padding: '14px 16px',
     background: 'rgba(255,255,255,0.04)',
@@ -437,6 +439,33 @@ function Contact() {
     textTransform: 'uppercase', display: 'block', marginBottom: '8px',
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const form = e.target
+    const name = form.elements.name.value.trim()
+    const email = form.elements.email.value.trim()
+    const message = form.elements.message.value.trim()
+
+    if (!name || !email || !message) return
+
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      })
+      if (res.ok) {
+        setStatus('sent')
+        form.reset()
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
+
   return (
     <section id="contact" style={{
       position: 'relative', zIndex: 2,
@@ -446,15 +475,45 @@ function Contact() {
         {sectionLabel('Contact')}
         <div style={divider} />
         <h2 style={{ ...h2, margin: '0 0 40px' }}>Get in touch.</h2>
-        <form
-          style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
-          onSubmit={e => { e.preventDefault(); alert('Message sent! I\'ll be in touch shortly.') }}
-        >
-          <div><label style={labelStyle}>Name</label><input type="text" placeholder="Your name" style={inputStyle} /></div>
-          <div><label style={labelStyle}>Email</label><input type="email" placeholder="your@email.com" style={inputStyle} /></div>
-          <div><label style={labelStyle}>Message</label><textarea rows={5} placeholder="What's on your mind?" style={{ ...inputStyle, resize: 'vertical' }} /></div>
-          <button type="submit" style={{ ...orangeBtn, border: 'none', marginTop: '8px' }}>Send Message</button>
-        </form>
+        {status === 'sent' ? (
+          <div style={{
+            padding: '40px', background: 'rgba(0,200,150,0.06)',
+            border: '1px solid rgba(0,200,150,0.2)', borderRadius: '8px',
+            textAlign: 'center',
+          }}>
+            <p style={{ fontFamily: serif, fontSize: '20px', color: WHITE, margin: '0 0 8px' }}>
+              Message sent.
+            </p>
+            <p style={{ fontFamily: serif, fontSize: '15px', color: CREAM, opacity: 0.6, margin: 0 }}>
+              I read everything personally and will be in touch soon.
+            </p>
+          </div>
+        ) : (
+          <form
+            style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+            onSubmit={handleSubmit}
+          >
+            <div><label style={labelStyle}>Name</label><input name="name" type="text" placeholder="Your name" required style={inputStyle} /></div>
+            <div><label style={labelStyle}>Email</label><input name="email" type="email" placeholder="your@email.com" required style={inputStyle} /></div>
+            <div><label style={labelStyle}>Message</label><textarea name="message" rows={5} placeholder="What's on your mind?" required style={{ ...inputStyle, resize: 'vertical' }} /></div>
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              style={{
+                ...orangeBtn, border: 'none', marginTop: '8px',
+                opacity: status === 'sending' ? 0.6 : 1,
+                cursor: status === 'sending' ? 'wait' : 'pointer',
+              }}
+            >
+              {status === 'sending' ? 'Sending...' : 'Send Message'}
+            </button>
+            {status === 'error' && (
+              <p style={{ fontFamily: serif, fontSize: '14px', color: '#E8534E', margin: 0 }}>
+                Something went wrong. Please try again or email me directly.
+              </p>
+            )}
+          </form>
+        )}
       </div>
     </section>
   )

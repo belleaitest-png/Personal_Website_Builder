@@ -11,7 +11,7 @@ const serif     = "'Cormorant Garamond', serif"
 const mono      = "'Courier New', monospace"
 
 const STORAGE_KEY = 'belle_access_email'
-const TARGET_SCORE = 3
+const SURVIVE_SECONDS = 8
 
 // ── Check if visitor already has access ──────────────────────────────────────
 function hasAccess() {
@@ -24,10 +24,10 @@ function grantAccess(email) {
   catch { /* private browsing */ }
 }
 
-// ── Snake Game ───────────────────────────────────────────────────────────────
-function SnakeGame({ onWin }) {
+// ── Dodge Game ──────────────────────────────────────────────────────────────
+function DodgeGame({ onWin }) {
   const canvasRef = useRef(null)
-  const [score, setScore] = useState(0)
+  const [timeLeft, setTimeLeft] = useState(SURVIVE_SECONDS)
   const [gameOver, setGameOver] = useState(false)
   const [won, setWon] = useState(false)
   const [gameKey, setGameKey] = useState(0)
@@ -36,106 +36,159 @@ function SnakeGame({ onWin }) {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    const SIZE = 240
-    const CELL = 20
-    const GRID = SIZE / CELL
+    const W = 260
+    const H = 260
 
-    let snake = [{ x: 6, y: 6 }]
-    let dir = { x: 1, y: 0 }
-    let nextDir = { x: 1, y: 0 }
+    const PLAYER_R = 10
+    let player = { x: W / 2, y: H - 30 }
+    let bots = []
     let alive = true
-    let localScore = 0
+    let elapsed = 0
+    let lastSpawn = 0
+    let keys = {}
+    const SPEED = 3.5
 
-    function spawnFood() {
-      let pos
-      do {
-        pos = {
-          x: Math.floor(Math.random() * GRID),
-          y: Math.floor(Math.random() * GRID),
-        }
-      } while (snake.some(s => s.x === pos.x && s.y === pos.y))
-      return pos
+    function spawnBot() {
+      const r = 6 + Math.random() * 6
+      bots.push({
+        x: r + Math.random() * (W - r * 2),
+        y: -r,
+        r,
+        vy: 1.5 + Math.random() * 2 + elapsed * 0.15,
+        vx: (Math.random() - 0.5) * 1.5,
+      })
     }
-
-    let food = spawnFood()
 
     function draw() {
       // Background
       ctx.fillStyle = NAVY_DEEP
-      ctx.fillRect(0, 0, SIZE, SIZE)
+      ctx.fillRect(0, 0, W, H)
 
       // Grid
       ctx.strokeStyle = 'rgba(255,255,255,0.03)'
       ctx.lineWidth = 0.5
-      for (let i = 0; i <= GRID; i++) {
-        ctx.beginPath(); ctx.moveTo(i * CELL, 0); ctx.lineTo(i * CELL, SIZE); ctx.stroke()
-        ctx.beginPath(); ctx.moveTo(0, i * CELL); ctx.lineTo(SIZE, i * CELL); ctx.stroke()
+      for (let i = 0; i <= W; i += 20) {
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, H); ctx.stroke()
+      }
+      for (let i = 0; i <= H; i += 20) {
+        ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(W, i); ctx.stroke()
       }
 
-      // Food
+      // Bots
+      bots.forEach(b => {
+        ctx.fillStyle = '#D84535'
+        ctx.beginPath()
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2)
+        ctx.fill()
+        // Small glow
+        ctx.shadowColor = '#D84535'
+        ctx.shadowBlur = 6
+        ctx.fill()
+        ctx.shadowBlur = 0
+      })
+
+      // Player
       ctx.fillStyle = TEAL
       ctx.beginPath()
-      ctx.arc(food.x * CELL + CELL / 2, food.y * CELL + CELL / 2, CELL / 2 - 3, 0, Math.PI * 2)
+      ctx.arc(player.x, player.y, PLAYER_R, 0, Math.PI * 2)
       ctx.fill()
+      ctx.shadowColor = TEAL
+      ctx.shadowBlur = 8
+      ctx.fill()
+      ctx.shadowBlur = 0
 
-      // Snake
-      snake.forEach((s, i) => {
-        ctx.fillStyle = i === 0 ? ORANGE : '#D47860'
-        ctx.fillRect(s.x * CELL + 1, s.y * CELL + 1, CELL - 2, CELL - 2)
-      })
+      // Timer bar
+      const pct = Math.max(0, (SURVIVE_SECONDS - elapsed) / SURVIVE_SECONDS)
+      ctx.fillStyle = 'rgba(255,255,255,0.08)'
+      ctx.fillRect(0, 0, W, 3)
+      ctx.fillStyle = TEAL
+      ctx.fillRect(0, 0, W * (1 - pct), 3)
     }
 
-    function tick() {
+    let lastTime = null
+    let animId
+
+    function tick(ts) {
       if (!alive) return
+      if (!lastTime) lastTime = ts
+      const dt = (ts - lastTime) / 1000
+      lastTime = ts
+      elapsed += dt
 
-      dir = nextDir
-      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y }
-
-      if (head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID ||
-          snake.some(s => s.x === head.x && s.y === head.y)) {
+      // Win condition
+      if (elapsed >= SURVIVE_SECONDS) {
         alive = false
-        setGameOver(true)
+        setWon(true)
+        setTimeLeft(0)
+        onWin()
+        draw()
         return
       }
 
-      snake.unshift(head)
+      setTimeLeft(Math.ceil(SURVIVE_SECONDS - elapsed))
 
-      if (head.x === food.x && head.y === food.y) {
-        localScore++
-        setScore(localScore)
-        if (localScore >= TARGET_SCORE) {
+      // Player movement
+      if (keys['ArrowLeft'] || keys['a'])  player.x -= SPEED
+      if (keys['ArrowRight'] || keys['d']) player.x += SPEED
+      if (keys['ArrowUp'] || keys['w'])    player.y -= SPEED
+      if (keys['ArrowDown'] || keys['s'])  player.y += SPEED
+
+      // Clamp
+      player.x = Math.max(PLAYER_R, Math.min(W - PLAYER_R, player.x))
+      player.y = Math.max(PLAYER_R, Math.min(H - PLAYER_R, player.y))
+
+      // Spawn bots -rate increases over time
+      const spawnInterval = Math.max(0.25, 0.7 - elapsed * 0.04)
+      if (elapsed - lastSpawn > spawnInterval) {
+        spawnBot()
+        lastSpawn = elapsed
+      }
+
+      // Update bots
+      bots.forEach(b => {
+        b.y += b.vy
+        b.x += b.vx
+        // Bounce off walls
+        if (b.x - b.r < 0 || b.x + b.r > W) b.vx *= -1
+      })
+
+      // Collision
+      for (const b of bots) {
+        const dx = player.x - b.x
+        const dy = player.y - b.y
+        if (Math.sqrt(dx * dx + dy * dy) < PLAYER_R + b.r) {
           alive = false
-          setWon(true)
-          onWin()
+          setGameOver(true)
+          draw()
           return
         }
-        food = spawnFood()
-      } else {
-        snake.pop()
       }
+
+      // Remove off-screen bots
+      bots = bots.filter(b => b.y < H + b.r + 10)
 
       draw()
+      animId = requestAnimationFrame(tick)
     }
 
-    draw()
-    const interval = setInterval(tick, 150)
+    animId = requestAnimationFrame(tick)
 
     function handleKey(e) {
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(e.key)) {
         e.preventDefault()
+        keys[e.key] = true
       }
-      switch (e.key) {
-        case 'ArrowUp':    if (dir.y !== 1)  nextDir = { x: 0, y: -1 }; break
-        case 'ArrowDown':  if (dir.y !== -1) nextDir = { x: 0, y: 1 };  break
-        case 'ArrowLeft':  if (dir.x !== 1)  nextDir = { x: -1, y: 0 }; break
-        case 'ArrowRight': if (dir.x !== -1) nextDir = { x: 1, y: 0 };  break
-      }
+    }
+    function handleKeyUp(e) {
+      keys[e.key] = false
     }
 
     window.addEventListener('keydown', handleKey)
+    window.addEventListener('keyup', handleKeyUp)
     return () => {
-      clearInterval(interval)
+      cancelAnimationFrame(animId)
       window.removeEventListener('keydown', handleKey)
+      window.removeEventListener('keyup', handleKeyUp)
     }
   }, [gameKey, onWin])
 
@@ -143,8 +196,8 @@ function SnakeGame({ onWin }) {
     <div style={{ textAlign: 'center' }}>
       <canvas
         ref={canvasRef}
-        width={240}
-        height={240}
+        width={260}
+        height={260}
         style={{
           borderRadius: '8px',
           border: '1px solid rgba(255,255,255,0.1)',
@@ -156,11 +209,15 @@ function SnakeGame({ onWin }) {
         fontFamily: mono, fontSize: '14px', color: CREAM,
         marginTop: '12px', opacity: 0.7,
       }}>
-        {won ? 'Unlocked!' : `${score} / ${TARGET_SCORE} — use arrow keys`}
+        {won
+          ? 'Unlocked!'
+          : gameOver
+            ? 'Hit!'
+            : `${timeLeft}s -dodge the bots (arrow keys / WASD)`}
       </p>
       {gameOver && !won && (
         <button
-          onClick={() => { setGameOver(false); setScore(0); setWon(false); setGameKey(k => k + 1) }}
+          onClick={() => { setGameOver(false); setTimeLeft(SURVIVE_SECONDS); setWon(false); setGameKey(k => k + 1) }}
           style={{
             fontFamily: serif, fontSize: '14px', fontWeight: '600',
             color: WHITE, background: ORANGE, border: 'none',
@@ -240,7 +297,7 @@ function GateModal({ onUnlock, onClose }) {
           fontFamily: serif, fontSize: '14px', color: CREAM,
           opacity: 0.5, margin: '0 0 24px', textAlign: 'center',
         }}>
-          Enter your email or beat the snake
+          Enter your email or dodge the bots
         </p>
 
         {/* Tabs */}
@@ -253,7 +310,7 @@ function GateModal({ onUnlock, onClose }) {
             Email
           </button>
           <button style={tabStyle(tab === 'game')} onClick={() => setTab('game')}>
-            Play Snake
+            Dodge
           </button>
         </div>
 
@@ -298,7 +355,7 @@ function GateModal({ onUnlock, onClose }) {
             </p>
           </form>
         ) : (
-          <SnakeGame onWin={handleGameWin} />
+          <DodgeGame onWin={handleGameWin} />
         )}
       </div>
     </div>
