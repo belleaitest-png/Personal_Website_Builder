@@ -225,12 +225,16 @@ const LE_TOTAL = 100
 // ── CSS keyframes (injected once) ────────────────────────────────────────────
 const KEYFRAMES = `
 @keyframes bsRowIn {
-  from { opacity: 0; transform: translateY(7px); }
-  to   { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateY(28px); }
+  60%  { opacity: 1; transform: translateY(-6px); }
+  80%  { transform: translateY(2px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes bsHeaderIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateY(-28px); }
+  60%  { opacity: 1; transform: translateY(6px); }
+  80%  { transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes bsLineExpand {
   from { transform: scaleX(0); transform-origin: left; }
@@ -261,7 +265,7 @@ function useCountUp(target, active, delayMs, durationMs = 750) {
 // ── Row animation style ───────────────────────────────────────────────────────
 function rowAnim(step, baseDelay, active) {
   return {
-    animation: `bsRowIn 0.4s ease both`,
+    animation: `bsRowIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both`,
     animationDelay: `${baseDelay + step * STEP}ms`,
     animationPlayState: active ? 'running' : 'paused',
   }
@@ -273,12 +277,12 @@ function ColHeader({ children, step, delay, active }) {
   return (
     <div style={{
       fontFamily: serif,
-      fontSize: '22px',
+      fontSize: '30px',
       fontWeight: '700',
       color: WHITE,
-      marginBottom: '6px',
+      marginBottom: '8px',
       letterSpacing: '0.01em',
-      animation: `bsHeaderIn 0.45s ease both`,
+      animation: `bsHeaderIn 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both`,
       animationDelay: `${delay + step * STEP}ms`,
       animationPlayState: active ? 'running' : 'paused',
     }}>
@@ -291,11 +295,11 @@ function SectionLabel({ children, step, delay, active }) {
   return (
     <div style={{
       fontFamily: serif,
-      fontSize: '14px',
+      fontSize: '18px',
       fontWeight: '600',
       color: CREAM,
       opacity: 0.55,
-      padding: '16px 0 0',
+      padding: '20px 0 0',
       letterSpacing: '0.04em',
       ...rowAnim(step, delay, active),
     }}>
@@ -308,11 +312,11 @@ function CategoryLabel({ children, step, delay, active }) {
   return (
     <div style={{
       fontFamily: serif,
-      fontSize: '13px',
+      fontSize: '16px',
       fontStyle: 'italic',
       color: CREAM,
-      opacity: 0.38,
-      padding: '2px 0 3px',
+      opacity: 0.42,
+      padding: '3px 0 4px',
       letterSpacing: '0.03em',
       ...rowAnim(step, delay, active),
     }}>
@@ -332,7 +336,7 @@ function Row({ item, step, delay, active, onToolsClick }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'baseline',
-        padding: '5px 0 5px 20px',
+        padding: '7px 0 7px 20px',
         cursor: isClickable ? 'pointer' : 'default',
         ...rowAnim(step, delay, active),
       }}
@@ -342,7 +346,7 @@ function Row({ item, step, delay, active, onToolsClick }) {
     >
       <span style={{
         fontFamily: serif,
-        fontSize: '16px',
+        fontSize: '20px',
         color: hov && isClickable ? ORANGE : CREAM,
         transition: 'color 0.15s',
         display: 'flex',
@@ -354,7 +358,7 @@ function Row({ item, step, delay, active, onToolsClick }) {
           {item.label}
           {item.coming && (
             <span style={{
-              marginLeft: '8px', fontSize: '9px', fontWeight: '600',
+              marginLeft: '8px', fontSize: '10px', fontWeight: '600',
               letterSpacing: '0.1em', textTransform: 'uppercase',
               color: ORANGE, opacity: 0.6, fontFamily: mono,
               border: `1px solid rgba(232,83,78,0.25)`,
@@ -365,14 +369,14 @@ function Row({ item, step, delay, active, onToolsClick }) {
             </span>
           )}
           {isClickable && hov && (
-            <span style={{ marginLeft: '5px', fontSize: '13px' }}>{item.toolsPopup ? '↗' : '→'}</span>
+            <span style={{ marginLeft: '5px', fontSize: '16px' }}>{item.toolsPopup ? '↗' : '→'}</span>
           )}
         </span>
         {item.note && <span style={{
-          fontSize: '12px',
+          fontSize: '14px',
           fontStyle: 'italic',
           color: CREAM,
-          opacity: 0.38,
+          opacity: 0.4,
           fontWeight: '300',
         }}>
           {item.note}
@@ -380,9 +384,9 @@ function Row({ item, step, delay, active, onToolsClick }) {
       </span>
       <span style={{
         fontFamily: mono,
-        fontSize: '15px',
+        fontSize: '19px',
         color: hov && isClickable ? ORANGE : CREAM,
-        opacity: hov && isClickable ? 1 : 0.6,
+        opacity: hov && isClickable ? 1 : 0.65,
         transition: 'color 0.15s, opacity 0.15s',
         paddingLeft: '20px',
         flexShrink: 0,
@@ -428,12 +432,12 @@ function Subtotal({ value, step, delay, active }) {
     }}>
       <span style={{
         fontFamily: mono,
-        fontSize: '15px',
+        fontSize: '18px',
         color: CREAM,
-        opacity: 0.5,
+        opacity: 0.55,
         borderTop: '1px solid rgba(245,240,232,0.25)',
-        paddingTop: '3px',
-        minWidth: '32px',
+        paddingTop: '4px',
+        minWidth: '40px',
         textAlign: 'right',
       }}>
         {value}
@@ -448,14 +452,14 @@ function TotalRow({ label, value, step, delay, active }) {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'baseline',
-      padding: '10px 0 8px',
+      padding: '14px 0 10px',
       borderTop: '1px solid rgba(245,240,232,0.3)',
-      marginTop: '4px',
+      marginTop: '6px',
       ...rowAnim(step, delay, active),
     }}>
       <span style={{
         fontFamily: serif,
-        fontSize: '16px',
+        fontSize: '22px',
         fontWeight: '700',
         color: WHITE,
         letterSpacing: '0.01em',
@@ -464,10 +468,10 @@ function TotalRow({ label, value, step, delay, active }) {
       </span>
       <span style={{
         fontFamily: mono,
-        fontSize: '16px',
+        fontSize: '22px',
         fontWeight: '700',
         color: WHITE,
-        minWidth: '32px',
+        minWidth: '40px',
         textAlign: 'right',
       }}>
         {value}
@@ -482,14 +486,14 @@ function GrandTotalRow({ label, value, step, delay, active }) {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'baseline',
-      padding: '12px 0 10px',
+      padding: '16px 0 12px',
       borderTop: '3px double rgba(232,83,78,0.55)',
-      marginTop: '6px',
+      marginTop: '8px',
       ...rowAnim(step, delay, active),
     }}>
       <span style={{
         fontFamily: serif,
-        fontSize: '19px',
+        fontSize: '26px',
         fontWeight: '700',
         color: ORANGE,
         letterSpacing: '0.02em',
@@ -498,10 +502,10 @@ function GrandTotalRow({ label, value, step, delay, active }) {
       </span>
       <span style={{
         fontFamily: mono,
-        fontSize: '19px',
+        fontSize: '26px',
         fontWeight: '700',
         color: ORANGE,
-        minWidth: '32px',
+        minWidth: '40px',
         textAlign: 'right',
       }}>
         {value}
@@ -638,7 +642,7 @@ export default function BalanceSheet() {
         position: 'sticky',
         top: 0,
         zIndex: 1,
-        minHeight: '100vh',
+        minHeight: '133vh',
         paddingBottom: '80px',
       }}
     >
@@ -668,7 +672,7 @@ export default function BalanceSheet() {
       }}>
         <span style={{
           fontFamily: serif,
-          fontSize: '13px',
+          fontSize: '16px',
           fontWeight: '600',
           color: ORANGE,
           letterSpacing: '0.14em',
@@ -678,9 +682,9 @@ export default function BalanceSheet() {
         </span>
         <span style={{
           fontFamily: serif,
-          fontSize: '13px',
+          fontSize: '16px',
           color: CREAM,
-          opacity: 0.3,
+          opacity: 0.35,
           letterSpacing: '0.05em',
         }}>
           FY 2026 · Non-GAAP
@@ -821,9 +825,9 @@ export default function BalanceSheet() {
       }}>
         <p style={{
           fontFamily: serif,
-          fontSize: '14px',
+          fontSize: '17px',
           color: ORANGE,
-          opacity: 0.4,
+          opacity: 0.45,
           margin: 0,
           fontStyle: 'italic',
         }}>
