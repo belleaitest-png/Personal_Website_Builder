@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const CORAL = '#D47860'
 const CREAM = '#F5F0E8'
-const DEFAULT_TEXT = "What if the most radical health intervention isn't a drug or a diet -it's changing who profits from your health?"
+const DEFAULT_TEXT = "I trained as an accountant, not an engineer. Then I shipped five products with AI agents. The constraint was never who could code."
 
 function useTypewriter(text, loop) {
   const [display, setDisplay] = useState('')

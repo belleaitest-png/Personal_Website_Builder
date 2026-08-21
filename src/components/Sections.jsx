@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import HeroTicker from './HeroTicker'
 import BalanceSheet from './BalanceSheet'
 import ScrollSections from './ScrollSections'
+import Thesis from './Thesis'
 import DownloadGate from './DownloadGate'
 
 // ─── Palette ────────────────────────────────────────────────────────────────
@@ -113,7 +114,7 @@ function Hero() {
         backgroundRepeat: 'no-repeat',
       }} />
       <div style={{
-        position: 'absolute', top: '50%', left: 0, width: '38%',
+        position: 'absolute', top: '50%', left: 0, width: '46%', maxWidth: '620px',
         transform: 'translateY(-50%)', zIndex: 10,
       }}>
         <HeroTicker overlayOpacity={0.6} align="left" />
@@ -232,10 +233,13 @@ function AboutOverlay({ open, onClose }) {
             {sectionLabel('About')}
             <h2 style={{ ...h2, margin: '0 0 20px' }}>Annabelle Body</h2>
             <p style={bodyText}>
-              HBS MBA candidate. Former Deloitte chartered accountant. Founder of Verifood. Building at the intersection of food systems, fertility, and applied AI.
+              I build applied AI products for health and food systems. Chartered accountant by training, HBS MBA 2026, founder of Verifood. Three products live, two in development, none of them built by an engineer.
             </p>
             <p style={bodyText}>
-              Before business school, I spent years in audit and advisory -learning how to read systems, find what doesn't add up, and build the case for change. Now I apply that same rigour to the food we eat and the health outcomes it produces.
+              I spent years in audit and advisory learning to read a system, find what doesn't add up, and build the case for change. That turns out to be most of the job when you are pointing a model at a real problem. The tools got good enough to close the gap between noticing something and fixing it, and I have been building in that gap ever since.
+            </p>
+            <p style={bodyText}>
+              The domain is food, fertility, and metabolic health, because that is where I have done the research and where the data is richest and least used. The method is applied AI. I write about both, publicly, including the parts that did not work.
             </p>
 
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '24px' }}>
@@ -324,11 +328,12 @@ function Research() {
         {sectionLabel('Research')}
         <div style={divider} />
         <div style={{
-          display: 'flex', justifyContent: 'space-between',
-          alignItems: 'flex-end', marginBottom: '48px',
-          flexWrap: 'wrap', gap: '24px',
+          marginBottom: '48px',
         }}>
-          <h2 style={{ ...h2, margin: 0, maxWidth: '600px' }}>Papers & Academic Work</h2>
+          <h2 style={{ ...h2, margin: '0 0 20px', maxWidth: '600px' }}>Where the problems come from.</h2>
+          <p style={{ ...bodyText, margin: 0, maxWidth: '680px', opacity: 0.72 }}>
+            The research is the input, not the output. Each of these papers ran into the same wall: the evidence exists, nobody has connected it. Two of the apps on this site started as a chart I needed for one of them.
+          </p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {PAPERS.map((p, i) => (
@@ -422,7 +427,7 @@ function Newsletter() {
         {sectionLabel('Newsletter')}
         <h2 style={{ ...h2, margin: '0 0 20px' }}>Subscribe on Substack</h2>
         <p style={{ ...bodyText, margin: '0 0 36px', opacity: 0.7 }}>
-          Thinking clearly about food, fertility, and the systems that shape us. Occasional dispatches on research, ideas, and what I'm building.
+          Notes on building with AI when you are not an engineer, plus the research underneath it: food systems, fertility, and metabolic health. What I shipped, what broke, what I would do differently.
         </p>
         <a
           href="https://annabellebody.substack.com"
@@ -549,7 +554,7 @@ function Footer() {
       }}>
         <p style={{ fontFamily: serif, fontSize: '18px', color: WHITE, margin: 0, fontWeight: '600' }}>Annabelle Body</p>
         <p style={{ fontFamily: sans, fontSize: '13px', color: CREAM, opacity: 0.35, margin: 0 }}>
-          © {new Date().getFullYear()} Annabelle Body · HBS MBA · Founder, Verifood
+          © {new Date().getFullYear()} Annabelle Body · Applied AI · HBS MBA 2026 · ICAEW ACA
         </p>
         <div style={{ display: 'flex', gap: '24px' }}>
           {[
@@ -615,6 +620,7 @@ export default function Sections() {
         <BalanceSheet />
         <ScrollSections />
       </div>
+      <Thesis />
       <Research />
       <Newsletter />
       <Contact />

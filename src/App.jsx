@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import Sections from './components/Sections'
 
 const NAV = [
+  { label: 'Building', href: '#building' },
+  { label: 'Thesis', href: '#thesis' },
   { label: 'About', href: '#about' },
   { label: 'Beangirl', href: 'https://instagram.com/iambeangirl', external: true },
   { label: 'Contact', href: '#contact' },
@@ -50,7 +52,7 @@ export default function App() {
 
   const navLinksStyle = {
     display: 'flex',
-    gap: '36px',
+    gap: '28px',
     listStyle: 'none',
     margin: 0,
     padding: 0,
