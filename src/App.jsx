@@ -72,23 +72,23 @@ export default function App() {
 
   const subscribeBtnStyle = {
     position: 'fixed',
-    bottom: '32px',
-    right: '40px',
+    bottom: '36px',
+    right: '44px',
     zIndex: 100,
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '13px',
+    fontSize: '11px',
     fontWeight: '600',
-    color: WHITE,
-    background: ORANGE,
-    border: 'none',
-    borderRadius: '4px',
-    padding: '12px 24px',
+    color: CREAM,
+    background: 'rgba(20,22,22,0.72)',
+    border: '1px solid rgba(245,240,232,0.18)',
+    borderRadius: '2px',
+    padding: '13px 22px 11px',
     cursor: 'pointer',
-    letterSpacing: '0.06em',
+    letterSpacing: '0.22em',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    boxShadow: '0 4px 20px rgba(232,83,78,0.35)',
-    transition: 'opacity 0.2s, transform 0.2s',
+    backdropFilter: 'blur(10px)',
+    transition: 'color 0.4s cubic-bezier(0.22,0.61,0.36,1), border-color 0.4s cubic-bezier(0.22,0.61,0.36,1)',
   }
 
   return (
@@ -124,8 +124,8 @@ export default function App() {
         target="_blank"
         rel="noreferrer"
         style={subscribeBtnStyle}
-        onMouseEnter={e => { e.target.style.opacity = 0.85; e.target.style.transform = 'translateY(-2px)' }}
-        onMouseLeave={e => { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)' }}
+        onMouseEnter={e => { e.target.style.color = ORANGE; e.target.style.borderColor = 'rgba(232,83,78,0.55)' }}
+        onMouseLeave={e => { e.target.style.color = CREAM; e.target.style.borderColor = 'rgba(245,240,232,0.18)' }}
       >
         Substack
       </a>

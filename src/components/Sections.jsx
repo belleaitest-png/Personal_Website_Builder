@@ -233,13 +233,13 @@ function AboutOverlay({ open, onClose }) {
             {sectionLabel('About')}
             <h2 style={{ ...h2, margin: '0 0 20px' }}>Annabelle Body</h2>
             <p style={bodyText}>
-              I build applied AI products for health and food systems. Chartered accountant by training, HBS MBA 2026, founder of Verifood. Three products live, two in development, none of them built by an engineer.
+              I build applied AI products for health and food systems. Chartered accountant, HBS MBA 2026, founder of Verifood. Three products live, two more in development.
             </p>
             <p style={bodyText}>
-              I spent years in audit and advisory learning to read a system, find what doesn't add up, and build the case for change. That turns out to be most of the job when you are pointing a model at a real problem. The tools got good enough to close the gap between noticing something and fixing it, and I have been building in that gap ever since.
+              Audit and advisory taught me to read a system, find what doesn’t reconcile, and build the case for changing it. Harvard taught me to ask whether the thing was worth doing in the first place. Both habits turn out to be the whole job when you are deciding what to build, which is the part nobody can hand to a model.
             </p>
             <p style={bodyText}>
-              The domain is food, fertility, and metabolic health, because that is where I have done the research and where the data is richest and least used. The method is applied AI. I write about both, publicly, including the parts that did not work.
+              The domain is food, fertility and metabolic health, because that is where I have done the research and where the data is richest and least used. The method is applied AI, held to the same standard as everything else I put my name on.
             </p>
 
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '24px' }}>
@@ -427,7 +427,7 @@ function Newsletter() {
         {sectionLabel('Newsletter')}
         <h2 style={{ ...h2, margin: '0 0 20px' }}>Subscribe on Substack</h2>
         <p style={{ ...bodyText, margin: '0 0 36px', opacity: 0.7 }}>
-          Notes on building with AI when you are not an engineer, plus the research underneath it: food systems, fertility, and metabolic health. What I shipped, what broke, what I would do differently.
+          On judgement, craft and applied AI, with the research underneath it: food systems, fertility and metabolic health. What I built, what I abandoned, and why.
         </p>
         <a
           href="https://annabellebody.substack.com"

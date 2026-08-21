@@ -60,7 +60,7 @@ const NC_ASSETS = [
   },
 ]
 
-// Current assets -Shipped with AI
+// Current assets -Shipped
 const CA_ASSETS = [
   {
     label: 'Apex Health OS',
@@ -726,7 +726,7 @@ export default function BalanceSheet() {
             Non-Current Assets
           </SectionLabel>
           <CategoryLabel step={2} delay={L} active={active}>
-            Resume · the training, not the thesis
+            Resume
           </CategoryLabel>
           {NC_ASSETS.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={L} active={active} />
@@ -738,7 +738,7 @@ export default function BalanceSheet() {
             Current Assets
           </SectionLabel>
           <CategoryLabel step={9} delay={L} active={active}>
-            Shipped with AI
+            Shipped
           </CategoryLabel>
           {CA_ASSETS.map((item, i) => (
             <Row key={item.label} item={item} step={10 + i} delay={L} active={active} />
@@ -832,16 +832,6 @@ export default function BalanceSheet() {
           fontStyle: 'italic',
         }}>
           * Prepared on a going-concern basis · The auditor has a conflict of interest
-        </p>
-        <p style={{
-          fontFamily: serif,
-          fontSize: '17px',
-          color: CREAM,
-          opacity: 0.32,
-          margin: '6px 0 0',
-          fontStyle: 'italic',
-        }}>
-          ** Every current asset above was built with AI, by someone who has never held an engineering job. The auditor considers this material.
         </p>
       </div>
       <ToolsPopup open={toolsOpen} onClose={() => setToolsOpen(false)} />

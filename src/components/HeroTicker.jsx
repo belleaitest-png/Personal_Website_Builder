@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const CORAL = '#D47860'
 const CREAM = '#F5F0E8'
-const DEFAULT_TEXT = "I trained as an accountant, not an engineer. Then I shipped five products with AI agents. The constraint was never who could code."
+const DEFAULT_TEXT = "Everyone has the same tools now. What’s rare is knowing which problem deserves one."
 
 function useTypewriter(text, loop) {
   const [display, setDisplay] = useState('')
