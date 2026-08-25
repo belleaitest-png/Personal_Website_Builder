@@ -1,137 +1,53 @@
-import { useState, useEffect } from 'react'
-import Sections from './components/Sections'
+import { useEffect } from 'react'
+import { Nav, Footer, ScrollRail } from './components/Chrome'
+import Hero from './components/Hero'
+import CurrentBuild from './components/CurrentBuild'
+import ThroughLine from './components/ThroughLine'
+import SelectedBuilds from './components/SelectedBuilds'
+import OperatingProof from './components/OperatingProof'
+import FieldNotes from './components/FieldNotes'
+import ContactSection from './components/ContactSection'
+import { c } from './theme'
 
-const NAV = [
-  { label: 'Building', href: '#building' },
-  { label: 'Thesis', href: '#thesis' },
-  { label: 'About', href: '#about' },
-  { label: 'Beangirl', href: 'https://instagram.com/iambeangirl', external: true },
-  { label: 'Contact', href: '#contact' },
-]
-
-const NAVY        = '#191A1A'
-const ORANGE      = '#E8534E'
-const CREAM       = '#F5F0E8'
-const WHITE       = '#FFFFFF'
-const TERRACOTTA  = '#D84535'
+// Responsive rules that inline styles cannot express.
+const CSS = `
+@media (max-width: 820px) {
+  .ab-nav-list { display: none !important; }
+  .ab-nav-toggle { display: block !important; }
+}
+@media (min-width: 821px) {
+  .ab-nav-drawer { display: none !important; }
+}
+@media (max-width: 720px) {
+  .ab-stack { grid-template-columns: 1fr !important; gap: 18px !important; }
+}
+`
 
 export default function App() {
-  const [scrolled, setScrolled] = useState(false)
-
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const id = 'ab-responsive'
+    if (!document.getElementById(id)) {
+      const s = document.createElement('style')
+      s.id = id
+      s.textContent = CSS
+      document.head.appendChild(s)
+    }
   }, [])
 
-  const navStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 48px',
-    height: '68px',
-    background: scrolled ? `${NAVY}f2` : 'transparent',
-    backdropFilter: scrolled ? 'blur(12px)' : 'none',
-    borderBottom: scrolled ? `1px solid rgba(212,69,53,0.15)` : 'none',
-    transition: 'all 0.3s ease',
-  }
-
-  const logoStyle = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '26px',
-    fontWeight: '600',
-    color: TERRACOTTA,
-    letterSpacing: '0.03em',
-    textDecoration: 'none',
-  }
-
-  const navLinksStyle = {
-    display: 'flex',
-    gap: '28px',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  }
-
-  const navLinkStyle = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '15px',
-    fontWeight: '500',
-    color: CREAM,
-    textDecoration: 'none',
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    opacity: 0.85,
-    transition: 'opacity 0.2s',
-  }
-
-  const subscribeBtnStyle = {
-    position: 'fixed',
-    bottom: '36px',
-    right: '44px',
-    zIndex: 100,
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '11px',
-    fontWeight: '600',
-    color: CREAM,
-    background: 'rgba(20,22,22,0.72)',
-    border: '1px solid rgba(245,240,232,0.18)',
-    borderRadius: '2px',
-    padding: '13px 22px 11px',
-    cursor: 'pointer',
-    letterSpacing: '0.22em',
-    textDecoration: 'none',
-    textTransform: 'uppercase',
-    backdropFilter: 'blur(10px)',
-    transition: 'color 0.4s cubic-bezier(0.22,0.61,0.36,1), border-color 0.4s cubic-bezier(0.22,0.61,0.36,1)',
-  }
-
   return (
-    <div style={{ background: NAVY, minHeight: '100vh', fontFamily: "'Cormorant Garamond', serif" }}>
-      {/* Google Fonts */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
-
-      {/* Nav — logo left, links right */}
-      <nav style={navStyle}>
-        <a href="#" style={logoStyle}>Annabelle Body</a>
-        <ul style={navLinksStyle}>
-          {NAV.map(n => (
-            <li key={n.href}>
-              <a
-                href={n.href}
-                {...(n.external ? { target: '_blank', rel: 'noreferrer' } : {})}
-                style={navLinkStyle}
-                onMouseEnter={e => e.target.style.opacity = 1}
-                onMouseLeave={e => e.target.style.opacity = 0.85}
-              >
-                {n.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Fixed Subscribe CTA — bottom right */}
-      <a
-        href="https://annabellebody.substack.com"
-        target="_blank"
-        rel="noreferrer"
-        style={subscribeBtnStyle}
-        onMouseEnter={e => { e.target.style.color = ORANGE; e.target.style.borderColor = 'rgba(232,83,78,0.55)' }}
-        onMouseLeave={e => { e.target.style.color = CREAM; e.target.style.borderColor = 'rgba(245,240,232,0.18)' }}
-      >
-        Substack
-      </a>
-
-      {/* All Sections */}
-      <Sections />
+    <div id="top" style={{ background: c.paper, minHeight: '100vh' }}>
+      <ScrollRail />
+      <Nav />
+      <main>
+        <Hero />
+        <CurrentBuild />
+        <ThroughLine />
+        <SelectedBuilds />
+        <OperatingProof />
+        <FieldNotes />
+        <ContactSection />
+      </main>
+      <Footer />
     </div>
   )
 }
