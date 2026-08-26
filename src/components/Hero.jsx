@@ -1,163 +1,160 @@
-import { c, f, EASE, maxw, label } from '../theme'
-import { useReveal, rise } from '../useReveal'
+import { useState, useEffect } from 'react'
+import { c, f, EASE, label } from '../theme'
+import { usePrefersReducedMotion } from '../useReveal'
+import HeroShader from './HeroShader'
 
-const ARC = ['Scientist', 'Operator', 'Builder']
+// Her line, verbatim. This is the statement; the questions below are the thesis.
+const HEADLINE = "I’m a scientist-turned-operator learning, in public, how to build useful AI systems and think clearly about what they change."
+
+// One per writing pillar: applied intelligence, systems in transition,
+// biological intelligence.
+const QUESTIONS = [
+  'What does technological progress make possible, and what must change for it to improve human lives?',
+  'What has to be true before an agent can do real work?',
+  'What does biology already know that our algorithms do not?',
+]
+
+const ROTATE_MS = 7000
+
+function useRotatingQuestion(reduced) {
+  const [i, setI] = useState(0)
+  const [show, setShow] = useState(true)
+
+  useEffect(() => {
+    if (reduced) return          // one question, no rotation
+    let outT
+    const t = setInterval(() => {
+      setShow(false)
+      outT = setTimeout(() => {
+        setI(n => (n + 1) % QUESTIONS.length)
+        setShow(true)
+      }, 620)
+    }, ROTATE_MS)
+    return () => { clearInterval(t); clearTimeout(outT) }
+  }, [reduced])
+
+  return [QUESTIONS[i], reduced ? true : show]
+}
 
 export default function Hero() {
-  const [ref, on, reduced] = useReveal(0.05)
+  const reduced = usePrefersReducedMotion()
+  const [question, visible] = useRotatingQuestion(reduced)
+  const [entered, setEntered] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setEntered(true), 60)
+    return () => clearTimeout(t)
+  }, [])
+
+  const rise = (delay) => reduced ? {} : {
+    opacity: entered ? 1 : 0,
+    transform: entered ? 'translateY(0)' : 'translateY(16px)',
+    transition: `opacity 1s ${EASE} ${delay}ms, transform 1s ${EASE} ${delay}ms`,
+  }
 
   return (
     <header
-      ref={ref}
       style={{
-        background: c.paper,
-        padding: 'clamp(140px, 18vh, 220px) 32px clamp(80px, 12vh, 130px)',
-        position: 'relative',
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        overflow: 'hidden',
+        background: c.navy,
+        zIndex: 1,
       }}
     >
-      <div style={{ maxWidth: maxw, margin: '0 auto' }}>
+      {/* The visual layer. One swappable child: shader now, video later. */}
+      <HeroShader />
 
-        <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>
+      <div
+        className="ab-hero-copy"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          width: '46%',
+          maxWidth: '620px',
+          transform: 'translateY(-50%)',
+          padding: '0 48px',
+          zIndex: 10,
+        }}
+      >
+        <p style={{ ...label, color: c.orange, margin: '0 0 26px', ...rise(120) }}>
           Applied AI Builder &amp; Operator
         </p>
 
-        {/* The ten-second claim. Everything below is evidence for it. */}
         <h1
           style={{
             fontFamily: f.display,
-            fontWeight: 400,
-            fontSize: 'clamp(46px, 7.4vw, 108px)',
-            lineHeight: 1.02,
-            letterSpacing: '-0.025em',
-            color: c.ink,
-            margin: '30px 0 0',
-            maxWidth: '19ch',
-            ...rise(on, 90, reduced),
+            fontWeight: 500,
+            fontSize: 'clamp(26px, 2.9vw, 40px)',
+            lineHeight: 1.28,
+            letterSpacing: '0.005em',
+            color: c.white,
+            margin: 0,
+            ...rise(220),
           }}
         >
-          Building useful AI systems.{' '}
-          <span
-            style={{
-              fontStyle: 'italic',
-              backgroundImage: `linear-gradient(${c.lime}, ${c.lime})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: '0 0.80em',
-              backgroundSize: reduced || on ? '100% 0.30em' : '0% 0.30em',
-              transition: reduced ? 'none' : `background-size 1s ${EASE} 620ms`,
-              WebkitBoxDecorationBreak: 'clone',
-              boxDecorationBreak: 'clone',
-            }}
-          >
-            Writing about the future they create.
-          </span>
+          {HEADLINE}
         </h1>
 
-        <p
-          style={{
-            fontFamily: f.text,
-            fontSize: 'clamp(17px, 1.35vw, 20px)',
-            lineHeight: 1.65,
-            color: c.inkSoft,
-            margin: '38px 0 0',
-            maxWidth: '58ch',
-            ...rise(on, 180, reduced),
-          }}
-        >
-          I&rsquo;m in operator mode: learning fast, building in public, and exploring
-          how AI, biology, and new infrastructure will reshape human life.
-        </p>
-
-        {/* The arc, stated once, plainly. */}
         <div
+          aria-hidden="true"
           style={{
-            display: 'flex', alignItems: 'center', gap: '14px',
-            flexWrap: 'wrap', margin: '44px 0 0',
-            ...rise(on, 260, reduced),
+            width: '44px', height: '2px', background: c.orange,
+            margin: '34px 0 26px', borderRadius: '1px',
+            transformOrigin: 'left',
+            transform: reduced || entered ? 'scaleX(1)' : 'scaleX(0)',
+            transition: reduced ? 'none' : `transform 0.9s ${EASE} 700ms`,
           }}
-        >
-          {ARC.map((step, i) => (
-            <span key={step} style={{ display: 'inline-flex', alignItems: 'center', gap: '14px' }}>
-              <span style={{
-                ...label,
-                color: c.ink,
-                padding: '9px 15px 8px',
-                border: `1px solid ${c.rule}`,
-                borderRadius: '2px',
-                background: i === ARC.length - 1 ? c.lime : 'transparent',
-              }}>
-                {step}
-              </span>
-              {i < ARC.length - 1 && (
-                <span aria-hidden="true" style={{ color: c.inkFaint, fontFamily: f.mono, fontSize: '13px' }}>→</span>
-              )}
-            </span>
-          ))}
-        </div>
+        />
 
+        {/* The rotating thesis question, quieter than the headline on purpose. */}
         <p
+          aria-live="polite"
           style={{
-            fontFamily: f.text,
-            fontSize: '17px',
-            lineHeight: 1.72,
-            color: c.inkSoft,
-            margin: '44px 0 0',
-            maxWidth: '58ch',
-            paddingTop: '30px',
-            borderTop: `1px solid ${c.rule}`,
-            ...rise(on, 320, reduced),
+            fontFamily: f.display,
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: 'clamp(17px, 1.5vw, 21px)',
+            lineHeight: 1.6,
+            color: c.cream,
+            opacity: visible ? 0.78 : 0,
+            margin: 0,
+            minHeight: '3.2em',
+            transition: reduced ? 'none' : `opacity 0.6s ${EASE}`,
+            ...rise(340),
           }}
         >
-          I&rsquo;m Annabelle Body, a scientist turned accountant and restructuring
-          operator, now building at the frontier of applied AI. I turn new model
-          capability into practical systems for ambitious people and businesses.
+          {question}
         </p>
-
-        <div
-          style={{
-            display: 'flex', gap: '14px', flexWrap: 'wrap',
-            margin: '44px 0 0',
-            ...rise(on, 400, reduced),
-          }}
-        >
-          <CTA href="#build" primary>What I&rsquo;m building</CTA>
-          <CTA href="#think">Field Notes</CTA>
-        </div>
       </div>
+
+      {/* Scroll hint. Sits in the copy column, where the scrim guarantees
+          contrast: centred it fell over the chair and vanished. */}
+      <a
+        href="#build"
+        className="ab-hero-hint"
+        aria-label="Scroll to what I'm building"
+        style={{
+          position: 'absolute', bottom: '40px', left: '48px', zIndex: 10,
+          display: 'inline-flex', alignItems: 'center', gap: '12px',
+          textDecoration: 'none',
+          ...rise(900),
+        }}
+      >
+        <span
+          aria-hidden="true"
+          style={{
+            width: '30px', height: '1px', background: c.orange,
+            transformOrigin: 'left',
+            animation: reduced ? 'none' : 'heroSweep 2.8s ease-in-out infinite',
+          }}
+        />
+        <span style={{ ...label, fontSize: '10px', color: c.orange }}>
+          Currently building
+        </span>
+      </a>
     </header>
-  )
-}
-
-function CTA({ href, children, primary }) {
-  const base = {
-    fontFamily: f.mono,
-    fontSize: '12px',
-    fontWeight: 500,
-    letterSpacing: '0.14em',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    padding: '16px 26px 14px',
-    borderRadius: '2px',
-    display: 'inline-block',
-    transition: `background 0.35s ${EASE}, color 0.35s ${EASE}, border-color 0.35s ${EASE}`,
-  }
-  const style = primary
-    ? { ...base, background: c.ink, color: c.paper, border: `1px solid ${c.ink}` }
-    : { ...base, background: 'transparent', color: c.ink, border: `1px solid ${c.rule}` }
-
-  return (
-    <a
-      href={href}
-      style={style}
-      onMouseEnter={e => {
-        if (primary) { e.currentTarget.style.background = c.lime; e.currentTarget.style.color = c.ink }
-        else { e.currentTarget.style.borderColor = c.ink }
-      }}
-      onMouseLeave={e => {
-        if (primary) { e.currentTarget.style.background = c.ink; e.currentTarget.style.color = c.paper }
-        else { e.currentTarget.style.borderColor = c.rule }
-      }}
-    >
-      {children}
-    </a>
   )
 }

@@ -38,18 +38,18 @@ export default function CurrentBuild() {
       id="build"
       ref={ref}
       style={{
-        background: c.ink,
-        color: c.paper,
+        background: c.navyDeep,
+        color: c.cream,
         padding: 'clamp(90px, 12vh, 140px) 32px',
       }}
     >
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '18px', flexWrap: 'wrap', ...rise(on, 0, reduced) }}>
-          <p style={{ ...label, color: c.lime, margin: 0 }}>Current build</p>
+          <p style={{ ...label, color: c.orange, margin: 0 }}>Current build</p>
           <span style={{
             ...label,
-            color: c.ink, background: c.lime,
+            color: c.white, background: c.orange,
             padding: '6px 11px 5px', borderRadius: '2px',
           }}>
             Active prototype
@@ -63,12 +63,12 @@ export default function CurrentBuild() {
             fontSize: 'clamp(40px, 5.6vw, 76px)',
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
-            color: c.paper,
+            color: c.cream,
             margin: '26px 0 0',
             ...rise(on, 80, reduced),
           }}
         >
-          Signal <span style={{ color: c.lime }}>→</span> Action
+          Signal <span style={{ color: c.orange }}>→</span> Action
         </h2>
 
         <p
@@ -79,7 +79,7 @@ export default function CurrentBuild() {
             fontSize: 'clamp(22px, 2.4vw, 31px)',
             lineHeight: 1.3,
             letterSpacing: '-0.01em',
-            color: c.lime,
+            color: c.orange,
             margin: '18px 0 0',
             ...rise(on, 110, reduced),
           }}
@@ -133,29 +133,29 @@ export default function CurrentBuild() {
             <li
               key={s.k}
               style={{
-                background: c.ink,
+                background: c.navyLight,
                 padding: '26px 24px 28px',
                 ...rise(on, 260 + i * 110, reduced),
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <span style={{ ...label, color: c.lime }}>{s.k}</span>
+                <span style={{ ...label, color: c.orange }}>{s.k}</span>
                 <span aria-hidden="true" style={{ flex: 1, height: '1px', background: 'rgba(244,241,233,0.18)' }} />
               </div>
               <p style={{
-                fontFamily: f.text, fontSize: '15px', fontWeight: 600,
-                color: c.paper, margin: '0 0 10px', letterSpacing: '0.01em',
+                fontFamily: f.text, fontSize: '16px', fontWeight: 600,
+                color: c.cream, margin: '0 0 10px', letterSpacing: '0.01em',
               }}>
                 {s.place}
               </p>
               <p style={{
                 fontFamily: f.mono, fontSize: '12.5px', lineHeight: 1.6,
-                color: c.lime, margin: '0 0 12px',
+                color: c.orange, margin: '0 0 12px',
               }}>
                 {s.line}
               </p>
               <p style={{
-                fontFamily: f.text, fontSize: '14px', lineHeight: 1.6,
+                fontFamily: f.text, fontSize: '15px', lineHeight: 1.6,
                 color: 'rgba(244,241,233,0.58)', margin: 0,
               }}>
                 {s.note}
@@ -165,7 +165,7 @@ export default function CurrentBuild() {
         </ol>
 
         <p style={{
-          fontFamily: f.text, fontSize: '14px', lineHeight: 1.6,
+          fontFamily: f.text, fontSize: '15px', lineHeight: 1.6,
           color: 'rgba(244,241,233,0.42)', margin: '22px 0 0', maxWidth: '62ch',
           ...rise(on, 720, reduced),
         }}>
@@ -181,7 +181,7 @@ function Field({ head, body }) {
   return (
     <div>
       <p style={{ ...label, color: 'rgba(244,241,233,0.45)', margin: '0 0 12px' }}>{head}</p>
-      <p style={{ fontFamily: f.text, fontSize: '16.5px', lineHeight: 1.62, color: 'rgba(244,241,233,0.9)', margin: 0 }}>
+      <p style={{ fontFamily: f.text, fontSize: '17.5px', lineHeight: 1.62, color: 'rgba(244,241,233,0.9)', margin: 0 }}>
         {body}
       </p>
     </div>

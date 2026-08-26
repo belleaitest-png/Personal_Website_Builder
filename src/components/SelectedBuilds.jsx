@@ -50,15 +50,15 @@ export default function SelectedBuilds() {
   const [ref, on, reduced] = useReveal(0.05)
 
   return (
-    <section id="builds" ref={ref} style={{ background: c.paperDeep, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
+    <section id="builds" ref={ref} style={{ background: c.navyAlt, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
-        <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>Selected builds</p>
+        <p style={{ ...label, color: c.white, margin: 0, ...rise(on, 0, reduced) }}>Selected builds</p>
 
         <h2 style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(38px, 5.2vw, 68px)', lineHeight: 1.06,
-          letterSpacing: '-0.02em', color: c.ink, margin: '24px 0 0', maxWidth: '18ch',
+          letterSpacing: '-0.02em', color: c.white, margin: '24px 0 0', maxWidth: '18ch',
           ...rise(on, 70, reduced),
         }}>
           Things I made, and what they taught me.
@@ -66,7 +66,7 @@ export default function SelectedBuilds() {
 
         <p style={{
           fontFamily: f.text, fontSize: '18px', lineHeight: 1.65,
-          color: c.inkSoft, margin: '26px 0 64px', maxWidth: '56ch',
+          color: c.whiteSoft, margin: '26px 0 64px', maxWidth: '56ch',
           ...rise(on, 130, reduced),
         }}>
           Status is stated honestly. Where something is unfinished or unproven,
@@ -99,8 +99,8 @@ function BuildCard({ b, style }) {
       style={{
         display: 'block',
         textDecoration: 'none',
-        background: c.paper,
-        border: `1px solid ${hov && b.href ? c.ink : c.rule}`,
+        background: c.navy,
+        border: `1px solid ${hov && b.href ? c.cream : c.rule}`,
         borderRadius: '3px',
         padding: '32px 30px 34px',
         transition: `border-color 0.4s ${EASE}, transform 0.4s ${EASE}`,
@@ -112,13 +112,13 @@ function BuildCard({ b, style }) {
         <h3 style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(26px, 2.6vw, 34px)', lineHeight: 1.12,
-          letterSpacing: '-0.015em', color: c.ink, margin: 0,
+          letterSpacing: '-0.015em', color: c.white, margin: 0,
         }}>
           {b.name}
           {b.href && (
             <span aria-hidden="true" style={{
               fontFamily: f.mono, fontSize: '0.5em', marginLeft: '10px',
-              color: hov ? c.ink : c.inkFaint,
+              color: hov ? c.cream : c.creamFaint,
               transition: `color 0.3s ${EASE}`,
             }}>↗</span>
           )}
@@ -126,9 +126,9 @@ function BuildCard({ b, style }) {
         <span style={{
           ...label,
           whiteSpace: 'nowrap',
-          color: c.ink,
-          background: b.live ? c.lime : 'transparent',
-          border: b.live ? `1px solid ${c.lime}` : `1px solid ${c.rule}`,
+          color: b.live ? c.white : c.creamFaint,
+          background: b.live ? c.orange : 'transparent',
+          border: b.live ? `1px solid ${c.orange}` : `1px solid ${c.rule}`,
           padding: '6px 10px 5px',
           borderRadius: '2px',
           opacity: b.live ? 1 : 0.62,
@@ -154,8 +154,8 @@ function Row({ k, v, last }) {
       padding: '13px 0',
       borderBottom: last ? 'none' : `1px solid ${c.ruleSoft}`,
     }}>
-      <span style={{ ...label, fontSize: '10px', color: c.inkFaint, paddingTop: '3px' }}>{k}</span>
-      <span style={{ fontFamily: f.text, fontSize: '15px', lineHeight: 1.6, color: c.inkSoft }}>{v}</span>
+      <span style={{ ...label, fontSize: '10px', color: c.whiteFaint, paddingTop: '3px' }}>{k}</span>
+      <span style={{ fontFamily: f.text, fontSize: '16px', lineHeight: 1.6, color: c.whiteSoft }}>{v}</span>
     </div>
   )
 }

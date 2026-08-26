@@ -35,10 +35,10 @@ export default function ContactSection() {
   const field = {
     width: '100%',
     padding: '15px 16px',
-    background: c.paper,
+    background: 'rgba(255,255,255,0.04)',
     border: `1px solid ${c.rule}`,
     borderRadius: '2px',
-    color: c.ink,
+    color: c.white,
     fontFamily: f.text,
     fontSize: '16px',
     outline: 'none',
@@ -46,15 +46,15 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="connect" ref={ref} style={{ background: c.paper, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
+    <section id="connect" ref={ref} style={{ background: c.navy, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
-        <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>Contact</p>
+        <p style={{ ...label, color: c.white, margin: 0, ...rise(on, 0, reduced) }}>Contact</p>
 
         <h2 style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(38px, 5.2vw, 68px)', lineHeight: 1.06,
-          letterSpacing: '-0.02em', color: c.ink, margin: '24px 0 0', maxWidth: '18ch',
+          letterSpacing: '-0.02em', color: c.white, margin: '24px 0 0', maxWidth: '18ch',
           ...rise(on, 70, reduced),
         }}>
           An open invitation to ambitious builders, operators and collaborators.
@@ -67,7 +67,7 @@ export default function ContactSection() {
         }}>
 
           <div style={rise(on, 140, reduced)}>
-            <p style={{ ...label, color: c.inkFaint, margin: '0 0 20px' }}>Open to</p>
+            <p style={{ ...label, color: c.whiteFaint, margin: '0 0 20px' }}>Open to</p>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
               {OPEN_TO.map(t => (
                 <li key={t} style={{
@@ -75,14 +75,14 @@ export default function ContactSection() {
                   padding: '13px 0', borderBottom: `1px solid ${c.ruleSoft}`,
                 }}>
                   <span aria-hidden="true" style={{
-                    width: '7px', height: '7px', background: c.lime,
+                    width: '7px', height: '7px', background: c.orange,
                     flexShrink: 0, borderRadius: '1px', transform: 'translateY(-1px)',
                   }} />
-                  <span style={{ fontFamily: f.text, fontSize: '16px', lineHeight: 1.6, color: c.inkSoft }}>{t}</span>
+                  <span style={{ fontFamily: f.text, fontSize: '16px', lineHeight: 1.6, color: c.whiteSoft }}>{t}</span>
                 </li>
               ))}
             </ul>
-            <p style={{ fontFamily: f.text, fontSize: '15px', lineHeight: 1.65, color: c.inkFaint, margin: '22px 0 0' }}>
+            <p style={{ fontFamily: f.text, fontSize: '16px', lineHeight: 1.65, color: c.whiteFaint, margin: '22px 0 0' }}>
               If you are building something hard, I would like to hear about it.
               I read everything myself and reply to what I can.
             </p>
@@ -90,24 +90,24 @@ export default function ContactSection() {
 
           <div style={rise(on, 210, reduced)}>
             {status === 'sent' ? (
-              <div style={{ border: `1px solid ${c.ink}`, borderRadius: '3px', padding: '38px 32px', background: c.lime }}>
-                <p style={{ fontFamily: f.display, fontSize: '28px', color: c.ink, margin: '0 0 8px', letterSpacing: '-0.015em' }}>
+              <div style={{ border: `1px solid ${c.cream}`, borderRadius: '3px', padding: '38px 32px', background: c.orange }}>
+                <p style={{ fontFamily: f.display, fontSize: '30px', color: c.white, margin: '0 0 8px', letterSpacing: '0.01em' }}>
                   Message sent.
                 </p>
-                <p style={{ fontFamily: f.text, fontSize: '15px', color: 'rgba(17,17,16,0.7)', margin: 0 }}>
+                <p style={{ fontFamily: f.text, fontSize: '16px', color: c.creamSoft, margin: 0 }}>
                   Thank you. I will come back to you shortly.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <Labelled t="Name"><input name="name" type="text" required style={field}
-                  onFocus={e => e.target.style.borderColor = c.ink}
+                  onFocus={e => e.target.style.borderColor = c.cream}
                   onBlur={e => e.target.style.borderColor = c.rule} /></Labelled>
                 <Labelled t="Email"><input name="email" type="email" required style={field}
-                  onFocus={e => e.target.style.borderColor = c.ink}
+                  onFocus={e => e.target.style.borderColor = c.cream}
                   onBlur={e => e.target.style.borderColor = c.rule} /></Labelled>
                 <Labelled t="Message"><textarea name="message" rows={5} required style={{ ...field, resize: 'vertical' }}
-                  onFocus={e => e.target.style.borderColor = c.ink}
+                  onFocus={e => e.target.style.borderColor = c.cream}
                   onBlur={e => e.target.style.borderColor = c.rule} /></Labelled>
 
                 <button
@@ -117,19 +117,19 @@ export default function ContactSection() {
                     marginTop: '6px',
                     fontFamily: f.mono, fontSize: '12px', fontWeight: 500,
                     letterSpacing: '0.14em', textTransform: 'uppercase',
-                    color: c.paper, background: c.ink,
-                    border: `1px solid ${c.ink}`, borderRadius: '2px',
+                    color: c.cream, background: c.navyLight,
+                    border: `1px solid ${c.cream}`, borderRadius: '2px',
                     padding: '16px 26px 14px', cursor: status === 'sending' ? 'wait' : 'pointer',
                     transition: `background 0.35s ${EASE}, color 0.35s ${EASE}`,
                   }}
-                  onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.background = c.lime; e.currentTarget.style.color = c.ink } }}
-                  onMouseLeave={e => { e.currentTarget.style.background = c.ink; e.currentTarget.style.color = c.paper }}
+                  onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.background = c.orange; e.currentTarget.style.color = c.cream } }}
+                  onMouseLeave={e => { e.currentTarget.style.background = c.cream; e.currentTarget.style.color = c.cream }}
                 >
                   {status === 'sending' ? 'Sending…' : 'Send'}
                 </button>
 
                 {status === 'error' && (
-                  <p style={{ fontFamily: f.text, fontSize: '14px', color: '#B3261E', margin: 0 }}>
+                  <p style={{ fontFamily: f.text, fontSize: '15px', color: '#B3261E', margin: 0 }}>
                     Something went wrong. Try again, or reach me on LinkedIn.
                   </p>
                 )}
@@ -145,7 +145,7 @@ export default function ContactSection() {
 function Labelled({ t, children }) {
   return (
     <label style={{ display: 'block' }}>
-      <span style={{ ...label, fontSize: '10px', color: c.inkFaint, display: 'block', marginBottom: '8px' }}>{t}</span>
+      <span style={{ ...label, fontSize: '10px', color: c.whiteFaint, display: 'block', marginBottom: '8px' }}>{t}</span>
       {children}
     </label>
   )

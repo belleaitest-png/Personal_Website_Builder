@@ -63,36 +63,37 @@ const NC_ASSETS = [
 // Current assets -Shipped
 const CA_ASSETS = [
   {
+    label: 'Signal → Action',
+    note:  'Telegram to Claude agent · in daily use',
+    value: 20,
+    coming: false,
+  },
+  {
     label: 'Apex Health OS',
-    note:  'WHOOP-integrated grocery agent · built with Claude Code',
-    value: 18,
+    note:  'wearable data to nutrition decisions · Claude Code',
+    value: 14,
     href:  'https://apex-health-os.vercel.app/',
     ext:   true,
   },
   {
-    label: 'Bloom',
-    note:  'trimester-aware pregnancy platform · built with Lovable',
-    value: 15,
-    href:  'https://mama-mosaic-hub.lovable.app',
-    ext:   true,
-  },
-  {
     label: 'Demographic Forecaster',
-    note:  'country-level population modelling · built with Replit',
-    value: 13,
+    note:  'country-level modelling · built with Replit',
+    value: 12,
     href:  'https://demographic-forecaster.replit.app',
     ext:   true,
   },
   {
     label: 'Personal CRM',
-    note:  'relationship agent · follow-up automation · Claude Code',
+    note:  'relationship agent · follow-up automation',
     value: 8,
     coming: true,
   },
   {
-    label: 'SuppStack Manager',
-    note:  'supplement tracking & dosing · Claude Code',
+    label: 'Bloom',
+    note:  'trimester-aware health platform · built with Lovable',
     value: 8,
+    href:  'https://mama-mosaic-hub.lovable.app',
+    ext:   true,
     coming: true,
   },
 ]
@@ -100,14 +101,14 @@ const CA_ASSETS = [
 // Current liabilities -Papers in Development
 const CL_LIAB = [
   {
-    label: 'The Loneliness Epidemic (Male)',
-    note:  'draft',
+    label: 'Why I\u2019m Writing Before I\u2019m Ready',
+    note:  'first Field Note · draft',
     value: 10,
     coming: true,
   },
   {
-    label: 'Synthetic Biology × Everything',
-    note:  'in progress',
+    label: 'From Demos to Operations',
+    note:  'what must be true before an agent works · in progress',
     value: 8,
   },
 ]
@@ -115,19 +116,20 @@ const CL_LIAB = [
 // Long-term liabilities -Papers Written
 const LT_LIAB = [
   {
-    label: 'Declining Birth Rates × Food',
+    label: 'When Markets Fail to Make Babies',
     value: 14,
     href:  '/documents/papers/When Markets Fail to Make Babies -The Limits of Private Responses to Fertility Crisis.pdf',
     gated: true,
   },
   {
     label: 'The Food System Thesis',
+    note:  'research',
     value: 12,
     coming: true,
   },
   {
     label: 'World View Agent Manager',
-    note:  'multi-agent AI framework',
+    note:  'multi-agent framework',
     value: 6,
   },
 ]
@@ -606,7 +608,7 @@ function ToolsPopup({ open, onClose }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function BalanceSheet() {
+export default function BalanceSheet({ embedded = false }) {
   const [active, setActive] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
   const ref = useRef(null)
@@ -638,7 +640,10 @@ export default function BalanceSheet() {
   return (
     <section
       ref={ref}
-      style={{
+      style={embedded ? {
+        position: 'relative',
+        paddingBottom: '8px',
+      } : {
         position: 'sticky',
         top: 0,
         zIndex: 1,
@@ -646,14 +651,16 @@ export default function BalanceSheet() {
         paddingBottom: '80px',
       }}
     >
-      {/* Translucent backdrop */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'rgba(14,16,16,0.425)',
-        backdropFilter: 'blur(12px)',
-        zIndex: 1,
-      }} />
+      {/* Page-mode backdrop only. Inside the About card the card is the ground. */}
+      {!embedded && (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(14,16,16,0.425)',
+          backdropFilter: 'blur(12px)',
+          zIndex: 1,
+        }} />
+      )}
 
       {/* ── Header bar ────────────────────────────────────────────── */}
       <div style={{
@@ -726,7 +733,7 @@ export default function BalanceSheet() {
             Non-Current Assets
           </SectionLabel>
           <CategoryLabel step={2} delay={L} active={active}>
-            Resume
+            Training & Track Record
           </CategoryLabel>
           {NC_ASSETS.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={L} active={active} />
@@ -764,7 +771,7 @@ export default function BalanceSheet() {
             Current Liabilities
           </SectionLabel>
           <CategoryLabel step={2} delay={R} active={active}>
-            Papers in Development
+            Writing in Progress
           </CategoryLabel>
           {CL_LIAB.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={R} active={active} />
@@ -776,7 +783,7 @@ export default function BalanceSheet() {
             Non-Current Liabilities
           </SectionLabel>
           <CategoryLabel step={6} delay={R} active={active}>
-            Papers Written
+            Published & Drafted
           </CategoryLabel>
           {LT_LIAB.map((item, i) => (
             <Row key={item.label} item={item} step={7 + i} delay={R} active={active} />

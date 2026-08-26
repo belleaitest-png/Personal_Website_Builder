@@ -7,6 +7,7 @@ const NAV = [
   { t: 'Build',   href: '#build' },
   { t: 'Think',   href: '#think' },
   { t: 'Connect', href: '#connect' },
+  { t: 'About',   href: '#about' },
 ]
 
 // A single hairline that fills as you read. The only persistent motion
@@ -30,7 +31,7 @@ export function ScrollRail() {
     }}>
       <div style={{
         height: '100%', width: `${p * 100}%`,
-        background: c.lime, transition: 'width 90ms linear',
+        background: c.orange, transition: 'width 90ms linear',
       }} />
     </div>
   )
@@ -51,7 +52,7 @@ export function Nav() {
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
-      background: solid ? 'rgba(244,241,233,0.86)' : 'transparent',
+      background: solid ? 'rgba(25,26,26,0.92)' : 'transparent',
       backdropFilter: solid ? 'saturate(1.4) blur(14px)' : 'none',
       borderBottom: solid ? `1px solid ${c.rule}` : '1px solid transparent',
       transition: reduced ? 'none' : `background 0.4s ${EASE}, border-color 0.4s ${EASE}`,
@@ -61,8 +62,8 @@ export function Nav() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px',
       }}>
         <a href="#top" style={{
-          fontFamily: f.display, fontSize: '23px', letterSpacing: '-0.015em',
-          color: c.ink, textDecoration: 'none', whiteSpace: 'nowrap',
+          fontFamily: f.display, fontSize: '26px', fontWeight: 600, letterSpacing: '0.03em',
+          color: c.terracotta, textDecoration: 'none', whiteSpace: 'nowrap',
         }}>
           Annabelle Body
         </a>
@@ -71,12 +72,12 @@ export function Nav() {
           {NAV.map(n => (
             <li key={n.href}>
               <a href={n.href} style={{
-                ...label, fontSize: '10.5px', color: c.inkSoft,
+                ...label, fontSize: '10.5px', color: c.whiteSoft,
                 textDecoration: 'none', transition: `color 0.3s ${EASE}`,
                 paddingBottom: '3px', borderBottom: '1px solid transparent',
               }}
-                onMouseEnter={e => { e.currentTarget.style.color = c.ink; e.currentTarget.style.borderBottomColor = c.lime }}
-                onMouseLeave={e => { e.currentTarget.style.color = c.inkSoft; e.currentTarget.style.borderBottomColor = 'transparent' }}
+                onMouseEnter={e => { e.currentTarget.style.color = c.cream; e.currentTarget.style.borderBottomColor = c.orange }}
+                onMouseLeave={e => { e.currentTarget.style.color = c.creamSoft; e.currentTarget.style.borderBottomColor = 'transparent' }}
               >
                 {n.t}
               </a>
@@ -92,7 +93,7 @@ export function Nav() {
           style={{
             display: 'none', background: 'none', border: `1px solid ${c.rule}`,
             borderRadius: '2px', padding: '9px 13px', cursor: 'pointer',
-            ...label, fontSize: '10px', color: c.ink,
+            ...label, fontSize: '10px', color: c.white,
           }}
         >
           {open ? 'Close' : 'Menu'}
@@ -102,12 +103,12 @@ export function Nav() {
       {open && (
         <ul className="ab-nav-drawer" style={{
           listStyle: 'none', margin: 0, padding: '8px 32px 24px',
-          background: c.paper, borderTop: `1px solid ${c.rule}`,
+          background: c.navyAlt, borderTop: `1px solid ${c.rule}`,
         }}>
           {NAV.map(n => (
             <li key={n.href}>
               <a href={n.href} onClick={() => setOpen(false)} style={{
-                ...label, fontSize: '11px', color: c.ink, textDecoration: 'none',
+                ...label, fontSize: '11px', color: c.white, textDecoration: 'none',
                 display: 'block', padding: '15px 0', borderBottom: `1px solid ${c.ruleSoft}`,
               }}>
                 {n.t}
@@ -128,15 +129,15 @@ export function Footer() {
   ]
 
   return (
-    <footer style={{ background: c.ink, color: c.paper, padding: '64px 32px 56px' }}>
+    <footer style={{ background: c.navyDeep, color: c.cream, padding: '64px 32px 56px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
         <p style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.15,
-          letterSpacing: '-0.02em', color: c.paper, margin: '0 0 44px', maxWidth: '26ch',
+          letterSpacing: '-0.02em', color: c.cream, margin: '0 0 44px', maxWidth: '26ch',
         }}>
           In operator mode: learning fast, building in public, and exploring how
-          {' '}<span style={{ color: c.lime, fontStyle: 'italic' }}>AI, biology and new infrastructure</span>
+          {' '}<span style={{ color: c.orange, fontStyle: 'italic' }}>AI, biology and new infrastructure</span>
           {' '}will reshape human life.
         </p>
 
@@ -159,7 +160,7 @@ export function Footer() {
                 ...label, fontSize: '10.5px', color: 'rgba(244,241,233,0.6)',
                 textDecoration: 'none', transition: `color 0.3s ${EASE}`,
               }}
-                onMouseEnter={e => e.currentTarget.style.color = c.lime}
+                onMouseEnter={e => e.currentTarget.style.color = c.orange}
                 onMouseLeave={e => e.currentTarget.style.color = 'rgba(244,241,233,0.6)'}
               >
                 {l.t}

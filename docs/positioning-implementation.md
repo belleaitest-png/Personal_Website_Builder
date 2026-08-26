@@ -47,22 +47,51 @@ Signal → Action carries an explicit line stating it is not autonomous.
 
 ## Visual system
 
-| Guide | Implementation |
+The positioning guide specified paper ground, ink contrast and an acid-lime accent. That was
+applied, then reverted: it overwrote a design Belle had curated over many commits. The site
+uses her original system.
+
+| Element | Value |
 |---|---|
-| Paper / off-white ground | `#F4F1E9`, with `#EAE6DB` for recessed sections |
-| Ink-black contrast | `#111110` |
-| One vivid acid-lime accent | `#CCF23D`, used only for highlight, status, rail and hover |
-| Large typography | Instrument Serif display up to 108px, `-0.025em` tracking |
-| Editorial / tactile / operator texture | JetBrains Mono for labels, statuses and workflow steps |
-| Movement around meaning | Hero highlight wipes in under the claim; Signal → Action steps land in sequence; scroll rail reports read position |
-| Honour `prefers-reduced-motion` | `useReveal.js` returns no-op styles; CSS kills transitions; verified 0 elements stuck at opacity 0 |
-| No fake AI 3D or stock cyber imagery | None used. Everything is type, rule, and layout |
+| Page ground | Slate `#191A1A`, with `#151717` / `#222526` / `#0E1010` for alternation and depth |
+| Body text | Cream `#F5F0E8` |
+| Accent | Coral `#E8534E`. Logo wordmark only: `#D84535` |
+| Secondary | Teal `#00C896`, sparingly |
+| Type | Cormorant Garamond throughout, Courier New for numeric and system texture |
+
+Tokens live in `src/theme.js`. No component should hand-roll a hex.
+
+### Hero
+
+Sticky and full-bleed, with content scrolling up over it, as the original did.
+`HeroShader.jsx` is hand-written WebGL: `hero.webp` on a full-screen triangle, with a slow
+liquid displacement that warps toward a lerped pointer, a light coral lift where the
+displacement is strongest, vignette and grain. No library; three.js is 22MB unpacked for
+what is one textured triangle.
+
+Required behaviours, all verified:
+
+- No WebGL context, or `prefers-reduced-motion`, paints the plain photo and never starts a
+  render loop.
+- The loop pauses when the hero leaves the viewport and when the tab is hidden.
+- The canvas is `aria-hidden`. All text is real DOM.
+
+**Video slot.** The visual layer is one swappable child. A commented `HeroVideo` stub sits at
+the foot of `HeroShader.jsx` with the correct attributes. When the Signal → Action recording
+exists, swapping it in is a one-line change and `hero.webp` becomes the poster.
+
+### Image weight
+
+`hero.png` was 7.1MB at 2752x1536. Regenerated at 1800px WebP: **54KB**, a 99% reduction.
+`headshot.png` 899KB became 243KB. Both are referenced with `image-set` or `<picture>` and a
+PNG fallback; the originals stay in the repo. Generated with `sharp` as a one-off, not a
+build dependency.
 
 ## Removed or demoted, per the guide
 
 - Food/fertility as the homepage identity. Now case studies inside builds and writing pillars only.
 - Beangirl from the primary nav. It remains in the footer.
-- The balance-sheet device as the main lens. `BalanceSheet.jsx` is preserved in the repo but no longer rendered.
+- The balance-sheet device as the main lens. It now lives inside the About overlay, off the main scroll but findable from the nav, with its line items updated to the new positioning.
 - "Soon" cards and the inventory of unfinished ideas. SuppStack Manager is off the page until it exists.
 - Verifood from the footer identity. The footer now reads Applied AI Builder & Operator.
 

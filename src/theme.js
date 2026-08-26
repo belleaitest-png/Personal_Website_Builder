@@ -1,66 +1,57 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  Design tokens
-//  Aesthetic per the positioning guide: editorial, tactile, kinetic,
-//  intelligent, slightly playful. Paper ground, ink contrast, one acid accent.
+//  The curated system: dark slate ground, coral accent, Cormorant Garamond.
+//  Courier New carries numeric and system texture, as it already does in the
+//  balance sheet. No third family.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const c = {
-  paper:     '#F4F1E9',   // warm off-white ground
-  paperDeep: '#EAE6DB',   // recessed panels
-  ink:       '#111110',   // near-black display and body
-  inkSoft:   'rgba(17,17,16,0.62)',
-  inkFaint:  'rgba(17,17,16,0.38)',
-  rule:      'rgba(17,17,16,0.14)',
-  ruleSoft:  'rgba(17,17,16,0.08)',
-  lime:      '#CCF23D',   // the single vivid accent
-  limeDeep:  '#A8CC22',   // for small text on paper where lime alone fails contrast
+  navy:      '#191A1A',   // page ground
+  navyLight: '#222526',   // raised panels
+  navyAlt:   '#151717',   // alternating sections
+  navyDeep:  '#0E1010',   // footer, deepest ground
+  cream:     '#F5F0E8',   // body text
+  white:     '#FFFFFF',   // headings
+  orange:    '#E8534E',   // accent: links, labels, dividers
+  terracotta:'#D84535',   // logo wordmark only
+  teal:      '#00C896',   // secondary accent, sparingly
+
+  // Derived, so components stop hand-rolling rgba strings.
+  creamSoft:  'rgba(245,240,232,0.72)',
+  creamFaint: 'rgba(245,240,232,0.42)',
+  creamGhost: 'rgba(245,240,232,0.26)',
+  rule:       'rgba(245,240,232,0.14)',
+  ruleSoft:   'rgba(245,240,232,0.07)',
+  orangeSoft: 'rgba(232,83,78,0.20)',
+  orangeWash: 'rgba(232,83,78,0.05)',
 }
 
 export const f = {
-  // High-contrast editorial serif for display. Carries the "designed by
-  // someone with taste" requirement without any AI-stock visual language.
-  display: "'Instrument Serif', 'Times New Roman', serif",
-  // Neutral grotesque for reading and UI.
-  text:    "'Inter', -apple-system, 'Helvetica Neue', sans-serif",
-  // Mono is the operator texture: statuses, system labels, workflow steps.
-  mono:    "'JetBrains Mono', 'SFMono-Regular', Menlo, monospace",
+  // One face across the whole site.
+  display: "'Cormorant Garamond', Georgia, serif",
+  text:    "'Cormorant Garamond', Georgia, serif",
+  // Numbers, statuses, workflow steps.
+  mono:    "'Courier New', monospace",
 }
 
-// Unhurried, flat easing. Nothing bounces.
 export const EASE = 'cubic-bezier(0.22, 0.61, 0.36, 1)'
 
-export const maxw = '1160px'
+export const maxw = '1100px'
 
-// Wide-tracked mono label, used once per zone.
+// Small caps label. Coral by default, which is where the accent lives.
 export const label = {
   fontFamily: f.mono,
   fontSize: '11px',
-  fontWeight: 500,
-  letterSpacing: '0.18em',
+  fontWeight: 600,
+  letterSpacing: '0.16em',
   textTransform: 'uppercase',
 }
 
-export const display = (min, max) => ({
-  fontFamily: f.display,
-  fontWeight: 400,
-  fontSize: `clamp(${min}, ${((max + min) / 2 / 14).toFixed(2)}vw + 1rem, ${max})`,
-  lineHeight: 1.04,
-  letterSpacing: '-0.02em',
-  color: c.ink,
-})
-
+// Cormorant runs small, so body sizes sit higher than a grotesque would.
 export const body = {
   fontFamily: f.text,
-  fontSize: '17px',
-  lineHeight: 1.7,
-  color: c.inkSoft,
+  fontSize: '18px',
+  lineHeight: 1.75,
+  color: c.cream,
   fontWeight: 400,
-}
-
-// Status pill. Honest status language is a hard rule in the guide:
-// "active prototype" and "in development" are strong; "coming soon" is weak.
-export const STATUS = {
-  live:      { text: 'Live',             fill: c.lime,      ink: c.ink },
-  prototype: { text: 'Active prototype', fill: c.lime,      ink: c.ink },
-  building:  { text: 'In development',   fill: 'transparent', ink: c.inkSoft },
 }

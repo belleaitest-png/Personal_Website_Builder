@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 
-const NAVY   = '#111110'   // ink: modal ground
-const CREAM  = '#F4F1E9'   // paper
-const WHITE  = '#F4F1E9'   // paper, used for headings on ink
-const ORANGE = '#CCF23D'   // the acid accent
-const serif  = "'Inter', -apple-system, sans-serif"
-const disp   = "'Instrument Serif', 'Times New Roman', serif"
+const NAVY   = '#191A1A'
+const CREAM  = '#F5F0E8'
+const WHITE  = '#FFFFFF'
+const ORANGE = '#E8534E'
+const serif  = "'Cormorant Garamond', Georgia, serif"
+const disp   = "'Cormorant Garamond', Georgia, serif"
 
 const STORAGE_KEY = 'belle_doc_email'
 
@@ -69,12 +69,12 @@ function EmailModal({ label, href, onClose }) {
     padding: '40px', maxWidth: '400px', width: '100%',
     boxShadow: '0 24px 80px rgba(0,0,0,0.5)', textAlign: 'center',
   }
-  const title = { fontFamily: disp, fontSize: '26px', fontWeight: '400', letterSpacing: '-0.015em', color: WHITE, margin: '0 0 8px' }
+  const title = { fontFamily: disp, fontSize: '26px', fontWeight: '700', letterSpacing: '0.01em', color: WHITE, margin: '0 0 8px' }
   const sub = { fontFamily: serif, fontSize: '14px', color: CREAM, opacity: 0.5, margin: '0 0 24px' }
   const btn = {
     width: '100%', fontFamily: serif, fontSize: '13px', fontWeight: '600',
     letterSpacing: '0.06em',
-    color: '#111110', background: ORANGE, border: 'none',
+    color: WHITE, background: ORANGE, border: 'none',
     borderRadius: '4px', padding: '14px', cursor: 'pointer',
   }
 

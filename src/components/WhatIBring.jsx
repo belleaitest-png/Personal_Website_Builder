@@ -59,17 +59,17 @@ export default function WhatIBring() {
   const [ref, on, reduced] = useReveal(0.05)
 
   return (
-    <section id="bring" ref={ref} style={{ background: c.paper, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
+    <section id="bring" ref={ref} style={{ background: c.navy, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
-        <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>
+        <p style={{ ...label, color: c.white, margin: 0, ...rise(on, 0, reduced) }}>
           What I bring to applied AI
         </p>
 
         <h2 style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(38px, 5.2vw, 68px)', lineHeight: 1.06,
-          letterSpacing: '-0.02em', color: c.ink, margin: '24px 0 0', maxWidth: '19ch',
+          letterSpacing: '-0.02em', color: c.white, margin: '24px 0 0', maxWidth: '19ch',
           ...rise(on, 70, reduced),
         }}>
           Four things, and where each one was earned.
@@ -91,18 +91,18 @@ export default function WhatIBring() {
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '12px' }}>
-                  <span style={{ ...label, color: c.inkFaint }}>{b.n}</span>
+                  <span style={{ ...label, color: c.whiteFaint }}>{b.n}</span>
                   <h3 style={{
                     fontFamily: f.text, fontWeight: 600, fontSize: '18px',
                     lineHeight: 1.3, letterSpacing: '-0.005em',
-                    color: c.ink, margin: 0,
+                    color: c.white, margin: 0,
                   }}>
                     {b.capability}
                   </h3>
                 </div>
                 <p style={{
-                  fontFamily: f.text, fontSize: '15px', lineHeight: 1.6,
-                  color: c.inkSoft, margin: 0, maxWidth: '34ch',
+                  fontFamily: f.text, fontSize: '16px', lineHeight: 1.6,
+                  color: c.whiteSoft, margin: 0, maxWidth: '34ch',
                 }}>
                   {b.line}
                 </p>
@@ -121,14 +121,14 @@ export default function WhatIBring() {
                     }}
                   >
                     <span style={{
-                      ...label, fontSize: '10.5px', color: c.ink,
+                      ...label, fontSize: '10.5px', color: c.white,
                       paddingTop: '4px',
                     }}>
                       {e.where}
                     </span>
                     <p style={{
-                      fontFamily: f.text, fontSize: '16.5px', lineHeight: 1.68,
-                      color: c.inkSoft, margin: 0, maxWidth: '58ch',
+                      fontFamily: f.text, fontSize: '17.5px', lineHeight: 1.68,
+                      color: c.whiteSoft, margin: 0, maxWidth: '58ch',
                     }}>
                       {e.what}
                     </p>
@@ -147,7 +147,7 @@ export default function WhatIBring() {
               display: 'inline-block',
               fontFamily: f.mono, fontSize: '12px', fontWeight: 500,
               letterSpacing: '0.14em', textTransform: 'uppercase',
-              color: c.ink, background: 'transparent',
+              color: c.white, background: 'transparent',
               border: `1px solid ${c.rule}`, borderRadius: '2px',
               padding: '15px 24px 13px', textDecoration: 'none', cursor: 'pointer',
               transition: `border-color 0.35s ${EASE}`,

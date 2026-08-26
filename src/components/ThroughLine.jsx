@@ -31,16 +31,16 @@ export default function ThroughLine() {
   const [ref, on, reduced] = useReveal(0.06)
 
   return (
-    <section id="arc" ref={ref} style={{ background: c.paper, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
+    <section id="arc" ref={ref} style={{ background: c.navy, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
-        <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>The through-line</p>
+        <p style={{ ...label, color: c.white, margin: 0, ...rise(on, 0, reduced) }}>The through-line</p>
 
         <h2 style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(38px, 5.2vw, 68px)',
           lineHeight: 1.06, letterSpacing: '-0.02em',
-          color: c.ink, margin: '24px 0 0', maxWidth: '20ch',
+          color: c.white, margin: '24px 0 0', maxWidth: '20ch',
           ...rise(on, 70, reduced),
         }}>
           Three trainings, one question.
@@ -48,7 +48,7 @@ export default function ThroughLine() {
 
         <p style={{
           fontFamily: f.text, fontSize: '18px', lineHeight: 1.65,
-          color: c.inkSoft, margin: '26px 0 0', maxWidth: '56ch',
+          color: c.whiteSoft, margin: '26px 0 0', maxWidth: '56ch',
           ...rise(on, 130, reduced),
         }}>
           How do new technologies change what people are capable of, and the
@@ -71,18 +71,18 @@ export default function ThroughLine() {
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '10px' }}>
-                  <span style={{ ...label, color: c.inkFaint }}>{s.n}</span>
+                  <span style={{ ...label, color: c.whiteFaint }}>{s.n}</span>
                   <h3 style={{
                     fontFamily: f.display, fontWeight: 400,
                     fontSize: 'clamp(28px, 3vw, 40px)', lineHeight: 1.1,
-                    letterSpacing: '-0.015em', color: c.ink, margin: 0,
+                    letterSpacing: '-0.015em', color: c.white, margin: 0,
                   }}>
                     {s.title}
                   </h3>
                 </div>
                 <p style={{
                   fontFamily: f.mono, fontSize: '11.5px', letterSpacing: '0.06em',
-                  color: c.inkFaint, margin: 0,
+                  color: c.whiteFaint, margin: 0,
                 }}>
                   {s.sub}
                 </p>
@@ -91,13 +91,13 @@ export default function ThroughLine() {
               <div>
                 <p style={{
                   fontFamily: f.text, fontSize: '17px', lineHeight: 1.72,
-                  color: c.inkSoft, margin: '0 0 20px', maxWidth: '62ch',
+                  color: c.whiteSoft, margin: '0 0 20px', maxWidth: '62ch',
                 }}>
                   {s.body}
                 </p>
                 <span style={{
-                  ...label, color: c.ink,
-                  background: c.lime, padding: '7px 12px 6px',
+                  ...label, color: c.white,
+                  background: c.orange, padding: '7px 12px 6px',
                   borderRadius: '2px', display: 'inline-block',
                 }}>
                   {s.gives}
