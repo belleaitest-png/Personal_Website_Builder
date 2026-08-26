@@ -4,7 +4,8 @@ import Hero from './components/Hero'
 import CurrentBuild from './components/CurrentBuild'
 import ThroughLine from './components/ThroughLine'
 import SelectedBuilds from './components/SelectedBuilds'
-import OperatingProof from './components/OperatingProof'
+import WhatIBring from './components/WhatIBring'
+import QuestionBand from './components/QuestionBand'
 import FieldNotes from './components/FieldNotes'
 import ContactSection from './components/ContactSection'
 import { c } from './theme'
@@ -41,9 +42,10 @@ export default function App() {
       <main>
         <Hero />
         <CurrentBuild />
-        <ThroughLine />
         <SelectedBuilds />
-        <OperatingProof />
+        <ThroughLine />
+        <WhatIBring />
+        <QuestionBand />
         <FieldNotes />
         <ContactSection />
       </main>

@@ -31,30 +31,24 @@ export default function Hero() {
             letterSpacing: '-0.025em',
             color: c.ink,
             margin: '30px 0 0',
-            maxWidth: '15ch',
+            maxWidth: '19ch',
             ...rise(on, 90, reduced),
           }}
         >
-          I build AI systems that make people and teams{' '}
-          <span style={{ position: 'relative', whiteSpace: 'nowrap' }}>
-            <span
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                left: '-0.08em',
-                right: '-0.08em',
-                bottom: '0.08em',
-                height: '0.34em',
-                background: c.lime,
-                zIndex: 0,
-                transformOrigin: 'left',
-                transform: reduced ? 'scaleX(1)' : on ? 'scaleX(1)' : 'scaleX(0)',
-                transition: reduced ? 'none' : `transform 0.9s ${EASE} 620ms`,
-              }}
-            />
-            <span style={{ position: 'relative', zIndex: 1, fontStyle: 'italic' }}>
-              more capable.
-            </span>
+          Building useful AI systems.{' '}
+          <span
+            style={{
+              fontStyle: 'italic',
+              backgroundImage: `linear-gradient(${c.lime}, ${c.lime})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: '0 0.80em',
+              backgroundSize: reduced || on ? '100% 0.30em' : '0% 0.30em',
+              transition: reduced ? 'none' : `background-size 1s ${EASE} 620ms`,
+              WebkitBoxDecorationBreak: 'clone',
+              boxDecorationBreak: 'clone',
+            }}
+          >
+            Writing about the future they create.
           </span>
         </h1>
 
@@ -69,10 +63,8 @@ export default function Hero() {
             ...rise(on, 180, reduced),
           }}
         >
-          I trained as a scientist, learned to operate through accounting and
-          restructuring, and now work where frontier models meet real businesses.
-          I build practical AI workflows, translate technical capability into
-          something people can actually use, and write about the consequences.
+          I&rsquo;m in operator mode: learning fast, building in public, and exploring
+          how AI, biology, and new infrastructure will reshape human life.
         </p>
 
         {/* The arc, stated once, plainly. */}
@@ -102,15 +94,33 @@ export default function Hero() {
           ))}
         </div>
 
+        <p
+          style={{
+            fontFamily: f.text,
+            fontSize: '17px',
+            lineHeight: 1.72,
+            color: c.inkSoft,
+            margin: '44px 0 0',
+            maxWidth: '58ch',
+            paddingTop: '30px',
+            borderTop: `1px solid ${c.rule}`,
+            ...rise(on, 320, reduced),
+          }}
+        >
+          I&rsquo;m Annabelle Body, a scientist turned accountant and restructuring
+          operator, now building at the frontier of applied AI. I turn new model
+          capability into practical systems for ambitious people and businesses.
+        </p>
+
         <div
           style={{
             display: 'flex', gap: '14px', flexWrap: 'wrap',
-            margin: '52px 0 0',
-            ...rise(on, 340, reduced),
+            margin: '44px 0 0',
+            ...rise(on, 400, reduced),
           }}
         >
-          <CTA href="#building" primary>What I&rsquo;m building</CTA>
-          <CTA href="#notes">Field Notes</CTA>
+          <CTA href="#build" primary>What I&rsquo;m building</CTA>
+          <CTA href="#think">Field Notes</CTA>
         </div>
       </div>
     </header>

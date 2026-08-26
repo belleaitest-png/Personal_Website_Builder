@@ -9,22 +9,30 @@ stay in sync as evidence is earned.
 | Guide | Where it lives |
 |---|---|
 | Primary descriptor: Applied AI Builder & Operator | Hero eyebrow, page title, OG tags, footer |
-| Primary headline: "I build AI systems that make people and teams more capable." | `Hero.jsx`, set as the H1, verbatim |
+| Headline: "Building useful AI systems. Writing about the future they create." | `Hero.jsx` H1, verbatim from Belle |
+| "I'm in operator mode: learning fast, building in public..." | Hero sub-paragraph, verbatim |
+| "I'm Annabelle Body, a scientist turned accountant and restructuring operator..." | Hero intro line, verbatim |
+| "What does technological progress make possible, and what must change for it to improve human lives?" | `QuestionBand.jsx`, full-width on ink |
+| "Capability compounds." | Folded into the Think section intro |
 | 30-second pitch | Hero sub-paragraph, condensed |
 | Arc: Scientist → Operator → Builder | Hero chips, then `ThroughLine.jsx` in full |
 | Editorial version: "Building useful AI systems. Writing about the world they create." | Footer |
 
 ## Homepage architecture
 
-The guide's seven-part order is followed exactly:
+Restructured around Belle's three pillars, Build / Think / Connect, which are also the
+whole navigation:
 
 1. Hero — `Hero.jsx`
-2. Current build — `CurrentBuild.jsx` (Signal → Action)
-3. Through-line — `ThroughLine.jsx`
-4. Selected builds — `SelectedBuilds.jsx`
-5. Operating proof — `OperatingProof.jsx`
-6. Field Notes — `FieldNotes.jsx`
-7. Contact — `ContactSection.jsx`
+2. **Build** (`#build`) — `CurrentBuild.jsx` (Signal → Action), then `SelectedBuilds.jsx`
+3. Through-line — `ThroughLine.jsx` (Scientist → Operator → Builder)
+4. What I bring — `WhatIBring.jsx`
+5. The question — `QuestionBand.jsx`
+6. **Think** (`#think`) — `FieldNotes.jsx`
+7. **Connect** (`#connect`) — `ContactSection.jsx`
+
+`OperatingProof.jsx` was replaced by `WhatIBring.jsx`. Three sections were arguing the same
+credibility point; now the arc does narrative and What I bring does forward-looking proof.
 
 ## Proof architecture
 

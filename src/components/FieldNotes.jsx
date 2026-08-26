@@ -23,7 +23,7 @@ export default function FieldNotes() {
   const [ref, on, reduced] = useReveal(0.08)
 
   return (
-    <section id="notes" ref={ref} style={{ background: c.paperDeep, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
+    <section id="think" ref={ref} style={{ background: c.paperDeep, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
         <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>Field Notes</p>
@@ -47,6 +47,17 @@ export default function FieldNotes() {
           be more useful to people building the future, and get sharper through
           evidence and good disagreement. If you think I have something wrong,
           that is the most valuable email I can get.
+        </p>
+
+        <p style={{
+          fontFamily: f.text, fontSize: '18px', lineHeight: 1.7,
+          color: c.inkSoft, margin: '22px 0 0', maxWidth: '58ch',
+          ...rise(on, 170, reduced),
+        }}>
+          <strong style={{ color: c.ink, fontWeight: 600 }}>Capability compounds.</strong>{' '}
+          An hour returned to someone goes into the next problem, which produces the
+          next tool, which returns more hours. That thread runs through most of what
+          I write.
         </p>
 
         <div style={{

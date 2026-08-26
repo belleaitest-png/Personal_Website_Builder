@@ -7,20 +7,20 @@ const STEPS = [
   {
     k: '01',
     place: 'Telegram',
-    line: '"Apply to this event and tell me who I should meet."',
-    note: 'Capture, wherever I am, in one message.',
+    line: '"apply to this" · "research this person" · "follow up here"',
+    note: 'A link, a voice note, or an instruction. Captured wherever I am.',
   },
   {
     k: '02',
     place: 'Task queue',
-    line: 'signal → structured task',
+    line: 'intent → structured task',
     note: 'The intention stops being a saved post and becomes work.',
   },
   {
     k: '03',
     place: 'Claude',
-    line: 'sweeps the queue at intervals',
-    note: 'Reads the context, does the work, flags what it could not resolve.',
+    line: 'sweeps at set intervals',
+    note: 'Completes defined work, and flags what it could not resolve.',
   },
   {
     k: '04',
@@ -35,7 +35,7 @@ export default function CurrentBuild() {
 
   return (
     <section
-      id="building"
+      id="build"
       ref={ref}
       style={{
         background: c.ink,
@@ -71,6 +71,22 @@ export default function CurrentBuild() {
           Signal <span style={{ color: c.lime }}>→</span> Action
         </h2>
 
+        <p
+          style={{
+            fontFamily: f.display,
+            fontWeight: 400,
+            fontStyle: 'italic',
+            fontSize: 'clamp(22px, 2.4vw, 31px)',
+            lineHeight: 1.3,
+            letterSpacing: '-0.01em',
+            color: c.lime,
+            margin: '18px 0 0',
+            ...rise(on, 110, reduced),
+          }}
+        >
+          An AI agent for turning intent into action.
+        </p>
+
         <div
           style={{
             display: 'grid',
@@ -87,7 +103,7 @@ export default function CurrentBuild() {
           />
           <Field
             head="What I built"
-            body="I send a link or an instruction to Telegram. It lands in a task queue. Claude sweeps the queue at intervals and returns something I can actually use."
+            body="I send a link, voice note, or instruction to Telegram: apply to this, research this person, follow up here. It enters a task queue. Claude sweeps it at set intervals, completes defined work, and sends an output back."
           />
           <Field
             head="Why it matters"

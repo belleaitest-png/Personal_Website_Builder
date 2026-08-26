@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react'
 import { c, f, EASE, maxw, label } from '../theme'
 import { usePrefersReducedMotion } from '../useReveal'
 
+// Belle's three pillars, used as the whole navigation.
 const NAV = [
-  { t: 'Building', href: '#building' },
-  { t: 'Arc',      href: '#arc' },
-  { t: 'Builds',   href: '#builds' },
-  { t: 'Proof',    href: '#proof' },
-  { t: 'Notes',    href: '#notes' },
-  { t: 'Contact',  href: '#contact' },
+  { t: 'Build',   href: '#build' },
+  { t: 'Think',   href: '#think' },
+  { t: 'Connect', href: '#connect' },
 ]
 
 // A single hairline that fills as you read. The only persistent motion
@@ -135,11 +133,11 @@ export function Footer() {
         <p style={{
           fontFamily: f.display, fontWeight: 400,
           fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.15,
-          letterSpacing: '-0.02em', color: c.paper, margin: '0 0 44px', maxWidth: '20ch',
+          letterSpacing: '-0.02em', color: c.paper, margin: '0 0 44px', maxWidth: '26ch',
         }}>
-          Building useful AI systems.
-          <br />
-          <span style={{ color: c.lime, fontStyle: 'italic' }}>Writing about the world they create.</span>
+          In operator mode: learning fast, building in public, and exploring how
+          {' '}<span style={{ color: c.lime, fontStyle: 'italic' }}>AI, biology and new infrastructure</span>
+          {' '}will reshape human life.
         </p>
 
         <div style={{

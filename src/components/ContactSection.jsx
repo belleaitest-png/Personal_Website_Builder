@@ -46,7 +46,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" ref={ref} style={{ background: c.paper, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
+    <section id="connect" ref={ref} style={{ background: c.paper, padding: 'clamp(90px, 12vh, 140px) 32px' }}>
       <div style={{ maxWidth: maxw, margin: '0 auto' }}>
 
         <p style={{ ...label, color: c.ink, margin: 0, ...rise(on, 0, reduced) }}>Contact</p>
@@ -57,7 +57,7 @@ export default function ContactSection() {
           letterSpacing: '-0.02em', color: c.ink, margin: '24px 0 0', maxWidth: '18ch',
           ...rise(on, 70, reduced),
         }}>
-          If you are building something hard, I would like to hear about it.
+          An open invitation to ambitious builders, operators and collaborators.
         </h2>
 
         <div style={{
@@ -83,6 +83,7 @@ export default function ContactSection() {
               ))}
             </ul>
             <p style={{ fontFamily: f.text, fontSize: '15px', lineHeight: 1.65, color: c.inkFaint, margin: '22px 0 0' }}>
+              If you are building something hard, I would like to hear about it.
               I read everything myself and reply to what I can.
             </p>
           </div>
