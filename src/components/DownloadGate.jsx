@@ -4,7 +4,8 @@ const NAVY   = '#191A1A'
 const CREAM  = '#F5F0E8'
 const WHITE  = '#FFFFFF'
 const ORANGE = '#E8534E'
-const serif  = "'Cormorant Garamond', serif"
+const serif  = "'Cormorant Garamond', Georgia, serif"
+const disp   = "'Cormorant Garamond', Georgia, serif"
 
 const STORAGE_KEY = 'belle_doc_email'
 
@@ -63,15 +64,16 @@ function EmailModal({ label, href, onClose }) {
     padding: '24px',
   }
   const card = {
-    background: NAVY, borderRadius: '12px',
+    background: NAVY, borderRadius: '3px',
     border: '1px solid rgba(255,255,255,0.08)',
     padding: '40px', maxWidth: '400px', width: '100%',
     boxShadow: '0 24px 80px rgba(0,0,0,0.5)', textAlign: 'center',
   }
-  const title = { fontFamily: serif, fontSize: '20px', fontWeight: '700', color: WHITE, margin: '0 0 8px' }
+  const title = { fontFamily: disp, fontSize: '26px', fontWeight: '700', letterSpacing: '0.01em', color: WHITE, margin: '0 0 8px' }
   const sub = { fontFamily: serif, fontSize: '14px', color: CREAM, opacity: 0.5, margin: '0 0 24px' }
   const btn = {
-    width: '100%', fontFamily: serif, fontSize: '14px', fontWeight: '600',
+    width: '100%', fontFamily: serif, fontSize: '13px', fontWeight: '600',
+    letterSpacing: '0.06em',
     color: WHITE, background: ORANGE, border: 'none',
     borderRadius: '4px', padding: '14px', cursor: 'pointer',
   }

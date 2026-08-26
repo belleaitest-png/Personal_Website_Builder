@@ -20,8 +20,8 @@ const R_OFFSET   = 160  // ms head-start for right column
 const NC_ASSETS = [
   {
     label: 'HBS MBA',
-    note:  'Class of 2026 · strategy, entrepreneurship, health tech',
-    value: 25,
+    note:  'Class of 2026 · strategy, entrepreneurship, applied AI',
+    value: 14,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
     gated: true,
@@ -29,15 +29,15 @@ const NC_ASSETS = [
   {
     label: 'ICAEW ACA',
     note:  'chartered accountant · UK qualified',
-    value: 15,
+    value: 8,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
     gated: true,
   },
   {
     label: 'Fruitist',
-    note:  'strategy & innovation intern · upcycling surplus fruit into consumer products',
-    value: 10,
+    note:  'strategy & innovation · upcycling surplus fruit into consumer products',
+    value: 6,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
     gated: true,
@@ -45,7 +45,7 @@ const NC_ASSETS = [
   {
     label: 'AlixPartners',
     note:  'turnaround & restructuring consulting',
-    value: 8,
+    value: 5,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
     gated: true,
@@ -53,46 +53,47 @@ const NC_ASSETS = [
   {
     label: 'Deloitte',
     note:  'audit & assurance',
-    value: 7,
+    value: 5,
     href:  '/documents/resume/Annabelle Body, HBS Class of 2026.pdf',
     ext:   true,
     gated: true,
   },
 ]
 
-// Current assets -Apps & Artifacts
+// Current assets -Shipped
 const CA_ASSETS = [
   {
+    label: 'Signal → Action',
+    note:  'Telegram to Claude agent · in daily use',
+    value: 20,
+    coming: false,
+  },
+  {
     label: 'Apex Health OS',
-    note:  'WHOOP-integrated grocery agent · recovery-driven nutrition',
-    value: 12,
+    note:  'wearable data to nutrition decisions · Claude Code',
+    value: 14,
     href:  'https://apex-health-os.vercel.app/',
     ext:   true,
   },
   {
-    label: 'Bloom',
-    note:  'trimester-aware pregnancy health platform',
-    value: 8,
-    href:  'https://mama-mosaic-hub.lovable.app',
-    ext:   true,
-  },
-  {
     label: 'Demographic Forecaster',
-    note:  'population decline modelling · country-level projections',
-    value: 7,
+    note:  'country-level modelling · built with Replit',
+    value: 12,
     href:  'https://demographic-forecaster.replit.app',
     ext:   true,
   },
   {
     label: 'Personal CRM',
-    note:  'relationship tracking & follow-up automation',
-    value: 4,
+    note:  'relationship agent · follow-up automation',
+    value: 8,
     coming: true,
   },
   {
-    label: 'SuppStack Manager',
-    note:  'supplement tracking & dosing',
-    value: 4,
+    label: 'Bloom',
+    note:  'trimester-aware health platform · built with Lovable',
+    value: 8,
+    href:  'https://mama-mosaic-hub.lovable.app',
+    ext:   true,
     coming: true,
   },
 ]
@@ -100,14 +101,14 @@ const CA_ASSETS = [
 // Current liabilities -Papers in Development
 const CL_LIAB = [
   {
-    label: 'The Loneliness Epidemic (Male)',
-    note:  'draft',
+    label: 'Why I\u2019m Writing Before I\u2019m Ready',
+    note:  'first Field Note · draft',
     value: 10,
     coming: true,
   },
   {
-    label: 'Synthetic Biology × Everything',
-    note:  'in progress',
+    label: 'From Demos to Operations',
+    note:  'what must be true before an agent works · in progress',
     value: 8,
   },
 ]
@@ -115,19 +116,20 @@ const CL_LIAB = [
 // Long-term liabilities -Papers Written
 const LT_LIAB = [
   {
-    label: 'Declining Birth Rates × Food',
+    label: 'When Markets Fail to Make Babies',
     value: 14,
     href:  '/documents/papers/When Markets Fail to Make Babies -The Limits of Private Responses to Fertility Crisis.pdf',
     gated: true,
   },
   {
     label: 'The Food System Thesis',
+    note:  'research',
     value: 12,
     coming: true,
   },
   {
     label: 'World View Agent Manager',
-    note:  'multi-agent AI framework',
+    note:  'multi-agent framework',
     value: 6,
   },
 ]
@@ -135,22 +137,22 @@ const LT_LIAB = [
 // Equity -Systems & Tools
 const EQ_ITEMS = [
   {
+    label: 'AI Toolkit',
+    note:  'Claude Code, Claude Cowork, custom agents · 30 tools evaluated',
+    value: 24,
+    toolsPopup: true,
+  },
+  {
     label: 'Productivity System',
     note:  'Notion workflows & automation',
-    value: 20,
+    value: 14,
     toolsPopup: true,
     coming: true,
   },
   {
-    label: 'AI Toolkit',
-    note:  'Claude, Cursor, custom agents',
-    value: 15,
-    toolsPopup: true,
-  },
-  {
     label: 'Mindfulness Routine',
     note:  'meditation, journaling, cold exposure',
-    value: 15,
+    value: 12,
   },
 ]
 
@@ -213,8 +215,8 @@ const TOOL_TIERS = [
 ]
 
 // Subtotals & totals -must balance: Total Assets = Total L + Total E
-const NC_SUB   = 65
-const CA_SUB   = 35
+const NC_SUB   = 38
+const CA_SUB   = 62
 const TOTAL_A  = 100
 const CL_SUB   = 18
 const LT_SUB   = 32
@@ -551,7 +553,7 @@ function ToolsPopup({ open, onClose }) {
               fontFamily: serif, fontSize: '13px', color: CREAM,
               opacity: 0.4, margin: 0, fontStyle: 'italic',
             }}>
-              The stack behind the work
+              30 tools evaluated, four tiers deep. This is what actually stuck.
             </p>
           </div>
           <button
@@ -606,7 +608,7 @@ function ToolsPopup({ open, onClose }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function BalanceSheet() {
+export default function BalanceSheet({ embedded = false }) {
   const [active, setActive] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
   const ref = useRef(null)
@@ -638,7 +640,10 @@ export default function BalanceSheet() {
   return (
     <section
       ref={ref}
-      style={{
+      style={embedded ? {
+        position: 'relative',
+        paddingBottom: '8px',
+      } : {
         position: 'sticky',
         top: 0,
         zIndex: 1,
@@ -646,14 +651,16 @@ export default function BalanceSheet() {
         paddingBottom: '80px',
       }}
     >
-      {/* Translucent backdrop */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'rgba(14,16,16,0.425)',
-        backdropFilter: 'blur(12px)',
-        zIndex: 1,
-      }} />
+      {/* Page-mode backdrop only. Inside the About card the card is the ground. */}
+      {!embedded && (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(14,16,16,0.425)',
+          backdropFilter: 'blur(12px)',
+          zIndex: 1,
+        }} />
+      )}
 
       {/* ── Header bar ────────────────────────────────────────────── */}
       <div style={{
@@ -726,7 +733,7 @@ export default function BalanceSheet() {
             Non-Current Assets
           </SectionLabel>
           <CategoryLabel step={2} delay={L} active={active}>
-            Resume
+            Training & Track Record
           </CategoryLabel>
           {NC_ASSETS.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={L} active={active} />
@@ -738,7 +745,7 @@ export default function BalanceSheet() {
             Current Assets
           </SectionLabel>
           <CategoryLabel step={9} delay={L} active={active}>
-            Apps & Artifacts
+            Shipped
           </CategoryLabel>
           {CA_ASSETS.map((item, i) => (
             <Row key={item.label} item={item} step={10 + i} delay={L} active={active} />
@@ -764,7 +771,7 @@ export default function BalanceSheet() {
             Current Liabilities
           </SectionLabel>
           <CategoryLabel step={2} delay={R} active={active}>
-            Papers in Development
+            Writing in Progress
           </CategoryLabel>
           {CL_LIAB.map((item, i) => (
             <Row key={item.label} item={item} step={3 + i} delay={R} active={active} />
@@ -776,7 +783,7 @@ export default function BalanceSheet() {
             Non-Current Liabilities
           </SectionLabel>
           <CategoryLabel step={6} delay={R} active={active}>
-            Papers Written
+            Published & Drafted
           </CategoryLabel>
           {LT_LIAB.map((item, i) => (
             <Row key={item.label} item={item} step={7 + i} delay={R} active={active} />

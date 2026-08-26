@@ -1,135 +1,68 @@
-import { useState, useEffect } from 'react'
-import Sections from './components/Sections'
+import { useEffect } from 'react'
+import { Nav, Footer, ScrollRail } from './components/Chrome'
+import Hero from './components/Hero'
+import CurrentBuild from './components/CurrentBuild'
+import ThroughLine from './components/ThroughLine'
+import SelectedBuilds from './components/SelectedBuilds'
+import WhatIBring from './components/WhatIBring'
+import QuestionBand from './components/QuestionBand'
+import FieldNotes from './components/FieldNotes'
+import ContactSection from './components/ContactSection'
+import AboutOverlay, { useAboutOverlay } from './components/AboutOverlay'
+import { c } from './theme'
 
-const NAV = [
-  { label: 'About', href: '#about' },
-  { label: 'Beangirl', href: 'https://instagram.com/iambeangirl', external: true },
-  { label: 'Contact', href: '#contact' },
-]
-
-const NAVY        = '#191A1A'
-const ORANGE      = '#E8534E'
-const CREAM       = '#F5F0E8'
-const WHITE       = '#FFFFFF'
-const TERRACOTTA  = '#D84535'
+// Responsive rules that inline styles cannot express.
+const CSS = `
+@keyframes heroSweep {
+  0%, 100% { opacity: 0.4; transform: scaleX(0.55); }
+  50%      { opacity: 1;   transform: scaleX(1); }
+}
+@media (max-width: 820px) {
+  .ab-nav-list { display: none !important; }
+  .ab-nav-toggle { display: block !important; }
+}
+@media (min-width: 821px) {
+  .ab-nav-drawer { display: none !important; }
+}
+@media (max-width: 900px) {
+  .ab-hero-copy { width: 88% !important; max-width: none !important; padding: 0 28px !important; }
+  .ab-hero-hint { left: 28px !important; }
+}
+@media (max-width: 720px) {
+  .ab-stack { grid-template-columns: 1fr !important; gap: 18px !important; }
+  .ab-about-top { grid-template-columns: 1fr !important; gap: 28px !important; }
+}
+`
 
 export default function App() {
-  const [scrolled, setScrolled] = useState(false)
+  const [aboutOpen, closeAbout] = useAboutOverlay()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const id = 'ab-responsive'
+    if (!document.getElementById(id)) {
+      const s = document.createElement('style')
+      s.id = id
+      s.textContent = CSS
+      document.head.appendChild(s)
+    }
   }, [])
 
-  const navStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 48px',
-    height: '68px',
-    background: scrolled ? `${NAVY}f2` : 'transparent',
-    backdropFilter: scrolled ? 'blur(12px)' : 'none',
-    borderBottom: scrolled ? `1px solid rgba(212,69,53,0.15)` : 'none',
-    transition: 'all 0.3s ease',
-  }
-
-  const logoStyle = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '26px',
-    fontWeight: '600',
-    color: TERRACOTTA,
-    letterSpacing: '0.03em',
-    textDecoration: 'none',
-  }
-
-  const navLinksStyle = {
-    display: 'flex',
-    gap: '36px',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  }
-
-  const navLinkStyle = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '15px',
-    fontWeight: '500',
-    color: CREAM,
-    textDecoration: 'none',
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    opacity: 0.85,
-    transition: 'opacity 0.2s',
-  }
-
-  const subscribeBtnStyle = {
-    position: 'fixed',
-    bottom: '32px',
-    right: '40px',
-    zIndex: 100,
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '13px',
-    fontWeight: '600',
-    color: WHITE,
-    background: ORANGE,
-    border: 'none',
-    borderRadius: '4px',
-    padding: '12px 24px',
-    cursor: 'pointer',
-    letterSpacing: '0.06em',
-    textDecoration: 'none',
-    textTransform: 'uppercase',
-    boxShadow: '0 4px 20px rgba(232,83,78,0.35)',
-    transition: 'opacity 0.2s, transform 0.2s',
-  }
-
   return (
-    <div style={{ background: NAVY, minHeight: '100vh', fontFamily: "'Cormorant Garamond', serif" }}>
-      {/* Google Fonts */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
-
-      {/* Nav — logo left, links right */}
-      <nav style={navStyle}>
-        <a href="#" style={logoStyle}>Annabelle Body</a>
-        <ul style={navLinksStyle}>
-          {NAV.map(n => (
-            <li key={n.href}>
-              <a
-                href={n.href}
-                {...(n.external ? { target: '_blank', rel: 'noreferrer' } : {})}
-                style={navLinkStyle}
-                onMouseEnter={e => e.target.style.opacity = 1}
-                onMouseLeave={e => e.target.style.opacity = 0.85}
-              >
-                {n.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Fixed Subscribe CTA — bottom right */}
-      <a
-        href="https://annabellebody.substack.com"
-        target="_blank"
-        rel="noreferrer"
-        style={subscribeBtnStyle}
-        onMouseEnter={e => { e.target.style.opacity = 0.85; e.target.style.transform = 'translateY(-2px)' }}
-        onMouseLeave={e => { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)' }}
-      >
-        Substack
-      </a>
-
-      {/* All Sections */}
-      <Sections />
+    <div id="top" style={{ background: c.navy, minHeight: '100vh' }}>
+      <ScrollRail />
+      <Nav />
+      <Hero />
+      <main style={{ position: 'relative', zIndex: 2 }}>
+        <CurrentBuild />
+        <SelectedBuilds />
+        <ThroughLine />
+        <WhatIBring />
+        <QuestionBand />
+        <FieldNotes />
+        <ContactSection />
+      </main>
+      <Footer />
+      <AboutOverlay open={aboutOpen} onClose={closeAbout} />
     </div>
   )
 }

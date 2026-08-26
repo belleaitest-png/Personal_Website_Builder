@@ -553,9 +553,9 @@ const PANELS = [
   {
     Visual: WhoopVisual,
     bg: NAVY,
-    tag: 'I Built a Thing',
-    headline: 'Using WHOOP to automate my grocery shopping.',
-    body: 'Your WHOOP tracks recovery, HRV, strain, and sleep. Apex Health OS connects those signals to what you eat. It logs nutrition via natural language, spots micronutrient gaps, correlates patterns across your health data, and builds a grocery list your biology actually asked for.',
+    tag: 'Live · Apex Health OS',
+    headline: 'I pointed an agent at my WHOOP data and it rewrote my grocery list.',
+    body: 'Your WHOOP tracks recovery, HRV, strain, and sleep. Apex Health OS connects those signals to what you eat. It logs nutrition in natural language, spots micronutrient gaps, correlates patterns across your health data, and builds a grocery list your biology actually asked for. I built it because I wanted it to exist, and nothing on the market read the two data sets together.',
     cta: 'Try Apex Health OS \u2192',
     ctaHref: 'https://apex-health-os.vercel.app/',
     ctaExternal: true,
@@ -564,9 +564,9 @@ const PANELS = [
   {
     Visual: PregnancyVisual,
     bg: NAVY_ALT,
-    tag: 'I Built a Thing',
+    tag: 'Live · Bloom',
     headline: 'A pregnancy OS for the modern mother.',
-    body: "Trimester-aware health tracking that adapts as you do. Bloom surfaces the right supplements, flags nutrient gaps, and handles the product research so you can stop Googling at 2am and focus on growing a human.",
+    body: "Trimester-aware health tracking that adapts as you do. Bloom surfaces the right supplements, flags nutrient gaps, and handles the product research so you can stop Googling at 2am and focus on growing a human. Built end to end in Lovable, down to the copy.",
     cta: 'Try Bloom \u2192',
     ctaHref: 'https://mama-mosaic-hub.lovable.app',
     ctaExternal: true,
@@ -575,9 +575,9 @@ const PANELS = [
   {
     Visual: DemographicVisual,
     bg: NAVY,
-    tag: 'I Built a Thing',
+    tag: 'Live · Demographic Forecaster',
     headline: 'Visualising the population decline nobody is planning for.',
-    body: "Fertility rates are falling faster than most models predicted. This tool maps the demographic data country by country, projects population trajectories, and makes the scale of the decline impossible to ignore. Built to support my research on birth rates and food systems.",
+    body: "Fertility rates are falling faster than most models predicted. This tool maps the demographic data country by country, projects population trajectories, and makes the scale of the decline impossible to ignore. It started as a chart I needed for a paper. It became the thing that made the argument.",
     cta: 'Explore the Data \u2192',
     ctaHref: 'https://demographic-forecaster.replit.app',
     ctaExternal: true,
@@ -587,18 +587,18 @@ const PANELS = [
   {
     Visual: CRMVisual,
     bg: NAVY_ALT,
-    tag: 'I Built a Thing',
+    tag: 'In development · Personal CRM',
     headline: 'A personal CRM that actually works.',
-    body: "Advisors, investors, co-founders, mentors. Every meaningful relationship deserves follow-through. This tool tracks conversations, surfaces when to reconnect, and keeps your network warm without enterprise software overhead.",
+    body: "Advisors, investors, co-founders, mentors. Every meaningful relationship deserves follow-through. An agent reads the conversation history, surfaces who is going cold, and drafts the follow-up. Enterprise capability, one person, no seat licence.",
     coming: true,
     tool: 'Claude Code',
   },
   {
     Visual: SubscriptionVisual,
     bg: NAVY,
-    tag: 'I Built a Thing',
+    tag: 'In development · SuppStack Manager',
     headline: 'Managing my supplement subscriptions.',
-    body: "Five brands, five billing cycles, overlapping micronutrients nobody warned you about. SuppStack Manager consolidates every supplement subscription into one dashboard, flags ingredient overlaps, tracks dosing, and makes sure nothing doubles up and nothing runs out.",
+    body: "Five brands, five billing cycles, overlapping micronutrients nobody warned you about. SuppStack Manager consolidates every supplement subscription into one dashboard, flags ingredient overlaps, tracks dosing, and makes sure nothing doubles up and nothing runs out. Too small to be a company. Too useful to keep living in a spreadsheet.",
     coming: true,
     tool: 'Claude Code',
   },
@@ -663,6 +663,7 @@ export default function ScrollSections() {
 
   return (
     <div
+      id="building"
       ref={outerRef}
       style={{
         position: 'relative',
