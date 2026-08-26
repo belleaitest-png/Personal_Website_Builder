@@ -19,66 +19,81 @@ uniform vec2  uRes;
 uniform vec2  uImg;       // natural texture size, for cover-fit
 uniform vec2  uPointer;   // lerped, 0..1
 uniform float uTime;
-uniform float uEnter;     // 0..1 intro wipe
+uniform float uEnter;     // 0..1 intro fade
+uniform float uMode;      // 0 spotlight, 1 focus pull, 2 colour reveal
 varying vec2 vUv;
 
-// Cheap value noise. Good enough for a slow liquid warp; no texture lookup.
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-float noise(vec2 p) {
-  vec2 i = floor(p), f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
-}
+
+float luma(vec3 c) { return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
 
 void main() {
-  // background-size: cover, done in the shader so the photo never distorts.
+  // background-size: cover, in the shader so the photo never stretches.
   float canvasA = uRes.x / uRes.y;
   float imgA    = uImg.x / uImg.y;
   vec2 uv = vUv;
   if (canvasA > imgA) {
-    float s = imgA / canvasA;
-    uv.y = (uv.y - 0.5) * s + 0.5;
+    uv.y = (uv.y - 0.5) * (imgA / canvasA) + 0.5;
   } else {
-    float s = canvasA / imgA;
-    uv.x = (uv.x - 0.5) * s + 0.5;
+    uv.x = (uv.x - 0.5) * (canvasA / imgA) + 0.5;
   }
 
-  // Slow ambient drift, so the image breathes even without a pointer.
-  float t = uTime * 0.06;
-  vec2 drift = vec2(
-    noise(uv * 2.6 + vec2(t, 0.0)) - 0.5,
-    noise(uv * 2.6 + vec2(0.0, t + 4.7)) - 0.5
-  ) * 0.010;
-
-  // Pointer well: displacement falls off with distance, strongest under cursor.
-  vec2  toP  = uv - uPointer;
+  // Distance to the cursor, aspect-corrected so the falloff stays circular.
+  vec2 toP = uv - uPointer;
   toP.x *= canvasA;
-  float d    = length(toP);
-  float well = exp(-d * d * 9.0);
-  vec2  push = normalize(toP + 1e-5) * well * 0.038
-             * (0.65 + 0.35 * sin(uTime * 0.9 - d * 9.0));
+  float d = length(toP);
 
-  vec2 warped = uv + (drift + push) * uEnter;
+  // The pool of influence. Breathes very slightly so it feels alive at rest.
+  float well = exp(-d * d * 5.2);
+  well *= 0.92 + 0.08 * sin(uTime * 0.7);
+  well *= uEnter;
 
-  // Light chromatic split along the push, which reads as glass rather than blur.
-  float split = well * 0.0018 * uEnter;
   vec3 col;
-  col.r = texture2D(uTex, warped + vec2(split, 0.0)).r;
-  col.g = texture2D(uTex, warped).g;
-  col.b = texture2D(uTex, warped - vec2(split, 0.0)).b;
 
-  // Coral lifts where the displacement is strongest, so the brand accent lives
-  // in the motion and not only in the type.
-  col = mix(col, col * vec3(1.26, 0.70, 0.63), well * 0.34 * uEnter);
+  if (uMode < 0.5) {
+    // ── 0. Spotlight. A key light that follows the cursor. ──
+    col = texture2D(uTex, uv).rgb;
+    col *= mix(0.60, 1.30, well);
+    col = mix(col, col * vec3(1.12, 0.95, 0.88), well * 0.55);   // warm the light
+    float l = luma(col);
+    col = mix(vec3(l), col, mix(0.86, 1.20, well));              // lift saturation
+  } else if (uMode < 1.5) {
+    // ── 1. Focus pull. Sharp under the cursor, soft away from it. ──
+    float r = (1.0 - well) * 0.0032;
+    col = vec3(0.0);
+    col += texture2D(uTex, uv).rgb * 0.22;
+    col += texture2D(uTex, uv + vec2( r,  0.0)).rgb * 0.13;
+    col += texture2D(uTex, uv + vec2(-r,  0.0)).rgb * 0.13;
+    col += texture2D(uTex, uv + vec2(0.0,  r)).rgb * 0.13;
+    col += texture2D(uTex, uv + vec2(0.0, -r)).rgb * 0.13;
+    col += texture2D(uTex, uv + vec2( r,  r) * 0.72).rgb * 0.065;
+    col += texture2D(uTex, uv + vec2(-r,  r) * 0.72).rgb * 0.065;
+    col += texture2D(uTex, uv + vec2( r, -r) * 0.72).rgb * 0.065;
+    col += texture2D(uTex, uv + vec2(-r, -r) * 0.72).rgb * 0.065;
+    col *= mix(0.80, 1.10, well);
+  } else {
+    // ── 2. Colour reveal. Cool near-mono, true colour under the cursor. ──
+    col = texture2D(uTex, uv).rgb;
+    float l = luma(col);
+    vec3 mono = vec3(l) * vec3(0.86, 0.89, 0.98);
+    col = mix(mono, col, mix(0.10, 1.0, well));
+    col *= mix(0.78, 1.16, well);
+    col = mix(col, col * vec3(1.10, 0.94, 0.90), well * 0.4);
+  }
 
-  // Vignette, then grain. Keeps the left column legible over the photo.
+  // Vignette, then grain. Both keep the left column legible.
   float vig = smoothstep(1.35, 0.28, length((vUv - 0.5) * vec2(canvasA, 1.0)));
   col *= mix(0.44, 1.0, vig);
-  col += (hash(vUv * uRes + uTime) - 0.5) * 0.045;
+  col += (hash(vUv * uRes + uTime) - 0.5) * 0.042;
 
   gl_FragColor = vec4(col, 1.0);
 }`
+
+// Cursor effect. Spotlight is the default: it changes lighting only, so the
+// photo's geometry is never altered. ?fx=focus and ?fx=colour preview the
+// alternatives on the live site without needing a deploy.
+const MODES = { spotlight: 0, focus: 1, colour: 2 }
+const DEFAULT_MODE = MODES.spotlight
 
 function compile(gl, type, src) {
   const sh = gl.createShader(type)
@@ -141,6 +156,7 @@ export default function HeroShader({ src = '/photos/hero.webp', fallbackSrc = '/
       pointer: gl.getUniformLocation(prog, 'uPointer'),
       time:    gl.getUniformLocation(prog, 'uTime'),
       enter:   gl.getUniformLocation(prog, 'uEnter'),
+      mode:    gl.getUniformLocation(prog, 'uMode'),
     }
 
     const tex = gl.createTexture()
@@ -204,6 +220,8 @@ export default function HeroShader({ src = '/photos/hero.webp', fallbackSrc = '/
     const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting }, { threshold: 0 })
     io.observe(wrap)
 
+    const mode = MODES[new URLSearchParams(window.location.search).get('fx')] ?? DEFAULT_MODE
+
     let raf = 0
     let enter = 0
     const t0 = performance.now()
@@ -219,6 +237,7 @@ export default function HeroShader({ src = '/photos/hero.webp', fallbackSrc = '/
       gl.uniform2f(U.pointer, cur.x, cur.y)
       gl.uniform1f(U.time, (now - t0) / 1000)
       gl.uniform1f(U.enter, enter)
+      gl.uniform1f(U.mode, mode)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
     raf = requestAnimationFrame(frame)
