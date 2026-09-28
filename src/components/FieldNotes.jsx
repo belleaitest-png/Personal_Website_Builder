@@ -99,7 +99,7 @@ export default function FieldNotes() {
               transition: `background 0.35s ${EASE}, color 0.35s ${EASE}`,
             }}
             onMouseEnter={e => { e.currentTarget.style.background = c.orange; e.currentTarget.style.color = c.cream }}
-            onMouseLeave={e => { e.currentTarget.style.background = c.cream; e.currentTarget.style.color = c.cream }}
+            onMouseLeave={e => { e.currentTarget.style.background = c.navyLight; e.currentTarget.style.color = c.cream }}
           >
             Read Field Notes ↗
           </a>
