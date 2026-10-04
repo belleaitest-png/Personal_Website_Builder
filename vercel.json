@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "echo 'Serving holding page while the site is rebuilt'",
+  "outputDirectory": "rebuilding",
   "functions": {
     "api/send-email.js": {
       "includeFiles": "api/birth-rates-paper.pdf"
