@@ -50,8 +50,9 @@ header.top{position:fixed;inset:0 0 auto 0;display:flex;justify-content:space-be
 h1{margin:0;font-weight:800;font-size:clamp(2.6rem,6.4vw,6.4rem);line-height:.94;letter-spacing:-.045em}
 h1 span{display:block}
 h1 .role{color:var(--gold)}
-.pitch > div{display:flex;flex-wrap:wrap;align-items:center;gap:16px clamp(24px,4vw,56px)}
-.pitch .lede{margin:0!important;font-size:clamp(1.25rem,1.9vw,1.7rem);line-height:1.2;color:var(--ink);font-weight:500;max-width:22ch}
+.pitch > div{display:flex;align-items:center;justify-content:space-between;gap:16px clamp(24px,4vw,56px)}
+.pitch > div .btn{flex:none;white-space:nowrap}
+.pitch .lede{margin:0!important;font-size:clamp(1.05rem,1.3vw,1.4rem);line-height:1.25;color:var(--ink);font-weight:500;max-width:none}
 .pitch .lede em{font-style:normal;color:var(--gold)}
 .beat p.after{margin-top:clamp(18px,3vh,28px)}
 .pitch p{margin:0 0 22px;max-width:46ch;color:#CFCABC;font-size:clamp(1rem,1.25vw,1.15rem)}
@@ -119,6 +120,7 @@ footer a{text-decoration:none}
   .hero{padding-top:56px}
   .viz{min-height:28svh}
   .pitch,.beat,.contact{grid-template-columns:1fr}
+  .pitch > div{flex-direction:column;align-items:flex-start}
   .creds{padding:14px 0 16px;gap:12px}
   .creds > .mono{flex-basis:100%}
   .logos{justify-content:space-between;gap:14px;width:100%}
@@ -156,7 +158,7 @@ footer a{text-decoration:none}
     <div class="pitch">
       <h1 id="h1"><span class="nm">Annabelle Body</span> <span class="role">Fractional AI Strategist</span></h1>
       <div>
-        <p class="lede">Hire me to turn your data into <em>measurable ROI.</em></p>
+        <p class="lede">I help businesses identify value creation opportunities to rebuild their business with AI and drive <em>measurable EBITDA impact.</em></p>
         <a class="btn" href="#contact" data-open>Get in touch to start a diagnostic <i>→</i></a>
       </div>
     </div>
