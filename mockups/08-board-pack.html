@@ -102,7 +102,10 @@ kbd{font:600 .9em var(--body);border:1px solid currentColor;border-radius:3px;pa
 .wf .drop .bar:after{top:auto;bottom:0}
 .wf .fin .bar:after{display:none}
 .wf .sg{position:absolute;left:0;right:0;bottom:calc(var(--b) + var(--h));text-align:center;font-family:var(--head);font-weight:800;font-size:1.2em;line-height:1.3}
-.wf .flag{left:62%;bottom:26%;transform:rotate(-7deg)}
+.wf .drop .sg{bottom:calc(var(--b) + var(--h)/2 - .65em)}
+.wf .flag{right:-1%;bottom:27%;transform:rotate(-7deg)}
+.sowhat{margin-top:1.6em;border-left:4px solid var(--acc);background:var(--tint);padding:.9em 1.1em;font-weight:600;line-height:1.35}
+.sowhat b{display:block;font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em;font-size:.74em;font-weight:800;color:var(--acc);margin-bottom:.25em}
 .wf-l{display:grid;grid-template-columns:repeat(5,1fr);gap:0 4%;font-size:.72em;line-height:1.25;text-align:center;padding-top:.7em}
 .wf-l b{font-weight:800}
 
@@ -188,8 +191,8 @@ table{border-collapse:collapse;width:100%}
 .qc blockquote{font-family:var(--head);font-weight:600;font-size:1.3em;line-height:1.25;letter-spacing:-.01em;color:var(--ink2)}
 .qc .who{margin-top:auto;border-top:1px solid var(--line);padding-top:.8em;font-size:.82em;color:var(--ink2);display:flex;gap:.8em;align-items:center}
 .qc .who:before{content:"";width:2.4em;height:2.4em;border-radius:50%;border:1px dashed var(--ink2);flex:none}
-.stamp{position:absolute;right:1em;top:1.1em;font-family:var(--head);font-weight:900;font-stretch:110%;font-size:2.1em;letter-spacing:.14em;color:var(--red);border:.14em solid var(--red);padding:.02em .3em 0 .42em;transform:rotate(-11deg);mix-blend-mode:multiply;opacity:.88;pointer-events:none;border-radius:.1em}
-.stamp.b{right:auto;left:42%;top:auto;bottom:3.2em;transform:rotate(7deg)}
+.stamp{position:absolute;right:1.2em;bottom:4.4em;text-transform:uppercase;font-family:var(--head);font-weight:900;font-stretch:110%;font-size:2.1em;letter-spacing:.14em;color:var(--red);border:.14em solid var(--red);padding:.02em .3em 0 .42em;transform:rotate(-11deg);mix-blend-mode:multiply;opacity:.88;pointer-events:none;border-radius:.1em}
+.stamp.b{transform:rotate(7deg);font-size:1.7em}
 
 /* next steps */
 .steps th,.steps td{text-align:left;padding:.8em .6em .8em 0;border-bottom:1px solid var(--line);font-size:.95em;vertical-align:top}
@@ -198,7 +201,7 @@ table{border-collapse:collapse;width:100%}
 .steps td:last-child{white-space:nowrap}
 .tg{display:inline-block;font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.08em;font-size:.82em;font-weight:700;padding:.15em .5em;background:var(--navy);color:#fff}
 .tg.o{background:var(--acc)}
-form{display:grid;grid-template-columns:1fr 1fr;gap:.9em 1em;background:var(--tint);padding:1.2em;border-top:3px solid var(--acc)}
+form{align-self:start;align-content:start;display:grid;grid-template-columns:1fr 1fr;gap:.9em 1em;background:var(--tint);padding:1.2em;border-top:3px solid var(--acc)}
 .fl{display:grid;gap:.3em;min-width:0}
 .fl.w{grid-column:1/-1}
 .fl label{font-size:.76em;font-weight:600}
@@ -218,7 +221,7 @@ form small{font-size:.74em;color:var(--ink2);align-self:center}
 .apx .big span{color:var(--acc)}
 .apx p{max-width:34em}
 .apx .note{font-size:.76em;color:var(--ink2)}
-.apx .stamp{position:absolute;right:6%;top:8%;font-size:2.4em;color:var(--acc);border-color:var(--acc)}
+.apx .stamp{position:absolute;right:6%;top:8%;bottom:auto;font-size:2.4em;color:var(--acc);border-color:var(--acc)}
 .apx .hb{width:4.2em;height:4.2em}
 .apx .hb .pie,.apx .hb .ring{stroke:var(--acc)}
 .lnk{background:none;border:0;border-bottom:2px solid var(--acc);font-weight:600;padding:.1em 0}
@@ -261,6 +264,25 @@ html.h .sorter .hint{position:absolute;right:30px}
 .sorter button:hover{transform:translateY(-3px)}
 .sorter button[aria-current=true]{outline:2px solid var(--acc);outline-offset:2px;transform:translateY(-3px)}
 html.h .mx{min-height:0}
+html.h .body:not(.two){align-content:space-evenly}
+html.h .body.two .sowhat{margin-top:auto;font-size:1.1em}
+html.h .km{font-size:1.2em;gap:1.5em}
+html.h .wf{height:21em}
+html.h .gantt{gap:1.2em;font-size:1.1em;margin-top:.6em}
+html.h .gantt .tr{height:2.6em}
+html.h .org{margin:auto 0;font-size:1.2em}
+html.h .org .bx{padding:1.1em .5em}
+html.h .stem,html.h .org .row .bx:before{height:2.2em}
+html.h .org .row{padding-top:2.2em}
+html.h .week div{height:5em;font-size:.95em}
+html.h .facts{font-size:1.08em}
+html.h .chev li{min-height:7em;font-size:1.15em}
+html.h .hbt th,html.h .hbt td{padding:.85em .5em}
+html.h .path{font-size:1.25em}
+html.h .lg{min-height:13em;padding:1.4em 1.5em}
+html.h .lg img{height:3.3em}
+html.h .steps{font-size:1.1em}
+html.h .qc blockquote{font-size:1.5em;max-width:20em}
 html.h .qc{min-height:18em}
 html.h .quotes{align-self:center}
 html.h .apx{min-height:0;height:100%}
@@ -327,16 +349,16 @@ html.h .apx{min-height:0;height:100%}
     <header><p class="kick"><b>Executive summary</b><span>If you only read one slide</span></p>
     <h2>You need someone senior who owns AI. You probably do not need them five days a week.</h2><div class="rule"></div></header>
     <div class="body two">
-      <ol class="km">
+      <div class="ex"><ol class="km">
         <li><span><b>AI makes money in a few specific places in your business.</b> Most of the rest is a distraction, and someone has to say which is which.</span></li>
         <li><span><b>Restructuring teaches you to find value fast.</b> The same habit works on AI: follow the money, ignore the demo.</span></li>
         <li><span><b>A fractional leader gets you senior judgment without a full-time hire.</b> Strategy, a first move, and someone who makes sure it ships.</span></li>
-      </ol>
+      </ol><p class="sowhat"><b>So what</b>Start with the one or two places AI pays. Park the rest without guilt.</p></div>
       <div class="ex">
         <p class="ex-h"><b>Exhibit 1: Where AI value actually is</b><span>Schematic</span></p>
         <div class="wf">
           <div class="c tot" style="--b:0%;--h:100%"><div class="bar"></div></div>
-          <div class="c drop" style="--b:64%;--h:36%"><div class="bar"></div><span class="sg" style="--h:0%;--b:100%">−</span></div>
+          <div class="c drop" style="--b:64%;--h:36%"><div class="bar"></div><span class="sg">−</span></div>
           <div class="c drop" style="--b:38%;--h:26%"><div class="bar"></div><span class="sg">−</span></div>
           <div class="c drop" style="--b:20%;--h:18%"><div class="bar"></div><span class="sg">−</span></div>
           <div class="c fin" style="--b:0%;--h:20%"><div class="bar"></div><span class="sg">=</span></div>
@@ -378,7 +400,7 @@ html.h .apx{min-height:0;height:100%}
           <div class="g"><b>Business case</b><div class="tr"><i class="br" style="--s:50%;--w:37.5%"></i></div></div>
           <div class="g"><b>Roadmap</b><div class="tr"><i class="br" style="--s:75%;--w:25%"></i><i class="dm"></i></div></div>
         </div>
-        <p class="cap">One engagement with an end date. You keep a ranked list of where the value is, a first move, and a business case you can take to your board.</p>
+        <p class="sowhat"><b>So what</b>One engagement with an end. You keep a ranked view of where the value is, a first move, and a business case you can take to your board.</p>
       </div>
     </div>
     <footer class="foot"><span class="src">Source: illustrative. Dots are not your business. Yet.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">3 / 9</span></footer>
@@ -417,6 +439,7 @@ html.h .apx{min-height:0;height:100%}
           <div><dt>Owns</dt><dd>The AI strategy, the priorities and the vendors.</dd></div>
           <div><dt>Ships</dt><dd>Stays until the thing is live, not until the deck is done.</dd></div>
         </dl>
+        <p class="sowhat"><b>So what</b>A senior AI leader in the room, without a full-time hire.</p>
       </div>
     </div>
     <footer class="foot"><span class="src">Source: illustrative. Your org chart has more boxes.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">4 / 9</span></footer>
@@ -624,8 +647,7 @@ var FX={
       .from(q('.mx .d.w'),{boxShadow:'0 0 0 0 rgba(255,90,20,.6)',duration:.6},1.5)
       .from(q('.gantt .g b'),{opacity:0,x:-10,duration:.3,stagger:.18},.7)
       .from(q('.gantt .br'),{scaleX:0,duration:.6,ease:'power2.inOut',stagger:.18},.8)
-      .from(q('.gantt .dm'),{scale:0,rotation:-135,duration:.5,ease:'back.out(3)'},1.9)
-      .from(q('.cap'),{opacity:0,y:10,duration:.4},1.7);
+      .from(q('.gantt .dm'),{scale:0,rotation:-135,duration:.5,ease:'back.out(3)'},1.9);
   },
   caio:function(tl,q){
     tl.from(q('.bx.ceo'),{scale:0,duration:.4,ease:'back.out(2)'},.35)
@@ -670,6 +692,7 @@ function build(){
     if(s.dataset.fx!=='cover')tl.from(q('h2'),{y:26,opacity:0,duration:.55},.08).from(q('.rule'),{scaleX:0,transformOrigin:'0 50%',duration:.7,ease:'power3.inOut'},.15);
     (FX[s.dataset.fx]||function(){})(tl,q,s);
     tl.from(q('.ex-h'),{opacity:0,duration:.4},.3)
+      .from(q('.sowhat'),{opacity:0,x:-20,duration:.5},'>-.3')
       .from(q('.flag'),{scale:0,rotation:-50,transformOrigin:'0% 100%',duration:.5,ease:'back.out(3)',stagger:.15},'>-.25')
       .from(q('.src'),{opacity:0,duration:.4},'<');
     return tl;

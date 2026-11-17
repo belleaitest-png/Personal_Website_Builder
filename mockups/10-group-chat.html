@@ -107,7 +107,7 @@ html.live .msg:not(.in),html.live .ts:not(.in),html.live .sys:not(.in){display:n
 
 /* reactions */
 .rx{position:absolute;bottom:-13px;right:12px;width:30px;height:26px;border-radius:99px;background:var(--phone);border:1.5px solid var(--plum-2);display:grid;place-items:center;z-index:2}
-.you .rx{right:auto;left:12px}
+.you .rx{right:auto;left:-10px;bottom:-10px}
 .rx svg{width:14px;height:14px;fill:var(--pink)}
 .rx.spark svg{fill:var(--lime)}
 .rx u{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--pink)}
@@ -116,7 +116,7 @@ html.live .msg:not(.in),html.live .ts:not(.in),html.live .sys:not(.in){display:n
 
 /* photo message */
 .ph{padding:0;width:74%;aspect-ratio:4/4.6;overflow:hidden;background:linear-gradient(160deg,var(--lilac),#8E6BF0 60%,#6B3FD4);border-radius:26px;border-bottom-left-radius:6px}
-.ph::before{content:"";position:absolute;width:86%;aspect-ratio:1;border-radius:50%;background:var(--lime);left:7%;bottom:-22%}
+.ph::before{content:"";position:absolute;width:88%;aspect-ratio:1;border-radius:50%;background:#1E1B4B;box-shadow:0 0 0 5px var(--lime);left:6%;bottom:-24%}
 .ph img{position:absolute;left:50%;bottom:-3%;height:96%;width:auto;max-width:none;transform:translateX(-50%)}
 .ph figcaption{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(23,13,32,.78);backdrop-filter:blur(10px);color:var(--txt);border-radius:16px;padding:9px 13px;font-size:13px;line-height:1.25}
 .ph figcaption b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.01em}
@@ -128,6 +128,7 @@ html.live .msg:not(.in),html.live .ts:not(.in),html.live .sys:not(.in){display:n
 .vn-play svg{width:14px;height:14px;fill:currentColor}
 .vn-play .pa{display:none}.vn.playing .vn-play .pa{display:block}.vn.playing .vn-play .pl{display:none}
 .wave{display:flex;align-items:center;gap:2.5px;height:30px;overflow:hidden}
+.wave:empty{background:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 7px);height:14px;opacity:.6}
 .wave i{flex:1;min-width:2px;border-radius:2px;background:var(--ink);height:var(--h,40%);opacity:.75;transform-origin:50% 50%}
 .vn.playing .wave i{animation:wv var(--d,.6s) ease-in-out var(--dl,0s) infinite alternate}
 @keyframes wv{from{transform:scaleY(.35)}to{transform:scaleY(1.25)}}
@@ -139,7 +140,7 @@ html.live .msg:not(.in),html.live .ts:not(.in),html.live .sys:not(.in){display:n
 .svc .b{padding:0;width:88%;max-width:88%;background:var(--plum);color:var(--txt);border:1px solid var(--rule);overflow:hidden;cursor:pointer;transition:border-color .3s,transform .35s cubic-bezier(.3,1.5,.5,1)}
 .svc .b:hover{border-color:rgba(212,248,90,.6);transform:translateY(-2px)}
 .svc.open .b{border-color:var(--lime)}
-.thumb{display:block;height:84px;background:var(--ink);position:relative;overflow:hidden}
+.thumb{display:block;height:84px;background:var(--ink) radial-gradient(rgba(201,182,255,.14) 1px,transparent 1.3px) 0 0/12px 12px;position:relative;overflow:hidden}
 .thumb svg{position:absolute;inset:0;width:100%;height:100%}
 .svc .in2{padding:11px 14px 13px}
 .url{font:500 10.5px var(--mono);color:var(--mut);letter-spacing:.02em}
@@ -194,7 +195,7 @@ html.live .svc:not(.open) .more{grid-template-rows:0fr}
 .fw cite{display:block;margin-top:8px;font:500 11px var(--mono);font-style:normal;color:var(--mut)}
 
 /* draft form */
-.draft{width:94%;max-width:94%;background:var(--plum);color:var(--txt);border:1.5px solid var(--lilac);padding:14px 14px 12px;border-radius:24px;border-bottom-right-radius:6px}
+.you .draft{width:94%;max-width:94%;background:var(--plum);color:var(--txt);border:1.5px solid var(--lilac);padding:14px 14px 12px;border-radius:24px;border-bottom-right-radius:6px}
 .draft .fl{color:var(--lilac)}
 .fld{display:block;position:relative;margin-top:8px}
 .fld span{font:500 10.5px var(--mono);letter-spacing:.06em;color:var(--mut);display:block;margin-bottom:3px}
@@ -211,9 +212,9 @@ html.live .svc:not(.open) .more{grid-template-rows:0fr}
 /* composer */
 .newpill{position:absolute;left:50%;bottom:118px;transform:translateX(-50%);z-index:5;background:var(--lime);color:var(--ink);border:0;border-radius:99px;padding:6px 14px;font:600 12px var(--sans);box-shadow:0 6px 24px rgba(0,0,0,.4)}
 .composer{border-top:1px solid var(--rule);background:rgba(28,17,40,.96);padding:10px 12px calc(12px + env(safe-area-inset-bottom));position:relative;z-index:4}
-.chips{display:flex;gap:7px;overflow-x:auto;padding:1px 1px 9px;scrollbar-width:none}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:1px 26px 9px 1px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;background:none;border:1.5px solid rgba(201,182,255,.5);color:var(--lilac);border-radius:99px;padding:7px 13px;font-size:13.5px;font-weight:600;transition:background .2s,color .2s,transform .3s cubic-bezier(.3,1.7,.5,1),opacity .3s}
+.chip{flex:none;background:none;border:1.5px solid rgba(201,182,255,.5);color:var(--lilac);border-radius:99px;padding:7px 12px;font-size:13px;font-weight:600;transition:background .2s,color .2s,transform .3s cubic-bezier(.3,1.7,.5,1),opacity .3s}
 .chip:hover{background:var(--lilac);color:var(--ink);transform:translateY(-2px) rotate(-1.5deg)}
 .chip.used{opacity:.45}
 .cbar{display:flex;gap:8px;align-items:center}
@@ -230,6 +231,7 @@ html.live .svc:not(.open) .more{grid-template-rows:0fr}
 }
 @media (max-width:559px){ .back{display:none} .shape,.echo{display:none} }
 @media (min-width:1120px){ .rail,.side{display:block} }
+@media (max-width:430px){ .who .on{display:none} }
 @media (max-width:380px){ .head .cta{padding:8px 12px} .who p{font-size:11.5px} }
 @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
 </style>
@@ -263,7 +265,7 @@ html.live .svc:not(.open) .more{grid-template-rows:0fr}
   <div class="now">Now talking about</div>
   <div class="cap" id="cap">Where to start</div>
   <span class="word" id="word">start.</span>
-  <div class="count"><b id="cnt">0</b> messages in</div>
+  <div class="count"><b id="cnt">25</b> messages in</div>
 </aside>
 
 <main class="phone">
@@ -272,7 +274,7 @@ html.live .svc:not(.open) .more{grid-template-rows:0fr}
     <div class="av"><img src="assets/photos/headshot.webp" alt="" width="608" height="900"></div>
     <div class="who">
       <h1>Annabelle Body</h1>
-      <p><span class="dot"></span>Fractional AI Strategist · online</p>
+      <p><span class="dot"></span>Fractional AI Strategist<span class="on"> · online</span></p>
     </div>
     <button class="cta" data-jump="compose">Message</button>
   </header>
@@ -529,7 +531,7 @@ async function play(){
     if(m.classList.contains('you')){await wait(m.dataset.ch?900:350);if(my!==gen)return;await composeType(m,my);if(my!==gen)return;}
     else{showTyping(m);await wait(typeDur(m));if(my!==gen)return;hideTyping();}
     reveal(m,true);idx++;
-    await wait(m.classList.contains('photo')?1100:560);if(my!==gen)return;
+    await wait(m.classList.contains('photo')||$('.vc',m)?1200:m.classList.contains('svc')?800:560);if(my!==gen)return;
   }
 }
 function jump(id){

@@ -93,7 +93,7 @@ html.stack.anim .win{transition:opacity .5s,transform .7s cubic-bezier(.2,1.4,.4
 
 /* ---------- About ---------- */
 .about{display:grid;grid-template-columns:1fr;gap:16px}
-.photo{position:relative;border:var(--line) solid var(--ink);border-radius:14px;background:var(--teal);overflow:hidden;height:250px}
+.photo{position:relative;border:var(--line) solid var(--ink);border-radius:14px;background:radial-gradient(circle at 50% 108%,#1B2947 0 56%,transparent 56.4%),var(--teal);overflow:hidden;height:250px}
 .photo::before{content:"";position:absolute;inset:-20px;background-image:radial-gradient(circle,rgba(251,245,230,.35) 2.2px,transparent 2.6px);background-size:14px 14px;animation:drift 9s linear infinite reverse}
 .photo .disc{position:absolute;left:50%;bottom:-34%;width:92%;aspect-ratio:1;border-radius:50%;background:var(--tang);border:var(--line) solid var(--ink);transform:translateX(-50%)}
 .photo img{position:absolute;left:50%;bottom:-2%;height:98%;width:auto;max-width:none;transform:translateX(-50%);filter:drop-shadow(4px 0 0 var(--ink)) drop-shadow(-1px 0 0 var(--ink));animation:bob 5s ease-in-out infinite}
