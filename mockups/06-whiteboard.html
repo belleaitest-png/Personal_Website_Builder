@@ -148,7 +148,9 @@ footer svg.sk{width:min(360px,70%);margin:0 auto 14px}
 @media (max-width:860px){
   :root{--m:1.45}
   body{font-size:19px}
-  .topnav{display:none}
+  .topnav,.scrollcue{display:none}
+  .mark>svg{--m:1}
+  .hero{padding-bottom:150px!important}
   .hero{padding:86px 0 190px;min-height:0}
   .hero .wrap,.between .wrap,.svc,.contact .wrap{grid-template-columns:minmax(0,1fr)}
   .kicker{font-size:23px}
@@ -417,7 +419,7 @@ var SK={
     p.line(520,168,520,196,'',3); p.dashes(498,230,542,230,'g',2.4); p.text(520,222,'?','g',34);
     p.figure(520,218,.92,'b','up',3.6); p.text(520,336,'AI','b',30);
     p.ellipse(520,270,62,92,'r',3.8);
-    p.arrow([[372,398],[430,404],[470,356]],'r',3); p.text(236,412,'me, a day or two a week','r',32,-2);
+    p.arrow([[372,398],[430,404],[470,356]],'r',3); p.text(214,412,'me, a day or two a week','r',32,-2);
   },
   class:function(p){
     p.rect(52,36,214,176,'',3.4); p.line(86,214,58,340,'',3); p.line(232,214,262,340,'',3); p.line(160,214,160,336,'',3);
