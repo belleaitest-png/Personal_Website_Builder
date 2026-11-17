@@ -88,7 +88,7 @@ h1 .dim{color:var(--mute)}
 
 .portrait{grid-column:5/span 3;position:relative;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
 .portrait:hover{box-shadow:0 22px 40px -28px rgba(29,32,31,.45)}
-.portrait .frame{position:relative;flex:1;min-height:300px;border-radius:6px;overflow:hidden;background-color:var(--acc-soft);background-image:linear-gradient(rgba(11,107,77,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(11,107,77,.09) 1px,transparent 1px);background-size:24px 24px;background-position:-1px -1px}
+.portrait .frame{position:relative;flex:1;min-height:clamp(300px,45vh,430px);border-radius:6px;overflow:hidden;background-color:var(--acc-soft);background-image:linear-gradient(rgba(11,107,77,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(11,107,77,.09) 1px,transparent 1px);background-size:24px 24px;background-position:-1px -1px}
 .portrait img{position:absolute;left:50%;bottom:0;height:96%;width:auto;max-width:none;transform:translateX(-50%);transition:transform .7s var(--ease)}
 .portrait:hover img{transform:translateX(-50%) scale(1.035)}
 .portrait .tick{position:absolute;width:12px;height:12px;border:1.5px solid var(--acc);transition:transform .45s var(--ease)}
@@ -770,7 +770,7 @@ function watch(){ if(!RM) D.forEach(function(d){dio.observe(d.fig)}) }
   var o=reg(fig,{
     tick:function(t,dt){
       if(!nextAuto)nextAuto=t+.5;
-      if(t>nextAuto&&t-lastUser>2.5){var p=P[Math.floor(Math.random()*N)];emit(p.x,p.y,t);nextAuto=t+3.6}
+      if(t>nextAuto&&t-lastUser>2.5){var p=P[Math.floor(Math.random()*N)];emit(p.x,p.y,t);nextAuto=t+3.1}
       var n=0;
       for(var w=0;w<4;w++){var wv=waves[w],el=ringEls[w];
         if(!wv){el.setAttribute('opacity',0);continue}
@@ -779,7 +779,7 @@ function watch(){ if(!RM) D.forEach(function(d){dio.observe(d.fig)}) }
       for(var i=0;i<N;i++){var p=P[i];
         for(var w2=0;w2<waves.length;w2++){var v=waves[w2],d=Math.hypot(p.x-v.x,p.y-v.y),rad2=(t-v.t)*190;
           if(rad2>=d&&rad2-d<26&&p.hit!==v.id&&rad2<560){p.hit=v.id;p.lit=1;p.b=1}}
-        p.lit=Math.max(0,p.lit-dt/5.2);p.b+=(0-p.b)*Math.min(1,dt*7);
+        p.lit=Math.max(0,p.lit-dt/2.7);p.b+=(0-p.b)*Math.min(1,dt*7);
         if(p.lit>.25)n++;paint(p);
       }
       stEl.textContent=n+' / '+N;

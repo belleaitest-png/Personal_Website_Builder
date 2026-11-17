@@ -707,8 +707,8 @@ if(window.gsap&&window.ScrollTrigger){
     if(c.h){
       var tw=gsap.to(track,{x:function(){return -(N-1)*innerWidth},ease:'none',scrollTrigger:{
         trigger:deck,pin:true,scrub:.5,invalidateOnRefresh:true,anticipatePin:1,
-        end:function(){return '+='+(N-1)*innerWidth*.75},
-        snap:{snapTo:1/(N-1),duration:{min:.2,max:.55},delay:.08,ease:'power2.inOut'},
+        end:function(){return '+='+(N-1)*Math.round(innerWidth*.75)},
+        snap:{snapTo:1/(N-1),directional:false,duration:{min:.2,max:.55},delay:.08,ease:'power2.inOut'},
         onUpdate:function(self){
           var f=self.progress*(N-1);setCur(Math.round(f));
           $('#prog').style.transform='scaleX('+self.progress+')';
