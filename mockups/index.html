@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--PAGE-->
+<title>Annabelle Body Mock-ups</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: a contact sheet. Ten frames in a 2-up grid, ordered from most to least expected; a dial per frame carries the "how likely would an LLM make this" score. */
+@font-face{font-family:'Archivo';src:url('assets/fonts/archivo-latin-standard-normal.woff2') format('woff2');font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');font-weight:100 800;font-display:swap}
+:root{
+  --bg:#EDEEF0; --panel:#FFFFFF; --ink:#14161A; --muted:#5C626C; --line:#C9CCD2; --hot:#D6321E; --cool:#1F4FD8;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101114;--panel:#1A1C21;--ink:#F1F2F4;--muted:#9BA1AC;--line:#33363D;--hot:#FF6A52;--cool:#7FA0FF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101114;--panel:#1A1C21;--ink:#F1F2F4;--muted:#9BA1AC;--line:#33363D;--hot:#FF6A52;--cool:#7FA0FF;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:grid;gap:14px;margin-bottom:36px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:.95;margin:0;font-weight:800;font-stretch:80%;letter-spacing:-.02em;text-wrap:balance}
+.lede{max-width:62ch;color:var(--muted);margin:0;font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.legend b{color:var(--hot);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+a.card{display:grid;gap:14px;color:inherit;text-decoration:none;min-width:0}
+.shot{position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+a.card:hover .shot img,a.card:focus-visible .shot img{transform:scale(1.04)}
+a.card:focus-visible{outline:2px solid var(--cool);outline-offset:6px}
+.num{position:absolute;left:0;top:0;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;padding:6px 10px;z-index:1}
+.open{position:absolute;right:0;bottom:0;background:var(--cool);color:#fff;font-family:var(--mono);font-size:12px;padding:6px 10px;transform:translateY(100%);transition:transform .3s}
+a.card:hover .open,a.card:focus-visible .open{transform:none}
+.meta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:start}
+h2{margin:0;font-size:1.5rem;font-weight:750;font-stretch:88%;letter-spacing:-.01em}
+.meta p{margin:0;color:var(--muted);font-size:.95rem;grid-column:1}
+.axes{grid-column:1;font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.score{grid-column:2;grid-row:1 / span 3;text-align:right;font-family:var(--mono)}
+.score strong{display:block;font-size:1.7rem;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+.score span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.score.rare strong{color:var(--hot)}
+.bar{height:3px;background:var(--line);margin-top:8px;width:84px;margin-left:auto}
+.bar i{display:block;height:100%;background:var(--ink)}
+.score.rare .bar i{background:var(--hot)}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;max-width:75ch}
+footer p{margin:0 0 8px}
+@media (prefers-reduced-motion:reduce){.shot img,.open{transition:none}}
+</style>
+<!--/HEAD-->
+</head>
+<body>
+<!--BODY-->
+<div class="wrap">
+  <header>
+    <div class="eyebrow">annabellebody.com · Fractional AI Strategist · rounds one and two</div>
+    <h1>Signal, refined. Plus the original ten.</h1>
+    <p class="lede">Same content in every one: your photo, the Deloitte, AlixPartners and Harvard Business School marks, three services, two placeholder testimonials and a contact form. Everything else changes. Open each one and move your cursor, scroll, drag and click; the motion is the point and stills undersell it.</p>
+    <div class="legend"><span>Score = my estimate of how likely an AI model would produce this direction unprompted (lower is rarer)</span><span><b>Red</b> = under 10%</span></div>
+  </header>
+  <main class="grid" id="grid"></main>
+  <footer>
+    <p>Forms in these mock-ups do not send anything. Testimonials are placeholders. Logos are typeset stand-ins until official artwork files are dropped in.</p>
+    <p>Best viewed on a laptop first, then on your phone.</p>
+  </footer>
+</div>
+<script>
+const M=[
+ ["11","signal-refined","Signal, refined","Built from your notes on 02. Scattered data realigns into a J-curve of EBITDA bars, then a do-now 2x2 and one moving visual per service. The form opens when asked for.",35,"black + yellow · one screen hero · data bits to bar chart · 2x2"],
+ ["01","pink-paper","The Pink Paper","A financial broadsheet front page. Headlines set themselves, the photo sharpens out of halftone, services are the day's three stories.",40,"salmon + ink · serif · newspaper columns · typesetting"],
+ ["02","signal","Signal","Black and one warm yellow. A field of particles starts as noise and re-forms into a new shape for every section as you scroll.",35,"black + yellow · calm sans · full-screen canvas · particle morph"],
+ ["03","loud","LOUD","No imagery except type. Giant letters stretch and squash with your scroll and cursor across hard colour blocks.",28,"cobalt / tomato blocks · variable width type · posters · kinetic type"],
+ ["04","living-diagrams","Living Diagrams","Light and precise. Every illustration is a small chart that is alive: a 2x2 that sorts itself, an org chart that gains its AI lead.",22,"off-white + one accent · Swiss grid · interactive SVG charts"],
+ ["05","sticker-drop","Sticker Drop","A zine you can throw around. Stickers fall under real gravity and you can grab, fling and stack them.",15,"clashing brights · chunky outlines · collage · physics"],
+ ["06","whiteboard","The Whiteboard","A strategy session drawn live. Arrows, circles, a 2x2 and a roadmap sketch themselves in marker as you scroll.",12,"dotted paper + marker blue · handwriting · self-drawing lines"],
+ ["07","one-bit","1-Bit","Two tones only. Your portrait is dithered live and resolves under a lens that follows the cursor; sections dissolve pixel by pixel.",9,"duotone · pixel + mono type · specimen catalogue · live dithering"],
+ ["08","board-pack","The Board Pack","The site is a consulting deck that scrolls sideways. Waterfalls build, Harvey balls fill, the org chart gets its new box.",7,"deck white + navy · action titles · horizontal slides · animated exhibits"],
+ ["09","annabelle-os","Annabelle OS","A desktop operating system. It boots, windows open themselves, and you can drag them, launch service apps and type in a terminal.",6,"retro-futurist desktop · draggable windows · boot sequence"],
+ ["10","group-chat","Group Chat","The whole site is a conversation. Typing dots, bubbles, a voice note, service cards and a contact form that sends like a message.",5,"chat bubbles · phone column · typed conversation · quick replies"]
+];
+document.getElementById('grid').innerHTML=M.map(([n,s,t,d,p,a])=>`
+<a class="card" href="${n}-${s}.html">
+  <div class="shot"><span class="num">${n}</span><img src="assets/thumbs/${n}.webp" alt="Screenshot of ${t}" loading="lazy"><span class="open">Open →</span></div>
+  <div class="meta"><h2>${t}</h2>
+    <div class="score ${p<10?'rare':''}"><strong>${p}%</strong><span>LLM likelihood</span><div class="bar"><i style="width:${p}%"></i></div></div>
+    <p>${d}</p><div class="axes">${a}</div></div>
+</a>`).join('');
+</script>
+<!--/BODY-->
+</body>
+</html>

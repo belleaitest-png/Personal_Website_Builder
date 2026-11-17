@@ -1,6 +1,6 @@
 {
-  "buildCommand": "echo 'Serving holding page while the site is rebuilt'",
-  "outputDirectory": "rebuilding",
+  "buildCommand": "echo 'Static site, no build step'",
+  "outputDirectory": "site",
   "functions": {
     "api/send-email.js": {
       "includeFiles": "api/birth-rates-paper.pdf"

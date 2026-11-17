@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 · The Pink Paper — Annabelle Body</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root{
+  --paper:#FFF1E5;
+  --paper-2:#F9E4D2;
+  --paper-3:#F2D8C3;
+  --ink:#1C1512;
+  --ink-2:#5B4D45;
+  --rule:#1C1512;
+  --rule-soft:#D9BFA9;
+  --ox:#7A1228;
+  --serif:'Newsreader', Georgia, 'Times New Roman', serif;
+  --display:'Playfair Display', 'DM Serif Display', Georgia, serif;
+  --sans:'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --gut:clamp(16px, 2.2vw, 32px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.45;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+/* newsprint grain */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit}
+h1,h2,h3,p,figure,blockquote{margin:0}
+.sheet{max-width:1360px; margin:0 auto; padding:0 var(--gut)}
+.kicker{font-family:var(--sans); font-weight:800; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ox)}
+.label{font-family:var(--sans); font-weight:600; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2)}
+.rule{height:1px; background:var(--rule); transform-origin:left center}
+.rule.thick{height:3px}
+.rule.double{height:5px; background:none; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+
+/* ───────── ticker ───────── */
+.ticker{
+  position:sticky; top:0; z-index:40; background:var(--ink); color:var(--paper);
+  font-family:var(--mono); font-size:12px; letter-spacing:.04em; overflow:hidden; white-space:nowrap;
+  display:flex; align-items:stretch; height:34px;
+}
+.ticker__tag{flex:none; display:flex; align-items:center; padding:0 14px; background:var(--ox); font-weight:700; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; z-index:1}
+.ticker__track{display:flex; align-items:center; will-change:transform; animation:tick 46s linear infinite}
+.ticker__track span{padding:0 22px; border-right:1px solid rgba(255,241,229,.18); height:34px; display:inline-flex; align-items:center; gap:8px}
+.ticker__track b{font-weight:500}
+.up{color:#9FE0B4} .dn{color:#FF9D8A}
+.up i,.dn i{font-style:normal; display:inline-block; animation:blip 1.6s steps(2) infinite}
+.dn i{animation-delay:.8s}
+@keyframes tick{to{transform:translate3d(-50%,0,0)}}
+@keyframes blip{50%{opacity:.35}}
+
+/* ───────── masthead ───────── */
+.mast{padding-top:18px}
+.mast__top{display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding-bottom:10px}
+.mast__top .label:nth-child(2){text-align:center}
+.mast__title{
+  font-family:var(--display); font-weight:900; text-align:center; line-height:.9; letter-spacing:-.025em;
+  font-size:clamp(44px, 10.2vw, 148px); padding:.12em 0 .14em; margin:0;
+}
+.mast__title em{font-style:italic; font-weight:500; letter-spacing:-.03em}
+.mast__sub{display:flex; justify-content:center; align-items:center; gap:14px; flex-wrap:wrap; padding:9px 0; text-align:center}
+.mast__sub h1{font-family:var(--sans); font-weight:800; font-size:13px; letter-spacing:.2em; text-transform:uppercase}
+.mast__sub .dot{width:5px; height:5px; background:var(--ox); border-radius:50%}
+.mast__sub p{font-family:var(--serif); font-style:italic; font-size:16px}
+.nav{display:flex; justify-content:center; gap:clamp(14px,3vw,40px); padding:9px 0; flex-wrap:wrap}
+.nav a{font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; position:relative; padding:2px 0}
+.nav a::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--ox); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+
+/* ───────── front page ───────── */
+.front{display:grid; grid-template-columns:repeat(12,1fr); column-gap:var(--gut); padding-top:26px; padding-bottom:34px}
+.lead{grid-column:1 / span 9; display:grid; grid-template-columns:repeat(9,1fr); column-gap:var(--gut); align-content:start}
+.lead__head{grid-column:1 / -1; padding-bottom:20px}
+.lead__head .kicker{display:block; margin-bottom:12px}
+.headline{
+  font-family:var(--display); font-weight:800; letter-spacing:-.022em; line-height:.98;
+  font-size:clamp(38px, 6.1vw, 92px); text-wrap:balance;
+}
+.headline em{font-style:italic; font-weight:500; color:var(--ox)}
+.lead__text{grid-column:1 / span 4; border-top:1px solid var(--rule); padding-top:14px}
+.deck{font-family:var(--serif); font-size:clamp(20px,1.75vw,25px); line-height:1.22; font-weight:500; letter-spacing:-.005em; margin-bottom:14px}
+.byline{display:flex; gap:10px; align-items:center; padding:9px 0; border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); margin-bottom:14px}
+.byline b{font-family:var(--sans); font-weight:800; font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+.byline span{font-family:var(--serif); font-style:italic; font-size:14.5px; color:var(--ink-2)}
+.body p{margin-bottom:.8em; font-size:16.5px; line-height:1.44; hyphens:manual}
+.body p:first-of-type::first-letter{
+  font-family:var(--display); font-weight:800; float:left; font-size:4.05em; line-height:.8; padding:.06em .08em 0 0; color:var(--ox);
+}
+.cta{
+  display:inline-flex; align-items:center; gap:12px; margin-top:8px; padding:13px 18px 12px; background:var(--ink); color:var(--paper);
+  font-family:var(--sans); font-weight:800; font-size:12px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none;
+  border:1px solid var(--ink); transition:background .25s, color .25s;
+}
+.cta svg{width:18px; height:10px; transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.cta:hover,.cta:focus-visible{background:var(--ox); border-color:var(--ox)}
+.cta:hover svg{transform:translateX(5px)}
+.turn{font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--ink-2); margin-top:14px; text-transform:uppercase}
+
+.lead__photo{grid-column:5 / span 5; border-top:1px solid var(--rule); padding-top:14px}
+.plate{position:relative; aspect-ratio:5/5.5; overflow:hidden; background:var(--paper-3); cursor:crosshair}
+.plate img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; display:block; filter:saturate(.86) contrast(1.04)}
+.plate canvas{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none}
+.plate__tag{position:absolute; left:0; bottom:0; background:var(--paper); padding:5px 9px 3px 0; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase}
+figcaption{font-family:var(--sans); font-size:12px; line-height:1.4; color:var(--ink-2); padding-top:8px}
+figcaption b{color:var(--ink); font-weight:800}
+
+.rail{grid-column:10 / span 3; border-left:1px solid var(--rule); padding-left:var(--gut); display:flex; flex-direction:column; gap:22px}
+.box__head{display:flex; justify-content:space-between; align-items:baseline; border-top:3px solid var(--ink); padding-top:7px; margin-bottom:8px}
+.box__head h2{font-family:var(--sans); font-weight:900; font-size:12px; letter-spacing:.14em; text-transform:uppercase}
+.chart{display:block; width:100%; height:auto; overflow:visible}
+.chart .grid line{stroke:var(--rule-soft); stroke-width:1; stroke-dasharray:2 3}
+.chart .axis{stroke:var(--ink); stroke-width:1}
+.chart .hype{fill:none; stroke:var(--ink-2); stroke-width:1.4; stroke-linejoin:round}
+.chart .value{fill:none; stroke:var(--ox); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round}
+.chart text{font-family:var(--sans); font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase}
+.chart .pulse{fill:var(--ox); transform-box:fill-box; transform-origin:center; animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{transform:scale(1); opacity:.55}100%{transform:scale(3.6); opacity:0}}
+.chart__note{font-family:var(--serif); font-style:italic; font-size:13px; color:var(--ink-2); margin-top:6px; line-height:1.3}
+.briefs{list-style:none; margin:0; padding:0}
+.briefs li{border-bottom:1px solid var(--rule-soft); padding:10px 0}
+.briefs li:first-child{padding-top:2px}
+.briefs a{text-decoration:none; display:block}
+.briefs a strong{font-family:var(--display); font-weight:700; font-size:18px; line-height:1.14; display:block; letter-spacing:-.005em; transition:color .2s}
+.briefs a:hover strong{color:var(--ox)}
+.briefs a span{font-family:var(--sans); font-size:10.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2)}
+.weather{font-family:var(--serif); font-style:italic; font-size:14.5px; line-height:1.3; background:var(--paper-2); padding:12px 14px; border-left:3px solid var(--ox)}
+.weather b{font-family:var(--sans); font-style:normal; font-weight:900; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; display:block; margin-bottom:3px}
+
+/* ───────── markets ───────── */
+.section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0 9px}
+.section-head h2{font-family:var(--sans); font-weight:900; font-size:13px; letter-spacing:.16em; text-transform:uppercase}
+.section-head p{font-family:var(--serif); font-style:italic; font-size:14.5px; color:var(--ink-2); text-align:right}
+.markets{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+.mkt{padding:22px var(--gut) 20px; border-left:1px solid var(--rule-soft); display:grid; grid-template-columns:1fr auto; gap:10px 16px; align-items:end}
+.mkt:first-child{border-left:0; padding-left:0}
+.mkt:last-child{padding-right:0}
+.mkt .label{grid-column:1 / -1; display:flex; justify-content:space-between}
+.mkt .label em{font-style:normal; color:var(--ox)}
+.mkt img{height:clamp(26px,3vw,40px); width:auto; max-width:100%; display:block; filter:grayscale(1) contrast(1.15); mix-blend-mode:multiply}
+.mkt svg{width:84px; height:30px; overflow:visible}
+.mkt svg path{fill:none; stroke:var(--ink); stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round}
+.mkt p{grid-column:1 / -1; font-size:14.5px; font-style:italic; color:var(--ink-2); line-height:1.3}
+
+/* ───────── stories ───────── */
+.stories{display:grid; grid-template-columns:repeat(12,1fr); column-gap:var(--gut); padding-top:22px; padding-bottom:34px}
+.story{position:relative; display:flex; flex-direction:column}
+.story--a{grid-column:1 / span 6; padding-right:var(--gut); border-right:1px solid var(--rule)}
+.story--b{grid-column:7 / span 3; padding-right:var(--gut); border-right:1px solid var(--rule-soft)}
+.story--c{grid-column:10 / span 3}
+.story .kicker{display:flex; justify-content:space-between; margin-bottom:10px}
+.story .kicker span{color:var(--ink-2); font-weight:600}
+.story h3{font-family:var(--display); font-weight:800; letter-spacing:-.018em; line-height:1.02; font-size:clamp(26px,2.5vw,36px); margin-bottom:10px; text-wrap:balance}
+.story--a h3{font-size:clamp(34px,4.5vw,66px); line-height:.98}
+.story .stand{font-size:clamp(18px,1.45vw,21px); line-height:1.25; font-weight:500; margin-bottom:12px}
+.story--a .stand{font-size:clamp(20px,1.8vw,26px)}
+.story .body p{font-size:16px}
+.story .body p:first-of-type::first-letter{all:unset}
+.story--a .cols{display:grid; grid-template-columns:1fr 1fr; gap:var(--gut)}
+.art{border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin:4px 0 12px; padding:10px 0; background:
+  repeating-linear-gradient(0deg, transparent 0 23px, rgba(28,21,18,.07) 23px 24px)}
+.art svg{display:block; width:100%; height:auto; overflow:visible}
+.art .ln{fill:none; stroke:var(--ink); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.art .ln.ox{stroke:var(--ox); stroke-width:2.6}
+.art .ln.soft{stroke:var(--ink-2); stroke-width:1; stroke-dasharray:3 4}
+.art .fill{fill:var(--ink)} .art .fill.ox{fill:var(--ox)} .art .hollow{fill:var(--paper); stroke:var(--ink); stroke-width:1.6}
+.art text{font-family:var(--sans); font-size:9.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; fill:var(--ink-2)}
+.artcap{font-family:var(--sans); font-size:10.5px; color:var(--ink-2); letter-spacing:.04em; margin-bottom:12px}
+.facts{list-style:none; margin:auto 0 0; padding:10px 0 0; border-top:1px solid var(--rule-soft); display:flex; flex-wrap:wrap; gap:6px 8px}
+.facts li{font-family:var(--sans); font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--ink); padding:4px 8px 3px}
+
+/* ───────── pull quote ───────── */
+.pull{border-top:3px solid var(--ink); border-bottom:1px solid var(--ink); padding:clamp(28px,4.5vw,60px) 0; display:grid; grid-template-columns:repeat(12,1fr); column-gap:var(--gut); align-items:start}
+.pull .mark{grid-column:1 / span 2; font-family:var(--display); font-weight:900; font-size:clamp(90px,14vw,220px); line-height:.7; color:var(--ox); padding-top:.12em}
+.pull blockquote{grid-column:3 / span 9}
+.pull blockquote p{font-family:var(--display); font-weight:500; font-style:italic; font-size:clamp(28px,4.4vw,66px); line-height:1.06; letter-spacing:-.018em; text-wrap:balance}
+.pull blockquote footer{font-family:var(--sans); font-weight:800; font-size:11px; letter-spacing:.14em; text-transform:uppercase; margin-top:18px}
+
+/* ───────── letters ───────── */
+.letters{display:grid; grid-template-columns:repeat(12,1fr); column-gap:var(--gut); padding-top:22px; padding-bottom:40px}
+.letters__intro{grid-column:1 / span 3}
+.letters__intro h3{font-family:var(--display); font-weight:800; font-size:clamp(30px,3.1vw,44px); line-height:1; letter-spacing:-.02em; margin-bottom:10px}
+.letters__intro p{font-style:italic; color:var(--ink-2); font-size:15.5px}
+.letter{grid-column:span 4; position:relative; border-left:1px solid var(--rule); padding-left:var(--gut); padding-bottom:6px}
+.letter + .letter{grid-column:span 5}
+.letter .sal{font-family:var(--sans); font-weight:800; font-size:11px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px; color:var(--ink-2)}
+.letter blockquote p{font-family:var(--serif); font-size:clamp(20px,1.9vw,27px); line-height:1.22; font-weight:400; color:var(--ink-2)}
+.letter blockquote p span.redact{background:var(--ink); color:transparent; border-radius:1px; user-select:none; opacity:.82}
+.letter .sig{margin-top:16px; min-height:74px; font-family:var(--sans); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase}
+.letter .sig i{display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:14.5px; letter-spacing:0; text-transform:none; color:var(--ink-2)}
+.stamp{
+  position:absolute; right:4%; bottom:0; transform:rotate(-7deg); border:3px double var(--ox); color:var(--ox);
+  font-family:var(--sans); font-weight:900; font-size:clamp(15px,1.5vw,20px); letter-spacing:.2em; text-transform:uppercase; padding:8px 12px 6px; line-height:1.1; text-align:center;
+  background:rgba(255,241,229,.86); mix-blend-mode:multiply;
+}
+.stamp small{display:block; font-size:9px; letter-spacing:.14em; font-weight:600; margin-top:3px}
+
+/* ───────── classified / coupon ───────── */
+.classifieds{display:grid; grid-template-columns:repeat(12,1fr); column-gap:var(--gut); padding-top:22px; padding-bottom:70px; align-items:start}
+.ads{grid-column:1 / span 4; display:grid; gap:14px}
+.ad{border:1px solid var(--ink); padding:14px 16px}
+.ad h3{font-family:var(--sans); font-weight:900; font-size:15px; letter-spacing:.06em; text-transform:uppercase; line-height:1.15; margin-bottom:6px}
+.ad p{font-size:14.5px; line-height:1.35}
+.ad--inv{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.ad--inv h3{font-family:var(--display); text-transform:none; letter-spacing:-.01em; font-size:30px; font-weight:800; line-height:1}
+.ad--tiny{display:grid; grid-template-columns:1fr 1fr; gap:0; padding:0}
+.ad--tiny div{padding:12px 14px; font-size:13.5px; line-height:1.3}
+.ad--tiny div + div{border-left:1px solid var(--ink)}
+.ad--tiny b{font-family:var(--sans); font-weight:900; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; display:block; margin-bottom:3px; color:var(--ox)}
+
+.coupon{grid-column:5 / span 8; position:relative; padding:clamp(22px,3vw,40px); background:var(--paper-2)}
+.coupon__edge{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible}
+.coupon__edge rect{fill:none; stroke:var(--ink); stroke-width:1.5; stroke-dasharray:9 7; vector-effect:non-scaling-stroke; animation:march 1.4s linear infinite}
+@keyframes march{to{stroke-dashoffset:-16}}
+.scissors{position:absolute; top:-13px; left:0; width:26px; height:26px; background:var(--paper); padding:2px; will-change:transform}
+.scissors svg{width:100%; height:100%; display:block}
+.coupon__grid{display:grid; grid-template-columns:5fr 7fr; gap:clamp(20px,3vw,44px); position:relative}
+.coupon h3{font-family:var(--display); font-weight:900; font-size:clamp(34px,4.2vw,60px); line-height:.94; letter-spacing:-.025em; margin:10px 0 14px}
+.coupon h3 em{font-style:italic; font-weight:500; color:var(--ox)}
+.coupon__blurb p{font-size:16.5px; line-height:1.4; margin-bottom:.7em}
+.coupon__blurb p.coupon__fine{font-family:var(--sans); font-size:10.5px; letter-spacing:.06em; color:var(--ink-2); text-transform:uppercase; line-height:1.5; margin-top:14px}
+form{display:grid; gap:16px; position:relative}
+.field{display:grid; gap:2px}
+.field label{font-family:var(--sans); font-weight:800; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase}
+.field input,.field textarea{
+  font:inherit; font-family:var(--serif); font-size:19px; color:var(--ink); background:transparent; border:0; border-bottom:1.5px dotted var(--ink);
+  padding:6px 0 5px; border-radius:0; width:100%; outline:none; resize:vertical; transition:border-color .2s, background .2s;
+}
+.field textarea{min-height:84px; background-image:repeating-linear-gradient(transparent 0 31px, rgba(28,21,18,.28) 31px 32px); line-height:32px; padding-top:0; border-bottom:0; background-attachment:local}
+.field input:focus-visible,.field textarea:focus-visible{border-bottom-style:solid; border-color:var(--ox); background-color:rgba(122,18,40,.05)}
+.field input::placeholder,.field textarea::placeholder{color:#A8958A; font-style:italic}
+.row2{display:grid; grid-template-columns:1fr 1fr; gap:16px 22px}
+.send{
+  justify-self:start; font-family:var(--sans); font-weight:900; font-size:13px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer;
+  background:var(--ox); color:var(--paper); border:0; padding:15px 22px 14px; display:inline-flex; gap:12px; align-items:center; transition:background .25s, transform .15s;
+}
+.send:hover,.send:focus-visible{background:var(--ink)}
+.send:active{transform:translateY(2px)}
+.send svg{width:18px; height:10px}
+.received{position:absolute; inset:0; display:grid; place-items:center; visibility:hidden; pointer-events:none}
+.received__stamp{
+  border:5px double var(--ox); color:var(--ox); padding:16px 26px 12px; text-align:center; transform:rotate(-8deg); border-radius:6px;
+  font-family:var(--sans); font-weight:900; letter-spacing:.2em; text-transform:uppercase; background:rgba(249,228,210,.9); mix-blend-mode:multiply;
+}
+.received__stamp strong{display:block; font-size:clamp(34px,4.6vw,64px); line-height:1; letter-spacing:.1em}
+.received__stamp span{display:block; font-size:11px; margin-top:8px; letter-spacing:.16em}
+.received__note{position:absolute; left:0; right:0; bottom:0; text-align:center; font-style:italic; font-size:15px; color:var(--ink-2)}
+form.is-sent > *:not(.received){opacity:.16; pointer-events:none; transition:opacity .5s}
+form.is-sent > .send.send{visibility:hidden}
+main{overflow-x:clip}
+
+/* ───────── colophon ───────── */
+.colophon{border-top:3px solid var(--ink); padding:14px 0 70px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+.colophon p{font-family:var(--sans); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); font-weight:600}
+
+.back{
+  position:fixed; left:14px; bottom:14px; z-index:60; background:var(--paper); color:var(--ink); border:1px solid var(--ink);
+  font-family:var(--sans); font-weight:800; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; padding:8px 11px 7px;
+  box-shadow:3px 3px 0 var(--ink); transition:transform .15s, box-shadow .15s;
+}
+.back:hover{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink)}
+:focus-visible{outline:2px solid var(--ox); outline-offset:3px}
+.vh{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
+
+/* ───────── responsive ───────── */
+@media (max-width:1020px){
+  .lead{grid-column:1 / -1}
+  .rail{grid-column:1 / -1; border-left:0; padding-left:0; border-top:1px solid var(--rule); margin-top:26px; padding-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:var(--gut)}
+  .rail .weather{grid-column:1 / -1}
+  .story--a{grid-column:1 / -1; border-right:0; padding-right:0; padding-bottom:24px; border-bottom:1px solid var(--rule); margin-bottom:22px}
+  .story--b{grid-column:1 / span 6}
+  .story--c{grid-column:7 / span 6}
+  .letters__intro{grid-column:1 / -1; margin-bottom:20px}
+  .letter, .letter + .letter{grid-column:span 6}
+  .ads{grid-column:1 / -1; grid-template-columns:1fr 1fr; margin-bottom:28px}
+  .ads .ad--tiny{grid-column:1 / -1}
+  .coupon{grid-column:1 / -1}
+}
+@media (max-width:700px){
+  body{font-size:16px}
+  .ticker__tag{padding:0 10px}
+  .mast__top .label:first-child,.mast__top .label:last-child{display:none}
+  .mast__top{justify-content:center}
+  .mast__sub{gap:6px 10px}
+  .mast__sub p{flex-basis:100%}
+  .nav{gap:6px 16px}
+  .front{padding-top:20px}
+  .lead{display:block}
+  .lead__photo{margin-top:6px; margin-bottom:18px}
+  .lead__head{padding-bottom:14px}
+  .lead{display:flex; flex-direction:column}
+  .lead__photo{order:2} .lead__text{order:3; border-top:0; padding-top:0}
+  .plate{aspect-ratio:5/5}
+  .rail{display:flex}
+  .section-head{flex-direction:column; gap:2px}
+  .section-head p{text-align:left}
+  .markets{grid-template-columns:1fr}
+  .mkt,.mkt:first-child,.mkt:last-child{border-left:0; padding:16px 0; border-top:1px solid var(--rule-soft)}
+  .mkt:first-child{border-top:0}
+  .mkt img{height:30px}
+  .story--a .cols{grid-template-columns:1fr; gap:0}
+  .story--b,.story--c{grid-column:1 / -1; border-right:0; padding-right:0}
+  .story--b{padding-bottom:22px; border-bottom:1px solid var(--rule-soft); margin-bottom:22px}
+  .pull .mark{grid-column:1 / -1; font-size:96px; height:.52em}
+  .pull blockquote{grid-column:1 / -1}
+  .letter, .letter + .letter{grid-column:1 / -1; border-left:0; padding-left:0}
+  .letter + .letter{border-top:1px solid var(--rule-soft); padding-top:20px; margin-top:22px}
+  .stamp{right:0}
+  .ads{grid-template-columns:1fr}
+  .coupon{padding:26px 18px 24px}
+  .coupon__grid{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .colophon{padding-bottom:80px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ticker__track,.up i,.dn i,.chart .pulse,.coupon__edge rect{animation:none}
+  .chart .pulse{opacity:0}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__tag">Sentiment tape</div>
+  <div class="ticker__track" id="tape"></div>
+</div>
+
+<div class="sheet">
+  <header class="mast">
+    <div class="mast__top">
+      <span class="label">No. 1 &nbsp;·&nbsp; Mid-market edition</span>
+      <span class="label" id="date">Today's edition</span>
+      <span class="label">Price: one conversation</span>
+    </div>
+    <div class="rule thick js-rule"></div>
+    <p class="mast__title" id="title">The Pink <em>Paper</em></p>
+    <div class="rule double js-rule"></div>
+    <div class="mast__sub">
+      <h1>Annabelle Body</h1><span class="dot"></span>
+      <span class="kicker" style="font-size:13px; letter-spacing:.2em">Fractional AI Strategist</span>
+      <p>All the AI news that is fit to act on</p>
+    </div>
+    <div class="rule js-rule"></div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#markets">Markets</a><a href="#services">Front page</a><a href="#letters">Letters</a><a href="#coupon">Classified</a>
+    </nav>
+    <div class="rule js-rule"></div>
+  </header>
+
+  <main>
+  <!-- ═════════ FRONT PAGE ═════════ -->
+  <section class="front" aria-label="Lead story">
+    <article class="lead">
+      <div class="lead__head">
+        <span class="kicker">Leadership &nbsp;·&nbsp; Artificial intelligence</span>
+        <h2 class="headline" id="headline">Mid-market chiefs get a senior AI lead, <em>minus the full-time hire</em></h2>
+      </div>
+
+      <div class="lead__text">
+        <p class="deck ink">Annabelle Body sits between the boardroom and the build, and says plainly where AI makes money in your business and where it is a distraction.</p>
+        <div class="byline"><b>Annabelle Body</b><span>Fractional AI Strategist</span></div>
+        <div class="body">
+          <p class="ink-p">Most mid-market companies now have an AI line in the board pack and nobody whose job it is to make it true. The usual fixes are a hire the business is not ready for, or a pilot nobody owns.</p>
+          <p class="ink">Body offers a third route. A scientist turned accountant turned restructuring operator, she worked at Deloitte and AlixPartners before an MBA at Harvard Business School.</p>
+          <p class="ink">Restructuring leaves a habit: find the value fast and ignore the rest. She applies it to AI, in terms a board can approve and a team can ship.</p>
+        </div>
+        <a class="cta" href="#coupon">Request a briefing
+          <svg viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4"/></svg>
+        </a>
+        <p class="turn">Three ways to work with her, below ↓</p>
+      </div>
+
+      <figure class="lead__photo">
+        <div class="plate" id="plate" title="Hover to re-run the plate">
+          <img id="photo" src="assets/photos/hbs-portrait.webp" alt="Annabelle Body standing at a lectern in a Harvard Business School classroom, smiling" width="1223" height="1400">
+          <canvas id="halftone" aria-hidden="true"></canvas>
+          <span class="plate__tag" id="plateTag">Plate 1</span>
+        </div>
+        <figcaption><b>Annabelle Body</b> at Harvard Business School, where she is completing her MBA (Class of 2026).</figcaption>
+      </figure>
+    </article>
+
+    <aside class="rail" aria-label="Sidebar">
+      <div class="box">
+        <div class="box__head"><h2>Chart of the day</h2><span class="label">Illustrative</span></div>
+        <svg class="chart" id="chart" viewBox="0 0 300 190" role="img" aria-label="Schematic chart: a jagged line labelled hype and a steadily rising line labelled value shipped. Illustrative only, no data.">
+          <g class="grid"><line x1="0" y1="40" x2="300" y2="40"/><line x1="0" y1="85" x2="300" y2="85"/><line x1="0" y1="130" x2="300" y2="130"/></g>
+          <path class="hype" d="M2 150 L14 120 26 136 38 74 50 108 62 40 74 96 86 58 98 132 110 82 122 30 134 104 146 66 158 126 170 52 182 112 194 44 206 120 218 78 230 138 242 60 254 116 266 90 278 142 296 100"/>
+          <path class="value" d="M2 168 C 60 164, 96 154, 130 136 S 200 96, 232 66 S 280 30, 294 18"/>
+          <circle class="pulse" cx="294" cy="18" r="4"/><circle class="dot" cx="294" cy="18" r="4" fill="#7A1228"/>
+          <line class="axis" x1="0" y1="175" x2="300" y2="175"/>
+          <text class="t-h" x="126" y="22" fill="#5B4D45">Hype</text>
+          <text class="t-v" x="150" y="150" fill="#7A1228">Value shipped</text>
+        </svg>
+        <p class="chart__note">Schematic. No axes, no numbers, no data. Just the general idea.</p>
+      </div>
+
+      <div class="box">
+        <div class="box__head"><h2>Inside</h2><span class="label">Index</span></div>
+        <ul class="briefs">
+          <li><a href="#s1"><span>Diagnostic</span><strong>AI Strategy &amp; Roadmap</strong></a></li>
+          <li><a href="#s2"><span>Leadership</span><strong>Fractional Chief AI Officer</strong></a></li>
+          <li><a href="#s3"><span>People</span><strong>Team Training &amp; Workshops</strong></a></li>
+        </ul>
+      </div>
+
+      <p class="weather"><b>Outlook</b>Heavy hype early. Clearing to useful once somebody owns the plan.</p>
+      <div class="box corr">
+        <div class="box__head"><h2>Corrections</h2><span class="label">&amp; clarifications</span></div>
+        <p class="chart__note" style="font-size:14.5px; margin-top:0">This paper has never claimed that AI will fix everything. It regrets nothing.</p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ═════════ MARKETS ═════════ -->
+  <section id="markets" aria-labelledby="mk-h">
+    <div class="rule thick js-rule"></div>
+    <div class="section-head">
+      <h2 id="mk-h">Markets she has worked in</h2>
+      <p>Past employers and her school. Listed as background, not as clients.</p>
+    </div>
+    <div class="markets">
+      <div class="mkt">
+        <span class="label"><span>Previously</span><em>Accountancy</em></span>
+        <img src="assets/logos/deloitte.svg" alt="Deloitte">
+        <svg viewBox="0 0 84 30" aria-hidden="true"><path class="spark" d="M1 24 L12 20 22 22 33 14 44 16 56 9 68 11 83 3"/></svg>
+        <p>Where the scientist learned to read a set of accounts.</p>
+      </div>
+      <div class="mkt">
+        <span class="label"><span>Previously</span><em>Restructuring</em></span>
+        <img src="assets/logos/alixpartners.svg" alt="AlixPartners">
+        <svg viewBox="0 0 84 30" aria-hidden="true"><path class="spark" d="M1 8 L12 18 22 25 33 22 44 15 56 17 68 8 83 4"/></svg>
+        <p>Where she learned to find value fast, with the clock running.</p>
+      </div>
+      <div class="mkt">
+        <span class="label"><span>Trained at</span><em>MBA, Class of 2026</em></span>
+        <img src="assets/logos/hbs.svg" alt="Harvard Business School">
+        <svg viewBox="0 0 84 30" aria-hidden="true"><path class="spark" d="M1 26 L14 24 26 19 38 20 50 13 62 10 72 6 83 2"/></svg>
+        <p>Where the operator went back to the classroom.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ SERVICES ═════════ -->
+  <section id="services" aria-labelledby="sv-h" style="padding-top:38px">
+    <div class="rule thick js-rule"></div>
+    <div class="section-head">
+      <h2 id="sv-h">Front page &nbsp;·&nbsp; Three services</h2>
+      <p>Each one a way to put a senior AI lead to work.</p>
+    </div>
+    <div class="rule js-rule"></div>
+
+    <div class="stories">
+      <article class="story story--a" id="s1">
+        <span class="kicker">Diagnostic <span>Service 1 of 3</span></span>
+        <h3>AI Strategy &amp; Roadmap</h3>
+        <p class="stand ink">Where the money is, what to do first, and the business case for doing it.</p>
+        <div class="art">
+          <svg viewBox="0 0 560 150" role="img" aria-label="Schematic roadmap: a path rising through three milestones">
+            <path class="ln soft" d="M10 128 H550"/>
+            <path class="ln ox draw" d="M14 124 C 90 122, 110 96, 176 94 S 270 70, 330 62 S 440 40, 540 16"/>
+            <circle class="hollow pop" cx="176" cy="94" r="8"/><circle class="hollow pop" cx="330" cy="62" r="8"/><circle class="fill ox pop" cx="540" cy="16" r="8"/>
+            <text class="pop" x="150" y="118">Find it</text><text class="pop" x="300" y="86">Rank it</text><text class="pop" x="458" y="44">Cost it</text>
+          </svg>
+        </div>
+        <p class="artcap">Fig. 1 &nbsp;The shape of the work. Schematic.</p>
+        <div class="body cols">
+          <p class="ink">A fixed-scope diagnostic. Body goes through the business the way a restructuring team would, looking for the places where AI changes the numbers and striking out the ones where it only changes the slide deck.</p>
+          <p class="ink">You finish with three things: a clear view of where AI actually creates value in your business, an order of work that starts with what to do first, and the business case to take to your board.</p>
+        </div>
+        <ul class="facts"><li>Fixed scope</li><li>What to do first</li><li>Business case</li></ul>
+      </article>
+
+      <article class="story story--b" id="s2">
+        <span class="kicker">Leadership <span>2 of 3</span></span>
+        <h3>Fractional Chief AI Officer</h3>
+        <p class="stand ink">A senior AI lead takes a seat at the top table, a day or two a week.</p>
+        <div class="art">
+          <svg viewBox="0 0 260 120" role="img" aria-label="Schematic org chart with one new seat filled in">
+            <path class="ln draw" d="M130 26 V46 M40 62 V46 H220 V62 M100 46 V62 M160 46 V62"/>
+            <rect class="hollow pop" x="108" y="6" width="44" height="20"/>
+            <rect class="hollow pop" x="20" y="62" width="40" height="20"/><rect class="hollow pop" x="80" y="62" width="40" height="20"/><rect class="hollow pop" x="140" y="62" width="40" height="20"/>
+            <rect class="fill ox seat" x="200" y="62" width="40" height="20"/>
+            <text class="pop" x="196" y="100">New seat</text>
+          </svg>
+        </div>
+        <div class="body">
+          <p class="ink">No full-time hire required. Body joins your leadership team for a day or two each week, owns the AI strategy and makes sure it ships.</p>
+        </div>
+        <ul class="facts"><li>1–2 days a week</li><li>Owns the strategy</li></ul>
+      </article>
+
+      <article class="story story--c" id="s3">
+        <span class="kicker">People <span>3 of 3</span></span>
+        <h3>Team Training &amp; Workshops</h3>
+        <p class="stand ink">Staff reported using AI on their real work, not on toy examples.</p>
+        <div class="art">
+          <svg viewBox="0 0 260 120" role="img" aria-label="Schematic grid of people, filling in one by one" id="people"></svg>
+        </div>
+        <div class="body">
+          <p class="ink">Executive briefings for the people who decide, and hands-on sessions for the people who do. Everyone works on the tasks already sitting on their desks.</p>
+        </div>
+        <ul class="facts"><li>Executive briefings</li><li>Hands-on sessions</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═════════ PULL QUOTE ═════════ -->
+  <section class="pull" aria-label="Pull quote">
+    <div class="mark" aria-hidden="true">“</div>
+    <blockquote>
+      <p id="pullq">I will tell you where AI makes money in your business, and where it is a distraction.</p>
+      <footer>Annabelle Body &nbsp;·&nbsp; Fractional AI Strategist</footer>
+    </blockquote>
+  </section>
+
+  <!-- ═════════ LETTERS ═════════ -->
+  <section id="letters" aria-labelledby="lt-h" style="padding-top:38px">
+    <div class="rule thick js-rule"></div>
+    <div class="section-head">
+      <h2 id="lt-h">Letters to the editor</h2>
+      <p>Space held for client correspondence.</p>
+    </div>
+    <div class="rule js-rule"></div>
+    <div class="letters">
+      <div class="letters__intro">
+        <h3>The postbag is still in transit</h3>
+        <p class="ink">These two columns are reserved for real words from real clients. Until they arrive, the editor declines to make any up.</p>
+      </div>
+      <article class="letter">
+        <p class="sal">Letter one</p>
+        <blockquote><p class="ink">Placeholder. A real quote from a real client is coming soon and will be printed here in full, exactly as it was written.</p></blockquote>
+        <p class="sig">Client name<i>Title, Company</i></p>
+        <div class="stamp" aria-hidden="true">Placeholder<small>Real quote coming soon</small></div>
+      </article>
+      <article class="letter">
+        <p class="sal">Letter two</p>
+        <blockquote><p class="ink">Placeholder. This space is held for a second client letter. No names, companies or results have been invented to fill it.</p></blockquote>
+        <p class="sig">Client name<i>Title, Company</i></p>
+        <div class="stamp" aria-hidden="true">Placeholder<small>Real quote coming soon</small></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═════════ CLASSIFIED / COUPON ═════════ -->
+  <section id="coupon" aria-labelledby="cp-h">
+    <div class="rule thick js-rule"></div>
+    <div class="section-head">
+      <h2 id="cp-h">Classified &nbsp;·&nbsp; Situations wanted</h2>
+      <p>Clip the coupon. Scissors optional.</p>
+    </div>
+    <div class="rule js-rule"></div>
+    <div class="classifieds">
+      <div class="ads" aria-hidden="true">
+        <div class="ad ad--inv"><h3>Wanted: one hard AI question.</h3><p>Will be answered plainly. Apply opposite.</p></div>
+        <div class="ad"><h3>Lost</h3><p>One AI pilot, last seen in a steering committee. Answers to “proof of concept”. Owner unknown.</p></div>
+        <div class="ad ad--tiny">
+          <div><b>For sale</b>Slide deck, 90 pages, “AI vision”. Never opened.</div>
+          <div><b>Sought</b>A plan with a first step and a number attached.</div>
+        </div>
+      </div>
+
+      <div class="coupon" id="couponBox">
+        <svg class="coupon__edge" aria-hidden="true" preserveAspectRatio="none"><rect x="0" y="0" width="100%" height="100%"/></svg>
+        <div class="scissors" id="scissors" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1C1512" stroke-width="1.6" stroke-linecap="round"><circle cx="5.5" cy="6.5" r="3"/><circle cx="5.5" cy="17.5" r="3"/><path d="M8 8.5 21 18M8 15.5 21 6"/></svg>
+        </div>
+        <div class="coupon__grid">
+          <div class="coupon__blurb">
+            <span class="kicker">Reader offer</span>
+            <h3>Request a <em>briefing</em></h3>
+            <p>Fill in the coupon and say what you need. A diagnostic, a part-time AI lead, a workshop, or a straight answer to a question that has been bothering the board.</p>
+            <p class="coupon__fine">Cut along the dashed line.<br>Mid-market CEOs and founders served first.</p>
+          </div>
+          <form id="form" novalidate>
+            <div class="row2">
+              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" required></div>
+              <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
+            </div>
+            <div class="field"><label for="f-co">Company</label><input id="f-co" name="company" type="text" autocomplete="organization" placeholder="Where you work"></div>
+            <div class="field"><label for="f-need">What do you need?</label><textarea id="f-need" name="need" rows="3" placeholder="In your own words"></textarea></div>
+            <button class="send" type="submit">Post the coupon
+              <svg viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4"/></svg>
+            </button>
+            <div class="received" id="received" role="status" aria-live="polite">
+              <div class="received__stamp"><strong>Received</strong><span id="rcvDate">With thanks</span></div>
+              <p class="received__note">Mock-up edition: nothing was actually posted.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer class="colophon">
+    <p>The Pink Paper &nbsp;·&nbsp; Annabelle Body, Fractional AI Strategist</p>
+    <p>Set in Playfair Display &amp; Newsreader &nbsp;·&nbsp; Printed on recycled pixels</p>
+  </footer>
+</div>
+
+<a class="back" href="index.html">← All mock-ups</a>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/SplitText.min.js"></script>
+<script src="assets/vendor/DrawSVGPlugin.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s, c){ return (c||document).querySelector(s); };
+  var $$ = function(s, c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+
+  /* ── date line ── */
+  var now = new Date();
+  try {
+    $('#date').textContent = now.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    $('#rcvDate').textContent = now.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) + ' · with thanks';
+  } catch(e){}
+
+  /* ── ticker tape (schematic, no figures) ── */
+  var ticks = [['HYPE',0],['SHIPPED',1],['PILOTS IN LIMBO',0],['CLARITY',1],['BUZZWORDS',0],['BUSINESS CASES',1],['SLIDEWARE',0],['ADOPTION',1],['VENDOR DEMOS',0],['FIRST STEPS',1],['FOMO',0],['OWNERSHIP',1],['"AI VISION" DECKS',0],['REAL WORK',1]];
+  var html = ticks.map(function(t){ return '<span><b>'+t[0]+'</b><em class="'+(t[1]?'up':'dn')+'" style="font-style:normal"><i>'+(t[1]?'▲':'▼')+'</i></em></span>'; }).join('');
+  $('#tape').innerHTML = html + html + html + html;
+
+  /* ── people grid svg (service 3) ── */
+  var people = $('#people'), ns = 'http://www.w3.org/2000/svg', k = 0;
+  for (var r = 0; r < 3; r++) for (var c = 0; c < 8; c++){
+    var g = document.createElementNS(ns,'g');
+    var x = 20 + c*31.5, y = 22 + r*36;
+    g.setAttribute('class','person'); g.setAttribute('data-d', String(Math.hypot(c, r - 1)));
+    g.innerHTML = '<circle class="hollow" cx="'+x+'" cy="'+y+'" r="6"/><path class="hollow" d="M'+(x-10)+' '+(y+22)+' a10 11 0 0 1 20 0 z"/>'+
+                  '<g class="lit"><circle class="fill ox" cx="'+x+'" cy="'+y+'" r="6"/><path class="fill ox" d="M'+(x-10)+' '+(y+22)+' a10 11 0 0 1 20 0 z"/></g>';
+    people.appendChild(g); k++;
+  }
+
+  /* ── form: never sends ── */
+  var form = $('#form'), received = $('#received');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (form.classList.contains('is-sent')) return;
+    form.classList.add('is-sent');
+    received.style.visibility = 'visible';
+    if (window.gsap && !reduce){
+      gsap.fromTo('.received__stamp', {scale:2.6, opacity:0, rotation:8}, {scale:1, opacity:1, rotation:-8, duration:.32, ease:'power4.in'});
+      gsap.fromTo('#couponBox', {x:0, y:0}, {keyframes:[{x:-4,y:3},{x:3,y:-2},{x:-2,y:1},{x:0,y:0}], duration:.28, delay:.32, ease:'none'});
+      gsap.from('.received__note', {opacity:0, y:8, duration:.5, delay:.6});
+    }
+  });
+
+  /* ── halftone plate ── */
+  var plate = $('#plate'), photo = $('#photo'), cv = $('#halftone'), tag = $('#plateTag');
+  var ht = null;
+  function buildHalftone(){
+    var rect = plate.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = Math.round(rect.width), H = Math.round(rect.height);
+    if (!W || !photo.naturalWidth) return null;
+    cv.width = W*dpr; cv.height = H*dpr;
+    var sw = 150, sh = Math.round(sw*H/W);
+    var off = document.createElement('canvas'); off.width = sw; off.height = sh;
+    var o = off.getContext('2d');
+    var iw = photo.naturalWidth, ih = photo.naturalHeight, s = Math.max(sw/iw, sh/ih);
+    var dw = iw*s, dh = ih*s;
+    o.drawImage(photo, (sw-dw)*0.5, (sh-dh)*0.22, dw, dh);
+    var data;
+    try { data = o.getImageData(0,0,sw,sh).data; } catch(e){ return null; }
+    var lum = new Float32Array(sw*sh);
+    for (var i = 0; i < sw*sh; i++) lum[i] = (data[i*4]*.299 + data[i*4+1]*.587 + data[i*4+2]*.114)/255;
+    var ctx = cv.getContext('2d');
+    return { p:0, draw:function(p){
+      var cell = (15 - 11.4*p), half = cell/2;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.fillStyle = '#F6DFCB'; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle = '#1C1512'; ctx.beginPath();
+      var row = 0;
+      for (var y = half; y < H + cell; y += cell*0.866, row++){
+        for (var x = (row % 2 ? cell : half); x < W + cell; x += cell){
+          var sx = Math.min(sw-1, Math.max(0, (x/W*sw)|0)), sy = Math.min(sh-1, Math.max(0, (y/H*sh)|0));
+          var d = 1 - lum[sy*sw + sx];
+          var rad = half*1.18*Math.sqrt(d);
+          if (rad < .35) continue;
+          ctx.moveTo(x+rad, y); ctx.arc(x, y, rad, 0, 6.2832);
+        }
+      }
+      ctx.fill();
+    }};
+  }
+  function runPlate(delay){
+    if (!ht) ht = buildHalftone();
+    if (!ht || !window.gsap) return;
+    gsap.killTweensOf(ht); gsap.killTweensOf(cv);
+    ht.p = 0; ht.draw(0); gsap.set(cv, {opacity:1});
+    tag.textContent = 'Plate 1 · screening';
+    gsap.to(ht, {p:1, duration:1.9, delay:delay||0, ease:'power2.inOut', onUpdate:function(){ ht.draw(ht.p); }});
+    gsap.to(cv, {opacity:0, duration:.9, delay:(delay||0)+1.5, ease:'power1.inOut', onComplete:function(){ tag.textContent = 'Plate 1'; }});
+  }
+
+  if (!window.gsap || reduce) return;        /* content is already fully visible */
+  gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin);
+
+  /* photo plate: start on first paint */
+  if (photo.complete && photo.naturalWidth) runPlate(.15); else photo.addEventListener('load', function(){ runPlate(.15); });
+  plate.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse') runPlate(0); });
+  plate.addEventListener('click', function(){ runPlate(0); });
+  var rz; window.addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(function(){ ht = null; }, 200); });
+
+  /* masthead, immediately */
+  gsap.from('.mast .js-rule', {scaleX:0, duration:.9, ease:'power3.inOut', stagger:.08});
+  gsap.from('.mast__top .label, .mast__sub > *, .nav a', {opacity:0, y:6, duration:.5, stagger:.035, delay:.25});
+
+  /* chart of the day */
+  var ctl = gsap.timeline({delay:.5});
+  ctl.from('#chart .grid line, #chart .axis', {drawSVG:0, duration:.5, stagger:.06})
+     .from('#chart .hype', {drawSVG:0, duration:1.5, ease:'none'}, '<.1')
+     .from('#chart .t-h', {opacity:0, duration:.3}, '<.5')
+     .from('#chart .value', {drawSVG:0, duration:1.7, ease:'power2.inOut'}, '<.2')
+     .from('#chart .dot, #chart .pulse', {scale:0, transformOrigin:'center', duration:.3, ease:'back.out(3)'}, '>-.05')
+     .from('#chart .t-v', {opacity:0, x:-6, duration:.4}, '<');
+
+  function start(){
+    /* hot-metal headline: sorts drop into the line one at a time */
+    SplitText.create('#title', {type:'chars', charsClass:'ch', onSplit:function(s){
+      return gsap.from(s.chars, {opacity:0, yPercent:-34, rotation:function(){ return gsap.utils.random(-9,9); }, duration:.34, ease:'back.out(2.2)', stagger:.045});
+    }});
+    SplitText.create('#headline', {type:'words,chars', autoSplit:true, onSplit:function(s){
+      return gsap.from(s.chars, {opacity:0, yPercent:-22, duration:.2, ease:'power2.out', stagger:{each:.017}, delay:.45});
+    }});
+
+    /* body copy inks in line by line */
+    $$('.ink').forEach(function(el){
+      var above = el.getBoundingClientRect().top < window.innerHeight;
+      SplitText.create(el, {type:'lines', autoSplit:true, linesClass:'ln-ink', onSplit:function(s){
+        return gsap.from(s.lines, {opacity:0, y:7, duration:.5, ease:'power2.out', stagger:.07, delay: above ? 1.0 : 0,
+          scrollTrigger:{trigger:el, start:'top 90%', once:true}});
+      }});
+    });
+    gsap.from('.ink-p, .byline, .cta, .turn, figcaption, .briefs li, .weather, .corr, .chart__note', {opacity:0, y:8, duration:.5, stagger:.06, delay:1.2});
+
+    /* section rules draw across */
+    $$('main .js-rule').forEach(function(r){
+      gsap.from(r, {scaleX:0, duration:1, ease:'power3.inOut', scrollTrigger:{trigger:r, start:'top 94%', once:true}});
+    });
+    $$('.section-head').forEach(function(h){
+      gsap.from(h.children, {opacity:0, y:8, duration:.5, stagger:.1, scrollTrigger:{trigger:h, start:'top 92%', once:true}});
+    });
+
+    /* markets: logos print in, sparklines draw */
+    gsap.from('.mkt', {opacity:0, y:14, duration:.6, stagger:.14, ease:'power2.out', scrollTrigger:{trigger:'.markets', start:'top 86%', once:true}});
+    gsap.from('.mkt .spark', {drawSVG:0, duration:1.3, stagger:.14, delay:.2, ease:'power2.inOut', scrollTrigger:{trigger:'.markets', start:'top 86%', once:true}});
+
+    /* stories */
+    $$('.story').forEach(function(st){
+      var tl = gsap.timeline({scrollTrigger:{trigger:st, start:'top 80%', once:true}});
+      tl.from($$('.kicker, .facts li', st), {opacity:0, y:6, duration:.4, stagger:.05});
+      var h = $('h3', st);
+      SplitText.create(h, {type:'words,chars', autoSplit:true, onSplit:function(s){
+        return gsap.from(s.chars, {opacity:0, yPercent:-25, duration:.22, stagger:.02, ease:'power2.out', scrollTrigger:{trigger:st, start:'top 80%', once:true}});
+      }});
+      var draws = $$('.draw', st), pops = $$('.pop', st);
+      if (draws.length) tl.from(draws, {drawSVG:0, duration:1.5, ease:'power2.inOut'}, .15);
+      if (pops.length) tl.from(pops, {opacity:0, scale:.4, transformOrigin:'center', duration:.35, stagger:.12, ease:'back.out(2.5)'}, .5);
+    });
+    /* the new seat drops into the org chart, then keeps a slow heartbeat */
+    gsap.timeline({scrollTrigger:{trigger:'#s2 .art', start:'top 82%', once:true}})
+      .from('.seat', {y:-46, opacity:0, duration:.55, delay:1, ease:'bounce.out'})
+      .to('.seat', {opacity:.55, duration:.9, repeat:-1, yoyo:true, ease:'sine.inOut'});
+    /* people light up in a wave, on a loop */
+    var lit = $$('#people .person');
+    gsap.set($$('#people .lit'), {opacity:0});
+    var wave = gsap.timeline({repeat:-1, repeatDelay:1.2, paused:true});
+    lit.forEach(function(p){
+      var d = parseFloat(p.getAttribute('data-d'));
+      wave.to($('.lit', p), {opacity:1, duration:.25}, d*.22)
+          .fromTo(p, {y:0}, {y:-4, duration:.16, yoyo:true, repeat:1, ease:'power1.out'}, d*.22);
+    });
+    wave.to($$('#people .lit'), {opacity:0, duration:.6}, '+=1.4');
+    ScrollTrigger.create({trigger:'#people', start:'top 90%', end:'bottom top', onToggle:function(self){ self.isActive ? wave.play() : wave.pause(); }});
+
+    /* pull quote: scrubbed ink */
+    SplitText.create('#pullq', {type:'words', autoSplit:true, onSplit:function(s){
+      return gsap.fromTo(s.words, {opacity:.13}, {opacity:1, stagger:.1, ease:'none', scrollTrigger:{trigger:'.pull', start:'top 80%', end:'center 45%', scrub:.4}});
+    }});
+    gsap.from('.pull .mark', {scale:.3, opacity:0, transformOrigin:'left top', duration:.7, ease:'back.out(1.8)', scrollTrigger:{trigger:'.pull', start:'top 80%', once:true}});
+
+    /* letters: placeholder stamps thump down */
+    $$('.letter').forEach(function(l, i){
+      gsap.from($('.stamp', l), {scale:1.9, opacity:0, rotation:6, duration:.3, delay:.7 + i*.25, ease:'power4.in', scrollTrigger:{trigger:l, start:'top 78%', once:true}});
+    });
+    gsap.from('.letters__intro h3', {opacity:0, y:10, duration:.6, scrollTrigger:{trigger:'.letters', start:'top 85%', once:true}});
+
+    /* classifieds + scissors running the cut line */
+    gsap.from('.ad', {opacity:0, y:16, duration:.55, stagger:.12, scrollTrigger:{trigger:'.ads', start:'top 86%', once:true}});
+    var box = $('#couponBox');
+    gsap.fromTo('#scissors', {x:-6}, {x:function(){ return box.offsetWidth - 22; }, ease:'none',
+      scrollTrigger:{trigger:box, start:'top 95%', end:'top 25%', scrub:.5, invalidateOnRefresh:true}});
+    gsap.to('#scissors svg', {rotation:10, transformOrigin:'30% 50%', duration:.18, yoyo:true, repeat:-1, ease:'sine.inOut'});
+    gsap.from('.field, .send', {opacity:0, y:10, duration:.45, stagger:.07, scrollTrigger:{trigger:'#form', start:'top 85%', once:true}});
+
+    ScrollTrigger.refresh();
+  }
+  var started = false, go = function(){ if (!started){ started = true; start(); } };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+  setTimeout(go, 1200);
+})();
+</script>
+</body>
+</html>

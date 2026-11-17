@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 · LOUD — Annabelle Body</title>
+<meta name="description" content="Annabelle Body, Fractional AI Strategist. A senior AI leader for mid-market CEOs and founders, without the full-time hire.">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root{
+  --blue:#1B3BFF; --red:#FF4124; --bone:#F2ECDF; --ink:#0A0A0A;
+  --pad:clamp(16px,2.8vw,40px);
+  --disp:'Archivo','Arial Narrow',Impact,sans-serif;
+  --lab:'Anybody','Archivo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--ink)}
+body{font-family:var(--disp);font-weight:500;color:var(--ink);background:var(--bone);overflow-x:hidden;line-height:1.3;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--ink);color:var(--bone)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.c-blue{background:var(--blue);color:var(--bone)}
+.c-red{background:var(--red);color:var(--ink)}
+.c-bone{background:var(--bone);color:var(--ink)}
+.c-ink{background:var(--ink);color:var(--bone)}
+
+/* giant type */
+.big{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.84;letter-spacing:-.02em;font-variation-settings:"wdth" 62,"wght" 900}
+.fit{display:block;white-space:nowrap;width:max-content;transform-origin:0 50%}
+.l{display:inline-block;transform-origin:50% 85%;will-change:transform}
+.lab{font-family:var(--lab);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(.72rem,.95vw,.9rem)}
+
+/* fixed chrome */
+.chrome{position:fixed;z-index:60;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:14px var(--pad);mix-blend-mode:difference;color:#fff;pointer-events:none}
+.chrome a{pointer-events:auto;text-decoration:none;font-family:var(--lab);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem;padding:6px 0;border-bottom:3px solid currentColor;transition:letter-spacing .25s cubic-bezier(.2,.9,.2,1)}
+.chrome a:hover,.chrome a:focus-visible{letter-spacing:.2em}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden}
+.stage{position:relative;height:100svh;min-height:600px;overflow:hidden}
+.row{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;line-height:.74;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:17vw;font-family:var(--disp);pointer-events:none}
+.row-in{display:block;will-change:transform}
+.row .l{transform-origin:50% 100%}
+.row-a{top:clamp(52px,7vh,76px);z-index:1;color:var(--bone)}
+.row-b{bottom:-.06em;z-index:3;color:var(--red);font-size:30vw}
+.cut{position:absolute;z-index:2;left:50%;bottom:0;height:87%;aspect-ratio:879/1200;transform:translateX(-50%);pointer-events:none}
+.cut img{width:100%;height:100%;object-fit:contain;object-position:50% 100%;will-change:transform}
+.flank{position:absolute;z-index:4;width:min(26vw,380px)}
+.flank-l{left:var(--pad);top:36%}
+.flank-r{right:var(--pad);top:33%}
+.role{display:inline-block;background:var(--ink);color:var(--bone);font-family:var(--disp);font-weight:900;font-variation-settings:"wdth" 62,"wght" 900;text-transform:uppercase;white-space:nowrap;font-size:clamp(2rem,3.9vw,3.7rem);line-height:.88;padding:.22em .3em .16em;transform:rotate(-3deg);transform-origin:0 100%}
+.role-sub{margin-top:1.3rem;font-weight:700;font-size:clamp(1rem,1.35vw,1.3rem);line-height:1.15;max-width:15em}
+.prop{font-weight:800;font-variation-settings:"wdth" 88,"wght" 800;font-size:clamp(1.3rem,2.25vw,2.15rem);line-height:1.06;letter-spacing:-.01em}
+.prop em{font-style:normal;background:var(--bone);color:var(--blue);padding:0 .14em}
+.btn{display:inline-flex;align-items:center;gap:.5em;margin-top:1.2rem;background:var(--bone);color:var(--ink);text-decoration:none;font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(1.15rem,1.6vw,1.5rem);padding:.6em .9em .52em;border:0;cursor:pointer;font-variation-settings:"wdth" 70,"wght" 900;transition:font-variation-settings .35s cubic-bezier(.2,.9,.2,1),background-color 0s,color 0s}
+.btn:hover,.btn:focus-visible{font-variation-settings:"wdth" 125,"wght" 900;background:var(--ink);color:var(--bone)}
+.btn i{font-style:normal;display:inline-block;transition:transform .35s cubic-bezier(.2,.9,.2,1)}
+.btn:hover i{transform:translateX(.3em)}
+.scrollcue{position:absolute;z-index:4;left:var(--pad);bottom:16px;color:var(--bone);mix-blend-mode:difference}
+.scrollcue span{display:inline-block;animation:bob 1s steps(2,end) infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+
+/* ---------- MARQUEES ---------- */
+.mq{overflow:hidden;white-space:nowrap;padding:.1em 0 .04em;font-size:clamp(3.4rem,9.5vw,9.5rem)}
+.mq-track{display:inline-flex;will-change:transform}
+.mq-set{display:inline-flex;align-items:center;flex:none}
+.mq-set span{padding:0 .16em}
+.mq-set b{display:inline-block;width:.42em;height:.42em;background:currentColor;margin:0 .1em;flex:none}
+.mq-set b.o{border-radius:50%}
+.mq.wide{font-variation-settings:"wdth" 125,"wght" 900}
+
+/* ---------- AI THAT ---------- */
+.that{position:relative;min-height:100svh;padding:clamp(70px,10vh,110px) var(--pad) var(--pad);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.that .lead{font-size:min(15vw,24vh)}
+.that h2{font-size:inherit;font-weight:inherit}
+.swap{list-style:none;position:relative;font-size:min(19vw,30vh)}
+.swap li{display:block;white-space:nowrap;width:max-content;max-width:none}
+.that.live .swap{height:.84em}
+.that.live .swap li{position:absolute;left:0;top:0;visibility:hidden;transform-origin:0 100%}
+.that.live .swap li.on{visibility:visible}
+.that-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-top:clamp(1.5rem,5vh,3.5rem)}
+.that-foot p{font-weight:800;font-size:clamp(1.05rem,1.9vw,1.7rem);line-height:1.08;max-width:22em;font-variation-settings:"wdth" 88,"wght" 800}
+.count{font-family:var(--lab);font-weight:900;font-size:clamp(1.5rem,3vw,2.6rem);font-variant-numeric:tabular-nums;white-space:nowrap}
+.that.k1{background:var(--ink);color:var(--bone)}
+.that.k2{background:var(--red);color:var(--ink)}
+.that.k3{background:var(--blue);color:var(--bone)}
+.that.k4{background:var(--bone);color:var(--red)}
+
+/* ---------- POSTERS ---------- */
+.posters{position:relative}
+.poster{position:relative;min-height:100svh;padding:clamp(64px,9vh,96px) var(--pad) var(--pad);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.posters.pinned{height:100svh;overflow:hidden}
+.posters.pinned .poster{position:absolute;inset:0;min-height:0;will-change:clip-path}
+.p-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:6px solid currentColor;padding-bottom:10px}
+.p-top .n{font-family:var(--lab);font-weight:900;font-size:clamp(1.3rem,2.4vw,2.2rem)}
+.p-title{font-size:min(13.5vw,19.5vh);margin:auto 0;padding:.12em 0}
+.p-title .fit{will-change:transform}
+.p-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem}
+.p-bot p{font-weight:700;font-size:clamp(1.02rem,1.75vw,1.65rem);line-height:1.12;max-width:27em;font-variation-settings:"wdth" 92,"wght" 700}
+.p-bot a{flex:none;font-family:var(--disp);font-weight:900;text-transform:uppercase;text-decoration:none;font-size:clamp(1rem,1.5vw,1.4rem);border-bottom:5px solid currentColor;padding-bottom:2px;font-variation-settings:"wdth" 70,"wght" 900;transition:font-variation-settings .3s cubic-bezier(.2,.9,.2,1)}
+.p-bot a:hover,.p-bot a:focus-visible{font-variation-settings:"wdth" 125,"wght" 900}
+
+/* ---------- ABOUT ---------- */
+.about{padding:clamp(80px,14vh,160px) var(--pad) clamp(60px,10vh,120px);overflow:hidden}
+.about h2{font-size:min(13vw,190px)}
+.about h2 .fit{color:var(--ink)}
+.about h2 .fit.hot{color:var(--red)}
+.about-copy{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad);margin-top:clamp(2rem,6vh,5rem)}
+.about-copy p{grid-column:span 5;font-weight:800;font-size:clamp(1.2rem,2.3vw,2.15rem);line-height:1.04;letter-spacing:-.01em;font-variation-settings:"wdth" 88,"wght" 800}
+.about-copy p:first-child{grid-column:2/span 5}
+
+/* ---------- CREDENTIALS ---------- */
+.creds{padding:clamp(70px,12vh,140px) 0 clamp(50px,9vh,110px);overflow:hidden}
+.creds-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;padding:0 var(--pad) 18px}
+.creds h2{font-size:clamp(3rem,10vw,10rem)}
+.logos{display:grid;grid-template-columns:330fr 400fr 420fr;border-top:6px solid var(--bone);border-bottom:6px solid var(--bone);list-style:none;transform-origin:50% 50%}
+.logos li{position:relative;padding:clamp(34px,6vw,90px) clamp(18px,3vw,48px) clamp(26px,4.4vw,64px);border-right:6px solid var(--bone);display:flex;flex-direction:column;justify-content:flex-end;gap:16px;min-width:0}
+.logos li:last-child{border-right:0}
+.logos li>span{position:absolute;top:14px;left:clamp(18px,3vw,48px)}
+.logos img{width:100%;height:auto;filter:brightness(0) invert(1) sepia(.12);will-change:clip-path}
+.logos li:hover{background:var(--red)}
+.logos li:hover img{filter:brightness(0)}
+.logos li:hover>span{color:var(--ink)}
+.creds-foot{padding:22px var(--pad) 0;font-weight:800;font-size:clamp(1.1rem,2vw,1.9rem);line-height:1.05;max-width:26em;font-variation-settings:"wdth" 88,"wght" 800}
+
+/* ---------- TESTIMONIALS ---------- */
+.said{position:relative;padding:clamp(80px,13vh,150px) var(--pad);overflow:hidden}
+.said h2{margin-bottom:clamp(4rem,10vh,6rem)}
+.mark{position:absolute;right:-2vw;top:-6vw;font-family:var(--disp);font-weight:900;font-size:60vw;line-height:1;color:var(--bone);pointer-events:none;user-select:none}
+.q{position:relative;margin:0 0 clamp(4rem,12vh,9rem);max-width:min(92vw,1180px)}
+.q:last-child{margin-bottom:0;margin-left:auto;text-align:right}
+.q blockquote{font-size:clamp(2.5rem,8.2vw,8.6rem);line-height:.86}
+.q figcaption{margin-top:1.2rem;font-size:clamp(.85rem,1.2vw,1.1rem)}
+.stamp{position:absolute;z-index:2;top:-2.6em;right:4%;background:var(--bone);color:var(--ink);font-family:var(--lab);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(.8rem,1.5vw,1.3rem);padding:.5em .8em;border:5px solid var(--ink);transform:rotate(7deg)}
+.q:last-child .stamp{right:auto;left:4%;transform:rotate(-6deg)}
+
+/* ---------- CONTACT ---------- */
+.contact{padding:clamp(80px,13vh,150px) var(--pad) var(--pad);overflow:hidden}
+.contact h2{font-size:min(30vw,440px)}
+.contact-sub{font-weight:800;font-size:clamp(1.2rem,2.3vw,2.15rem);line-height:1.04;max-width:20em;margin:clamp(1rem,3vh,2rem) 0 clamp(2.5rem,8vh,6rem);font-variation-settings:"wdth" 88,"wght" 800}
+form{display:block}
+.f{display:block;position:relative;margin-bottom:clamp(1.6rem,4.5vh,3.2rem)}
+.f label{display:flex;gap:.9em;margin-bottom:.2em;font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(.82rem,1.15vw,1.05rem);letter-spacing:.04em;font-variation-settings:"wdth" 62,"wght" 900;transition:font-variation-settings .4s cubic-bezier(.2,.9,.2,1)}
+.f label b{font-family:var(--lab);color:var(--red)}
+.f:focus-within label{font-variation-settings:"wdth" 125,"wght" 900}
+.f input,.f textarea{display:block;width:100%;appearance:none;background:transparent;border:0;border-bottom:8px solid var(--ink);border-radius:0;outline:0;color:var(--ink);font-family:var(--disp);font-weight:900;font-size:clamp(2.7rem,7.4vw,7.4rem);line-height:1.02;letter-spacing:-.02em;padding:.04em 0 .06em;font-variation-settings:"wdth" 68,"wght" 900;caret-color:var(--red);resize:none}
+.f textarea{min-height:2.3em}
+.f input::placeholder,.f textarea::placeholder{color:var(--ink);opacity:.16}
+.f input:focus,.f textarea:focus{border-bottom-color:var(--red)}
+.f input:focus-visible,.f textarea:focus-visible{box-shadow:0 8px 0 var(--red)}
+.send{display:block;width:100%;border:0;cursor:pointer;background:var(--ink);color:var(--bone);font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(3rem,11vw,11rem);line-height:.9;letter-spacing:-.02em;padding:.22em .1em .16em;text-align:left;white-space:nowrap;overflow:hidden;font-variation-settings:"wdth" 62,"wght" 900;transition:font-variation-settings .5s cubic-bezier(.2,.9,.2,1)}
+.send:hover,.send:focus-visible{background:var(--blue);font-variation-settings:"wdth" 125,"wght" 900}
+.send:active{background:var(--red);color:var(--ink)}
+.fine{margin-top:14px;font-size:.78rem}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 2rem;padding:20px var(--pad) 26px}
+
+/* success flip */
+.got{position:fixed;inset:0;z-index:80;background:var(--blue);color:var(--bone);display:flex;flex-direction:column;justify-content:center;padding:var(--pad);visibility:hidden;clip-path:inset(100% 0 0 0);overflow:hidden}
+.got.on{visibility:visible;clip-path:inset(0 0 0 0)}
+.got.alt{background:var(--red);color:var(--ink)}
+.got h2{font-size:min(30vw,58vh)}
+.got p{font-weight:800;font-size:clamp(1.1rem,2.2vw,2rem);line-height:1.05;max-width:22em;margin-top:clamp(1rem,4vh,2.5rem);font-variation-settings:"wdth" 88,"wght" 800}
+.got .btn{align-self:flex-start}
+
+:focus-visible{outline:4px solid currentColor;outline-offset:4px}
+
+/* ---------- SMALL ---------- */
+@media (max-width:1099px){
+  .stage{height:min(66svh,600px);min-height:440px}
+  .row-a{top:58px}
+  .row-b{font-size:33vw}
+  .cut{height:calc(100% - 78px)}
+  .flank{position:static;width:auto;padding:0 var(--pad)}
+  .flank-l{padding-top:26px}
+  .flank-r{padding-top:22px;padding-bottom:64px}
+  .role{font-size:clamp(2rem,9.5vw,3.4rem)}
+  .role-sub{display:none}
+  .prop{font-size:clamp(1.35rem,5.6vw,2rem)}
+  .scrollcue{display:none}
+  .that-foot{flex-direction:column;align-items:flex-start;gap:1rem}
+  .p-bot{flex-direction:column;align-items:flex-start;gap:1.1rem}
+  .p-title{font-size:min(24vw,13.5vh)}
+  .about h2{font-size:22vw}
+  .about-copy{display:block}
+  .about-copy p+p{margin-top:1.2rem}
+  .logos{grid-template-columns:1fr}
+  .logos li{border-right:0;border-bottom:6px solid var(--bone);padding:52px var(--pad) 30px}
+  .logos li:last-child{border-bottom:0}
+  .logos li>span{left:var(--pad)}
+  .creds-head{flex-direction:column;align-items:flex-start}
+  .that .lead{font-size:min(22vw,18vh)}
+  .swap{font-size:min(26vw,20vh)}
+}
+@media (prefers-reduced-motion:reduce){
+  .scrollcue span{animation:none}
+  *{transition-duration:0s!important}
+}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a href="index.html">&larr; All mock-ups</a>
+  <a href="#contact">Talk to me</a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero c-blue" id="top">
+  <div class="stage">
+    <h1 aria-label="Annabelle Body">
+      <span class="row row-a" aria-hidden="true"><span class="row-in" data-letters>ANNABELLE</span></span>
+      <span class="row row-b" aria-hidden="true"><span class="row-in" data-letters>BODY</span></span>
+    </h1>
+    <div class="cut"><img src="assets/photos/arms.webp" width="879" height="1200" alt="Annabelle Body, laughing, both hands raised wide" fetchpriority="high"></div>
+  </div>
+  <div class="flank flank-l">
+    <p class="role">Fractional<br>AI Strategist</p>
+    <p class="role-sub">For CEOs and founders who don't have an AI leader. Yet.</p>
+  </div>
+  <div class="flank flank-r">
+    <p class="prop">I tell you where AI <em>makes money</em> in your business. And where it's a distraction.</p>
+    <a class="btn" href="#contact">Talk to me <i>&rarr;</i></a>
+  </div>
+</section>
+
+<!-- MARQUEES -->
+<div class="mq big c-ink" data-dir="-1" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span>Boardroom</span><b></b><span>Build</span><b class="o"></b><span>Boardroom</span><b></b><span>Build</span><b class="o"></b></div></div></div>
+<div class="mq big wide c-red" data-dir="1" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span>Senior AI leader</span><b class="o"></b><span>No full-time hire</span><b></b></div></div></div>
+<p class="sr">She sits between the boardroom and the build. A senior AI leader, without the full-time hire.</p>
+
+<!-- AI THAT ___ -->
+<section class="that c-bone" id="that">
+  <h2 class="big lead">AI that</h2>
+  <ul class="swap big">
+    <li class="on">makes money.</li>
+    <li>ships.</li>
+    <li>people use.</li>
+    <li>pays back.</li>
+    <li>isn't a demo.</li>
+  </ul>
+  <div class="that-foot">
+    <p>Everything else is a distraction. I'll tell you which is which.</p>
+    <span class="count" aria-hidden="true"><span id="cnt">01</span>/05</span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="posters" id="services" aria-label="Services">
+  <h2 class="sr">Three ways to work with me</h2>
+  <article class="poster c-ink">
+    <div class="p-top"><span class="n">01/03</span><span class="lab">Fixed scope. No drift.</span></div>
+    <h3 class="p-title big" aria-label="AI Strategy and Roadmap"><span class="fit" data-letters>AI Strategy</span><span class="fit" data-letters>&amp; Roadmap</span></h3>
+    <div class="p-bot"><p>A fixed-scope diagnostic. Where AI actually creates value in your business. What to do first. The business case for doing it.</p><a href="#contact">Start here &rarr;</a></div>
+  </article>
+  <article class="poster c-red">
+    <div class="p-top"><span class="n">02/03</span><span class="lab">A day or two a week.</span></div>
+    <h3 class="p-title big" aria-label="Fractional Chief AI Officer"><span class="fit" data-letters>Fractional</span><span class="fit" data-letters>Chief AI</span><span class="fit" data-letters>Officer</span></h3>
+    <div class="p-bot"><p>A senior AI lead on your leadership team, a day or two a week. I own the strategy. I make sure it ships.</p><a href="#contact">Borrow me &rarr;</a></div>
+  </article>
+  <article class="poster c-blue">
+    <div class="p-top"><span class="n">03/03</span><span class="lab">Real work. Not a webinar.</span></div>
+    <h3 class="p-title big" aria-label="Team Training and Workshops"><span class="fit" data-letters>Team Training</span><span class="fit" data-letters>&amp; Workshops</span></h3>
+    <div class="p-bot"><p>Executive briefings and hands-on sessions. Your people leave using AI on their real work. Not on a toy example.</p><a href="#contact">Book a session &rarr;</a></div>
+  </article>
+</section>
+
+<!-- ABOUT -->
+<section class="about c-bone" id="about">
+  <h2 class="big" aria-label="Scientist. Accountant. Restructuring operator. Now, AI.">
+    <span class="fit acc" data-letters>Scientist.</span>
+    <span class="fit acc" data-letters>Accountant.</span>
+    <span class="fit acc" data-letters>Restructuring</span>
+    <span class="fit acc" data-letters>operator.</span>
+    <span class="fit acc hot" data-letters>Now, AI.</span>
+  </h2>
+  <div class="about-copy">
+    <p>Science taught me to check. Accounting taught me to count. Restructuring taught me to find the value fast.</p>
+    <p>So I sit between the boardroom and the build. You get a senior AI leader. You skip the full-time hire.</p>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="creds c-ink" id="background">
+  <div class="creds-head">
+    <h2 class="big vel" aria-label="Before this"><span data-letters>Before this</span></h2>
+    <span class="lab">Background. Not a client list.</span>
+  </div>
+  <ul class="logos">
+    <li><span class="lab">Previously</span><img src="assets/logos/deloitte.svg" width="330" height="70" alt="Deloitte"></li>
+    <li><span class="lab">Previously</span><img src="assets/logos/alixpartners.svg" width="400" height="70" alt="AlixPartners"></li>
+    <li><span class="lab">Trained at &middot; MBA, Class of 2026</span><img src="assets/logos/hbs.svg" width="420" height="70" alt="Harvard Business School"></li>
+  </ul>
+  <p class="creds-foot">Where I learned the job. Nobody here is vouching for me. That part comes next.</p>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="said c-red" id="said">
+  <div class="mark" aria-hidden="true">&ldquo;</div>
+  <h2 class="lab">Kind words (pending)</h2>
+  <figure class="q">
+    <span class="stamp">Placeholder</span>
+    <blockquote class="big">&ldquo;Placeholder. A real client says something nice here soon.&rdquo;</blockquote>
+    <figcaption class="lab">Client name, Title, Company</figcaption>
+  </figure>
+  <figure class="q">
+    <span class="stamp">Still a placeholder</span>
+    <blockquote class="big">&ldquo;Also a placeholder. Real quote coming soon. I don't make them up.&rdquo;</blockquote>
+    <figcaption class="lab">Client name, Title, Company</figcaption>
+  </figure>
+</section>
+
+<!-- CONTACT -->
+<section class="contact c-bone" id="contact">
+  <h2 class="big" aria-label="Talk."><span class="fit" data-letters data-fitw="1">Talk.</span></h2>
+  <p class="contact-sub">Tell me what you need. I'll tell you if AI is the answer. Sometimes it isn't.</p>
+  <form id="form" novalidate>
+    <div class="f"><label for="f-name"><b>01</b> Your name</label><input id="f-name" name="name" type="text" autocomplete="name" placeholder="Name" required></div>
+    <div class="f"><label for="f-email"><b>02</b> Email</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
+    <div class="f"><label for="f-co"><b>03</b> Company</label><input id="f-co" name="company" type="text" autocomplete="organization" placeholder="Company"></div>
+    <div class="f"><label for="f-need"><b>04</b> What do you need?</label><textarea id="f-need" name="need" rows="2" placeholder="A plan. A leader. A workshop."></textarea></div>
+    <button class="send" type="submit">Send it &rarr;</button>
+    <p class="fine lab" id="err" role="alert"></p>
+  </form>
+</section>
+
+</main>
+
+<footer class="c-ink lab">
+  <span>Annabelle Body &middot; Fractional AI Strategist</span>
+  <span>Mock-up 03 &middot; LOUD</span>
+</footer>
+
+<div class="got" id="got" role="status" aria-live="polite" aria-hidden="true">
+  <h2 class="big" aria-label="Got it."><span class="fit" data-letters data-fitw="1">Got it.</span></h2>
+  <p>Nothing was actually sent. This is a mock-up. In the real one, this lands in my inbox and I write back.</p>
+  <button class="btn" type="button" id="again">Go again <i>&#8635;</i></button>
+</div>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+'use strict';
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var hasG = !!(window.gsap && window.ScrollTrigger);
+if(hasG) gsap.registerPlugin(ScrollTrigger);
+var $ = function(s,c){return (c||document).querySelector(s)}, $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+var WMIN=62, WMAX=125;
+var clamp=function(v,a,b){return Math.max(a,Math.min(b,v))};
+function fvs(el,w,g){el.style.fontVariationSettings='"wdth" '+w.toFixed(1)+', "wght" '+(g||900)}
+
+/* ---- split into letters ---- */
+$$('[data-letters]').forEach(function(el){
+  var t=el.textContent; el.textContent='';
+  t.split('').forEach(function(ch){
+    if(ch===' '){el.appendChild(document.createTextNode(' '));return}
+    var s=document.createElement('span'); s.className='l'; s.textContent=ch; s.setAttribute('aria-hidden','true'); el.appendChild(s);
+  });
+});
+
+/* ---- fit a line to a width using the width axis first, font-size second ---- */
+function fitLine(el,maxW){
+  el.style.fontSize='';
+  fvs(el,WMIN);
+  var w=el.offsetWidth;
+  if(w>maxW){ var fs=parseFloat(getComputedStyle(el).fontSize); el.style.fontSize=(fs*maxW/w*0.995)+'px'; el._w=WMIN; return }
+  fvs(el,WMAX);
+  if(el.offsetWidth<=maxW){ el._w=WMAX; return }
+  var lo=WMIN, hi=WMAX;
+  for(var i=0;i<9;i++){ var mid=(lo+hi)/2; fvs(el,mid); if(el.offsetWidth>maxW) hi=mid; else lo=mid }
+  fvs(el,lo); el._w=lo;
+}
+function avail(el){ var p=el.parentElement; while(p && getComputedStyle(p).display==='inline') p=p.parentElement; var cs=getComputedStyle(p); return p.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight) }
+function fitAll(){
+  $$('.fit').forEach(function(el){ fitLine(el, avail(el)) });
+  $$('.swap li').forEach(function(el){ fitLine(el, avail(el)) });
+  fitHero();
+}
+
+/* ---- hero: letters swell under the cursor ---- */
+var rows=$$('.row').map(function(r){return {el:r, ls:$$('.l',r), cur:[]}});
+function heroState(f){
+  rows.forEach(function(r){
+    var n=r.ls.length;
+    r.ls.forEach(function(l,i){
+      var li=(i+.5)/n, d=Math.abs(f-li), t=clamp(1-d/.5,0,1); t=t*t*(3-2*t);
+      var tw=WMIN+(WMAX-WMIN)*t, tg=520+380*t;
+      var c=r.cur[i]||(r.cur[i]={w:tw,g:tg});
+      c.w+=(tw-c.w)*.14; c.g+=(tg-c.g)*.14;
+      fvs(l,c.w,Math.round(c.g));
+    });
+  });
+}
+function fitHero(){
+  var vw=document.documentElement.clientWidth, vh=window.innerHeight;
+  rows.forEach(function(r,ri){
+    r.cur=[]; r.el.style.fontSize='100px'; heroState(.5);
+    var w=r.el.offsetWidth, target=vw*(ri===0?1.0:(vw<1100?.98:.94));
+    var fs=100*target/w;
+    if(ri===1) fs=Math.min(fs, vh*.5);
+    r.el.style.fontSize=fs+'px';
+  });
+}
+
+var ready=false;
+function boot(){ if(ready) return; ready=true; fitAll(); start() }
+if(document.fonts && document.fonts.load){
+  Promise.all([document.fonts.load('900 40px Archivo'),document.fonts.load('800 12px Anybody')]).then(boot,boot);
+  setTimeout(boot,1200);
+} else boot();
+
+var rz; window.addEventListener('resize',function(){ clearTimeout(rz); var w0=window.innerWidth; rz=setTimeout(function(){ if(!ready) return; if(start.w!==window.innerWidth){ start.w=window.innerWidth; fitAll(); if(hasG) ScrollTrigger.refresh() } },180) });
+
+/* ---- contact form (works with or without animation) ---- */
+var form=$('#form'), got=$('#got'), flips=0;
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var name=$('#f-name'), email=$('#f-email'), err=$('#err');
+  if(!name.value.trim()){ err.textContent='Name first. Then the rest.'; name.focus(); return }
+  if(!/^\S+@\S+\.\S+$/.test(email.value.trim())){ err.textContent='That email looks off. One more go.'; email.focus(); return }
+  err.textContent='';
+  got.classList.toggle('alt', (flips++)%2===1);
+  got.setAttribute('aria-hidden','false');
+  var line=$('.fit',got);
+  if(hasG && !RM){
+    gsap.killTweensOf(got);
+    gsap.set(got,{visibility:'visible'});
+    gsap.fromTo(got,{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.38,ease:'power4.inOut',onComplete:function(){got.classList.add('on')}});
+    var o={w:WMIN}; gsap.to(o,{w:line._w||WMAX,duration:.9,delay:.22,ease:'elastic.out(1,.55)',onUpdate:function(){fvs(line,o.w)}});
+    gsap.fromTo($$('.l',got),{scaleY:0},{scaleY:1,duration:.5,delay:.2,stagger:.045,ease:'back.out(2.4)'});
+    gsap.fromTo($$('p,.btn',got),{y:30,opacity:0},{y:0,opacity:1,duration:.4,delay:.6,stagger:.08,ease:'power3.out'});
+  } else got.classList.add('on');
+  $('#again').focus({preventScroll:true});
+});
+$('#again').addEventListener('click',function(){
+  form.reset(); got.setAttribute('aria-hidden','true');
+  if(hasG && !RM){ gsap.to(got,{clipPath:'inset(0% 0% 100% 0%)',duration:.32,ease:'power4.in',onComplete:function(){got.classList.remove('on');gsap.set(got,{clearProps:'clipPath,visibility'})}}) }
+  else got.classList.remove('on');
+  $('#f-name').focus({preventScroll:true});
+});
+var ta=$('#f-need'); ta.addEventListener('input',function(){ ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px' });
+
+/* ================= motion ================= */
+function start(){
+  start.w=window.innerWidth;
+  if(RM || !hasG){ heroState(.5); for(var k=0;k<40;k++) heroState(.5); return }
+
+  var hero=$('.hero'), stage=$('.stage');
+  var px=.5, py=.5, lastMove=-1e9, heroOn=true, pageOn=true;
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  stage.addEventListener('pointermove',function(e){ px=e.clientX/window.innerWidth; py=e.clientY/window.innerHeight; lastMove=performance.now() });
+  stage.addEventListener('pointerdown',function(e){ px=e.clientX/window.innerWidth; lastMove=performance.now() });
+  new IntersectionObserver(function(en){ heroOn=en[0].isIntersecting },{threshold:0}).observe(stage);
+  document.addEventListener('visibilitychange',function(){ pageOn=!document.hidden });
+
+  /* entrance: type grows up, she pops in */
+  gsap.from($$('.row .l'),{scaleY:0,duration:.55,ease:'back.out(1.9)',stagger:.035});
+  gsap.from('.cut img',{yPercent:105,duration:.75,delay:.25,ease:'back.out(1.5)'});
+  gsap.from('.role',{scale:0,rotation:-20,duration:.45,delay:.75,ease:'back.out(2.2)'});
+  gsap.from(['.role-sub','.prop','.hero .btn'],{y:30,opacity:0,duration:.45,delay:.85,stagger:.08,ease:'power3.out',clearProps:'transform,opacity'});
+
+  var cutX=gsap.quickTo('.cut img','x',{duration:.7,ease:'power3.out'});
+  var aX=gsap.quickTo('.row-a .row-in','x',{duration:.9,ease:'power3.out'});
+  var bX=gsap.quickTo('.row-b .row-in','x',{duration:.5,ease:'power3.out'});
+
+  /* scroll parallax: she sinks behind BODY, rows slide apart */
+  gsap.to('.cut',{yPercent:14,ease:'none',scrollTrigger:{trigger:stage,start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.row-a',{xPercent:-58,ease:'none',scrollTrigger:{trigger:stage,start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.row-b',{xPercent:-42,ease:'none',scrollTrigger:{trigger:stage,start:'top top',end:'bottom top',scrub:true}});
+
+  /* velocity */
+  var lastY=window.scrollY, vel=0, lastT=performance.now();
+  var mqs=$$('.mq').map(function(m){
+    var track=$('.mq-track',m), set=$('.mq-set',m), sw=set.offsetWidth, n=Math.max(2,Math.ceil(window.innerWidth*2/sw)+1);
+    for(var i=1;i<n;i++) track.appendChild(set.cloneNode(true));
+    var o={el:m,track:track,sw:sw,x:0,dir:+m.dataset.dir,on:false};
+    new IntersectionObserver(function(en){o.on=en[0].isIntersecting},{rootMargin:'100px'}).observe(m);
+    return o;
+  });
+  var accs=$$('.acc'), about=$('.about'), aboutOn=false;
+  new IntersectionObserver(function(en){aboutOn=en[0].isIntersecting},{rootMargin:'100px'}).observe(about);
+  var velEl=$('.vel span'), velOn=false, logos=$('.logos');
+  new IntersectionObserver(function(en){velOn=en[0].isIntersecting},{rootMargin:'100px'}).observe($('.creds'));
+  var quotes=$$('.q blockquote');
+
+  gsap.ticker.add(function(){
+    if(!pageOn) return;
+    var now=performance.now(), dt=Math.min(.05,(now-lastT)/1000)||.016; lastT=now;
+    var y=window.scrollY, raw=(y-lastY)/dt; lastY=y;
+    vel+=(raw-vel)*.12; if(Math.abs(vel)<.5) vel=0;
+    var vn=clamp(vel/2600,-1,1), va=Math.abs(vn);
+
+    if(heroOn){
+      var idle=(now-lastMove)>2200;
+      var f=idle? .5+.47*Math.sin(now/1000*1.15) : px;
+      heroState(f);
+      if(fine){ var dx=(idle? .5+.2*Math.sin(now/1000*1.15) : px)-.5; cutX(dx*-44); aX(dx*70); bX(dx*-110) }
+    }
+    for(var i=0;i<mqs.length;i++){ var m=mqs[i]; if(!m.on) continue;
+      m.x+=m.dir*(90+va*1900)*dt*(m.sw/1400+.5);
+      var mx=((m.x%m.sw)+m.sw)%m.sw;
+      m.track.style.transform='translate3d('+(-mx)+'px,0,0) skewX('+(vn*-m.dir*16).toFixed(2)+'deg)';
+    }
+    if(aboutOn){ var vh=window.innerHeight;
+      for(var j=0;j<accs.length;j++){ var a=accs[j], r=a.getBoundingClientRect(), c=(r.top+r.height/2-vh*.52)/(vh*.55), p=clamp(1-Math.abs(c),0,1); p=p*p*(3-2*p);
+        var w=WMIN+((a._w||WMAX)-WMIN)*p; if(a._lw===undefined||Math.abs(a._lw-w)>.25){ a._lw=w; fvs(a,w,Math.round(420+480*p)) } }
+    }
+    if(velOn){ var vw=WMIN+(WMAX-WMIN)*va; if(Math.abs((velEl._lw||0)-vw)>.4){ velEl._lw=vw; fvs(velEl,vw) }
+      logos.style.transform='scaleX('+(1+va*.16).toFixed(3)+') skewX('+(vn*-7).toFixed(2)+'deg)';
+      for(var q=0;q<quotes.length;q++) quotes[q].style.transform='skewX('+(vn*-9).toFixed(2)+'deg)';
+    } else { for(var q2=0;q2<quotes.length;q2++) quotes[q2].style.transform='skewX('+(vn*-9).toFixed(2)+'deg)' }
+  });
+
+  /* letter wobble */
+  if(fine) $$('.l').forEach(function(l){
+    if(l.closest('.row')) return;
+    l.addEventListener('pointerenter',function(){
+      gsap.killTweensOf(l);
+      gsap.fromTo(l,{rotation:(Math.random()<.5?-1:1)*(8+Math.random()*10),scaleY:1.22,yPercent:-9},{rotation:0,scaleY:1,yPercent:0,duration:1.1,ease:'elastic.out(1.1,.28)'});
+    });
+  });
+
+  /* AI THAT ___ : pinned, one word swaps in place, colours hard-cut */
+  var that=$('.that'), items=$$('.swap li'), cnt=$('#cnt'), cur=0;
+  that.classList.add('live');
+  function show(i){
+    if(i===cur) return; cur=i;
+    items.forEach(function(li,k){ li.classList.toggle('on',k===i) });
+    that.classList.remove('k1','k2','k3','k4'); if(i) that.classList.add('k'+i);
+    cnt.textContent='0'+(i+1);
+    var li=items[i], o={w:WMIN}; gsap.killTweensOf(li);
+    gsap.fromTo(li,{scaleY:.2},{scaleY:1,duration:.5,ease:'back.out(2.6)'});
+    li._tw&&li._tw.kill(); li._tw=gsap.to(o,{w:li._w||WMAX,duration:.55,ease:'expo.out',onUpdate:function(){fvs(li,o.w)}});
+    gsap.fromTo('.that .lead',{x:-14},{x:0,duration:.35,ease:'power3.out'});
+  }
+  ScrollTrigger.create({trigger:that,start:'top top',end:function(){return '+='+window.innerHeight*2.6},pin:true,anticipatePin:1,
+    onUpdate:function(s){ show(Math.min(items.length-1,Math.floor(s.progress*items.length*.999))) }});
+
+  /* posters wipe in */
+  var wrap=$('.posters'), ps=$$('.poster'); wrap.classList.add('pinned');
+  var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:wrap,start:'top top',end:function(){return '+='+window.innerHeight*2.4},pin:true,scrub:.35,anticipatePin:1}});
+  tl.to({}, {duration:.25})
+    .fromTo(ps[1],{clipPath:'inset(0% 0% 0% 100%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1})
+    .fromTo($$('.fit',ps[1]),{xPercent:function(i){return 30+i*30}},{xPercent:0,duration:1,ease:'power2.out'},'<')
+    .to($$('.fit',ps[0]),{xPercent:function(i){return -12-i*8},duration:1},'<')
+    .to({}, {duration:.5})
+    .fromTo(ps[2],{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1})
+    .fromTo($$('.fit',ps[2]),{yPercent:function(i){return 60+i*60}},{yPercent:0,duration:1,ease:'power2.out'},'<')
+    .to({}, {duration:.45});
+  gsap.from($$('.fit',ps[0]),{xPercent:function(i){return (i%2?1:-1)*22},ease:'none',scrollTrigger:{trigger:wrap,start:'top bottom',end:'top top',scrub:true}});
+
+  /* credentials: logos wipe in one by one */
+  gsap.from('.logos img',{clipPath:'inset(0% 100% 0% 0%)',duration:.7,ease:'power4.inOut',stagger:.14,scrollTrigger:{trigger:'.logos',start:'top 78%'}});
+  gsap.from('.logos li>span',{opacity:0,duration:.01,stagger:.14,delay:.3,scrollTrigger:{trigger:'.logos',start:'top 78%'}});
+
+  /* testimonials: placeholder stamps slam down */
+  $$('.q').forEach(function(q){
+    var st=$('.stamp',q);
+    gsap.from(st,{scale:4,opacity:0,rotation:'+=30',duration:.32,ease:'power4.in',scrollTrigger:{trigger:q,start:'top 62%'},
+      onComplete:function(){ gsap.fromTo(q,{x:-7},{x:0,duration:.5,ease:'elastic.out(1.4,.2)'}) }});
+  });
+  gsap.to('.mark',{yPercent:38,ease:'none',scrollTrigger:{trigger:'.said',start:'top bottom',end:'bottom top',scrub:true}});
+
+  /* contact title stretches open as it arrives */
+  var talk=$('.contact .fit'), to={w:WMIN};
+  gsap.to(to,{w:function(){return talk._w||WMAX},ease:'none',scrollTrigger:{trigger:'.contact',start:'top 90%',end:'top 15%',scrub:true,invalidateOnRefresh:true},onUpdate:function(){fvs(talk,to.w)}});
+  gsap.from('.f',{y:50,opacity:0,duration:.5,ease:'power3.out',stagger:.07,scrollTrigger:{trigger:'#form',start:'top 82%'},clearProps:'transform,opacity'});
+
+  window.addEventListener('load',function(){ScrollTrigger.refresh()});
+}
+})();
+</script>
+</body>
+</html>
