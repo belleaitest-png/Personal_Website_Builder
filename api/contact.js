@@ -6,10 +6,35 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, message, newsletter } = req.body || {};
+  const body = req.body || {};
+
+  // Honeypot: real visitors never send this field. Pretend success, send nothing.
+  if (typeof body.website === 'string' && body.website !== '') {
+    return res.status(200).json({ ok: true });
+  }
+
+  const { newsletter } = body;
+
+  if (!body.name || !body.email || !body.message) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Coerce to trimmed strings; strip CR/LF from values that reach headers/subject.
+  const name    = String(body.name).replace(/[\r\n]/g, '').trim();
+  const email   = String(body.email).replace(/[\r\n]/g, '').trim();
+  const message = String(body.message).trim();
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Invalid email' });
+  }
+  if (name.length > 200) {
+    return res.status(400).json({ error: 'Name too long' });
+  }
+  if (message.length > 5000) {
+    return res.status(400).json({ error: 'Message too long' });
   }
 
   const RESEND_KEY    = process.env.RESEND_API_KEY;
@@ -92,8 +117,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Save to Notion (non-blocking)
-    saveToNotion();
+    // 1. Save to Notion (awaited so the work finishes before the response; failures only logged)
+    try {
+      await saveToNotion();
+    } catch (err) {
+      console.error('Notion save failed:', err.message);
+    }
 
     // 2. Notify Belle
     const newsletterTag = newsletter ? ' + newsletter signup' : '';
@@ -118,12 +147,13 @@ export default async function handler(req, res) {
         </div>`,
     });
 
-    // 2. Auto-reply to sender
+    // 3. Auto-reply to sender (best-effort)
     const firstName = e(name.split(' ')[0]);
     const newsletterLine = newsletter
       ? `<p style="font-size:15px;line-height:1.8;color:rgba(245,237,216,.75);margin-bottom:16px;">I have added you to the newsletter - you will hear from me when new research, protocols, and writing drops.</p>`
       : '';
-    await send({
+    try {
+      await send({
       from:    'Belle Body <hello@annabellebody.com>',
       to:      [email],
       subject: 'Got your message - Belle Body',
@@ -137,7 +167,11 @@ export default async function handler(req, res) {
           <a href="https://annabellebody.com" style="display:inline-block;padding:13px 26px;background:#8B1A4A;color:#fff;text-decoration:none;font-family:sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;">Explore the Site</a>
           <p style="font-family:sans-serif;font-size:12px;color:rgba(245,237,216,.2);margin-top:36px;">Belle Body - annabellebody.com</p>
         </div>`,
-    });
+      });
+    } catch (err) {
+      // Best-effort: owner already notified, so don't fail the request.
+      console.error('Auto-reply failed:', err.message);
+    }
 
     return res.status(200).json({ ok: true });
 
@@ -152,5 +186,6 @@ function e(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
