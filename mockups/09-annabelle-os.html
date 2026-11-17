@@ -41,7 +41,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2.2;stroke
 /* ---------- boot ---------- */
 #boot{display:none;position:fixed;inset:0;z-index:9000;background:var(--ink);color:#7FE3D4;font:22px/1.25 var(--crt);padding:9vh 7vw;flex-direction:column;justify-content:flex-end;animation:bootfail .01s 3.2s forwards}
 html.booting #boot{display:flex}
-#boot .bl{white-space:pre;overflow:hidden}
+#boot .bl{white-space:pre;overflow:hidden;font-variant-ligatures:none}
 #boot .bl b{color:var(--tang);font-weight:400}
 #boot .bl.big{font-size:44px;color:var(--paper);margin-bottom:.3em}
 @keyframes bootfail{to{visibility:hidden}}

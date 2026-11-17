@@ -68,7 +68,7 @@ h1{font-family:var(--serif);font-weight:380;font-size:clamp(60px,8.3vw,128px);li
 .polaroid figcaption{font-family:var(--hand);font-weight:600;font-size:25px;text-align:center;padding:9px 0 13px;line-height:1.1}
 .tape{position:absolute;z-index:2;width:112px;height:30px;background:rgba(255,228,92,.72);box-shadow:0 1px 2px rgba(0,0,0,.1);clip-path:polygon(0 0,4% 30%,0 60%,3% 100%,97% 100%,100% 70%,96% 40%,100% 0)}
 .tape.t1{left:-34px;top:-10px;transform:rotate(-38deg)}.tape.t2{right:-36px;top:-6px;transform:rotate(34deg)}
-.thatsme{position:absolute;left:-152px;top:34%;width:190px}
+.thatsme{position:absolute;left:-178px;bottom:-78px;width:190px}
 .scrollcue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:24px;color:var(--g);white-space:nowrap}
 .scrollcue span{display:inline-block;animation:bob 1.4s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(6px)}}
@@ -143,18 +143,18 @@ h3{font-family:var(--serif);font-weight:420;font-size:clamp(31px,3.5vw,50px);lin
 footer{padding:40px 0 70px;text-align:center}
 footer .hand{font-size:28px;color:var(--g)}
 footer small{display:block;margin-top:8px;font-size:15px;color:var(--g)}
-footer svg{width:min(360px,70%);margin:0 auto 14px}
+footer svg.sk{width:min(360px,70%);margin:0 auto 14px}
 
 @media (max-width:860px){
   :root{--m:1.45}
   body{font-size:19px}
   .topnav{display:none}
-  .hero{padding:86px 0 90px;min-height:0}
+  .hero{padding:86px 0 190px;min-height:0}
   .hero .wrap,.between .wrap,.svc,.contact .wrap{grid-template-columns:minmax(0,1fr)}
   .kicker{font-size:23px}
   h1{font-size:clamp(54px,17vw,86px)}
   .me{width:min(290px,76%);margin-top:74px}
-  .thatsme{left:-56px;top:-92px;width:170px}
+  .thatsme{left:-34px;bottom:-128px;width:160px;transform:rotate(-38deg)}
   .svc.flip .svc-txt{order:0}
   .pins>svg.string{display:none}
   .pins{grid-template-columns:1fr;gap:44px;justify-items:center;margin-top:50px}
@@ -338,6 +338,7 @@ var canAnim=!!(window.gsap&&window.ScrollTrigger&&window.DrawSVGPlugin)&&!reduce
 if(canAnim) gsap.registerPlugin(ScrollTrigger,DrawSVGPlugin);
 
 /* ============ a tiny "rough" pen: every stroke is jittered, bowed and overshoots like a real marker ============ */
+var TS=window.innerWidth<=860?1.2:1;
 function rng(seed){ var s=seed>>>0||1; return function(){ s=(Math.imul(s,1664525)+1013904223)>>>0; return s/4294967296; }; }
 function f(n){ return (Math.round(n*10)/10); }
 function Pen(svg,seed){ this.svg=svg; this.r=rng(seed); this.rough=1; }
@@ -365,7 +366,7 @@ Pen.prototype={
   dashes:function(x1,y1,x2,y2,cls,w){ var L=Math.hypot(x2-x1,y2-y1), n=Math.round(L/22), d='';
     for(var i=0;i<n;i++){ var a=i/n, b=(i+.55)/n; d+='M'+f(x1+(x2-x1)*a+this.j(1.2))+' '+f(y1+(y2-y1)*a+this.j(1.2))+'L'+f(x1+(x2-x1)*b+this.j(1.2))+' '+f(y1+(y2-y1)*b+this.j(1.2)); }
     return this.path(d,cls,w); },
-  text:function(x,y,str,cls,size,rot,anchor){ var e=this.add('text',{x:x,y:y,'font-size':size||28,'text-anchor':anchor||'middle'},'hw '+(cls||'')); if(rot) e.setAttribute('transform','rotate('+rot+' '+x+' '+y+')'); e.textContent=str; return e; },
+  text:function(x,y,str,cls,size,rot,anchor){ var e=this.add('text',{x:x,y:y,'font-size':Math.round((size||28)*TS),'text-anchor':anchor||'middle'},'hw '+(cls||'')); if(rot) e.setAttribute('transform','rotate('+rot+' '+x+' '+y+')'); e.textContent=str; return e; },
   dot:function(x,y,r,cls){ return this.add('ellipse',{cx:f(x+this.j(1)),cy:f(y+this.j(1)),rx:f(r+this.j(1)),ry:f(r+this.j(1.2))},'pop '+cls); },
   cross:function(x,y,s,cls,w){ this.line(x-s,y-s,x+s,y+s,cls,w); this.line(x+s,y-s,x-s,y+s,cls,w); },
   /* stick figure: (x,y) is the head centre */
@@ -380,7 +381,7 @@ Pen.prototype={
 };
 
 var SK={
-  thatsme:function(p){ p.text(72,40,"that's me",'r',40,-8); p.arrow([[92,58],[112,104],[178,112]],'r',3.4); },
+  thatsme:function(p){ p.text(74,128,"that's me",'r',40,-6); p.arrow([[84,92],[104,46],[172,30]],'r',3.4); },
   between:function(p){
     p.rect(22,130,186,140,'',3.4); p.text(115,112,'the boardroom','b',32);
     p.line(52,236,180,236,'',3); [72,115,158].forEach(function(x,i){ p.ellipse(x,196-(i==1?6:0),12,13,'',2.6); p.line(x,210-(i==1?6:0),x,234,'',2.6); });
@@ -388,8 +389,8 @@ var SK={
     p.rect(520,214,54,34,'',2.6); p.rect(580,214,54,34,'',2.6); p.rect(550,174,54,34,'',2.6); p.text(642,190,'</>','',26);
     p.figure(350,150,1.35,'b','up',3.6);
     p.arrow([[296,196],[256,190],[222,196]],'',3,true); p.arrow([[404,196],[446,190],[480,196]],'',3,true);
-    p.text(258,172,'the why','',26,-3); p.text(442,172,'the how','',26,3);
-    p.ellipse(350,206,64,112,'r',3.6); p.text(350,366,'me','r',44,-4);
+    p.text(250,158,'the why','',25,-4); p.text(452,158,'the how','',25,4);
+    p.ellipse(350,206,56,112,'r',3.6); p.text(350,366,'me','r',44,-4);
   },
   matrix:function(p){
     p.line(84,410,84,44,'',3.6,true); p.head(84,100,84,40,'',3.6); p.line(84,410,560,410,'',3.6,true); p.head(500,410,564,410,'',3.6);

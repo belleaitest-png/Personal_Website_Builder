@@ -153,7 +153,7 @@ kbd{font:600 .9em var(--body);border:1px solid currentColor;border-radius:3px;pa
 .week div i{position:absolute;inset:0;background:var(--acc);transform-origin:0 100%;z-index:0}
 .week div.half i{background:repeating-linear-gradient(135deg,var(--acc) 0 .4em,#FFC2A6 .4em .8em)}
 .week div span{position:relative;z-index:1}
-.week .on span{color:#fff}
+.week .on span{color:#fff}.week .half span{background:#fff;color:var(--navy);padding:0 .3em;margin-left:-.3em}
 .facts{margin-top:1.2em;display:grid;gap:0}
 .facts div{display:grid;grid-template-columns:6.4em 1fr;gap:1em;padding:.6em 0;border-bottom:1px solid var(--line);font-size:.95em}
 .facts dt{font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em;font-size:.82em;font-weight:700;color:var(--ink2);padding-top:.15em}
@@ -186,7 +186,7 @@ table{border-collapse:collapse;width:100%}
 
 /* voice */
 .quotes{display:grid;gap:1.4em}
-.qc{position:relative;border:1px solid var(--line);background:var(--tint);padding:1.6em 1.4em 1.2em;display:flex;flex-direction:column;gap:1em;min-height:13em}
+.qc{position:relative;border:1px solid var(--line);background:var(--tint);padding:1.6em 1.4em 1.2em;display:flex;flex-direction:column;gap:1em;min-height:16.5em}
 .qc:before{content:"“";font-family:var(--head);font-weight:800;font-size:5em;line-height:.6;color:var(--line);height:.45em}
 .qc blockquote{font-family:var(--head);font-weight:600;font-size:1.3em;line-height:1.25;letter-spacing:-.01em;color:var(--ink2)}
 .qc .who{margin-top:auto;border-top:1px solid var(--line);padding-top:.8em;font-size:.82em;color:var(--ink2);display:flex;gap:.8em;align-items:center}
@@ -283,7 +283,7 @@ html.h .lg{min-height:13em;padding:1.4em 1.5em}
 html.h .lg img{height:3.3em}
 html.h .steps{font-size:1.1em}
 html.h .qc blockquote{font-size:1.5em;max-width:20em}
-html.h .qc{min-height:18em}
+html.h .qc{min-height:24em;padding:2.2em 2em 1.5em}
 html.h .quotes{align-self:center}
 html.h .apx{min-height:0;height:100%}
 @media (prefers-reduced-motion:reduce){.cta span{animation:none}html{scroll-behavior:auto}}
