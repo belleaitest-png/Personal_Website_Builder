@@ -46,9 +46,14 @@ header.top{position:fixed;inset:0 0 auto 0;display:flex;justify-content:space-be
 .viz{position:relative;min-height:240px}
 .viz .tag{position:absolute;left:0;top:10px}
 .viz .state{position:absolute;right:0;bottom:6px;color:var(--gold)}
-.pitch{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,5vw,80px);align-items:end;padding:clamp(18px,3vh,36px) 0 clamp(22px,4vh,44px)}
-h1{margin:0;font-weight:500;font-size:clamp(2.3rem,5.4vw,5rem);line-height:.98;letter-spacing:-.035em;text-wrap:balance}
-h1 em{font-style:normal;color:var(--gold)}
+.pitch{display:grid;grid-template-columns:1fr;gap:clamp(18px,3vh,32px);align-items:end;padding:clamp(18px,3vh,36px) 0 clamp(22px,4vh,44px)}
+h1{margin:0;font-weight:800;font-size:clamp(2.6rem,6.4vw,6.4rem);line-height:.94;letter-spacing:-.045em}
+h1 span{display:block}
+h1 .role{color:var(--gold)}
+.pitch > div{display:flex;flex-wrap:wrap;align-items:center;gap:16px clamp(24px,4vw,56px)}
+.pitch .lede{margin:0!important;font-size:clamp(1.25rem,1.9vw,1.7rem);line-height:1.2;color:var(--ink);font-weight:500;max-width:22ch}
+.pitch .lede em{font-style:normal;color:var(--gold)}
+.beat p.after{margin-top:clamp(18px,3vh,28px)}
 .pitch p{margin:0 0 22px;max-width:46ch;color:#CFCABC;font-size:clamp(1rem,1.25vw,1.15rem)}
 .btn{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#111;text-decoration:none;font-weight:600;font-size:15px;padding:14px 22px;border-radius:999px;border:0;cursor:pointer;font-family:inherit;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
 [hidden]{display:none!important}
@@ -57,9 +62,9 @@ h1 em{font-style:normal;color:var(--gold)}
 .btn i{font-style:normal;transition:transform .25s}
 .btn:hover i{transform:translateX(4px)}
 .creds{border-top:1px solid var(--line);padding:20px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px clamp(22px,4vw,56px);flex-wrap:wrap}
-.creds .name{font-size:clamp(20px,2.2vw,28px);line-height:1;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
 .logos{display:flex;align-items:center;gap:clamp(22px,4vw,56px);color:var(--ink)}
-.logos svg{height:clamp(20px,2.2vw,28px);width:auto;display:block;opacity:.9}
+.logos img{height:clamp(20px,2.2vw,28px);width:auto;display:block}
+.logos img.hbs{height:clamp(44px,4.8vw,62px)}
 
 /* the one loud line */
 .say{padding:clamp(90px,18vh,200px) var(--pad)}
@@ -115,9 +120,10 @@ footer a{text-decoration:none}
   .viz{min-height:28svh}
   .pitch,.beat,.contact{grid-template-columns:1fr}
   .creds{padding:14px 0 16px;gap:12px}
-  .creds .name{font-size:19px;flex-basis:100%}
+  .creds > .mono{flex-basis:100%}
   .logos{justify-content:space-between;gap:14px;width:100%}
-  .logos svg{height:17px}
+  .logos img{height:17px}
+  .logos img.hbs{height:38px}
   .beat{min-height:0;padding-block:56px;gap:22px}
   .box{order:-1;justify-self:center;max-height:none}
   .box.sq{order:0}
@@ -148,18 +154,18 @@ footer a{text-decoration:none}
       <span class="state mono" id="state">Scattered data</span>
     </div>
     <div class="pitch">
-      <h1 id="h1">Turning data into <em>measurable ROI.</em></h1>
+      <h1 id="h1"><span class="nm">Annabelle Body</span> <span class="role">Fractional AI Strategist</span></h1>
       <div>
-        <p>Successful AI implementation connects the knowledge your business runs on with a tailored plan to turn hype into measured results in EBITDA.</p>
+        <p class="lede">Hire me to turn your data into <em>measurable ROI.</em></p>
         <a class="btn" href="#contact" data-open>Get in touch to start a diagnostic <i>→</i></a>
       </div>
     </div>
     <div class="creds">
-      <span class="name">Annabelle Body</span>
+      <span class="mono">Experience</span>
       <div class="logos">
-        <svg viewBox="0 0 330 70" role="img" aria-label="Deloitte"><text x="0" y="56" textLength="298" lengthAdjust="spacingAndGlyphs" font-family="Arial Black,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="64" fill="currentColor">Deloitte</text><circle cx="314" cy="47" r="9.5" fill="currentColor"/></svg>
-        <svg viewBox="0 0 400 70" role="img" aria-label="AlixPartners"><text x="0" y="54" textLength="396" lengthAdjust="spacingAndGlyphs" font-family="Helvetica Neue,Arial,sans-serif" font-size="60" fill="currentColor"><tspan font-weight="700">Alix</tspan><tspan font-weight="300">Partners</tspan></text></svg>
-        <svg viewBox="0 0 420 70" role="img" aria-label="Harvard Business School"><path d="M2 4h52v34c0 14-10 24-26 30C12 62 2 52 2 38z" fill="none" stroke="currentColor" stroke-width="3"/><g fill="currentColor"><rect x="10" y="12" width="15" height="11" rx="1"/><rect x="31" y="12" width="15" height="11" rx="1"/><rect x="20.500" y="32" width="15" height="11" rx="1"/></g><text x="68" y="30" textLength="150" lengthAdjust="spacingAndGlyphs" font-family="Georgia,Times New Roman,serif" font-size="25" fill="currentColor">HARVARD</text><text x="68" y="60" textLength="345" lengthAdjust="spacingAndGlyphs" font-family="Georgia,Times New Roman,serif" font-size="25" fill="currentColor">BUSINESS SCHOOL</text></svg>
+        <img src="/assets/logos/deloitte.png" alt="Deloitte" width="515" height="98">
+        <img src="/assets/logos/alixpartners.png" alt="AlixPartners" width="602" height="90">
+        <img class="hbs" src="/assets/logos/hbs.png" alt="Harvard Business School" width="727" height="309">
       </div>
     </div>
   </section>
@@ -169,7 +175,10 @@ footer a{text-decoration:none}
   </section>
 
   <section class="beat" aria-labelledby="h-work">
-    <div class="txt"><h2 id="h-work">How we work</h2></div>
+    <div class="txt">
+      <h2 id="h-work">How we work</h2>
+      <p class="after">Successful AI implementation connects the knowledge your business runs on with a tailored plan to turn hype into measured results in EBITDA.</p>
+    </div>
     <div class="box sq" id="vizMatrix" aria-hidden="true">
       <span class="mono q1">Do now</span><span class="mono q2">Plan</span><span class="mono q3">Later</span><span class="mono q4">Drop</span>
       <span class="mono ax">Value ↑</span><span class="mono ay">Effort →</span>
