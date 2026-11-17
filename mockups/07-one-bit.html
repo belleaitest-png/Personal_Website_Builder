@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 · 1-Bit — Annabelle Body</title>
+<meta name="description" content="Annabelle Body, Fractional AI Strategist. A senior AI leader for mid-market companies, without the full-time hire.">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root{
+  --ink:#0B3D2E; --paper:#E2EDDA; --alarm:#FF4B2B;
+  --fg:var(--ink); --bg:var(--paper);
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --px:'Silkscreen','VT323',ui-monospace,monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --pad:clamp(16px,2.8vw,40px);
+  --rule:6px;
+  --cur:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' shape-rendering='crispEdges'%3E%3Cpath d='M2 2h2v2h2v2h2v2h2v2h2v2h2v2h2v2h-6v2h2v4h-4v-4h-2v2h-2v2h-2z' fill='%230B3D2E' stroke='%23E2EDDA' stroke-width='2'/%3E%3C/svg%3E") 3 3;
+  --cur2:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' shape-rendering='crispEdges'%3E%3Cpath d='M2 2h2v2h2v2h2v2h2v2h2v2h2v2h2v2h-6v2h2v4h-4v-4h-2v2h-2v2h-2z' fill='%23FF4B2B' stroke='%230B3D2E' stroke-width='2'/%3E%3C/svg%3E") 3 3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;cursor:var(--cur),auto}
+body{background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--mono);overflow-x:hidden;-webkit-font-smoothing:none;font-smooth:never}
+a,button,label,summary{cursor:var(--cur2),pointer}
+a{color:inherit}
+canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+::selection{background:var(--ink);color:var(--paper)}
+.inv ::selection{background:var(--paper);color:var(--ink)}
+.inv{--fg:var(--paper);--bg:var(--ink)}
+section,footer{background:var(--bg);color:var(--fg);position:relative}
+.wrap{padding:0 var(--pad);max-width:1600px;margin:0 auto}
+.px{font-family:var(--px);text-transform:uppercase;letter-spacing:.02em;font-weight:400}
+em,.it{font-family:var(--serif);font-style:italic;font-weight:400;-webkit-font-smoothing:antialiased;font-smooth:auto}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--alarm);outline-offset:3px}
+
+/* top bar */
+.bar{position:fixed;inset:0 0 auto 0;height:44px;z-index:50;background:var(--paper);color:var(--ink);border-bottom:2px solid var(--ink);display:flex;align-items:stretch;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.bar>*{display:flex;align-items:center;padding:0 14px;border-right:2px solid var(--ink);white-space:nowrap;text-decoration:none}
+.bar .back{background:var(--ink);color:var(--paper)}
+.bar .back:hover{background:var(--paper);color:var(--ink)}
+.bar .grow{flex:1;overflow:hidden}
+.bar nav{padding:0;border:0}
+.bar nav a{display:flex;align-items:center;height:100%;padding:0 12px;border-right:2px solid var(--ink);text-decoration:none}
+.bar nav a:hover{background:var(--ink);color:var(--paper)}
+.bar .xy{font-variant-numeric:tabular-nums;border-right:0;min-width:17ch}
+.dot{display:inline-block;width:8px;height:8px;background:var(--alarm);margin-right:8px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* hero */
+.hero{padding-top:44px;min-height:100svh;display:flex;flex-direction:column}
+.hero .grid{flex:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:var(--pad);padding:var(--pad);align-items:stretch}
+.meta{display:flex;justify-content:space-between;gap:16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid var(--fg);padding-bottom:10px}
+.h-left{display:flex;flex-direction:column;min-width:0}
+h1{font-family:var(--px);font-weight:400;text-transform:uppercase;font-size:clamp(44px,7.9vw,128px);line-height:.86;letter-spacing:-.02em;margin:clamp(20px,4vh,48px) 0 0 -.04em}
+h1 span{display:block;white-space:nowrap}
+.role{font-family:var(--serif);font-style:italic;font-size:clamp(30px,4.2vw,68px);line-height:1;margin-top:.28em;-webkit-font-smoothing:antialiased}
+.role b{font-family:var(--px);font-style:normal;font-weight:400;font-size:.28em;letter-spacing:.08em;vertical-align:.9em;margin-left:.6em;border:2px solid var(--fg);padding:.25em .5em}
+.prop{max-width:44ch;font-size:clamp(15px,1.25vw,18px);line-height:1.5;margin-top:clamp(18px,3vh,32px)}
+.prop mark{background:var(--ink);color:var(--paper);padding:0 .3em}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:clamp(18px,3vh,30px)}
+.btn{font-family:var(--px);text-transform:uppercase;font-size:15px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:12px;padding:15px 20px 14px;background:var(--fg);color:var(--bg);border:2px solid var(--fg);text-decoration:none;box-shadow:6px 6px 0 var(--bg),6px 6px 0 2px var(--fg);transition:transform .08s steps(2),box-shadow .08s steps(2)}
+.btn:hover{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--bg),2px 2px 0 2px var(--fg)}
+.btn i{font-style:normal;animation:nudge .8s steps(2) infinite}
+@keyframes nudge{50%{transform:translateX(5px)}}
+.small{font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.spec{margin-top:auto;padding-top:clamp(20px,4vh,40px)}
+.spec dl{display:grid;grid-template-columns:auto 1fr;border-top:2px solid var(--fg);font-size:12px}
+.spec dt,.spec dd{padding:7px 0;border-bottom:1px dashed var(--fg)}
+.spec dt{padding-right:24px;text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+.frame{position:relative;border:2px solid var(--fg);display:flex;flex-direction:column;min-height:0}
+.frame:before,.frame:after{content:"";position:absolute;width:18px;height:18px;border:solid var(--fg);pointer-events:none}
+.frame:before{top:-10px;left:-10px;border-width:2px 0 0 2px}
+.frame:after{bottom:-10px;right:-10px;border-width:0 2px 2px 0}
+.portrait{position:relative;flex:1;min-height:300px;overflow:hidden;touch-action:pan-y;
+  background-image:linear-gradient(var(--fg) 1px,transparent 1px),linear-gradient(90deg,var(--fg) 1px,transparent 1px);background-size:100% 25%,25% 100%;background-position:0 -1px,-1px 0}
+.portrait:before{content:"";position:absolute;inset:0;background:var(--bg);opacity:.9}
+.portrait canvas,.portrait img{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:96%;width:auto;max-width:none}
+.portrait img{object-fit:contain}
+.js .portrait img{visibility:hidden}
+.cap{border-top:2px solid var(--fg);display:grid;grid-template-columns:1fr auto;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.cap>*{padding:8px 10px}
+.cap .ro{border-left:2px solid var(--fg);font-variant-numeric:tabular-nums;min-width:15ch}
+
+/* ticker */
+.tick{border-top:var(--rule) solid var(--fg);border-bottom:2px solid var(--fg);overflow:hidden;white-space:nowrap;font-family:var(--px);text-transform:uppercase;font-size:clamp(16px,1.7vw,24px);padding:10px 0 9px}
+.tick div{display:inline-block;animation:tick 28s steps(280) infinite}
+.tick span{margin:0 1.2em}
+.tick span:nth-child(even){font-family:var(--serif);font-style:italic;text-transform:none;font-size:1.25em;-webkit-font-smoothing:antialiased}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* index */
+.index{width:100%;padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(40px,7vw,96px)}
+.index h2{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:400;margin-bottom:10px;display:flex;justify-content:space-between}
+.index ol{list-style:none;border-top:var(--rule) solid var(--fg)}
+.index a{display:grid;grid-template-columns:5ch minmax(0,auto) 1fr auto;gap:14px;align-items:baseline;padding:13px 8px 11px;border-bottom:2px solid var(--fg);text-decoration:none}
+.index a:hover{background:var(--fg);color:var(--bg)}
+.index .n{font-family:var(--px);font-size:14px}
+.index .t{font-family:var(--serif);font-style:italic;font-size:clamp(24px,3vw,44px);line-height:1;-webkit-font-smoothing:antialiased}
+.index .l{border-bottom:2px dotted currentColor;transform:translateY(-6px);min-width:20px}
+.index .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+
+/* wipes */
+.wipe{display:block;width:100%;height:clamp(120px,26vh,240px);background:var(--paper);color:var(--ink)}
+
+/* plate heads */
+.ph{position:relative;border-top:var(--rule) solid var(--fg);padding:14px 0 clamp(28px,5vw,64px);min-height:clamp(200px,30vw,380px);display:flex;flex-direction:column;overflow:hidden}
+.ph .blob{position:absolute;inset:0;width:100%;height:100%;color:var(--fg)}
+.ph>*:not(.blob){position:relative}
+.ph .no{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.ph .no span,.tape{background:var(--bg);padding:2px 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.ph h2{font-family:var(--px);font-weight:400;text-transform:uppercase;font-size:clamp(38px,8.2vw,132px);line-height:.95;letter-spacing:-.02em;margin-top:auto;padding-top:40px}
+.ph h2 .tape{padding:0 .12em}
+.ph .sub{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.6vw,38px);line-height:1.1;margin-top:12px;-webkit-font-smoothing:antialiased}
+
+/* provenance */
+.prov{padding-bottom:clamp(48px,8vw,110px)}
+.prov table{width:100%;border-collapse:collapse;border-top:2px solid var(--fg)}
+.prov th{font-weight:400;text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px 8px 0;border-bottom:2px solid var(--fg)}
+.prov td{padding:clamp(18px,2.6vw,34px) 10px clamp(18px,2.6vw,34px) 0;border-bottom:2px solid var(--fg);vertical-align:middle;font-size:13px}
+.prov td:first-child{font-family:var(--px);font-size:13px;width:14%;white-space:nowrap}
+.prov td:last-child{width:30%}
+.logo{display:block;height:clamp(30px,4.4vw,60px);background:currentColor;-webkit-mask:var(--m) left center/contain no-repeat;mask:var(--m) left center/contain no-repeat;max-width:100%}
+.note{margin-top:22px;display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap;font-size:12px}
+.note p{max-width:62ch}
+
+/* services */
+.svc{padding-bottom:clamp(40px,7vw,96px)}
+.plates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid var(--fg);border-right:0}
+.plate{border-right:2px solid var(--fg);display:flex;flex-direction:column;min-width:0}
+.plate .top{display:flex;justify-content:space-between;padding:8px 12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid var(--fg)}
+.plate .fig{width:100%;aspect-ratio:4/3;color:var(--fg);border-bottom:2px solid var(--fg)}
+.plate .body{padding:18px 16px 20px;display:flex;flex-direction:column;flex:1}
+.plate .num{font-family:var(--px);font-size:13px;display:flex;justify-content:space-between}
+.plate h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(34px,3.5vw,54px);line-height:.98;margin:10px 0 14px;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+.plate p{font-size:14px;max-width:40ch}
+.plate dl{margin-top:auto;padding-top:22px;font-size:12px}
+.plate dl div{display:grid;grid-template-columns:9ch 1fr;gap:10px;padding:7px 0;border-top:1px dashed var(--fg)}
+.plate dt{text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+
+/* specimens */
+.notes{padding-bottom:clamp(48px,8vw,110px)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--pad)}
+.card{border:2px solid var(--fg);position:relative;display:grid;grid-template-columns:clamp(84px,11vw,150px) 1fr;box-shadow:8px 8px 0 var(--fg)}
+.card .av{border-right:2px solid var(--fg);display:flex;flex-direction:column}
+.card .av canvas{width:100%;flex:1;min-height:150px;color:var(--fg)}
+.card .av span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;border-top:2px solid var(--fg)}
+.card .q{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px}
+.tag{align-self:flex-start;font-family:var(--px);font-size:12px;letter-spacing:.06em;background:var(--alarm);color:var(--ink);padding:4px 8px 3px;animation:blink2 1.6s steps(1) infinite}
+@keyframes blink2{75%{background:var(--ink);color:var(--paper)}}
+.card blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(24px,2.5vw,36px);line-height:1.08;-webkit-font-smoothing:antialiased}
+.card footer{background:none;margin-top:auto;border-top:1px dashed var(--fg);padding-top:10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+/* contact */
+.contact{padding-bottom:clamp(48px,8vw,110px)}
+.cgrid{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:var(--pad);align-items:start}
+.cgrid aside p{font-size:14px;max-width:36ch;margin-bottom:16px}
+.cgrid aside .it{font-size:clamp(28px,3vw,42px);line-height:1.05;display:block;margin-bottom:20px}
+.punch{--fg:var(--ink);--bg:var(--paper);background:var(--paper);color:var(--ink);clip-path:polygon(34px 0,100% 0,100% 100%,0 100%,0 34px);padding:16px clamp(14px,2vw,26px) 22px;position:relative}
+.punch .hd{display:flex;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-left:30px;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.punch .holes{width:100%;aspect-ratio:320/62;margin:12px 0 6px;color:var(--ink)}
+.fields{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);border-bottom:0;margin-top:10px}
+.f{border-bottom:2px solid var(--ink);padding:8px 10px 6px;position:relative;min-width:0}
+.f:nth-child(odd):not(.wide){border-right:2px solid var(--ink)}
+.f.wide{grid-column:1/-1}
+.f label{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.f label b{font-weight:400;color:var(--ink)}
+.f label b i{font-style:normal;color:var(--alarm);font-weight:700}
+.f input,.f textarea{width:100%;border:0;background:transparent;color:var(--ink);font:500 18px/1.4 var(--mono);padding:6px 0 4px;outline:0;border-radius:0;resize:none;caret-color:var(--alarm);cursor:var(--cur),text}
+.f textarea{min-height:92px;background-image:linear-gradient(transparent calc(1.4em - 1px),rgba(11,61,46,.35) 0);background-size:100% 1.4em;background-position:0 6px}
+.f:focus-within{background:var(--ink);color:var(--paper)}
+.f:focus-within label b,.f:focus-within input,.f:focus-within textarea{color:var(--paper)}
+.f input::placeholder,.f textarea::placeholder{color:var(--ink);opacity:.45}
+.f:focus-within ::placeholder{color:var(--paper)}
+.punch .sub{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:18px}
+.punch .btn{box-shadow:6px 6px 0 var(--paper),6px 6px 0 2px var(--ink)}
+
+footer.end{border-top:2px solid var(--fg);padding:18px 0 26px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+footer.end .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* received overlay */
+.rx{position:fixed;inset:0;z-index:100;display:none;color:var(--paper)}
+.rx.on{display:block}
+.rx canvas{position:absolute;inset:0;width:100%;height:100%;color:var(--ink)}
+.rx .in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pad);gap:18px;opacity:0}
+.rx.shown .in{opacity:1}
+.rx .big{font-family:var(--px);font-size:clamp(46px,13.2vw,220px);line-height:.85;letter-spacing:-.02em;margin-left:-.04em}
+.rx .it{font-size:clamp(26px,3.4vw,52px);line-height:1.05}
+.rx .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-top:2px solid var(--paper);padding-top:10px}
+.rx p{max-width:52ch}
+.rx .btn{--fg:var(--paper);--bg:var(--ink);align-self:flex-start;font-size:15px}
+
+@media (max-width:900px){
+  .bar nav,.bar .grow span.long{display:none}
+  .hero .grid{grid-template-columns:1fr}
+  .h-left{display:contents}.meta{order:0}h1{order:1;margin-top:8px}.role{order:2;margin-top:-8px}.frame{order:3}.prop{order:4;margin-top:0}.cta-row{order:5;margin-top:0}.spec{order:6;padding-top:0}
+  .hero .grid{gap:22px}
+  h1{font-size:clamp(40px,12.6vw,96px)}
+  .portrait{min-height:0;aspect-ratio:1/1.05}
+  .spec{margin-top:0}
+  .plates{grid-template-columns:1fr;border-bottom:0}
+  .plate{border-bottom:2px solid var(--fg)}
+  .plate .fig{aspect-ratio:16/9}
+  .cards,.cgrid{grid-template-columns:1fr}
+  .cards{gap:28px}
+  .prov th:last-child,.prov td:last-child{display:none}
+  .prov td:first-child{width:34%;font-size:11px;white-space:normal}
+  .index a{grid-template-columns:4ch 1fr auto}.index .l{display:none}
+  .fields{grid-template-columns:1fr}.f:nth-child(odd):not(.wide){border-right:0}
+  .f input,.f textarea{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .dot,.tag,.btn i,.tick div{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="back" href="index.html">← All mock-ups</a>
+  <div class="grow"><i class="dot" aria-hidden="true"></i>A. Body<span class="long">&nbsp;/ Specimen catalogue / Sheet 07</span></div>
+  <nav aria-label="Plates">
+    <a href="#p1">01</a><a href="#p2">02–04</a><a href="#p5">05</a><a href="#p6">06 Contact</a>
+  </nav>
+  <div class="xy" id="xy" aria-hidden="true">X 0000 Y 0000</div>
+</div>
+
+<main>
+<section class="hero" id="top">
+  <div class="grid">
+    <div class="h-left">
+      <div class="meta"><span>Specimen 001 / Strategist, fractional</span><span>1-bit · ink on paper</span></div>
+      <h1 aria-label="Annabelle Body"><span data-scr0>Annabelle</span><span data-scr0>Body</span></h1>
+      <p class="role">Fractional AI Strategist <b>CAT. 07</b></p>
+      <p class="prop">I sit between the boardroom and the build. I tell you where AI <mark>makes money</mark> in your business, and where it is a distraction.</p>
+      <div class="cta-row">
+        <a class="btn" href="#p6">Request a session <i>▶</i></a>
+        <span class="small">A senior AI leader.<br>No full-time hire.</span>
+      </div>
+      <div class="spec">
+        <dl>
+          <dt>Class</dt><dd>Scientist, then accountant, then restructuring operator</dd>
+          <dt>Habitat</dt><dd>Mid-market leadership teams with no AI lead in-house</dd>
+          <dt>Behaviour</dt><dd>Finds the value fast. Restructuring teaches you that.</dd>
+        </dl>
+      </div>
+    </div>
+    <figure class="frame">
+      <div class="portrait" id="portrait">
+        <img src="assets/photos/headshot.webp" alt="Annabelle Body, smiling, in a navy blazer" width="608" height="900">
+        <canvas id="pcv" aria-hidden="true"></canvas>
+      </div>
+      <figcaption class="cap"><span>Fig. 0 — A. Body, ordered dither. Move the lens.</span><span class="ro" id="ro">Cell 48 px</span></figcaption>
+    </figure>
+  </div>
+  <div class="tick" aria-hidden="true"><div>
+    <span>Between the boardroom and the build</span><span>where AI makes money</span><span>Where it is a distraction</span><span>what to do first</span><span>Fractional AI Strategist</span><span>and the business case for it</span>
+    <span>Between the boardroom and the build</span><span>where AI makes money</span><span>Where it is a distraction</span><span>what to do first</span><span>Fractional AI Strategist</span><span>and the business case for it</span>
+  </div></div>
+  <div class="wrap index">
+    <h2><span>Index of plates</span><span>6 entries</span></h2>
+    <ol>
+      <li><a href="#p1"><span class="n">01</span><span class="t">Provenance</span><span class="l"></span><span class="k">Previously / trained at</span></a></li>
+      <li><a href="#p2"><span class="n">02</span><span class="t">AI Strategy &amp; Roadmap</span><span class="l"></span><span class="k">Service</span></a></li>
+      <li><a href="#p3"><span class="n">03</span><span class="t">Fractional Chief AI Officer</span><span class="l"></span><span class="k">Service</span></a></li>
+      <li><a href="#p4"><span class="n">04</span><span class="t">Team Training &amp; Workshops</span><span class="l"></span><span class="k">Service</span></a></li>
+      <li><a href="#p5"><span class="n">05</span><span class="t">Field notes</span><span class="l"></span><span class="k">Placeholder</span></a></li>
+      <li><a href="#p6"><span class="n">06</span><span class="t">Contact card</span><span class="l"></span><span class="k">Data entry</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<canvas class="wipe" data-dir="in" aria-hidden="true"></canvas>
+
+<section class="inv prov" id="p1">
+  <div class="wrap">
+    <header class="ph">
+      <canvas class="blob" aria-hidden="true"></canvas>
+      <p class="no"><span>Plate 01</span><span>Background, not clients</span></p>
+      <h2><span class="tape" data-scr>Provenance</span></h2>
+      <p class="sub"><span class="tape">Where she learned to find value fast.</span></p>
+    </header>
+    <table>
+      <thead><tr><th scope="col">Class</th><th scope="col">Mark</th><th scope="col">Remarks</th></tr></thead>
+      <tbody>
+        <tr><td>Previously</td><td><span class="logo rv" role="img" aria-label="Deloitte" style="--m:url(assets/logos/deloitte.svg);aspect-ratio:330/70"></span></td><td>Former employer.</td></tr>
+        <tr><td>Previously</td><td><span class="logo rv" role="img" aria-label="AlixPartners" style="--m:url(assets/logos/alixpartners.svg);aspect-ratio:400/70"></span></td><td>Former employer.</td></tr>
+        <tr><td>Trained at</td><td><span class="logo rv" role="img" aria-label="Harvard Business School" style="--m:url(assets/logos/hbs.svg);aspect-ratio:420/70"></span></td><td>MBA, Class of 2026.</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><p>Listed as background only. These are places Annabelle worked and studied. They are not clients and do not endorse this catalogue.</p><span class="small">3 marks / 1-bit ink</span></div>
+  </div>
+</section>
+
+<canvas class="wipe" data-dir="out" aria-hidden="true"></canvas>
+
+<section class="svc" id="services">
+  <div class="wrap">
+    <header class="ph">
+      <canvas class="blob" aria-hidden="true"></canvas>
+      <p class="no"><span>Plates 02–04</span><span>Three ways to work together</span></p>
+      <h2><span class="tape" data-scr>Services</span></h2>
+      <p class="sub"><span class="tape">Three specimens. Pick one, or start at 02.</span></p>
+    </header>
+    <div class="plates">
+      <article class="plate" id="p2">
+        <div class="top"><span>Plate 02</span><span>Fig. 1 — Rising contour</span></div>
+        <canvas class="fig" data-fig="contour" aria-hidden="true"></canvas>
+        <div class="body">
+          <div class="num"><span>02 / Strategy</span><span>Fixed scope</span></div>
+          <h3>AI Strategy &amp; Roadmap</h3>
+          <p>A fixed-scope diagnostic. Where AI actually creates value in your business, what to do first, and the business case for it.</p>
+          <dl>
+            <div><dt>Format</dt><dd>One diagnostic, with an end</dd></div>
+            <div><dt>You keep</dt><dd>A map of the value, a first move, a business case</dd></div>
+            <div><dt>Good for</dt><dd>"We should be doing something with AI"</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="plate" id="p3">
+        <div class="top"><span>Plate 03</span><span>Fig. 2 — Orbiting node</span></div>
+        <canvas class="fig" data-fig="orbit" aria-hidden="true"></canvas>
+        <div class="body">
+          <div class="num"><span>03 / Leadership</span><span>Fractional</span></div>
+          <h3>Fractional Chief AI Officer</h3>
+          <p>A senior AI lead on your leadership team a day or two a week, owning the strategy and making sure it ships.</p>
+          <dl>
+            <div><dt>Format</dt><dd>A day or two a week</dd></div>
+            <div><dt>Sits</dt><dd>On your leadership team</dd></div>
+            <div><dt>Owns</dt><dd>The strategy, and the shipping</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="plate" id="p4">
+        <div class="top"><span>Plate 04</span><span>Fig. 3 — Cell spread</span></div>
+        <canvas class="fig" data-fig="cells" aria-hidden="true"></canvas>
+        <div class="body">
+          <div class="num"><span>04 / People</span><span>Hands-on</span></div>
+          <h3>Team Training &amp; Workshops</h3>
+          <p>Executive briefings and hands-on sessions that get your people using AI on their real work.</p>
+          <dl>
+            <div><dt>Format</dt><dd>Briefings and working sessions</dd></div>
+            <div><dt>For</dt><dd>Executives and their teams</dd></div>
+            <div><dt>Material</dt><dd>Your real work, not toy examples</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="notes" id="p5">
+  <div class="wrap">
+    <header class="ph">
+      <canvas class="blob" aria-hidden="true"></canvas>
+      <p class="no"><span>Plate 05</span><span>Specimens pending</span></p>
+      <h2><span class="tape" data-scr>Field notes</span></h2>
+      <p class="sub"><span class="tape">Two cards held open for real clients.</span></p>
+    </header>
+    <div class="cards">
+      <article class="card">
+        <div class="av"><canvas data-fig="noise" aria-hidden="true"></canvas><span>No image</span></div>
+        <div class="q">
+          <span class="tag">Placeholder</span>
+          <blockquote>“Placeholder. A real quote from a real client goes here soon.”</blockquote>
+          <footer><span>Client name, Title, Company</span><span>Card 05-A</span></footer>
+        </div>
+      </article>
+      <article class="card">
+        <div class="av"><canvas data-fig="noise" aria-hidden="true"></canvas><span>No image</span></div>
+        <div class="q">
+          <span class="tag">Placeholder</span>
+          <blockquote>“Placeholder. This card is reserved. Nothing here is a real testimonial yet.”</blockquote>
+          <footer><span>Client name, Title, Company</span><span>Card 05-B</span></footer>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<canvas class="wipe" data-dir="in" aria-hidden="true"></canvas>
+
+<section class="inv contact" id="p6">
+  <div class="wrap">
+    <header class="ph">
+      <canvas class="blob" aria-hidden="true"></canvas>
+      <p class="no"><span>Plate 06</span><span>Data entry</span></p>
+      <h2><span class="tape" data-scr>Contact card</span></h2>
+      <p class="sub"><span class="tape">Punch in. Every keystroke makes a hole.</span></p>
+    </header>
+    <div class="cgrid">
+      <aside>
+        <span class="it">Tell me what you need. I will tell you if AI is the answer.</span>
+        <p>Four fields. No sales sequence on the other end, just Annabelle reading the card.</p>
+        <p class="small">Sometimes the honest answer is "not yet". You will get that too.</p>
+      </aside>
+      <form class="punch" id="form" novalidate>
+        <div class="hd"><span>A. Body / Request card</span><span>Form 07-C</span></div>
+        <canvas class="holes" id="holes" aria-hidden="true"></canvas>
+        <div class="fields">
+          <div class="f"><label for="f-name"><b>Name <i>*</i></b><span>Col 01</span></label><input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your name"></div>
+          <div class="f"><label for="f-email"><b>Email <i>*</i></b><span>Col 02</span></label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
+          <div class="f wide"><label for="f-co"><b>Company</b><span>Col 03</span></label><input id="f-co" name="company" type="text" autocomplete="organization" placeholder="Where you work"></div>
+          <div class="f wide"><label for="f-need"><b>What do you need? <i>*</i></b><span>Col 04</span></label><textarea id="f-need" name="need" rows="3" required placeholder="A roadmap, a fractional AI lead, a workshop, or you are not sure yet"></textarea></div>
+        </div>
+        <div class="sub">
+          <span class="small" id="msg" role="alert">* required columns</span>
+          <button class="btn" type="submit">Punch + send <i>▶</i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="inv end"><div class="wrap"><span>Annabelle Body / Fractional AI Strategist</span><span>Sheet 07 of 10 · end of catalogue</span></div></footer>
+
+<div class="rx" id="rx" role="dialog" aria-modal="true" aria-labelledby="rx-t">
+  <canvas aria-hidden="true"></canvas>
+  <div class="in">
+    <div class="row"><span>Card accepted</span><span id="rx-who">—</span></div>
+    <p class="big" id="rx-t">Received</p>
+    <p class="it">Thank you. Annabelle will read it properly and write back.</p>
+    <p class="small">Mock-up note: nothing was actually sent. The finished site will file this card for real.</p>
+    <button class="btn" type="button" id="rx-back">◀ Back to the catalogue</button>
+  </div>
+</div>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/ScrambleTextPlugin.min.js"></script>
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('js');
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var INK=[11,61,46], PAPER=[226,237,218], ALARM='#FF4B2B';
+var B8=[0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21].map(function(v){return (v+.5)/64});
+function rgbOf(el){var m=getComputedStyle(el).color.match(/[\d.]+/g);return m?[+m[0],+m[1],+m[2]]:INK}
+function clamp(v,a,b){return v<a?a:v>b?b:v}
+
+/* ---------- dither field: fn(x,y,w,h,t) -> darkness 0..1 ---------- */
+var fields=[];
+function Field(cv,cell,fn,fps){
+  this.cv=cv;this.cell=cell;this.fn=fn;this.fps=fps||16;this.last=0;this.vis=false;this.manual=!fps;this.dirty=true;
+  this.ctx=cv.getContext('2d');this.size();fields.push(this);
+}
+Field.prototype.size=function(){
+  var r=this.cv.getBoundingClientRect();
+  this.w=Math.max(2,Math.round(r.width/this.cell));this.h=Math.max(2,Math.round(r.height/this.cell));
+  this.cv.width=this.w;this.cv.height=this.h;this.img=this.ctx.createImageData(this.w,this.h);
+  this.col=rgbOf(this.cv);this.dirty=true;
+  var d=this.img.data,c=this.col;for(var i=0;i<d.length;i+=4){d[i]=c[0];d[i+1]=c[1];d[i+2]=c[2]}
+};
+Field.prototype.draw=function(t){
+  var w=this.w,h=this.h,d=this.img.data,fn=this.fn,i=3,x,y;
+  if(fn.pre)fn.pre(w,h,t,this);
+  for(y=0;y<h;y++){var row=(y&7)*8;for(x=0;x<w;x++,i+=4){d[i]=fn(x,y,w,h,t,this)>B8[row+(x&7)]?255:0}}
+  this.ctx.putImageData(this.img,0,0);
+  if(fn.post)fn.post(this.ctx,w,h,t,this);
+};
+
+/* blobs behind headings */
+function blobFn(seed){
+  return function(x,y,w,h,t){
+    var u=x/h,v=y/h,a=w/h,s=seed;
+    var x1=a*(.72+.2*Math.sin(t*.23+s)),y1=.5+.3*Math.cos(t*.31+s*2);
+    var x2=a*(.45+.3*Math.cos(t*.17+s*3)),y2=.5+.35*Math.sin(t*.27+s);
+    var x3=a*(.9+.08*Math.sin(t*.4+s)),y3=.3+.2*Math.sin(t*.19+s*5);
+    var f=.16/((u-x1)*(u-x1)+(v-y1)*(v-y1)+.02)+.1/((u-x2)*(u-x2)+(v-y2)*(v-y2)+.02)+.05/((u-x3)*(u-x3)+(v-y3)*(v-y3)+.01);
+    return clamp(f*.11-.06,0,.9);
+  };
+}
+/* Fig 1: rising contour */
+function contourFn(x,y,w,h,t){
+  var u=x/w,v=1-y/h;
+  var px=.68+.04*Math.sin(t*.3),py=.72;
+  var dx=u-px,dy=(v-py)*.8;
+  var hgt=Math.exp(-(dx*dx+dy*dy)*5)+.35*Math.exp(-((u-.22)*(u-.22)+(v-.3)*(v-.3))*14)+.06*Math.sin(u*9+v*5);
+  var band=(hgt*9-t*.35)%1;if(band<0)band+=1;
+  if(band<.13)return 1;
+  return clamp(hgt*.55-.08,0,.8);
+}
+contourFn.post=function(ctx,w,h,t){
+  var px=Math.round((.68+.04*Math.sin(t*.3))*w),py=Math.round((1-.72)*h);
+  if(Math.floor(t*2)%2){ctx.fillStyle=ALARM;ctx.fillRect(px-1,py-1,3,3)}
+};
+/* Fig 2: orbiting node */
+function orbitFn(x,y,w,h,t,F){
+  var cx=w/2,cy=h/2,R=h*.27,dx=x-cx,dy=y-cy,d2=dx*dx+dy*dy,o=F.o;
+  var nx=x-o.x,ny=y-o.y,nd=nx*nx+ny*ny;
+  if(o.front&&nd<o.r*o.r)return nd>(o.r-1.6)*(o.r-1.6)?1:.0;
+  if(d2<R*R){
+    var z=Math.sqrt(R*R-d2),l=(dx*o.lx+dy*o.ly+z*.6)/R;
+    return clamp(.95-l*.85,.04,1);
+  }
+  if(nd<o.r*o.r)return nd>(o.r-1.6)*(o.r-1.6)?1:0;
+  var ex=dx/(h*.62),ey=dy/(h*.2),e=ex*ex+ey*ey;
+  if(Math.abs(e-1)<.035){var a=Math.atan2(ey,ex);if(a<0||true){var seg=((a/(Math.PI*2)*28)%1+1)%1;if(seg<.5&&(dy>0||d2>R*R))return 1}}
+  return .04;
+}
+orbitFn.pre=function(w,h,t,F){
+  var a=t*.9;F.o={x:w/2+Math.cos(a)*h*.62,y:h/2+Math.sin(a)*h*.2,r:h*.075+Math.sin(a)*h*.02,front:Math.sin(a)>0,lx:Math.cos(t*.5)*.7,ly:-.5};
+};
+/* Fig 3: cell spread */
+function cellsFn(x,y,w,h,t,F){
+  var s=F.s,bx=Math.floor(x/s.b),by=Math.floor(y/s.b);
+  if(bx>=s.gw||by>=s.gh)return 0;
+  var ix=x%s.b,iy=y%s.b;if(ix===s.b-1||iy===s.b-1)return 0;
+  var l=s.lv[by*s.gw+bx];
+  if(l<=0){var c=(s.b-1)>>1;return (ix===c&&iy===c)?1:0}
+  return l;
+}
+cellsFn.pre=function(w,h,t,F){
+  var s=F.s;
+  if(!s||s.w!==w||s.h!==h){var b=Math.max(5,Math.round(h/9));s=F.s={w:w,h:h,b:b,gw:Math.floor(w/b),gh:Math.floor(h/b),next:0,hold:0};s.lv=new Float32Array(s.gw*s.gh);s.on=new Uint8Array(s.gw*s.gh);seed(s)}
+  if(t<s.next)return;s.next=t+.14;
+  var gw=s.gw,gh=s.gh,n=gw*gh,i,add=[],full=true;
+  for(i=0;i<n;i++){
+    if(s.on[i]){s.lv[i]=Math.min(1,s.lv[i]+.14)}
+    else{full=false;var x=i%gw,y=(i/gw)|0;
+      if(((x>0&&s.on[i-1])||(x<gw-1&&s.on[i+1])||(y>0&&s.on[i-gw])||(y<gh-1&&s.on[i+gw]))&&Math.random()<.3)add.push(i)}
+  }
+  for(i=0;i<add.length;i++){s.on[add[i]]=1;s.lv[add[i]]=.2}
+  if(full){if(!s.hold)s.hold=t+1.6;else if(t>s.hold){s.hold=0;seed(s)}}
+};
+function seed(s){s.lv.fill(0);s.on.fill(0);var k=Math.floor(Math.random()*s.lv.length);s.on[k]=1;s.lv[k]=.2}
+/* placeholder noise */
+function noiseFn(x,y,w,h,t){
+  var u=x/w-.5,v=y/h;
+  var head=(u*u)/(.035)+((v-.36)*(v-.36))/(.03)<1, body=(u*u)/(.12)+((v-1.02)*(v-1.02))/(.16)<1;
+  var n=Math.sin(x*12.9898+y*78.233+Math.floor(t*8)*37.7)*43758.5453;n-=Math.floor(n);
+  return (head||body)?.12+n*.2:.45+n*.5;
+}
+/* scroll wipes */
+function wipeFn(dir){
+  return function(x,y,w,h,t,F){
+    var yn=(y+.5)/h,p=F.p,wob=.05*Math.sin(x*.21)+.03*Math.sin(x*.07+2);
+    if(dir==='in')return (yn-(.78*(1-p))+wob)/.3;
+    return 1-(yn-(.72*(1-p))+wob)/.3;
+  };
+}
+
+function initFields(){
+  document.querySelectorAll('.blob').forEach(function(c,i){new Field(c,innerWidth<700?5:6,blobFn(i*1.7+.5),14)});
+  var figs={contour:contourFn,orbit:orbitFn,cells:cellsFn,noise:noiseFn};
+  document.querySelectorAll('[data-fig]').forEach(function(c){var k=c.dataset.fig;new Field(c,k==='noise'?5:4,figs[k],k==='noise'?8:20)});
+  document.querySelectorAll('.wipe').forEach(function(c){var f=new Field(c,8,wipeFn(c.dataset.dir),0);f.p=.5;f.wipe=true});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){var f=fields.find(function(f){return f.cv===e.target});if(f){f.vis=e.isIntersecting;f.dirty=true}})},{rootMargin:'80px'});
+  fields.forEach(function(f){io.observe(f.cv)});
+}
+
+/* ---------- portrait ---------- */
+var P={c:48,base:6,fine:2,ready:false,done:false,lx:0,ly:0,tx:0,ty:0,r:0,hover:false,vis:true,dirty:true};
+var pcv=document.getElementById('pcv'),pctx=pcv.getContext('2d'),pimg=new Image(),ro=document.getElementById('ro');
+var s1=document.createElement('canvas'),x1=s1.getContext('2d',{willReadFrequently:true}),baseC=document.createElement('canvas'),fineC=document.createElement('canvas');
+function ditherImg(c){
+  var W=pcv.width,H=pcv.height,sw=Math.max(2,Math.ceil(W/c)),sh=Math.max(2,Math.ceil(H/c));
+  s1.width=sw;s1.height=sh;x1.clearRect(0,0,sw,sh);x1.drawImage(pimg,0,0,sw,sh);
+  var im=x1.getImageData(0,0,sw,sh),d=im.data,i=0,x,y;
+  for(y=0;y<sh;y++){var row=(y&7)*8;for(x=0;x<sw;x++,i+=4){
+    var a=d[i+3],lum=(d[i]*.299+d[i+1]*.587+d[i+2]*.114)/255,dk=clamp((1-lum)*1.3+.02,0,1);
+    var on=a>110&&dk>B8[row+(x&7)];
+    d[i]=INK[0];d[i+1]=INK[1];d[i+2]=INK[2];d[i+3]=on?255:(a>110?0:0);
+  }}
+  x1.putImageData(im,0,0);return [sw,sh];
+}
+function blit(ctx,c){var s=ditherImg(c);ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,pcv.width,pcv.height);ctx.drawImage(s1,0,0,s[0],s[1],0,0,s[0]*c,s[1]*c)}
+function sizePortrait(){
+  var box=document.getElementById('portrait').getBoundingClientRect(),H=Math.round(box.height*.96),W=Math.round(H*608/900);
+  if(H<20)return;
+  pcv.width=W;pcv.height=H;pcv.style.height=H+'px';pcv.style.width=W+'px';
+  baseC.width=fineC.width=W;baseC.height=fineC.height=H;
+  P.base=W<300?4:6;P.R=Math.round(clamp(W*.24,54,120));
+  if(P.ready){cache();P.dirty=true}
+}
+function cache(){blit(fineC.getContext('2d'),P.fine);blit(baseC.getContext('2d'),P.base)}
+function drawPortrait(t){
+  if(!P.ready)return;
+  var W=pcv.width,H=pcv.height;
+  if(!P.done){blit(pctx,P.c);ro.textContent='Cell '+String(Math.round(P.c)).padStart(2,'0')+' px';return}
+  if(!P.hover&&!RM){P.tx=W*(.5+.2*Math.sin(t*.5));P.ty=H*(.3+.2*Math.sin(t*.37+1))}
+  P.lx+=(P.tx-P.lx)*.14;P.ly+=(P.ty-P.ly)*.14;
+  var lx=Math.round(P.lx),ly=Math.round(P.ly),r=Math.round(P.r);
+  pctx.clearRect(0,0,W,H);pctx.drawImage(baseC,0,0);
+  if(r>2){
+    pctx.save();pctx.beginPath();pctx.arc(lx,ly,r,0,7);pctx.clip();
+    pctx.fillStyle='rgb('+PAPER+')';pctx.fillRect(lx-r,ly-r,r*2,r*2);
+    pctx.drawImage(fineC,0,0);pctx.restore();
+    pctx.fillStyle='rgb('+INK+')';
+    /* chunky pixel ring */
+    var n=Math.max(24,Math.round(r*1.6)),k;for(k=0;k<n;k++){var a=k/n*6.2832;pctx.fillRect(Math.round((lx+Math.cos(a)*r)/3)*3-1,Math.round((ly+Math.sin(a)*r)/3)*3-1,3,3)}
+    pctx.fillRect(lx-r-12,ly-1,9,3);pctx.fillRect(lx+r+4,ly-1,9,3);pctx.fillRect(lx-1,ly-r-12,3,9);pctx.fillRect(lx-1,ly+r+4,3,9);
+  }
+  ro.textContent='Lens '+String(P.fine).padStart(2,'0')+' / '+String(P.base).padStart(2,'0')+' px';
+}
+function startPortrait(){
+  P.ready=true;sizePortrait();P.lx=P.tx=pcv.width*.5;P.ly=P.ty=pcv.height*.28;
+  if(RM||!window.gsap){P.done=true;P.r=P.R;cache();drawPortrait(0);return}
+  gsap.to(P,{c:P.base,duration:1.5,ease:'steps(11)',delay:.05,onComplete:function(){P.done=true;cache();gsap.to(P,{r:P.R,duration:.5,ease:'steps(6)'})}});
+}
+pimg.onload=startPortrait;pimg.src='assets/photos/headshot.webp';
+var pbox=document.getElementById('portrait');
+pbox.addEventListener('pointermove',function(e){var r=pcv.getBoundingClientRect();P.hover=true;P.tx=(e.clientX-r.left)*pcv.width/r.width;P.ty=(e.clientY-r.top)*pcv.height/r.height});
+pbox.addEventListener('pointerleave',function(){P.hover=false});
+new IntersectionObserver(function(e){P.vis=e[0].isIntersecting}).observe(pbox);
+
+/* ---------- loop ---------- */
+var raf=0;
+function loop(now){
+  raf=requestAnimationFrame(loop);var t=now/1000,i,f;
+  if(P.vis)drawPortrait(t);
+  for(i=0;i<fields.length;i++){f=fields[i];if(!f.vis)continue;
+    if(f.manual){if(f.dirty){f.draw(t);f.dirty=false}continue}
+    if(now-f.last<1000/f.fps)continue;f.last=now;f.draw(t)}
+}
+function start(){if(!raf&&!document.hidden)raf=requestAnimationFrame(loop)}
+function stop(){cancelAnimationFrame(raf);raf=0}
+document.addEventListener('visibilitychange',function(){document.hidden?stop():(RM||start())});
+
+/* scroll-driven wipes */
+function onScroll(){
+  var vh=innerHeight;
+  fields.forEach(function(f){if(!f.wipe||!f.vis)return;var r=f.cv.getBoundingClientRect();
+    var p=RM?.55:clamp((vh-r.top)/(vh*.75+r.height),0,1);p=Math.round(p*40)/40;if(p!==f.p){f.p=p;f.dirty=true}});
+}
+addEventListener('scroll',onScroll,{passive:true});
+var rz;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){fields.forEach(function(f){f.size()});sizePortrait();onScroll();if(RM)staticPass()},150)});
+function staticPass(){fields.forEach(function(f){f.draw(3.3)});drawPortrait(0)}
+
+/* cursor coordinates */
+var xy=document.getElementById('xy');
+function pad(n){return String(Math.max(0,Math.round(n))).padStart(4,'0')}
+addEventListener('pointermove',function(e){xy.textContent='X '+pad(e.clientX)+' Y '+pad(e.clientY+scrollY)},{passive:true});
+addEventListener('scroll',function(){if(matchMedia('(hover:none)').matches)xy.textContent='X 0000 Y '+pad(scrollY)},{passive:true});
+
+/* ---------- punch card ---------- */
+var form=document.getElementById('form'),holes=document.getElementById('holes'),hctx=holes.getContext('2d'),HC=64,HR=12,pop=[];
+function punchText(){return Array.prototype.map.call(form.querySelectorAll('input,textarea'),function(e){return e.value.trim()}).filter(Boolean).join(' ').slice(0,HC)}
+var lastLen=0;
+function drawHoles(){
+  holes.width=HC*5;holes.height=HR*5+2;var s=punchText(),c,r,i;
+  hctx.clearRect(0,0,holes.width,holes.height);hctx.fillStyle='rgb('+INK+')';
+  for(c=0;c<HC;c++){
+    var code=c<s.length?s.charCodeAt(c):-1,r1=-1,r2=-1;
+    if(code>32){r1=code%10+2;r2=(code>>4)%3===0?-1:((code>>4)%3)-1}
+    for(r=0;r<HR;r++){
+      if(r===r1||r===r2)hctx.fillRect(c*5+1,r*5+1,3,4);
+      else hctx.fillRect(c*5+2,r*5+3,1,1);
+    }
+  }
+  hctx.fillRect(0,HR*5+1,Math.min(HC,s.length)*5,1);
+}
+form.addEventListener('input',function(){drawHoles();document.getElementById('msg').textContent='* required columns'});drawHoles();
+
+/* ---------- received overlay ---------- */
+var rx=document.getElementById('rx'),rcv=rx.querySelector('canvas'),rctx=rcv.getContext('2d'),RP={p:0},lastFocus;
+function drawRx(){
+  var cell=innerWidth<700?14:20,w=Math.ceil(innerWidth/cell),h=Math.ceil(innerHeight/cell);
+  if(rcv.width!==w||rcv.height!==h){rcv.width=w;rcv.height=h}
+  rctx.clearRect(0,0,w,h);rctx.fillStyle='rgb('+INK+')';var p=RP.p*1.5,x,y;
+  for(y=0;y<h;y++)for(x=0;x<w;x++){var v=B8[(y&7)*8+(x&7)]*.75+(1-y/h)*.5;if(p>v)rctx.fillRect(x,y,1,1)}
+}
+function showRx(name){
+  lastFocus=document.activeElement;document.getElementById('rx-who').textContent=name?'From: '+name:'Card on file';
+  rx.classList.add('on');
+  var done=function(){rx.classList.add('shown');document.getElementById('rx-back').focus();
+    if(!RM&&window.gsap)gsap.to('#rx-t',{duration:1,scrambleText:{text:'Received',chars:'01X#/+',speed:.5}})};
+  if(RM||!window.gsap){RP.p=1;drawRx();done();return}
+  gsap.fromTo(RP,{p:0},{p:1,duration:.9,ease:'steps(18)',onUpdate:drawRx,onComplete:done});
+}
+function hideRx(){
+  rx.classList.remove('shown');form.reset();drawHoles();
+  var end=function(){rx.classList.remove('on');if(lastFocus)lastFocus.focus()};
+  if(RM||!window.gsap){end();return}
+  gsap.to(RP,{p:0,duration:.7,ease:'steps(14)',onUpdate:drawRx,onComplete:end});
+}
+form.addEventListener('submit',function(e){
+  e.preventDefault();var msg=document.getElementById('msg');
+  var bad=Array.prototype.find.call(form.elements,function(el){return el.willValidate&&!el.checkValidity()});
+  if(bad){msg.textContent='Missing or invalid: '+bad.name+'. Punch that column and try again.';bad.focus();return}
+  msg.textContent='* required columns';showRx(form.elements.name.value.trim());
+});
+document.getElementById('rx-back').addEventListener('click',hideRx);
+addEventListener('keydown',function(e){if(e.key==='Escape'&&rx.classList.contains('on'))hideRx()});
+
+/* ---------- boot ---------- */
+function boot(){
+  initFields();onScroll();
+  if(RM){fields.forEach(function(f){f.vis=true});staticPass();return}
+  start();
+  if(!window.gsap)return;
+  gsap.registerPlugin(ScrollTrigger,ScrambleTextPlugin);
+  var CH='01X#/+';
+  document.querySelectorAll('[data-scr0]').forEach(function(el,i){var tx=el.textContent;gsap.fromTo(el,{scrambleText:{text:tx.replace(/./g,'#'),chars:CH}},{duration:1.1,delay:.1+i*.25,scrambleText:{text:tx,chars:CH,speed:.6,revealDelay:.15}})});
+  gsap.from('.role,.prop,.cta-row,.spec',{opacity:0,y:16,duration:.5,ease:'steps(5)',stagger:.12,delay:.5});
+  document.querySelectorAll('[data-scr]').forEach(function(el){var tx=el.textContent;
+    ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:function(){gsap.to(el,{duration:1,scrambleText:{text:tx,chars:CH,speed:.6,revealDelay:.1}})}})});
+  gsap.utils.toArray('.rv').forEach(function(el){gsap.from(el,{clipPath:'inset(0 100% 0 0)',duration:.9,ease:'steps(10)',scrollTrigger:{trigger:el,start:'top 86%',once:true}})});
+  gsap.from('.index li',{opacity:0,x:-24,duration:.4,ease:'steps(4)',stagger:.07,scrollTrigger:{trigger:'.index',start:'top 80%',once:true}});
+  gsap.from('.plate',{opacity:0,y:40,duration:.5,ease:'steps(5)',stagger:.15,scrollTrigger:{trigger:'.plates',start:'top 82%',once:true}});
+  gsap.from('.card',{opacity:0,y:40,rotation:function(i){return i?2:-2},duration:.5,ease:'steps(5)',stagger:.15,scrollTrigger:{trigger:'.cards',start:'top 84%',once:true}});
+  gsap.from('.punch',{y:70,opacity:0,duration:.6,ease:'steps(6)',scrollTrigger:{trigger:'.punch',start:'top 88%',once:true}});
+  gsap.from('.prov tbody tr',{opacity:0,duration:.4,ease:'steps(3)',stagger:.12,scrollTrigger:{trigger:'.prov table',start:'top 84%',once:true}});
+}
+if(document.readyState==='complete')boot();else addEventListener('load',boot);
+})();
+</script>
+</body>
+</html>

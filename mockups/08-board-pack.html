@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 · The Board Pack — Annabelle Body</title>
+<meta name="description" content="Annabelle Body, Fractional AI Strategist. The whole site is a board pack: nine slides, strictly private and not at all confidential.">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root{
+  --navy:#0A1F44; --ink2:#46546F; --line:#C9D1DF; --tint:#EEF1F6; --desk:#DCE1E9; --acc:#FF5A14; --red:#D7261E; --white:#fff;
+  --head:'Archivo','Libre Franklin',Arial,sans-serif; --body:'Libre Franklin','Archivo',Arial,sans-serif;
+  --bar:48px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--bar) + 8px)}
+body{background:var(--desk);color:var(--navy);font:400 16px/1.45 var(--body);overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+img,svg{display:block;max-width:100%}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* ---------- deck chrome ---------- */
+.top{position:fixed;inset:0 0 auto 0;height:var(--bar);z-index:40;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 14px;font-size:12px}
+.top .prog{position:absolute;left:0;right:0;bottom:-3px;height:3px;background:var(--acc);transform-origin:0 50%;transform:scaleX(0)}
+.back{text-decoration:none;font-weight:600;padding:7px 10px;border:1px solid var(--navy);white-space:nowrap}
+.back:hover{background:var(--navy);color:#fff}
+.brand{font-family:var(--head);font-weight:800;font-stretch:75%;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.brand i{font-style:normal;color:var(--acc)}
+.tracker{display:none;margin:0 auto;list-style:none;gap:0;height:100%}
+.tracker button{height:100%;border:0;background:none;padding:0 14px;font-family:var(--head);font-stretch:75%;font-weight:600;text-transform:uppercase;letter-spacing:.09em;font-size:11.5px;color:var(--ink2);position:relative}
+.tracker button:after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:3px;background:var(--navy);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.tracker button[aria-current=true]{color:var(--navy);font-weight:800}
+.tracker button[aria-current=true]:after{transform:scaleX(1)}
+.pager{margin-left:auto;display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums;font-weight:600}
+.pager button{width:32px;height:32px;border:1px solid var(--navy);background:#fff;font-size:15px;line-height:1}
+.pager button:hover{background:var(--navy);color:#fff}
+.pager span{min-width:44px;text-align:center}
+.sorter{display:none}
+
+/* ---------- slides: default = vertical stack (mobile, no-JS, reduced motion) ---------- */
+.deck{padding:calc(var(--bar) + 12px) 10px 10px}
+.track{display:flex;flex-direction:column;gap:12px}
+.slide{scroll-margin-top:calc(var(--bar) + 8px)}
+.sheet{background:#fff;color:var(--navy);font-size:15px;padding:1.5em 1.2em 0;display:grid;grid-template-rows:auto 1fr auto;position:relative;overflow:hidden;box-shadow:0 1px 0 rgba(10,31,68,.08),0 12px 30px -18px rgba(10,31,68,.35)}
+.kick{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1em;font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em;font-size:.78em;font-weight:600;color:var(--ink2)}
+.kick b{color:var(--navy);font-weight:800}
+.kick strong{font-size:1.5em;letter-spacing:.04em;color:var(--acc);font-weight:800;font-stretch:88%}
+h1,h2{font-family:var(--head);font-weight:700;letter-spacing:-.018em;line-height:1.1}
+h2{font-size:1.62em;margin-top:.45em;max-width:27em;text-wrap:balance}
+.rule{height:2px;background:var(--navy);margin:1em 0 1.3em}
+.body{min-height:0;display:grid;gap:2em;grid-template-columns:minmax(0,1fr);align-content:start;padding-bottom:1.6em}
+.foot{border-top:1px solid var(--line);padding:.8em 0;font-size:.7em;color:var(--ink2);display:grid;grid-template-columns:1fr auto;gap:.3em 1em}
+.foot .src{grid-column:1/-1;font-style:normal}
+.foot .conf{font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em}
+.foot .pg{font-variant-numeric:tabular-nums;font-weight:600;color:var(--navy)}
+.ex{min-width:0;display:flex;flex-direction:column}
+.ex-h{font-size:.78em;font-weight:600;border-bottom:1px solid var(--navy);padding-bottom:.45em;margin-bottom:1em;display:flex;justify-content:space-between;gap:1em}
+.ex-h b{font-weight:800}
+.ex-h span{color:var(--ink2);font-weight:400;white-space:nowrap}
+.flag{position:absolute;z-index:3;background:var(--acc);color:#fff;font-family:var(--head);font-stretch:80%;font-weight:700;font-size:.8em;line-height:1.1;padding:.5em 1.5em .5em .7em;clip-path:polygon(0 0,100% 0,calc(100% - .8em) 50%,100% 100%,0 100%);transform:rotate(-4deg);white-space:nowrap;filter:drop-shadow(0 3px 0 rgba(10,31,68,.18))}
+.flag.y{background:#FFD23F;color:var(--navy)}
+
+/* cover */
+.sheet.navy{background:var(--navy);color:#fff}
+.navy .kick,.navy .foot{color:#AEB9D0}.navy .kick b,.navy .foot .pg{color:#fff}.navy .foot{border-color:#2B3F68}
+.cover{display:grid;gap:1.6em;grid-template-columns:minmax(0,1fr);padding-bottom:1.6em;min-height:0}
+.cover h1{font-size:clamp(3.2em,15vw,5.4em);font-weight:800;font-stretch:88%;line-height:.9;letter-spacing:-.03em;margin-top:.35em}
+.cover .role{font-family:var(--head);font-weight:600;font-size:1.5em;color:var(--acc);margin-top:.5em;letter-spacing:-.01em}
+.cover .prop{font-size:1.18em;line-height:1.45;max-width:30em;margin-top:1em;color:#E7ECF6}
+.redact{position:relative;white-space:nowrap;font-weight:600;color:#fff}
+.redact i{position:absolute;inset:.05em -.15em;background:#fff;transform-origin:100% 50%;transform:scaleX(0)}
+.cta{display:inline-flex;align-items:center;gap:.7em;background:var(--acc);color:#fff;border:0;font-family:var(--head);font-weight:700;font-size:1.05em;padding:.85em 1.2em;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:.3em .3em 0 rgba(255,255,255,.18)}
+.cta:hover{transform:translate(-2px,-2px);box-shadow:.45em .45em 0 rgba(255,255,255,.28)}
+.cta span{display:inline-block;animation:nudge 1.1s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(.3em)}}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1em 1.4em;margin-top:1.6em;font-size:.95em}
+.cta-row small{font-size:.8em;color:#AEB9D0}
+kbd{font:600 .9em var(--body);border:1px solid currentColor;border-radius:3px;padding:.05em .4em}
+.meta{margin-top:1.8em;display:grid;grid-template-columns:auto 1fr;gap:.3em 1.2em;font-size:.78em;color:#AEB9D0;border-top:1px solid #2B3F68;padding-top:1em;max-width:34em}
+.meta dt{font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em}
+.meta dd{color:#fff}
+.photo{position:relative;min-height:0;align-self:stretch}
+.photo:before{content:"";position:absolute;inset:1em -0.7em -0.7em 1em;background:var(--acc)}
+.photo figure{position:relative;height:100%;background:#fff;padding:.45em .45em 0;display:flex;flex-direction:column}
+.photo img{width:100%;aspect-ratio:1/1.02;object-fit:cover;object-position:50% 18%;flex:1;min-height:0}
+.photo figcaption{color:var(--navy);font-size:.72em;padding:.6em .2em;display:flex;justify-content:space-between;gap:1em}
+.photo .flag{right:-.6em;top:1.6em;transform:rotate(5deg)}
+
+/* summary */
+.km{list-style:none;counter-reset:k;display:grid;gap:1.1em}
+.km li{counter-increment:k;display:grid;grid-template-columns:2.2em 1fr;gap:.8em;align-items:start;font-size:1.06em;line-height:1.4}
+.km li:before{content:counter(k);font-family:var(--head);font-weight:800;width:2.2em;height:2.2em;display:grid;place-items:center;background:var(--navy);color:#fff}
+.km b{font-weight:600}
+.wf{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0 4%;height:15em;border-bottom:2px solid var(--navy)}
+.wf .c{position:relative}
+.wf .bar{position:absolute;left:0;right:0;bottom:var(--b);height:var(--h);background:var(--navy)}
+.wf .drop .bar{background:repeating-linear-gradient(135deg,#B9C3D6 0 .35em,#D9DFEA .35em .7em)}
+.wf .fin .bar{background:var(--acc)}
+.wf .bar:after{content:"";position:absolute;left:100%;width:25%;border-top:1px dashed var(--navy);top:0}
+.wf .drop .bar:after{top:auto;bottom:0}
+.wf .fin .bar:after{display:none}
+.wf .sg{position:absolute;left:0;right:0;bottom:calc(var(--b) + var(--h));text-align:center;font-family:var(--head);font-weight:800;font-size:1.2em;line-height:1.3}
+.wf .flag{left:62%;bottom:26%;transform:rotate(-7deg)}
+.wf-l{display:grid;grid-template-columns:repeat(5,1fr);gap:0 4%;font-size:.72em;line-height:1.25;text-align:center;padding-top:.7em}
+.wf-l b{font-weight:800}
+
+/* 2x2 */
+.mx-w{display:grid;grid-template-columns:1.5em 1fr;grid-template-rows:1fr 1.5em;gap:.3em;flex:1;min-height:0}
+.ax{font-size:.72em;color:var(--ink2);font-weight:600;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.ax.yx{writing-mode:vertical-rl;transform:rotate(180deg)}
+.mx{position:relative;display:grid;grid-template:1fr 1fr/1fr 1fr;border-left:2px solid var(--navy);border-bottom:2px solid var(--navy);min-height:14em}
+.mx .q{padding:.6em .7em;font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.08em;font-size:.74em;font-weight:700;color:var(--ink2);border:1px dashed var(--line);border-width:0 0 1px 0}
+.mx .q:nth-child(odd){border-right-width:1px}
+.mx .q:nth-child(n+3){border-bottom-width:0;display:flex;align-items:flex-end}
+.mx .q.win{background:#FFE9DE;color:var(--acc)}
+.mx .d{position:absolute;width:1.15em;height:1.15em;margin:-.57em 0 0 -.57em;border-radius:50%;background:var(--navy);left:var(--x);top:var(--y)}
+.mx .d.w{background:var(--acc);box-shadow:0 0 0 .3em rgba(255,90,20,.2)}
+.mx .d.g{background:#fff;border:2px solid var(--ink2)}
+/* gantt */
+.gantt{display:grid;gap:.75em;position:relative}
+.gantt .g{display:grid;grid-template-columns:8.6em 1fr;gap:1em;align-items:center;font-size:.86em;line-height:1.2}
+.gantt .g b{font-weight:600}
+.gantt .tr{position:relative;height:1.9em;background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),var(--line) calc(12.5% - 1px) 12.5%)}
+.gantt .br{position:absolute;top:.25em;bottom:.25em;left:var(--s);width:var(--w);background:var(--navy);transform-origin:0 50%}
+.gantt .g:last-child .br{background:var(--acc)}
+.gantt .dm{position:absolute;right:-.5em;top:50%;width:1em;height:1em;margin-top:-.5em;background:var(--acc);transform:rotate(45deg);border:2px solid #fff}
+.gantt .hd{font-size:.7em;color:var(--ink2);display:flex;justify-content:space-between;padding-left:11.4em}
+.ex p.cap{font-size:.86em;color:var(--ink2);margin-top:1.2em;max-width:34em}
+
+/* org chart */
+.org{display:grid;justify-items:center}
+.bx{border:2px solid var(--navy);background:#fff;padding:.7em .6em;text-align:center;font-weight:600;font-size:.9em;line-height:1.2;min-width:8.5em;position:relative}
+.bx small{display:block;font-weight:400;color:var(--ink2);font-size:.82em;margin-top:.2em}
+.bx.ceo{background:var(--navy);color:#fff}.bx.ceo small{color:#AEB9D0}
+.stem{width:2px;height:1.5em;background:var(--navy);transform-origin:50% 0}
+.org .row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8em;width:100%;position:relative;padding-top:1.5em}
+.org .row:before{content:"";position:absolute;top:0;height:2px;background:var(--navy);left:calc((100% - 2.4em)/8);right:calc((100% - 2.4em)/8)}
+.org .row .bx{min-width:0}
+.org .row .bx:before{content:"";position:absolute;left:50%;bottom:100%;margin:0 0 2px -1px;width:2px;height:1.5em;background:var(--navy)}
+.bx.vac{border-style:dashed;color:var(--ink2);background:var(--tint)}
+.slot{position:relative;display:grid}
+.slot>*{grid-area:1/1}
+.bx.caio{background:var(--acc);border-color:var(--acc);color:#fff;z-index:2;box-shadow:.35em .35em 0 var(--navy);display:grid;align-content:center}
+.bx.caio small{color:#fff}
+.bx.caio:before{display:none}
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:.4em}
+.week div{border:2px solid var(--navy);height:3.4em;position:relative;font-family:var(--head);font-weight:700;font-size:.8em;padding:.3em .4em;overflow:hidden}
+.week div i{position:absolute;inset:0;background:var(--acc);transform-origin:0 100%;z-index:0}
+.week div.half i{background:repeating-linear-gradient(135deg,var(--acc) 0 .4em,#FFC2A6 .4em .8em)}
+.week div span{position:relative;z-index:1}
+.week .on span{color:#fff}
+.facts{margin-top:1.2em;display:grid;gap:0}
+.facts div{display:grid;grid-template-columns:6.4em 1fr;gap:1em;padding:.6em 0;border-bottom:1px solid var(--line);font-size:.95em}
+.facts dt{font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em;font-size:.82em;font-weight:700;color:var(--ink2);padding-top:.15em}
+
+/* chevrons + harvey */
+.chev{display:grid;gap:.5em;list-style:none;counter-reset:c}
+.chev li{counter-increment:c;background:var(--navy);color:#fff;padding:.8em 1em .8em 3.2em;font-weight:600;font-size:.95em;line-height:1.2;position:relative;min-height:3.6em;display:flex;align-items:center}
+.chev li:before{content:counter(c);position:absolute;left:1em;font-family:var(--head);font-weight:800;font-size:1.5em;opacity:.45}
+.chev li:nth-child(2){background:#1E3B73}.chev li:nth-child(3){background:#35589C}.chev li:nth-child(4){background:var(--acc)}
+table{border-collapse:collapse;width:100%}
+.hbt th,.hbt td{padding:.62em .5em;border-bottom:1px solid var(--line);text-align:center;font-size:.92em}
+.hbt thead th{font-size:.74em;font-weight:700;border-bottom:2px solid var(--navy);vertical-align:bottom;line-height:1.2}
+.hbt thead th:last-child{color:var(--acc)}
+.hbt tbody th{text-align:left;font-weight:600;padding-left:0}
+.hb{display:inline-block;width:1.7em;height:1.7em;vertical-align:middle}
+.hb svg{width:100%;height:100%}
+.hbt td:last-child .hb .pie{stroke:var(--acc)}.hbt td:last-child .hb .ring{stroke:var(--acc)}
+
+/* credentials */
+.path{list-style:none;display:grid;gap:.4em;position:relative}
+.path li{display:flex;align-items:center;gap:.7em;font-weight:600;font-size:.95em}
+.path li:before{content:"";width:.9em;height:.9em;border-radius:50%;border:2px solid var(--navy);background:#fff;flex:none}
+.path li:last-child{color:var(--acc)}.path li:last-child:before{background:var(--acc);border-color:var(--acc)}
+.logos{display:grid;gap:.9em;position:relative}
+.lg{border:1px solid var(--line);border-top:3px solid var(--navy);padding:1em 1.1em 1.1em;display:grid;gap:1em;align-content:space-between;background:#fff;color:#111}
+.lg .lb{font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em;font-size:.76em;font-weight:700;color:var(--ink2)}
+.lg img{height:2.6em;width:auto;max-width:100%}
+.lg p{font-size:.82em;color:var(--ink2)}
+.logos .flag{right:-.3em;top:-1em;transform:rotate(4deg)}
+
+/* voice */
+.quotes{display:grid;gap:1.4em}
+.qc{position:relative;border:1px solid var(--line);background:var(--tint);padding:1.6em 1.4em 1.2em;display:flex;flex-direction:column;gap:1em;min-height:13em}
+.qc:before{content:"“";font-family:var(--head);font-weight:800;font-size:5em;line-height:.6;color:var(--line);height:.45em}
+.qc blockquote{font-family:var(--head);font-weight:600;font-size:1.3em;line-height:1.25;letter-spacing:-.01em;color:var(--ink2)}
+.qc .who{margin-top:auto;border-top:1px solid var(--line);padding-top:.8em;font-size:.82em;color:var(--ink2);display:flex;gap:.8em;align-items:center}
+.qc .who:before{content:"";width:2.4em;height:2.4em;border-radius:50%;border:1px dashed var(--ink2);flex:none}
+.stamp{position:absolute;right:1em;top:1.1em;font-family:var(--head);font-weight:900;font-stretch:110%;font-size:2.1em;letter-spacing:.14em;color:var(--red);border:.14em solid var(--red);padding:.02em .3em 0 .42em;transform:rotate(-11deg);mix-blend-mode:multiply;opacity:.88;pointer-events:none;border-radius:.1em}
+.stamp.b{right:auto;left:42%;top:auto;bottom:3.2em;transform:rotate(7deg)}
+
+/* next steps */
+.steps th,.steps td{text-align:left;padding:.8em .6em .8em 0;border-bottom:1px solid var(--line);font-size:.95em;vertical-align:top}
+.steps thead th{font-size:.74em;font-weight:700;border-bottom:2px solid var(--navy)}
+.steps td:first-child{font-family:var(--head);font-weight:800;width:2em}
+.steps td:last-child{white-space:nowrap}
+.tg{display:inline-block;font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.08em;font-size:.82em;font-weight:700;padding:.15em .5em;background:var(--navy);color:#fff}
+.tg.o{background:var(--acc)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:.9em 1em;background:var(--tint);padding:1.2em;border-top:3px solid var(--acc)}
+.fl{display:grid;gap:.3em;min-width:0}
+.fl.w{grid-column:1/-1}
+.fl label{font-size:.76em;font-weight:600}
+.fl input,.fl textarea{font:400 16px/1.3 var(--body);color:var(--navy);background:#fff;border:1px solid var(--line);border-bottom:2px solid var(--navy);padding:.55em .65em;border-radius:0;width:100%;resize:none}
+.fl input:focus,.fl textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,90,20,.18)}
+form .cta{box-shadow:.3em .3em 0 var(--navy);justify-self:start}
+form .cta:hover{box-shadow:.45em .45em 0 var(--navy)}
+form small{font-size:.74em;color:var(--ink2);align-self:center}
+
+/* appendix */
+.apx{display:grid;place-items:center;text-align:center;min-height:16em;position:relative}
+.apx .blank{color:var(--ink2);font-size:.9em;display:grid;gap:1.2em;justify-items:center}
+.apx .blank em{font-style:normal;letter-spacing:.3em;text-transform:uppercase;font-size:.8em}
+.apx .ok{display:none;justify-items:center;gap:1em}
+.sent .apx .blank{display:none}.sent .apx .ok{display:grid}
+.apx .big{font-family:var(--head);font-weight:800;font-stretch:88%;font-size:clamp(3em,10vw,6.5em);line-height:.92;letter-spacing:-.03em}
+.apx .big span{color:var(--acc)}
+.apx p{max-width:34em}
+.apx .note{font-size:.76em;color:var(--ink2)}
+.apx .stamp{position:absolute;right:6%;top:8%;font-size:2.4em;color:var(--acc);border-color:var(--acc)}
+.apx .hb{width:4.2em;height:4.2em}
+.apx .hb .pie,.apx .hb .ring{stroke:var(--acc)}
+.lnk{background:none;border:0;border-bottom:2px solid var(--acc);font-weight:600;padding:.1em 0}
+
+@media (min-width:640px){
+  .sheet{padding:2em 2em 0}
+  .body.two,.cover{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:2.6em}
+  .logos{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .quotes{grid-template-columns:1fr 1fr}
+  .chev{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+  .chev li{clip-path:polygon(0 0,calc(100% - 1.1em) 0,100% 50%,calc(100% - 1.1em) 100%,0 100%,1.1em 50%);margin-left:-.55em;padding:.9em 1.6em .9em 2.2em;flex-direction:column;align-items:flex-start;justify-content:center;gap:.1em;min-height:5.2em}
+  .chev li:first-child{margin-left:0;clip-path:polygon(0 0,calc(100% - 1.1em) 0,100% 50%,calc(100% - 1.1em) 100%,0 100%)}
+  .chev li:before{position:static;font-size:1.1em}
+  .path{grid-template-columns:repeat(5,auto);justify-content:space-between;gap:0}
+  .path:before{content:"";position:absolute;left:.4em;right:.4em;top:.45em;height:2px;background:var(--navy);transform-origin:0 50%;transform:scaleX(var(--p,1))}
+  .path li{flex-direction:column;align-items:flex-start;gap:.5em;position:relative}
+  .foot{grid-template-columns:1fr auto auto;gap:2em}.foot .src{grid-column:auto}
+}
+
+/* ---------- horizontal deck (desktop, motion OK) ---------- */
+html.h,html.h body{overscroll-behavior-x:none}
+html.h .deck{padding:0;height:100vh;overflow:hidden}
+html.h .track{flex-direction:row;gap:0;width:max-content;height:100%;will-change:transform}
+html.h .slide{flex:none;width:100vw;height:100vh;padding:calc(var(--bar) + 18px) 30px 62px}
+html.h .sheet{height:100%;font-size:calc(min(1vw,1.62vh)*1.1);padding:2.2em 3.2em 0}
+html.h h2{font-size:2.05em}
+html.h .body{padding-bottom:1.4em;align-content:stretch}
+html.h .body.two{gap:3.6em}
+html.h .cover{align-items:center;gap:4em;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
+html.h .cover h1{font-size:6.6em}
+html.h .photo{height:100%;max-height:34em}
+html.h .tracker{display:flex}
+html.h .sorter{display:flex;position:fixed;left:0;right:0;bottom:0;height:46px;z-index:40;align-items:center;justify-content:center;gap:7px;font-size:11px;color:var(--ink2)}
+html.h .sorter .lbl{position:absolute;left:30px;font-family:var(--head);font-stretch:75%;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+html.h .sorter .hint{position:absolute;right:30px}
+.sorter button{width:40px;height:23px;border:1px solid var(--navy);background:#fff;font:700 10px var(--head);position:relative;overflow:hidden;transition:transform .2s}
+.sorter button:before{content:"";position:absolute;left:4px;top:4px;width:14px;height:2px;background:currentColor;box-shadow:0 4px 0 -0.5px var(--line),0 8px 0 -0.5px var(--line)}
+.sorter button span{position:absolute;right:3px;bottom:1px}
+.sorter button:first-of-type{background:var(--navy);color:#fff}
+.sorter button:hover{transform:translateY(-3px)}
+.sorter button[aria-current=true]{outline:2px solid var(--acc);outline-offset:2px;transform:translateY(-3px)}
+html.h .mx{min-height:0}
+html.h .qc{min-height:18em}
+html.h .quotes{align-self:center}
+html.h .apx{min-height:0;height:100%}
+@media (prefers-reduced-motion:reduce){.cta span{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="back" href="index.html">← All mock-ups</a>
+  <span class="brand">A<i>/</i>B Board pack</span>
+  <ul class="tracker" aria-label="Sections">
+    <li><button type="button" data-go="0">Cover</button></li>
+    <li><button type="button" data-go="1">Summary</button></li>
+    <li><button type="button" data-go="2">Services</button></li>
+    <li><button type="button" data-go="5">Credentials</button></li>
+    <li><button type="button" data-go="6">Clients</button></li>
+    <li><button type="button" data-go="7">Next steps</button></li>
+  </ul>
+  <div class="pager">
+    <button type="button" id="prev" aria-label="Previous slide">←</button>
+    <span id="count" aria-live="polite">1 / 9</span>
+    <button type="button" id="next" aria-label="Next slide">→</button>
+  </div>
+  <div class="prog" id="prog" aria-hidden="true"></div>
+</header>
+
+<main class="deck" id="deck">
+<div class="track" id="track">
+
+<!-- 1 COVER -->
+<section class="slide" data-fx="cover" aria-label="Slide 1: Cover">
+  <div class="sheet navy">
+    <p class="kick"><b>Board pack</b><span>Prepared for CEOs and founders with no AI leader in-house</span></p>
+    <div class="cover">
+      <div>
+        <h1>Annabelle<br>Body</h1>
+        <p class="role">Fractional AI Strategist</p>
+        <p class="prop">I sit between the boardroom and the build. I tell you where AI <span class="redact">makes money</span> in your business, and where it is <span class="redact">a distraction</span>.</p>
+        <div class="cta-row">
+          <a class="cta" href="#next-steps" data-go="7">Skip to next steps <span>→</span></a>
+          <small>or page through with <kbd>←</kbd> <kbd>→</kbd></small>
+        </div>
+        <dl class="meta">
+          <dt>Status</dt><dd>final_FINAL_v7 (actually final)</dd>
+          <dt>Length</dt><dd>Nine slides. No appendix of appendices.</dd>
+        </dl>
+      </div>
+      <div class="photo">
+        <figure>
+          <img src="assets/photos/hbs-portrait.webp" alt="Annabelle Body standing at a lectern in a Harvard Business School classroom, smiling" width="1223" height="1400">
+          <figcaption><b>Exhibit 0: The author</b><span>Source: a classroom</span></figcaption>
+        </figure>
+        <span class="flag y">Senior AI lead. Not a full-time hire.</span>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Scientist, then accountant, then restructuring operator. Now this.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">1 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 2 SUMMARY -->
+<section class="slide" data-fx="summary" aria-label="Slide 2: Executive summary">
+  <div class="sheet">
+    <header><p class="kick"><b>Executive summary</b><span>If you only read one slide</span></p>
+    <h2>You need someone senior who owns AI. You probably do not need them five days a week.</h2><div class="rule"></div></header>
+    <div class="body two">
+      <ol class="km">
+        <li><span><b>AI makes money in a few specific places in your business.</b> Most of the rest is a distraction, and someone has to say which is which.</span></li>
+        <li><span><b>Restructuring teaches you to find value fast.</b> The same habit works on AI: follow the money, ignore the demo.</span></li>
+        <li><span><b>A fractional leader gets you senior judgment without a full-time hire.</b> Strategy, a first move, and someone who makes sure it ships.</span></li>
+      </ol>
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 1: Where AI value actually is</b><span>Schematic</span></p>
+        <div class="wf">
+          <div class="c tot" style="--b:0%;--h:100%"><div class="bar"></div></div>
+          <div class="c drop" style="--b:64%;--h:36%"><div class="bar"></div><span class="sg" style="--h:0%;--b:100%">−</span></div>
+          <div class="c drop" style="--b:38%;--h:26%"><div class="bar"></div><span class="sg">−</span></div>
+          <div class="c drop" style="--b:20%;--h:18%"><div class="bar"></div><span class="sg">−</span></div>
+          <div class="c fin" style="--b:0%;--h:20%"><div class="bar"></div><span class="sg">=</span></div>
+          <span class="flag">Start here</span>
+        </div>
+        <div class="wf-l"><span>Every AI idea on the table</span><span>Demos that never ship</span><span>Nice, but not worth it</span><span>Not ready yet</span><span><b>Worth doing first</b></span></div>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: illustrative. Bar heights are schematic, not data.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">2 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 3 STRATEGY -->
+<section class="slide" data-fx="strategy" aria-label="Slide 3: AI Strategy and Roadmap">
+  <div class="sheet">
+    <header><p class="kick"><b>Service 1 of 3</b><strong>AI Strategy &amp; Roadmap</strong></p>
+    <h2>A fixed-scope diagnostic shows where AI actually creates value, what to do first, and the business case for it.</h2><div class="rule"></div></header>
+    <div class="body two">
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 2: Every idea gets sorted</b><span>Schematic</span></p>
+        <div class="mx-w">
+          <span class="ax yx">Value to the business →</span>
+          <div class="mx">
+            <div class="q">Plan properly</div><div class="q win">Do first</div><div class="q">Distraction</div><div class="q">Only if cheap</div>
+            <i class="d" style="--x:20%;--y:17%"></i><i class="d" style="--x:36%;--y:31%"></i>
+            <i class="d w" style="--x:70%;--y:20%"></i><i class="d w" style="--x:85%;--y:33%"></i>
+            <i class="d g" style="--x:14%;--y:66%"></i><i class="d g" style="--x:28%;--y:80%"></i><i class="d g" style="--x:41%;--y:62%"></i><i class="d g" style="--x:22%;--y:56%"></i>
+            <i class="d" style="--x:68%;--y:72%"></i><i class="d" style="--x:88%;--y:63%"></i>
+          </div>
+          <span></span><span class="ax">Ease of shipping →</span>
+        </div>
+      </div>
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 3: What you leave with</b><span>Fixed scope</span></p>
+        <div class="gantt">
+          <div class="hd"><span>Start</span><span>Finish</span></div>
+          <div class="g"><b>Diagnose</b><div class="tr"><i class="br" style="--s:0%;--w:37.5%"></i></div></div>
+          <div class="g"><b>Prioritise</b><div class="tr"><i class="br" style="--s:25%;--w:37.5%"></i></div></div>
+          <div class="g"><b>Business case</b><div class="tr"><i class="br" style="--s:50%;--w:37.5%"></i></div></div>
+          <div class="g"><b>Roadmap</b><div class="tr"><i class="br" style="--s:75%;--w:25%"></i><i class="dm"></i></div></div>
+        </div>
+        <p class="cap">One engagement with an end date. You keep a ranked list of where the value is, a first move, and a business case you can take to your board.</p>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: illustrative. Dots are not your business. Yet.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">3 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 4 CAIO -->
+<section class="slide" data-fx="caio" aria-label="Slide 4: Fractional Chief AI Officer">
+  <div class="sheet">
+    <header><p class="kick"><b>Service 2 of 3</b><strong>Fractional Chief AI Officer</strong></p>
+    <h2>A senior AI lead joins your leadership team a day or two a week, owns the strategy and makes sure it ships.</h2><div class="rule"></div></header>
+    <div class="body two">
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 4: The box that was missing</b><span>Org chart, simplified</span></p>
+        <div class="org">
+          <div class="bx ceo">CEO<small>You</small></div>
+          <div class="stem"></div>
+          <div class="row">
+            <div class="bx">Finance</div>
+            <div class="bx">Operations</div>
+            <div class="bx">Technology</div>
+            <div class="slot">
+              <div class="bx vac" aria-hidden="true">AI<small>Nobody owns it</small></div>
+              <div class="bx caio">Chief AI Officer<small>(fractional)</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 5: A typical week</b><span>A day or two</span></p>
+        <div class="week">
+          <div class="on"><i></i><span>Mon</span></div><div class="on half"><i></i><span>Tue</span></div><div><span>Wed</span></div><div><span>Thu</span></div><div><span>Fri</span></div>
+        </div>
+        <dl class="facts">
+          <div><dt>Sits</dt><dd>On your leadership team, in the room where it gets decided.</dd></div>
+          <div><dt>Owns</dt><dd>The AI strategy, the priorities and the vendors.</dd></div>
+          <div><dt>Ships</dt><dd>Stays until the thing is live, not until the deck is done.</dd></div>
+        </dl>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: illustrative. Your org chart has more boxes.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">4 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 5 TRAINING -->
+<section class="slide" data-fx="training" aria-label="Slide 5: Team Training and Workshops">
+  <div class="sheet">
+    <header><p class="kick"><b>Service 3 of 3</b><strong>Team Training &amp; Workshops</strong></p>
+    <h2>Executive briefings and hands-on sessions get your people using AI on their real work.</h2><div class="rule"></div></header>
+    <div class="body">
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 6: How a programme runs</b><span>Process chevrons, as is tradition</span></p>
+        <ol class="chev"><li>Brief the executives</li><li>Pick real work</li><li>Hands-on sessions</li><li>People keep using it</li></ol>
+      </div>
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 7: What fills the time</b><span>Harvey balls, also tradition</span></p>
+        <table class="hbt">
+          <thead><tr><td></td><th scope="col">The AI training you are picturing</th><th scope="col">These sessions</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Your people's real work</th><td><span class="hb" data-f=".25"></span><span class="vh">a little</span></td><td><span class="hb" data-f="1"></span><span class="vh">all of it</span></td></tr>
+            <tr><th scope="row">Hands on keyboards</th><td><span class="hb" data-f=".25"></span><span class="vh">a little</span></td><td><span class="hb" data-f=".75"></span><span class="vh">most</span></td></tr>
+            <tr><th scope="row">Executives in the room</th><td><span class="hb" data-f="0"></span><span class="vh">none</span></td><td><span class="hb" data-f=".75"></span><span class="vh">most</span></td></tr>
+            <tr><th scope="row">Slides about the future</th><td><span class="hb" data-f="1"></span><span class="vh">all of it</span></td><td><span class="hb" data-f=".25"></span><span class="vh">a little</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: illustrative, and openly biased.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">5 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 6 CREDENTIALS -->
+<section class="slide" data-fx="creds" aria-label="Slide 6: Credentials">
+  <div class="sheet">
+    <header><p class="kick"><b>Credentials</b><span>Background, not clients</span></p>
+    <h2>The training is science, accounting and restructuring. The habit is finding value fast.</h2><div class="rule"></div></header>
+    <div class="body">
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 8: How she got here</b><span>Not to scale</span></p>
+        <ol class="path"><li>Scientist</li><li>Accountant</li><li>Restructuring operator</li><li>MBA</li><li>Fractional AI Strategist</li></ol>
+      </div>
+      <div class="logos">
+        <div class="lg"><span class="lb">Previously</span><img src="assets/logos/deloitte.svg" alt="Deloitte" width="330" height="70"><p>Former employer.</p></div>
+        <div class="lg"><span class="lb">Previously</span><img src="assets/logos/alixpartners.svg" alt="AlixPartners" width="400" height="70"><p>Former employer.</p></div>
+        <div class="lg"><span class="lb">Trained at</span><img src="assets/logos/hbs.svg" alt="Harvard Business School" width="420" height="70"><p>MBA, Class of 2026.</p></div>
+        <span class="flag">Not clients</span>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: her CV. Logos show former employers and a school, not clients or endorsements.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">6 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 7 VOICE -->
+<section class="slide" data-fx="voice" aria-label="Slide 7: Voice of the client">
+  <div class="sheet">
+    <header><p class="kick"><b>Voice of the client</b><span>Placeholder slide</span></p>
+    <h2>Two clients will say something specific on this slide. Not yet.</h2><div class="rule"></div></header>
+    <div class="body">
+      <div class="quotes">
+        <figure class="qc"><blockquote>Placeholder. A real quote from a real client is coming soon.</blockquote><figcaption class="who">Client name, Title, Company</figcaption><span class="stamp">Draft</span></figure>
+        <figure class="qc"><blockquote>Placeholder. This box is reserved until someone has earned the right to fill it.</blockquote><figcaption class="who">Client name, Title, Company</figcaption><span class="stamp b">Placeholder</span></figure>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: pending. Nobody has been quoted, paraphrased or invented.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">7 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 8 NEXT STEPS -->
+<section class="slide" data-fx="next" id="next-steps" aria-label="Slide 8: Next steps">
+  <div class="sheet">
+    <header><p class="kick"><b>Next steps</b><span>The only slide with homework</span></p>
+    <h2>Tell me what you need, and I will tell you whether AI is the answer.</h2><div class="rule"></div></header>
+    <div class="body two">
+      <div class="ex">
+        <p class="ex-h"><b>Exhibit 9: Actions and owners</b><span>Three rows</span></p>
+        <table class="steps">
+          <thead><tr><th scope="col">#</th><th scope="col">Action</th><th scope="col">Owner</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Fill in the form on this slide.</td><td><span class="tg o">You</span></td></tr>
+            <tr><td>2</td><td>Read it properly and reply in person.</td><td><span class="tg">Annabelle</span></td></tr>
+            <tr><td>3</td><td>A first conversation. Sometimes the answer is "not yet", and you will hear that too.</td><td><span class="tg">Both</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <form id="form">
+        <div class="fl"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="fl"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="fl w"><label for="f-co">Company</label><input id="f-co" name="company" type="text" autocomplete="organization"></div>
+        <div class="fl w"><label for="f-need">What do you need?</label><textarea id="f-need" name="need" rows="3" required placeholder="A roadmap, a fractional AI lead, a workshop, or not sure yet"></textarea></div>
+        <button class="cta" type="submit">Submit for approval <span>→</span></button>
+        <small>Goes to Annabelle, not a sales team.</small>
+      </form>
+    </div>
+    <footer class="foot"><span class="src">Source: this slide.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">8 / 9</span></footer>
+  </div>
+</section>
+
+<!-- 9 APPENDIX -->
+<section class="slide" data-fx="apx" id="appendix" aria-label="Slide 9: Appendix">
+  <div class="sheet">
+    <header><p class="kick"><b>Appendix A</b><span>The last slide, promise</span></p>
+    <h2 id="apx-title">This page is intentionally left blank until you send the form.</h2><div class="rule"></div></header>
+    <div class="body">
+      <div class="apx" aria-live="polite">
+        <div class="blank"><em>Intentionally blank</em><button class="lnk" type="button" data-go="7">← Back to next steps</button></div>
+        <div class="ok">
+          <span class="hb" data-f="1" data-late></span>
+          <p class="big">Thank you<span>.</span></p>
+          <p id="apx-msg">Your note is with Annabelle. She will read it properly and reply in person.</p>
+          <p class="note">Mock-up: nothing was actually sent. The live site will deliver this for real.</p>
+          <button class="lnk" type="button" data-go="0">Back to the cover</button>
+          <span class="stamp">Received</span>
+        </div>
+      </div>
+    </div>
+    <footer class="foot"><span class="src">Source: you, just now.</span><span class="conf">Strictly private &amp; not at all confidential</span><span class="pg">9 / 9</span></footer>
+  </div>
+</section>
+
+</div>
+</main>
+
+<nav class="sorter" id="sorter" aria-label="Slide sorter"><span class="lbl">Slide sorter</span><span class="hint">Scroll, or use <kbd>←</kbd> <kbd>→</kbd></span></nav>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+var slides=$$('.slide'),N=slides.length,deck=$('#deck'),track=$('#track'),cur=-1,M={h:false,st:null};
+var SEC=[0,1,2,2,2,3,4,5,5],TITLES=['Cover','Executive summary','AI Strategy & Roadmap','Fractional Chief AI Officer','Team Training & Workshops','Credentials','Voice of the client','Next steps','Appendix'];
+
+/* harvey balls + redaction bars (pure decoration added by JS) */
+$$('.hb').forEach(function(el){var f=+el.dataset.f,C=26.704;
+  el.innerHTML='<svg viewBox="0 0 20 20" aria-hidden="true"><circle class="ring" cx="10" cy="10" r="8.6" fill="#fff" stroke="#0A1F44" stroke-width="1.6"/><circle class="pie" cx="10" cy="10" r="4.25" fill="none" stroke="#0A1F44" stroke-width="8.5" stroke-dasharray="'+(f*C)+' '+C+'" transform="rotate(-90 10 10)"/></svg>'});
+$$('.redact').forEach(function(el){el.appendChild(document.createElement('i'))});
+
+/* sorter thumbs */
+var sorter=$('#sorter'),hint=$('.hint',sorter);
+slides.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.dataset.go=i;b.setAttribute('aria-label','Slide '+(i+1)+': '+TITLES[i]);b.title=TITLES[i];b.innerHTML='<span>'+(i+1)+'</span>';sorter.insertBefore(b,hint)});
+
+function setCur(i){
+  if(i===cur)return;cur=i;
+  $('#count').textContent=(i+1)+' / '+N;
+  $$('.tracker button').forEach(function(b,k){b.setAttribute('aria-current',k===SEC[i]?'true':'false')});
+  $$('.sorter button').forEach(function(b,k){b.setAttribute('aria-current',k===i?'true':'false')});
+}
+function go(i,instant){
+  i=Math.max(0,Math.min(N-1,i));
+  var smooth=instant||matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+  if(M.h&&M.st){window.scrollTo({top:M.st.start+(M.st.end-M.st.start)*i/(N-1),behavior:smooth})}
+  else slides[i].scrollIntoView({behavior:smooth,block:'start'});
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-go]');if(!b)return;e.preventDefault();go(+b.dataset.go)});
+$('#prev').addEventListener('click',function(){go(cur-1)});
+$('#next').addEventListener('click',function(){go(cur+1)});
+addEventListener('keydown',function(e){
+  if(e.altKey||e.ctrlKey||e.metaKey||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(cur+1)}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home'){e.preventDefault();go(0)}else if(e.key==='End'){e.preventDefault();go(N-1)}
+});
+/* keep the pinned deck from being scrolled sideways by focus, and bring focused slide into view */
+deck.addEventListener('scroll',function(){if(M.h){deck.scrollLeft=0;deck.scrollTop=0}});
+deck.addEventListener('focusin',function(e){if(!M.h)return;var s=e.target.closest('.slide'),i=slides.indexOf(s);deck.scrollLeft=0;if(i>-1&&i!==cur)go(i,true)});
+
+/* stack-mode progress + current */
+function stackScroll(){
+  if(M.h)return;var max=document.documentElement.scrollHeight-innerHeight;
+  $('#prog').style.transform='scaleX('+(max>0?Math.min(1,scrollY/max):0)+')';
+  var best=0,bd=1e9;slides.forEach(function(s,i){var d=Math.abs(s.getBoundingClientRect().top-60);if(d<bd){bd=d;best=i}});
+  if(scrollY>=max-2)best=N-1;setCur(best);
+}
+addEventListener('scroll',stackScroll,{passive:true});
+
+/* ---------- per-slide choreography ---------- */
+var FX={
+  cover:function(tl,q){
+    tl.from(q('.cover h1'),{yPercent:30,opacity:0,duration:.7},0)
+      .from(q('.role'),{x:-30,opacity:0,duration:.5},.25)
+      .from(q('.prop'),{opacity:0,y:14,duration:.5},.4)
+      .fromTo(q('.redact i'),{scaleX:1},{scaleX:0,duration:.6,ease:'power3.inOut',stagger:.35},.75)
+      .from(q('.photo'),{clipPath:'inset(0 0 100% 0)',duration:.9,ease:'power4.inOut'},.15)
+      .from(q('.photo img'),{scale:1.25,duration:1.4,ease:'power3.out'},.15)
+      .from(q('.cta-row'),{opacity:0,y:16,duration:.5},1)
+      .from(q('.meta'),{opacity:0,duration:.5},1.2);
+  },
+  summary:function(tl,q){
+    tl.from(q('.km li'),{x:-30,opacity:0,duration:.5,stagger:.14},.35)
+      .from(q('.wf .tot .bar'),{scaleY:0,transformOrigin:'50% 100%',duration:.6,ease:'power3.inOut'},.5)
+      .from(q('.wf .drop .bar'),{scaleY:0,transformOrigin:'50% 0%',duration:.42,ease:'power2.inOut',stagger:.3},1)
+      .from(q('.wf .drop .sg'),{opacity:0,y:-8,duration:.25,stagger:.3},1.2)
+      .from(q('.wf .fin .bar'),{scaleY:0,transformOrigin:'50% 100%',duration:.7,ease:'elastic.out(1,.5)'},1.95)
+      .from(q('.wf .fin .sg'),{opacity:0,scale:0,duration:.3,ease:'back.out(3)'},2.1)
+      .from(q('.wf-l span'),{opacity:0,y:8,duration:.3,stagger:.3},.6);
+  },
+  strategy:function(tl,q,s){
+    var mx=$('.mx',s);
+    tl.from(q('.mx .q'),{opacity:0,duration:.4,stagger:.06},.35)
+      .from(q('.mx .d'),{x:function(i,el){return mx.clientWidth*.5-el.offsetLeft},y:function(i,el){return mx.clientHeight*.5-el.offsetTop},scale:0,duration:.9,ease:'back.out(1.4)',stagger:{each:.06,from:'random'}},.55)
+      .fromTo(q('.mx .q.win'),{backgroundColor:'#ffffff'},{backgroundColor:'#FFE9DE',duration:.4},1.5)
+      .from(q('.mx .d.w'),{boxShadow:'0 0 0 0 rgba(255,90,20,.6)',duration:.6},1.5)
+      .from(q('.gantt .g b'),{opacity:0,x:-10,duration:.3,stagger:.18},.7)
+      .from(q('.gantt .br'),{scaleX:0,duration:.6,ease:'power2.inOut',stagger:.18},.8)
+      .from(q('.gantt .dm'),{scale:0,rotation:-135,duration:.5,ease:'back.out(3)'},1.9)
+      .from(q('.cap'),{opacity:0,y:10,duration:.4},1.7);
+  },
+  caio:function(tl,q){
+    tl.from(q('.bx.ceo'),{scale:0,duration:.4,ease:'back.out(2)'},.35)
+      .from(q('.stem'),{scaleY:0,duration:.25,ease:'none'},.65)
+      .from(q('.org .row'),{clipPath:'inset(0 50% 0 50%)',duration:.5,ease:'power2.inOut'},.85)
+      .fromTo(q('.bx.vac'),{opacity:.3},{opacity:1,duration:.25,repeat:3,yoyo:true},1.3)
+      .from(q('.bx.caio'),{y:function(){return -innerHeight*.6},rotation:-14,duration:1,ease:'bounce.out'},1.7)
+      .from(q('.week div'),{opacity:0,y:12,duration:.3,stagger:.06},.6)
+      .from(q('.week i'),{scaleY:0,duration:.45,ease:'power3.out',stagger:.25},2.1)
+      .from(q('.facts div'),{opacity:0,x:20,duration:.4,stagger:.12},1.1);
+  },
+  training:function(tl,q){
+    tl.from(q('.chev li'),{x:-50,opacity:0,duration:.45,stagger:.16},.35);
+    q('.hbt .pie').forEach(function(p,i){tl.from(p,{attr:{'stroke-dasharray':'0 26.704'},duration:.7,ease:'power2.inOut'},.8+(i>>1)*.14+(i%2)*.25)});
+    tl.from(q('.hbt tbody tr'),{opacity:0,duration:.3,stagger:.14},.7);
+  },
+  creds:function(tl,q,s){
+    tl.fromTo(q('.path'),{'--p':0},{'--p':1,duration:1.1,ease:'power2.inOut'},.35)
+      .from(q('.path li'),{opacity:0,y:10,duration:.3,stagger:.22},.4)
+      .from(q('.lg'),{y:50,opacity:0,rotationX:-50,transformPerspective:700,transformOrigin:'50% 0%',duration:.7,stagger:.16},.9)
+      .from(q('.lg img'),{clipPath:'inset(0 100% 0 0)',duration:.6,ease:'power2.inOut',stagger:.16},1.2);
+  },
+  voice:function(tl,q){
+    tl.from(q('.qc'),{y:40,opacity:0,duration:.5,stagger:.15},.35)
+      .from(q('.stamp'),{scale:3.2,opacity:0,duration:.28,ease:'power4.in',stagger:.5},1.1)
+      .fromTo(q('.quotes'),{x:0},{x:5,duration:.05,repeat:5,yoyo:true,ease:'none'},1.38)
+      .fromTo(q('.quotes'),{y:0},{y:4,duration:.05,repeat:5,yoyo:true,ease:'none'},1.88);
+  },
+  next:function(tl,q){
+    tl.from(q('.steps tbody tr'),{opacity:0,x:-24,duration:.4,stagger:.16},.4)
+      .from(q('.tg'),{scale:0,duration:.35,ease:'back.out(3)',stagger:.16},.6)
+      .from(q('form'),{y:40,opacity:0,duration:.6},.45)
+      .from(q('.fl'),{opacity:0,y:12,duration:.3,stagger:.08},.7);
+  },
+  apx:function(tl,q){tl.from(q('.blank'),{opacity:0,duration:.6},.4)}
+};
+var T=[];
+function build(){
+  T=slides.map(function(s){
+    var q=gsap.utils.selector(s),tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
+    tl.from(q('.kick'),{x:-24,opacity:0,duration:.4},0);
+    if(s.dataset.fx!=='cover')tl.from(q('h2'),{y:26,opacity:0,duration:.55},.08).from(q('.rule'),{scaleX:0,transformOrigin:'0 50%',duration:.7,ease:'power3.inOut'},.15);
+    (FX[s.dataset.fx]||function(){})(tl,q,s);
+    tl.from(q('.ex-h'),{opacity:0,duration:.4},.3)
+      .from(q('.flag'),{scale:0,rotation:-50,transformOrigin:'0% 100%',duration:.5,ease:'back.out(3)',stagger:.15},'>-.25')
+      .from(q('.src'),{opacity:0,duration:.4},'<');
+    return tl;
+  });
+}
+function playSuccess(name){
+  var s=slides[N-1];s.classList.add('sent');
+  $('#apx-title').textContent='Thank you'+(name?', '+name:'')+'. Your note is with Annabelle.';
+  if(!window.gsap||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var q=gsap.utils.selector(s);
+  gsap.timeline({delay:M.h?.55:.3})
+    .from(q('.ok .pie'),{attr:{'stroke-dasharray':'0 26.704'},duration:.9,ease:'power2.inOut'})
+    .from(q('.big'),{yPercent:40,opacity:0,duration:.6,ease:'power3.out'},.2)
+    .from(q('#apx-msg,.note,.ok .lnk'),{opacity:0,y:12,duration:.4,stagger:.1},.5)
+    .from(q('.ok .stamp'),{scale:3.2,opacity:0,duration:.28,ease:'power4.in'},.9)
+    .fromTo(q('.apx'),{x:0},{x:6,duration:.05,repeat:5,yoyo:true,ease:'none'},1.18);
+}
+$('#form').addEventListener('submit',function(e){
+  e.preventDefault();var f=e.target;
+  if(!f.checkValidity()){f.reportValidity();return}
+  var name=f.elements.name.value.trim().split(/\s+/)[0]||'';
+  f.reset();if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  playSuccess(name);go(N-1);
+});
+
+/* ---------- modes ---------- */
+setCur(0);stackScroll();
+if(window.gsap&&window.ScrollTrigger){
+  gsap.registerPlugin(ScrollTrigger);
+  var mm=gsap.matchMedia();
+  mm.add({h:'(min-width: 960px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)',v:'(prefers-reduced-motion: no-preference)',rm:'(prefers-reduced-motion: reduce)'},function(ctx){
+    var c=ctx.conditions;if(c.rm||!c.v)return;
+    document.documentElement.classList.toggle('h',c.h);M.h=c.h;
+    build();
+    if(c.h){
+      var tw=gsap.to(track,{x:function(){return -(N-1)*innerWidth},ease:'none',scrollTrigger:{
+        trigger:deck,pin:true,scrub:.5,invalidateOnRefresh:true,anticipatePin:1,
+        end:function(){return '+='+(N-1)*innerWidth*.75},
+        snap:{snapTo:1/(N-1),duration:{min:.2,max:.55},delay:.08,ease:'power2.inOut'},
+        onUpdate:function(self){
+          var f=self.progress*(N-1);setCur(Math.round(f));
+          $('#prog').style.transform='scaleX('+self.progress+')';
+          for(var i=0;i<N;i++)if(f>i-.55&&T[i].progress()===0&&!T[i].isActive())T[i].play();
+        }}});
+      M.st=tw.scrollTrigger;T[0].play();
+    }else{
+      slides.forEach(function(s,i){ScrollTrigger.create({trigger:s,start:'top 78%',once:true,onEnter:function(){T[i].play()}})});
+    }
+    return function(){document.documentElement.classList.remove('h');M.h=false;M.st=null;T.forEach(function(t){t.progress(1).kill()});gsap.set(track,{clearProps:'all'})};
+  });
+}
+})();
+</script>
+</body>
+</html>
