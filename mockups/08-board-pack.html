@@ -188,10 +188,10 @@ table{border-collapse:collapse;width:100%}
 .quotes{display:grid;gap:1.4em}
 .qc{position:relative;border:1px solid var(--line);background:var(--tint);padding:1.6em 1.4em 1.2em;display:flex;flex-direction:column;gap:1em;min-height:16.5em}
 .qc:before{content:"“";font-family:var(--head);font-weight:800;font-size:5em;line-height:.6;color:var(--line);height:.45em}
-.qc blockquote{font-family:var(--head);font-weight:600;font-size:1.3em;line-height:1.25;letter-spacing:-.01em;color:var(--ink2)}
+.qc blockquote{margin-top:.9em;font-family:var(--head);font-weight:600;font-size:1.3em;line-height:1.25;letter-spacing:-.01em;color:var(--ink2)}
 .qc .who{margin-top:auto;border-top:1px solid var(--line);padding-top:.8em;font-size:.82em;color:var(--ink2);display:flex;gap:.8em;align-items:center}
 .qc .who:before{content:"";width:2.4em;height:2.4em;border-radius:50%;border:1px dashed var(--ink2);flex:none}
-.stamp{position:absolute;right:1.2em;bottom:4.4em;text-transform:uppercase;font-family:var(--head);font-weight:900;font-stretch:110%;font-size:2.1em;letter-spacing:.14em;color:var(--red);border:.14em solid var(--red);padding:.02em .3em 0 .42em;transform:rotate(-11deg);mix-blend-mode:multiply;opacity:.88;pointer-events:none;border-radius:.1em}
+.stamp{position:absolute;right:.8em;top:.9em;text-transform:uppercase;font-family:var(--head);font-weight:900;font-stretch:110%;font-size:2.1em;letter-spacing:.14em;color:var(--red);border:.14em solid var(--red);padding:.02em .3em 0 .42em;transform:rotate(-11deg);mix-blend-mode:multiply;opacity:.88;pointer-events:none;border-radius:.1em}
 .stamp.b{transform:rotate(7deg);font-size:1.7em}
 
 /* next steps */
@@ -209,6 +209,8 @@ form{align-self:start;align-content:start;display:grid;grid-template-columns:1fr
 .fl input:focus,.fl textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,90,20,.18)}
 form .cta{box-shadow:.3em .3em 0 var(--navy);justify-self:start}
 form .cta:hover{box-shadow:.45em .45em 0 var(--navy)}
+form .cta{white-space:nowrap}
+@media (max-width:639px){form .cta,form small{grid-column:1/-1}.org .row{gap:.35em}.org .row:before{left:calc((100% - 1.05em)/8);right:calc((100% - 1.05em)/8)}.org .row .bx{font-size:.7em;padding:.8em .15em}.cover .meta{display:none}}
 form small{font-size:.74em;color:var(--ink2);align-self:center}
 
 /* appendix */
@@ -221,7 +223,7 @@ form small{font-size:.74em;color:var(--ink2);align-self:center}
 .apx .big span{color:var(--acc)}
 .apx p{max-width:34em}
 .apx .note{font-size:.76em;color:var(--ink2)}
-.apx .stamp{position:absolute;right:6%;top:8%;bottom:auto;font-size:2.4em;color:var(--acc);border-color:var(--acc)}
+.apx .stamp{position:absolute;right:6%;top:8%;font-size:2.4em;color:var(--acc);border-color:var(--acc)}
 .apx .hb{width:4.2em;height:4.2em}
 .apx .hb .pie,.apx .hb .ring{stroke:var(--acc)}
 .lnk{background:none;border:0;border-bottom:2px solid var(--acc);font-weight:600;padding:.1em 0}
@@ -282,7 +284,8 @@ html.h .path{font-size:1.25em}
 html.h .lg{min-height:13em;padding:1.4em 1.5em}
 html.h .lg img{height:3.3em}
 html.h .steps{font-size:1.1em}
-html.h .qc blockquote{font-size:1.5em;max-width:20em}
+html.h .qc blockquote{margin-top:.9em;font-size:1.5em;max-width:20em}
+html.h .qc .stamp{top:auto;bottom:4.6em;right:1.4em}
 html.h .qc{min-height:24em;padding:2.2em 2em 1.5em}
 html.h .quotes{align-self:center}
 html.h .apx{min-height:0;height:100%}
