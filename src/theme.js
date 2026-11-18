@@ -20,6 +20,13 @@ export const c = {
   creamSoft:  'rgba(245,240,232,0.72)',
   creamFaint: 'rgba(245,240,232,0.42)',
   creamGhost: 'rgba(245,240,232,0.26)',
+
+  // Sections that head with pure white soften their body text off white, not
+  // off cream, so the two ladders stay distinct. Six components already
+  // referenced these; they were missing, so every use resolved to undefined
+  // and fell back to full-strength cream.
+  whiteSoft:  'rgba(255,255,255,0.72)',
+  whiteFaint: 'rgba(255,255,255,0.42)',
   rule:       'rgba(245,240,232,0.14)',
   ruleSoft:   'rgba(245,240,232,0.07)',
   orangeSoft: 'rgba(232,83,78,0.20)',
